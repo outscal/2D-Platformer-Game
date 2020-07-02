@@ -10,14 +10,14 @@ public class PlayerScript : MonoBehaviour
 	public float speed;
 	private bool crouch;
 	public bool Jump;
-	public Button btn;
+	public Button crouchbtn;
 	private void Awake()
 	{
 		anim = GetComponent<Animator>();
-		btn.onClick.AddListener(() => JumpButton());
+		crouchbtn.onClick.AddListener(() => CrouchButton());
 	}
 
-	private void JumpButton()
+	private void CrouchButton()
 	{
 		if (crouch == false)
 		{
