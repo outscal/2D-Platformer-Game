@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
 
-        // Jump
+        // Jump animation
         if (vertical > 0 && isInGround)
         {
             
