@@ -287,7 +287,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -240, y: 480, z: 0}
-  m_EntryPosition: {x: -290, y: -240, z: 0}
+  m_EntryPosition: {x: -300, y: -300, z: 0}
   m_ExitPosition: {x: 890, y: -330, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -5306998362276050168}
@@ -632,11 +632,11 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 1
   m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
+  m_CanTransitionToSelf: 0
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -648,40 +648,40 @@ AnimatorController:
   m_AnimatorParameters:
   - m_Name: Speed
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 0.5
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: FIrst_Jump
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Second_Jump
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
-    m_Controller: {fileID: 0}
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: OnGround
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isCrouch
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Crouch_ON
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -844,13 +844,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: FIrst_Jump
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: Second_Jump
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: OnGround
+  - m_ConditionMode: 1
+    m_ConditionEvent: FIrst_Jump
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6503138001105608321}
@@ -861,7 +858,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.22
   m_TransitionOffset: 0.03
   m_ExitTime: 0.6938776
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 1
   m_OrderedInterruption: 1
