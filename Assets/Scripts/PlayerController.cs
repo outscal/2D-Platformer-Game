@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame   
     private void Update()
     {
-        float speed = Input.GetAxisRaw("Vertical");
+        float speed = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("Speed", Mathf.Abs(speed));
 
         Vector3 scale = transform.localScale;
