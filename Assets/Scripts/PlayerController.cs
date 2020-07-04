@@ -6,9 +6,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float jump;
+    public float moveSpeed;
+
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
-    public float jump;
+    
 
     private bool isInGround;
 
@@ -58,15 +61,19 @@ public class PlayerController : MonoBehaviour
     private void Move(float horizontal,float vertical)
     {
         // Moving horizontal
+        Vector2 position = transform.position;
+        position.x += horizontal * moveSpeed * Time.deltaTime;
+        transform.position = position;
+
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         Vector2 scale = transform.localScale;
 
-        if (horizontal < 0)
+        if (horizontal < 0 || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else
+        else if(horizontal> 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
