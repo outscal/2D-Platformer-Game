@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Crouch", true);
             
+
         }
         else if(Input.GetKey(KeyCode.LeftControl))
         {
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
         {
             
             animator.SetBool("Jump", true);
-            rigidbody.AddForce(new Vector2(0, jump), ForceMode2D.Force);
+            rigidbody.AddForce(Vector2.up*jump);
             
         }
 
