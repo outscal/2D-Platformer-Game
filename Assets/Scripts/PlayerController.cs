@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public BoxCollider2D player;
+    public BoxCollider2D boxcollider;
 
     // Start is called before the first frame update
     private void Awake()
@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        player.GetComponent<BoxCollider2D>();
+        boxcollider.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame   
@@ -36,22 +36,28 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.localScale = scale;
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl)== true)
         {
             animator.SetBool("isSit", true);
-            player.size = new Vector2(0.47f,1.22f);
-            player.offset = new Vector2(-0.04f, 0.59f);
+            boxcollider.size = new Vector2(boxcollider.size.x,1.22f);
+            boxcollider.offset = new Vector2(boxcollider.offset.x, 0.59f);
             
         }
-        float jump = Input.GetAxisRaw("Vertical");
-        animator.SetBool("isJump", true);
-        if (jump > 0) ;
+        else
         {
-            
-            animator.SetBool("isJump", true);
             animator.SetBool("isSit", false);
-            player.offset = new Vector2(-0.04f, 0.98f);
-            player.size = new Vector2(0.47f, 2.011f);
+            boxcollider.offset = new Vector2(boxcollider.offset.x, 0.98f);
+            boxcollider.size = new Vector2(boxcollider.size.x, 2.011f);
+        }
+        float vertical = Input.GetAxisRaw("Jump");
+        
+        if (vertical > 0) 
+        {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
         }
     }
 }
