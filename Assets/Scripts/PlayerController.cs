@@ -5,62 +5,75 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
-    public float speed;
+    public Animator anim;
+    private BoxCollider2D PlayerCollider;
+    private Rigidbody2D rb2d;
+    private SpriteRenderer spr;
 
-   
+
+    public float speed;
+    public float jump;
+
+
 
     private void Awake()
     {
-        Debug.Log("player controller Awake");
+        PlayerCollider = gameObject.GetComponent<BoxCollider2D>();
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        spr = gameObject.GetComponent<SpriteRenderer>();
     }
+
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        PlayerMovementAnimation(horizontal);
-        PlayerMovement(horizontal);
+        float vertical = Input.GetAxisRaw("Jump");
+        PlayerMovementAnimation(horizontal, vertical);
+        PlayerMovement(horizontal, vertical);
         PlayerCrouch();
-        PlayerJump(vertical);
+
     }
 
 
 
-    private void PlayerJump(float vertical)
-    {
-        if (vertical > 0)
-        {
-            animator.SetBool("isJump", true);
-        }
-        else
-        {
-            animator.SetBool("isJump", false);
-        }
-    }
-
+  
     private void PlayerCrouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            animator.SetBool("isCrouch", true);
+            anim.SetBool("isCrouch", true);
+            Debug.Log("crouch true");
+            PlayerCollider.size = spr.sprite.bounds.size;
+            PlayerCollider.offset = spr.sprite.bounds.center;
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            animator.SetBool("isCrouch", false);
+            anim.SetBool("isCrouch", false);
+            Debug.Log("crouch false");
+
         }
+
     }
 
-    private void PlayerMovement(float horizontal)
-    {
-            Vector3 position = transform.position;
-            position.x += horizontal * speed * Time.deltaTime;
-            transform.position = position;
+    private void PlayerMovement(float horizontal, float vertical)
+    {     
+        // move Player Horizontally
+        Vector2 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+
+
+        //move Player vertically
+        if(vertical > 0)
+        {
+            rb2d.AddForce(new Vector2(0f,jump),  ForceMode2D.Force);
+        }
+
     }
 
-    private void PlayerMovementAnimation(float horizontal)
+    private void PlayerMovementAnimation(float horizontal, float vertical)
     {
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        Vector3 scale = transform.localScale;
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        Vector2 scale = transform.localScale;
         if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
@@ -70,5 +83,16 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+
+        //jump animation
+
+        if (vertical > 0)
+        {
+            anim.SetBool("isJump", true);
+        }
+        else
+        {
+            anim.SetBool("isJump", false);
+        }
     }
 }
