@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
+    Animator animator;
     public float moveSpeed;
+    public float jumpSpeed;
 
     public float crouchedColliderOffsetX, crouchedColliderOffsetY;
     public float crouchedColliderSizeX, crouchedColliderSizeY;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         initialColliderOffsetX = boxCollider.offset.x;
         initialColliderOffsetY = boxCollider.offset.y;
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
     void Jump() {
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up*Time.deltaTime * jumpSpeed, ForceMode2D.Impulse);
             animator.SetTrigger("Jump");
         }
     }

@@ -395,7 +395,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &5699430878591328176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,8 +408,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbd3d4a25a5af94ea1a6acf96d64f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5699430878591328179}
   moveSpeed: 4
+  jumpSpeed: 200
   crouchedColliderOffsetX: -0.1198315
   crouchedColliderOffsetY: 0.5869454
   crouchedColliderSizeX: 0.9174981
@@ -440,9 +440,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6259112, y: 2.0891385}
   m_EdgeRadius: 0
---- !u!95 &5699430878591328179 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5699721091762477046, guid: 97fe5e14326852b41b101ed6bed3c115,
-    type: 3}
-  m_PrefabInstance: {fileID: 5699430878591328173}
-  m_PrefabAsset: {fileID: 0}
