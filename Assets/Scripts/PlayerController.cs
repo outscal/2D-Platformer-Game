@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float moveSpeed;
 
     public float crouchedColliderOffsetX, crouchedColliderOffsetY;
     public float crouchedColliderSizeX, crouchedColliderSizeY;
@@ -26,25 +27,35 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Move();
+        Crouch();
+        Jump();
+    }
+
+    private void Move()
+    {
         float inputHorizontal = Input.GetAxis("Horizontal");
-        //Debug.Log(inputHorizontal);
         animator.SetFloat("Speed", Mathf.Abs(inputHorizontal));
         Vector3 scale = transform.localScale;
         if (inputHorizontal > 0)
         {
             animator.SetBool("isRunning", true);
             transform.localScale = new Vector3(Mathf.Abs(scale.x), scale.y, scale.z);
+            transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
         }
         else if (inputHorizontal < 0)
         {
             animator.SetBool("isRunning", true);
             transform.localScale = new Vector3(-1 * Mathf.Abs(scale.x), scale.y, scale.z);
+            transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
         }
         else
         {
             animator.SetBool("isRunning", false);
         }
+    }
 
+    void Crouch() {
         if (Input.GetKeyDown(KeyCode.RightControl))
         {
             animator.SetBool("isCrouch", true);
@@ -55,8 +66,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isCrouch", false);
             UpdateColliderSize(boxCollider, initialColliderOffsetX, initialColliderOffsetY, initialColliderSizeX, initialColliderSizeY);
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+    void Jump() {
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        {
             animator.SetTrigger("Jump");
         }
     }
