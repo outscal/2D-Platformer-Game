@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     private BoxCollider2D PlayerCollider;
     private Rigidbody2D rb2d;
-    private SpriteRenderer spr;
+    
+
 
 
     public float speed;
@@ -20,7 +21,8 @@ public class PlayerController : MonoBehaviour
     {
         PlayerCollider = gameObject.GetComponent<BoxCollider2D>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-        spr = gameObject.GetComponent<SpriteRenderer>();
+        
+
     }
 
     private void Update()
@@ -41,25 +43,24 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             anim.SetBool("isCrouch", true);
-            Debug.Log("crouch true");
-            PlayerCollider.size = spr.sprite.bounds.size;
-            PlayerCollider.offset = spr.sprite.bounds.center;
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             anim.SetBool("isCrouch", false);
-            Debug.Log("crouch false");
-
         }
 
     }
 
     private void PlayerMovement(float horizontal, float vertical)
-    {     
+    {
         // move Player Horizontally
-        Vector2 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position;
+        bool crouched = anim.GetBool("isCrouch");
+        if (!crouched)
+        {
+            Vector2 position = transform.position;
+            position.x += horizontal * speed * Time.deltaTime;
+            transform.position = position;
+        }
 
 
         //move Player vertically
