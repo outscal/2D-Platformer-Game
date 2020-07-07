@@ -11,9 +11,10 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
-    
 
-    private bool isInGround;
+    private int groundLayer = 9;
+
+    private bool IsOnGround;
 
 
     private Vector2 startingColliderSize;
@@ -36,30 +37,28 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
-        Move(horizontal,vertical);
 
-        if(Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            animator.SetBool("Crouch", true);
-            
-
-        }
-        else if(Input.GetKey(KeyCode.LeftControl))
-        {
-            collider.size = new Vector2(1.0f, 1.4f);
-            collider.offset = new Vector2(-0.12f, 0.62f);
-
-        }
-        else
-        {
-            animator.SetBool("Crouch", false);
-            collider.size = startingColliderSize;
-            collider.offset = startingColliderOffset;
-        }
-
+        Move(horizontal);
+        Jump(vertical);
+        Crouch();
     }
 
-    private void Move(float horizontal,float vertical)
+
+    private void Jump(float vertical)
+    {
+        if (vertical > 0 && IsOnGround)
+        {
+            animator.SetBool("Jump", true);
+            rigidbody.AddForce(Vector2.up * jump);
+        }
+
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
+    }
+
+    private void Move(float horizontal)
     {
         // Moving horizontal
         Vector2 position = transform.position;
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
         Vector2 scale = transform.localScale;
 
-        if (horizontal < 0 || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (horizontal < 0 || Input.GetKeyDown(KeyCode.LeftArrow))   // left arrow is used to change its direction
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
@@ -80,49 +79,41 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.localScale = scale;
+    }
 
-
-        // Jump animation
-        if (vertical > 0 && isInGround)
+    private void Crouch()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            
-            animator.SetBool("Jump", true);
-            rigidbody.AddForce(Vector2.up*jump);
-            
+            animator.SetBool("Crouch", true);
+            collider.size = new Vector2(1.0f, 1.4f);
+            collider.offset = new Vector2(-0.12f, 0.62f);
+
         }
 
-           
-        else
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            animator.SetBool("Jump", false);
+            animator.SetBool("Crouch", false);
+            collider.size = startingColliderSize;
             collider.offset = startingColliderOffset;
         }
-
-
-        /*if(Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.SetBool("Jump", true);
-            rigidbody.AddForce(new Vector2(0, jump), ForceMode2D.Force);
-        }
-        if(Input.GetKeyUp(KeyCode.Space))
-        {
-            animator.SetBool("Jump", false);
-        }*/
     }
+
+
 
     private void OnCollisionEnter2D(Collision2D other)          
     {
-        if(other.gameObject.CompareTag("Ground"))
+        if(other.gameObject.layer == groundLayer)
         {
-            isInGround = true;
+            IsOnGround = true;
         }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Ground"))
+        if(other.gameObject.layer == groundLayer)
         {
-            isInGround = false;
+            IsOnGround = false;
         }
     }
 }

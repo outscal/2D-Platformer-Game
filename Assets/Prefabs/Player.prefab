@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4079072507094813131}
   - component: {fileID: 4079072507094813128}
   - component: {fileID: 4079072507094813130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &4079072507094813128
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -162,4 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4079072507094813129}
-  jump: 100
+  jump: 300
+  moveSpeed: 10
