@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
         startingColliderSize = collider.size;
         startingColliderOffset = collider.offset;
     }
-
-    // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -60,7 +58,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float horizontal)
     {
-        // Moving horizontal
         Vector2 position = transform.position;
         position.x += horizontal * moveSpeed * Time.deltaTime;
         transform.position = position;
