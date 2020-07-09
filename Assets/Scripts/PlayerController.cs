@@ -3,30 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     public Animator anim;
     private BoxCollider2D PlayerCollider;
     private Rigidbody2D rb2d;
-  
     public float speed;
     public float jump;
+    private bool isGrounded;
 
     private void Awake()
     {
         PlayerCollider = gameObject.GetComponent<BoxCollider2D>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
-
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
-        PlayerMovementAnimation(horizontal, vertical);
+        PlayerMovementAnimation(horizontal);
         PlayerMovement(horizontal, vertical);
         PlayerCrouch();
     }
- 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isGrounded = false;
+    }
     private void PlayerCrouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -38,11 +48,9 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isCrouch", false);
         }
     }
-
     private void PlayerMovement(float horizontal, float vertical)
     {
         // move Player Horizontally
-       
         if (!(anim.GetBool("isCrouch")))
         {
             Vector2 position = transform.position;
@@ -50,14 +58,18 @@ public class PlayerController : MonoBehaviour
             transform.position = position;
         }
 
-        //move Player vertically
-        if(vertical > 0)
+        //move Player vertically and jump animation
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
-            rb2d.AddForce(new Vector2(0f,jump),  ForceMode2D.Force);
+            anim.SetBool("isJump", true);
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+        }
+        else if(Input.GetKeyUp(KeyCode.Space))
+        {
+            anim.SetBool("isJump", false);
         }
     }
-
-    private void PlayerMovementAnimation(float horizontal, float vertical)
+    private void PlayerMovementAnimation(float horizontal)
     {
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector2 scale = transform.localScale;
@@ -70,16 +82,5 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-
-        //jump animation
-
-        if (vertical > 0)
-        {
-            anim.SetBool("isJump", true);
-        }
-        else
-        {
-            anim.SetBool("isJump", false);
-        }
     }
 }
