@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float jump;
     public float moveSpeed;
-
+    public int keysCollected = 0;
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
 
+    public ScoreController scoreController;
     private int groundLayer = 9;
 
     private bool IsOnGround;
@@ -96,6 +98,15 @@ public class PlayerController : MonoBehaviour
             collider.size = startingColliderSize;
             collider.offset = startingColliderOffset;
         }
+    }
+
+
+
+    public void PickUpKey()
+    {
+        keysCollected += 1;
+        Debug.Log("Numer of keys: " + keysCollected);
+        scoreController.AddScore(10);
     }
 
 
