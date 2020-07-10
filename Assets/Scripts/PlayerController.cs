@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 startingColliderSize;
     private Vector2 startingColliderOffset;
+    private Vector2 newColliderSize = new Vector2(1.0f,1.4f);
+    private Vector2 newColliderOffset = new Vector2(-0.2f, 0.62f);
 
     private void Awake()
     {
@@ -31,8 +33,6 @@ public class PlayerController : MonoBehaviour
         startingColliderSize = collider.size;
         startingColliderOffset = collider.offset;
     }
-
-    // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float horizontal)
     {
-        // Moving horizontal
         Vector2 position = transform.position;
         position.x += horizontal * moveSpeed * Time.deltaTime;
         transform.position = position;
@@ -86,8 +85,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
-            collider.size = new Vector2(1.0f, 1.4f);
-            collider.offset = new Vector2(-0.12f, 0.62f);
+            collider.size = newColliderSize;
+            collider.offset = newColliderOffset;
 
         }
 
@@ -106,6 +105,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.layer == groundLayer)
         {
             IsOnGround = true;
+            Debug.Log("On ground");
         }
     }
 
@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.layer == groundLayer)
         {
             IsOnGround = false;
+            Debug.Log("Not on ground");
         }
     }
 }
