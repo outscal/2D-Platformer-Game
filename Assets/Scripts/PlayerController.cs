@@ -7,7 +7,8 @@ using UnityEngine.SocialPlatforms.Impl;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public float jump;
+    public float jumpSpeed;
+    public float doubleJumpSpeed;
     public float moveSpeed;
     public int keysCollected = 0;
     private Rigidbody2D rigidbody;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private int groundLayer = 9;
 
     private bool IsOnGround;
+    private bool canDoubleJump;
 
 
     private Vector2 startingColliderSize;
@@ -48,12 +50,19 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(float vertical)
     {
-        if (vertical > 0 && IsOnGround)
+        if (Input.GetKey(KeyCode.Space) && IsOnGround)
         {
             animator.SetBool("Jump", true);
-            rigidbody.AddForce(Vector2.up * jump);
+            rigidbody.velocity = Vector2.up * jumpSpeed;
+
         }
 
+        else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+        {
+            animator.SetBool("Jump", true);
+            rigidbody.velocity = Vector2.up * doubleJumpSpeed;
+            canDoubleJump = false;
+        }
         else
         {
             animator.SetBool("Jump", false);
@@ -116,6 +125,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.layer == groundLayer)
         {
             IsOnGround = true;
+            canDoubleJump = true;
             Debug.Log("On ground");
         }
     }
