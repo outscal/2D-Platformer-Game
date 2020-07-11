@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -116,6 +116,14 @@ public class PlayerController : MonoBehaviour
         keysCollected += 1;
         Debug.Log("Numer of keys: " + keysCollected);
         scoreController.AddScore(10);
+    }
+
+
+    public void PlayerDied()
+    {
+        Debug.Log("Player is dead");
+        int index = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(index);
     }
 
 
