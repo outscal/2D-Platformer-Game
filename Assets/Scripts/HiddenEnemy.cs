@@ -41,6 +41,7 @@ public class HiddenEnemy : MonoBehaviour
                 jump = new Vector2(0, 0);
                 Debug.Log("Player is dead");
             }
+            return;
             
         }
 
@@ -50,7 +51,10 @@ public class HiddenEnemy : MonoBehaviour
             {
                 rigidbody.velocity = jump;
             }
+            return;
         }
+
+
 
     }
 }
