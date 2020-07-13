@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
      public Animator animator;
 
+    public ScoreController scoreController;
+
     public float speed;
     public float jump;
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
 
      private void Awake()
      {
@@ -19,6 +21,11 @@ public class PlayerController : MonoBehaviour
      {
          Debug.Log("Collision :" + collision.gameObject.name);
      }
+    public void PickUpkey()
+    {
+        Debug.Log("Player picked up the key");
+        scoreController.IncreaseScore(10);
+    }
      private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -44,7 +51,6 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovementAnimation(float horizontal,float vertical)
 
     {
-        Debug.Log("jump:" +vertical);
         animator.SetFloat("speed", Mathf.Abs(horizontal));
 
         Vector3 scale = transform.localScale;
