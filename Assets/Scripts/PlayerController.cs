@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,19 +13,29 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     public float speed;
     public float jump;
-
+    
     private void Awake()
     {
         PlayerCollider = gameObject.GetComponent<BoxCollider2D>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    public void Pickupkey()
+    internal void killPlayer()
+    {
+        Debug.Log("player is killed by Enemy");
+        anim.SetBool("isDead", true);
+        //ReloadLevel();
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+    internal void Pickupkey()
     {
         Debug.Log("Picked the key");
         scoreController.IncreaseScore(10);
     }
-
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -42,7 +53,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-            isGrounded = false;
+        isGrounded = false;
     }
     private void PlayerCrouch()
     {
@@ -58,7 +69,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(float horizontal, float vertical)
     {
         // move Player Horizontally
-        if (!(anim.GetBool("isCrouch")))
+        if (!(anim.GetBool("isCrouch")) && !(anim.GetBool("isDead")))
         {
             Vector2 position = transform.position;
             position.x += horizontal * speed * Time.deltaTime;
@@ -80,14 +91,17 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector2 scale = transform.localScale;
-        if (horizontal < 0)
+        if (!(anim.GetBool("isDead")))
         {
-            scale.x = -1f * Mathf.Abs(scale.x);
+            if (horizontal < 0)
+            {
+                scale.x = -1f * Mathf.Abs(scale.x);
+            }
+            else if (horizontal > 0)
+            {
+                scale.x = Mathf.Abs(scale.x);
+            }
+            transform.localScale = scale;
         }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RespawnController : MonoBehaviour
 {
-    [SerializeField] Transform RespawnPoint;
+    public Transform RespawnPoint;
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>()!= null)
