@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,17 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player picked up the key");
         scoreController.IncreaseScore(10);
+    }
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed by enemy");
+        // Destroy(gameObject);
+        ReloadLevel();
+    }
+    private void ReloadLevel()
+    {
+        Debug.Log("Reloading the scene");
+        SceneManager.LoadScene(0);
     }
      private void Update()
     {
