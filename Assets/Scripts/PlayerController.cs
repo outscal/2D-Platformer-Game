@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
      public Animator animator;
 
     public ScoreController scoreController;
+    public GameOverController gameOverController;
 
     public float speed;
     public float jump;
@@ -31,14 +32,12 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player killed by enemy");
         // Destroy(gameObject);
-        ReloadLevel();
+        //ReloadLevel();
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
-    private void ReloadLevel()
-    {
-        Debug.Log("Reloading the scene");
-        SceneManager.LoadScene(0);
-    }
-     private void Update()
+    
+    private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
