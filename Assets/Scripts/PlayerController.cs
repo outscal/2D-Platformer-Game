@@ -2,19 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public float jump;
+    public float jumpSpeed;
+    public float doubleJumpSpeed;
     public float moveSpeed;
-
+    public int keysCollected = 0;
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
 
+    public ScoreController scoreController;
     private int groundLayer = 9;
 
     private bool IsOnGround;
+    private bool canDoubleJump;
 
 
     private Vector2 startingColliderSize;
@@ -46,12 +50,19 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(float vertical)
     {
-        if (vertical > 0 && IsOnGround)
+        if (Input.GetKey(KeyCode.Space) && IsOnGround)
         {
             animator.SetBool("Jump", true);
-            rigidbody.AddForce(Vector2.up * jump);
+            rigidbody.velocity = Vector2.up * jumpSpeed;
+
         }
 
+        else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+        {
+            animator.SetBool("Jump", true);
+            rigidbody.velocity = Vector2.up * doubleJumpSpeed;
+            canDoubleJump = false;
+        }
         else
         {
             animator.SetBool("Jump", false);
@@ -100,11 +111,21 @@ public class PlayerController : MonoBehaviour
 
 
 
+    public void PickUpKey()
+    {
+        keysCollected += 1;
+        Debug.Log("Numer of keys: " + keysCollected);
+        scoreController.AddScore(10);
+    }
+
+
+
     private void OnCollisionEnter2D(Collision2D other)          
     {
         if(other.gameObject.layer == groundLayer)
         {
             IsOnGround = true;
+            canDoubleJump = true;
             Debug.Log("On ground");
         }
     }
