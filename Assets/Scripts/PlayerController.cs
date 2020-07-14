@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public ScoreController scoreController;
     private int groundLayer = 9;
+    private int alienBlockLayer = 12;
 
     private bool IsOnGround;
     private bool canDoubleJump;
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 startingColliderSize;
     private Vector2 startingColliderOffset;
-    private Vector2 newColliderSize = new Vector2(1.0f,1.4f);
+    private Vector2 newColliderSize = new Vector2(1.0f, 1.4f);
     private Vector2 newColliderOffset = new Vector2(-0.2f, 0.62f);
 
     private void Awake()
@@ -33,22 +34,21 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        
+
         startingColliderSize = collider.size;
         startingColliderOffset = collider.offset;
     }
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
 
         Move(horizontal);
-        Jump(vertical);
+        Jump();
         Crouch();
     }
 
 
-    private void Jump(float vertical)
+    private void Jump()
     {
         if (Input.GetKey(KeyCode.Space) && IsOnGround)
         {
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+        else if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
         {
             animator.SetBool("Jump", true);
             rigidbody.velocity = Vector2.up * doubleJumpSpeed;
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if(horizontal> 0)
+        else if (horizontal > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
@@ -114,28 +114,43 @@ public class PlayerController : MonoBehaviour
     public void PickUpKey()
     {
         keysCollected += 1;
-        Debug.Log("Numer of keys: " + keysCollected);
         scoreController.AddScore(10);
+    }
+
+
+    public void PlayerDied()
+    {
+        StartCoroutine("RestartLevel");
+        animator.SetBool("Died", true);
+
+        gameObject.GetComponent<PlayerController>().enabled = false;
+    }
+
+
+    IEnumerator RestartLevel()
+    {
+        int index = SceneManager.GetActiveScene().buildIndex;
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(index);
     }
 
 
 
     private void OnCollisionEnter2D(Collision2D other)          
     {
-        if(other.gameObject.layer == groundLayer)
+        if(other.gameObject.layer == groundLayer || other.gameObject.layer == alienBlockLayer)
         {
             IsOnGround = true;
             canDoubleJump = true;
-            Debug.Log("On ground");
+ 
         }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if(other.gameObject.layer == groundLayer)
+        if(other.gameObject.layer == groundLayer || other.gameObject.layer == alienBlockLayer)
         {
             IsOnGround = false;
-            Debug.Log("Not on ground");
         }
     }
 }
