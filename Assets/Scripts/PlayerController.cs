@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
+    public GameOverController gameoverController;
     public Animator anim;
     private BoxCollider2D PlayerCollider;
     private Rigidbody2D rb2d;
@@ -24,13 +25,14 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("player is killed by Enemy");
         anim.SetBool("isDead", true);
-        //ReloadLevel();
+        this.enabled = false; 
     }
 
-    private void ReloadLevel()
+    private void ReloadLevelCall()
     {
-        SceneManager.LoadScene(0);
+        gameoverController.PlayerDied();
     }
+
     internal void Pickupkey()
     {
         Debug.Log("Picked the key");
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(float horizontal, float vertical)
     {
         // move Player Horizontally
-        if (!(anim.GetBool("isCrouch")) && !(anim.GetBool("isDead")))
+        if (!(anim.GetBool("isCrouch")))
         {
             Vector2 position = transform.position;
             position.x += horizontal * speed * Time.deltaTime;
@@ -91,8 +93,6 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector2 scale = transform.localScale;
-        if (!(anim.GetBool("isDead")))
-        {
             if (horizontal < 0)
             {
                 scale.x = -1f * Mathf.Abs(scale.x);
@@ -102,6 +102,5 @@ public class PlayerController : MonoBehaviour
                 scale.x = Mathf.Abs(scale.x);
             }
             transform.localScale = scale;
-        }
     }
 }
