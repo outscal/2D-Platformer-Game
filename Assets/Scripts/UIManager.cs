@@ -3,21 +3,23 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class LevelController : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public string levelName;
     public GameObject gameOverPanel;
     public Button restartButton;
-    private void Awake()
-    {
-        restartButton.onClick.AddListener(RestartLevel);
-    }
+    public GameObject[] lives;
+    int i = 2;
 
 
-    private void RestartLevel()
+    public void RestartLevel()
     {
         int index = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(index);
+    }
+
+    public void Lobby()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 
     public void AwakeGameOverPanel()
@@ -32,5 +34,11 @@ public class LevelController : MonoBehaviour
         {
             AwakeGameOverPanel();
         }
+    }
+
+    public void DecrementLives()
+    {
+        lives[i].gameObject.SetActive(false);
+        i--;
     }
 }

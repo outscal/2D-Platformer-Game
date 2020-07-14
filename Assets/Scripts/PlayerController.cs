@@ -13,14 +13,17 @@ public class PlayerController : MonoBehaviour
     public int keysCollected = 0;
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
+    private Vector2 spawnPosition;
 
     public ScoreController scoreController;
-    public LevelController levelController;
+    public UIManager uiManager;
     private int groundLayer = 9;
     private int alienBlockLayer = 12;
 
     private bool IsOnGround;
     private bool canDoubleJump;
+
+    private int lives = 3;
 
 
     private Vector2 startingColliderSize;
@@ -124,10 +127,19 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerDied()
     {
-        StartCoroutine("RestartLevel");
-        animator.SetBool("Died", true);
-        gameObject.GetComponent<PlayerController>().enabled = false;
-
+        lives--;
+        uiManager.DecrementLives();
+        if (lives > 0)
+        {
+            transform.position = spawnPosition;
+            
+        }
+        else
+        {
+            StartCoroutine("RestartLevel");
+            animator.SetBool("Died", true);
+            gameObject.GetComponent<PlayerController>().enabled = false;
+        }
         
         
     }
@@ -136,7 +148,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator RestartLevel()
     {
         yield return new WaitForSeconds(2);
-        levelController.AwakeGameOverPanel();
+        uiManager.AwakeGameOverPanel();
     }
 
 
@@ -157,5 +169,10 @@ public class PlayerController : MonoBehaviour
         {
             IsOnGround = false;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        spawnPosition = transform.position;
     }
 }
