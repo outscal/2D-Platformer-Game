@@ -13,13 +13,20 @@ public class PlayerController : MonoBehaviour
     public int keysCollected = 0;
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
+    private Vector2 spawnPosition;
 
     public ScoreController scoreController;
+    public HealthController healthController;
+    public UIManager uiManager;
     private int groundLayer = 9;
     private int alienBlockLayer = 12;
+    private int deathColliderLauyer = 13;
+    private int spawnPointLayer = 14;
 
     private bool IsOnGround;
     private bool canDoubleJump;
+
+    private int lives = 3;
 
 
     private Vector2 startingColliderSize;
@@ -32,12 +39,13 @@ public class PlayerController : MonoBehaviour
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         collider = gameObject.GetComponent<BoxCollider2D>();
     }
+
     private void Start()
     {
-
         startingColliderSize = collider.size;
         startingColliderOffset = collider.offset;
     }
+
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -91,6 +99,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
+
     private void Crouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -118,20 +127,31 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
     public void PlayerDied()
     {
-        StartCoroutine("RestartLevel");
-        animator.SetBool("Died", true);
-
-        gameObject.GetComponent<PlayerController>().enabled = false;
+        lives--;
+        healthController.DecrementLives();
+        if (lives > 0)
+        {
+            transform.position = spawnPosition;
+            
+        }
+        else
+        {
+            StartCoroutine(RestartLevel());
+            animator.SetBool("Died", true);
+            gameObject.GetComponent<PlayerController>().enabled = false;
+        }
+        
+        
     }
 
 
     IEnumerator RestartLevel()
     {
-        int index = SceneManager.GetActiveScene().buildIndex;
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(index);
+        uiManager.AwakeGameOverPanel();
     }
 
 
@@ -152,5 +172,21 @@ public class PlayerController : MonoBehaviour
         {
             IsOnGround = false;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.layer == spawnPointLayer)
+        {
+            spawnPosition = transform.position;
+        }
+
+        
+        if (other.gameObject.layer == deathColliderLauyer)
+        {
+            Destroy(gameObject);
+            uiManager.AwakeGameOverPanel();
+        }
+
     }
 }
