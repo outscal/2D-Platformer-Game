@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
         if(other.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            speed = 0;
+            //speed = 0;
             player.PlayerDied();
         }
 
