@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
+    public GameObject mainmenu;
+    public GameObject levelSelection;
     public Button playButton;
     public Button quitButton;
     public string levelName;
@@ -18,7 +20,8 @@ public class LobbyController : MonoBehaviour
     
     private void StartGame()
     {
-        SceneManager.LoadScene(levelName);
+        mainmenu.SetActive(false);
+        levelSelection.SetActive(true);
     }
 
     private void QuitGame()
