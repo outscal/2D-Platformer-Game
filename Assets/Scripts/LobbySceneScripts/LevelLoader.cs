@@ -15,6 +15,20 @@ public class LevelLoader : MonoBehaviour
         button.onClick.AddListener(LoadLevel);
     }
 
+
+    private void Start()
+    {
+        if(LevelManager.Instance.GetLevelStatus(levelName) == LevelStatus.Locked)
+        {
+            button.GetComponentInChildren<Text>().text = "Unlocked";
+        }
+
+        else if(LevelManager.Instance.GetLevelStatus(levelName) == LevelStatus.Unlocked)
+        {
+            button.GetComponentInChildren<Text>().text = levelName;
+        }    
+    }
+
     private void LoadLevel()
     {
         LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(levelName);
