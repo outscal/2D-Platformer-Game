@@ -347,7 +347,7 @@ RectTransform:
   m_GameObject: {fileID: 350593418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5404999, y: 1.5404999, z: 1.5404999}
   m_Children: []
   m_Father: {fileID: 1438447892}
   m_RootOrder: 0
@@ -355,7 +355,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 30, y: -60.2}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &350593420
 MonoBehaviour:
@@ -921,7 +921,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 05be6b0c12ae3ab4dbdcec67cb31003f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1188,15 +1188,15 @@ RectTransform:
   m_GameObject: {fileID: 784609955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5404999, y: 1.5404999, z: 1.5404999}
   m_Children: []
   m_Father: {fileID: 1438447892}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.4, y: -60.2}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 133.2, y: -60.2}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &784609957
 MonoBehaviour:
@@ -2703,7 +2703,7 @@ PrefabInstance:
     - target: {fileID: 8087123406378987811, guid: ed76d794d75a81e4faad6075bdbeac21,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 86.23
+      value: 87.41
       objectReference: {fileID: 0}
     - target: {fileID: 8087123406378987811, guid: ed76d794d75a81e4faad6075bdbeac21,
         type: 3}
@@ -2805,6 +2805,11 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8087123406378987822, guid: ed76d794d75a81e4faad6075bdbeac21,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8087123406378987823, guid: ed76d794d75a81e4faad6075bdbeac21,
         type: 3}
       propertyPath: m_Color.r
@@ -2819,6 +2824,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.1475169
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087123406378987823, guid: ed76d794d75a81e4faad6075bdbeac21,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8087123406378987816, guid: ed76d794d75a81e4faad6075bdbeac21, type: 3}
@@ -2945,15 +2955,15 @@ RectTransform:
   m_GameObject: {fileID: 1036933272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5404999, y: 1.5404999, z: 1.5404999}
   m_Children: []
   m_Father: {fileID: 1438447892}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 63.8, y: -60.2}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 80.6, y: -60.2}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1036933274
 MonoBehaviour:
@@ -8117,10 +8127,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 519420031, guid: 09c837d037d85d14795e279e41a758e7, type: 3}
-      propertyPath: orthographic size
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 4079072507094813130, guid: 09c837d037d85d14795e279e41a758e7,
         type: 3}
       propertyPath: scoreController
@@ -8128,34 +8134,14 @@ PrefabInstance:
       objectReference: {fileID: 983273252}
     - target: {fileID: 4079072507094813130, guid: 09c837d037d85d14795e279e41a758e7,
         type: 3}
-      propertyPath: jumpSpeed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4079072507094813130, guid: 09c837d037d85d14795e279e41a758e7,
-        type: 3}
-      propertyPath: doubleJumpSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4079072507094813130, guid: 09c837d037d85d14795e279e41a758e7,
-        type: 3}
-      propertyPath: levelController
+      propertyPath: healthController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1438447893}
     - target: {fileID: 4079072507094813130, guid: 09c837d037d85d14795e279e41a758e7,
         type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 2046958211}
-    - target: {fileID: 4079072507094813130, guid: 09c837d037d85d14795e279e41a758e7,
-        type: 3}
-      propertyPath: healthController
-      value: 
-      objectReference: {fileID: 1438447893}
-    - target: {fileID: 4079072507094813131, guid: 09c837d037d85d14795e279e41a758e7,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4079072507094813132, guid: 09c837d037d85d14795e279e41a758e7,
         type: 3}
       propertyPath: m_Name
@@ -8164,12 +8150,12 @@ PrefabInstance:
     - target: {fileID: 4079072507094813134, guid: 09c837d037d85d14795e279e41a758e7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.71
+      value: 3.62
       objectReference: {fileID: 0}
     - target: {fileID: 4079072507094813134, guid: 09c837d037d85d14795e279e41a758e7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.07
+      value: -4.13
       objectReference: {fileID: 0}
     - target: {fileID: 4079072507094813134, guid: 09c837d037d85d14795e279e41a758e7,
         type: 3}
@@ -8383,5 +8369,15 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 867758648}
+    - target: {fileID: 8087123406378987822, guid: ed76d794d75a81e4faad6075bdbeac21,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087123406378987823, guid: ed76d794d75a81e4faad6075bdbeac21,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed76d794d75a81e4faad6075bdbeac21, type: 3}

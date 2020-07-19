@@ -36,6 +36,7 @@ public class HiddenEnemy : MonoBehaviour
 
             if(playerCollided == 2)
             {
+                
                 PlayerController player = other.gameObject.GetComponent<PlayerController>();
                 player.PlayerDied();
                 jump = new Vector2(0, 0);

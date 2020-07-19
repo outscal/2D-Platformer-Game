@@ -12,12 +12,14 @@ public class UIManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         int index = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(index);
     }
 
     public void Lobby()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         SceneManager.LoadScene("Lobby");
     }
 

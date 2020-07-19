@@ -21,6 +21,7 @@ public class LobbyController : MonoBehaviour
     private void StartGame()
     {
         mainmenu.SetActive(false);
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         levelSelection.SetActive(true);
     }
 

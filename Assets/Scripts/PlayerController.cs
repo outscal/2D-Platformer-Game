@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && IsOnGround)
         {
             animator.SetBool("Jump", true);
+            SoundManager.Instance.Play(Sounds.PlayerJump);
             rigidbody.velocity = Vector2.up * jumpSpeed;
 
         }
@@ -84,16 +85,32 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        
+        
 
         Vector2 scale = transform.localScale;
 
         if (horizontal < 0 || Input.GetKeyDown(KeyCode.LeftArrow))   // left arrow is used to change its direction
         {
             scale.x = -1f * Mathf.Abs(scale.x);
+            
+            if(IsOnGround)
+            {
+                SoundManager.Instance.Play(Sounds.PlayerMovement);
+            }
+                
+            
         }
         else if (horizontal > 0)
         {
             scale.x = Mathf.Abs(scale.x);
+
+            if(IsOnGround)
+            {
+                SoundManager.Instance.Play(Sounds.PlayerMovement);
+            }
+                
+
         }
 
         transform.localScale = scale;
@@ -132,13 +149,17 @@ public class PlayerController : MonoBehaviour
     {
         lives--;
         healthController.DecrementLives();
+        
         if (lives > 0)
         {
-            transform.position = spawnPosition;
-            
+    
+            animator.SetBool("Died", true);
+            StartCoroutine(SpawmAtSpawnPosition());
+
         }
         else
         {
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
             StartCoroutine(RestartLevel());
             animator.SetBool("Died", true);
             gameObject.GetComponent<PlayerController>().enabled = false;
@@ -147,6 +168,14 @@ public class PlayerController : MonoBehaviour
         
     }
 
+
+    IEnumerator SpawmAtSpawnPosition()
+    {
+        yield return new WaitForSeconds(2);
+        
+        transform.position = spawnPosition;
+        animator.SetBool("Died", false);
+    }
 
     IEnumerator RestartLevel()
     {

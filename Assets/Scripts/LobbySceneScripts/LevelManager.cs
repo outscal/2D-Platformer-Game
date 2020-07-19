@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
 
     private void Start()

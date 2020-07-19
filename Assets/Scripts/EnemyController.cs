@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
         if (gameObject.layer == GunnerLayer)
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
+            
         }
 
         else if(gameObject.layer == chomperLayer)
