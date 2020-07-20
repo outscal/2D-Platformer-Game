@@ -11,6 +11,8 @@ public class LevelController : MonoBehaviour
         Destroy(other.gameObject);
         if(other.gameObject.GetComponent<PlayerController>() !=null)
         {
+            
+            LevelManager.Instance.MarkCurrentLevelComplete();
             SceneManager.LoadScene(levelName);
         }
     }
