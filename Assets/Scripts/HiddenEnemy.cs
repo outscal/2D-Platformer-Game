@@ -39,8 +39,7 @@ public class HiddenEnemy : MonoBehaviour
                 
                 PlayerController player = other.gameObject.GetComponent<PlayerController>();
                 player.PlayerDied();
-                jump = new Vector2(0, 0);
-                Debug.Log("Player is dead");
+                
             }
             return;
             
@@ -55,7 +54,7 @@ public class HiddenEnemy : MonoBehaviour
             return;
         }
 
-
+       
 
     }
 }

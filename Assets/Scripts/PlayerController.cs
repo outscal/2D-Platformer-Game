@@ -147,6 +147,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerDied()
     {
+        SoundManager.Instance.Play(Sounds.PlayerHurt);
         lives--;
         healthController.DecrementLives();
         
@@ -213,8 +214,9 @@ public class PlayerController : MonoBehaviour
         
         if (other.gameObject.layer == deathColliderLauyer)
         {
-            Destroy(gameObject);
-            uiManager.AwakeGameOverPanel();
+            //Destroy(gameObject);
+            //uiManager.AwakeGameOverPanel();
+            PlayerDied();
         }
 
     }
