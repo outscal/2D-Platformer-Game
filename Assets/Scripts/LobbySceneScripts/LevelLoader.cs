@@ -18,12 +18,12 @@ public class LevelLoader : MonoBehaviour
 
     private void Start()
     {
+        
         if(LevelManager.Instance.GetLevelStatus(levelName) == LevelStatus.Locked)
         {
-            button.GetComponentInChildren<Text>().text = "Unlocked";
+            button.GetComponentInChildren<Text>().text = "Locked";
         }
-
-        else if(LevelManager.Instance.GetLevelStatus(levelName) == LevelStatus.Unlocked)
+        if(LevelManager.Instance.GetLevelStatus(levelName) == LevelStatus.Unlocked)
         {
             button.GetComponentInChildren<Text>().text = levelName;
         }    
@@ -39,10 +39,12 @@ public class LevelLoader : MonoBehaviour
                 break;
 
             case LevelStatus.Unlocked:
+                SoundManager.Instance.Play(Sounds.ButtonClick);
                 SceneManager.LoadScene(levelName);
                 break;
 
             case LevelStatus.Completed:
+                SoundManager.Instance.Play(Sounds.ButtonClick);
                 SceneManager.LoadScene(levelName);
                 break;
 

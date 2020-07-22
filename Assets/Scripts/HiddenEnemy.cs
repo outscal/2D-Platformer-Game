@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +11,14 @@ public class HiddenEnemy : MonoBehaviour
     private BoxCollider2D boxcollider;
     public Vector2 jump;
 
-    private int playerCollided = 0;
+    public int playerCollided = 0;
 
     private Vector2 newColliderSize = new Vector2(1.5f,0.8f);
     private Vector2 newColliderOffset = new Vector2(0.03f,0.4f);
-    private bool attack;
+    public bool attack;
     private int groundLayer = 9;
+    private int movingPlatformLayer = 20;
+    private int deathLayer = 13;
     private void Awake()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
@@ -33,28 +36,38 @@ public class HiddenEnemy : MonoBehaviour
             boxcollider.size = newColliderSize;
             boxcollider.offset = newColliderOffset;
             animator.SetBool("attack", true);
+            SoundManager.Instance.PlayMusic(Sounds.ChomperAttack);
 
             if(playerCollided == 2)
             {
+
                 PlayerController player = other.gameObject.GetComponent<PlayerController>();
                 player.PlayerDied();
-                jump = new Vector2(0, 0);
-                Debug.Log("Player is dead");
+                Destroy(gameObject);
+               
             }
             return;
             
         }
 
-        if(other.gameObject.layer == groundLayer)
+        if(other.gameObject.layer == groundLayer || other.gameObject.layer == movingPlatformLayer)
         {
             if(attack)
             {
                 rigidbody.velocity = jump;
             }
             return;
-        }
-
-
+        }  
 
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.layer == deathLayer)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
 }
