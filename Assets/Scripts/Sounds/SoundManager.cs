@@ -88,6 +88,7 @@ public enum Sounds
     PlayerHurt,
     ChomperMovement,
     GunnerMovement,
+    ChomperAttack,
     EnemyDeath
     
 }

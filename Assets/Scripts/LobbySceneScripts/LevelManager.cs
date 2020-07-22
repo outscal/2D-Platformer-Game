@@ -21,8 +21,8 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        
+       
+
     }
 
     private void Start()
@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
             SetLevelStatus(Levels[0], LevelStatus.Unlocked);
         }
     }
+
     public LevelStatus GetLevelStatus(string level)
     {
         LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level,0);

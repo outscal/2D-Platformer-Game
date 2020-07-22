@@ -20,14 +20,19 @@ public class PlayerController : MonoBehaviour
     public UIManager uiManager;
     private int groundLayer = 9;
     private int alienBlockLayer = 12;
-    private int deathColliderLauyer = 13;
+    private int deathColliderLayer = 13;
     private int spawnPointLayer = 14;
+    private int killerSpikesLayer = 16;
+    private int pressurePad = 17;
+    private int movingPlatform = 20;
 
     private bool IsOnGround;
     private bool canDoubleJump;
-
+    private bool isPlayerDead = false;
+    private bool isOnMovingGround = false;
     private int lives = 3;
 
+    public float onMovingPlatformspeed;
 
     private Vector2 startingColliderSize;
     private Vector2 startingColliderOffset;
@@ -36,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         collider = gameObject.GetComponent<BoxCollider2D>();
     }
@@ -44,21 +50,29 @@ public class PlayerController : MonoBehaviour
     {
         startingColliderSize = collider.size;
         startingColliderOffset = collider.offset;
+        spawnPosition = transform.position;
     }
 
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
 
-        Move(horizontal);
-        Jump();
-        Crouch();
+        if(!isPlayerDead)
+        {
+            Move(horizontal);
+            Jump();
+            Crouch();
+        }
+        
+       
     }
+
+    
 
 
     private void Jump()
     {
-        if (Input.GetKey(KeyCode.Space) && IsOnGround)
+        if (Input.GetKey(KeyCode.Space) && (IsOnGround || isOnMovingGround))
         {
             animator.SetBool("Jump", true);
             SoundManager.Instance.Play(Sounds.PlayerJump);
@@ -147,6 +161,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerDied()
     {
+        isPlayerDead = true;
         SoundManager.Instance.Play(Sounds.PlayerHurt);
         lives--;
         healthController.DecrementLives();
@@ -176,6 +191,7 @@ public class PlayerController : MonoBehaviour
         
         transform.position = spawnPosition;
         animator.SetBool("Died", false);
+        isPlayerDead = false;
     }
 
     IEnumerator RestartLevel()
@@ -192,8 +208,29 @@ public class PlayerController : MonoBehaviour
         {
             IsOnGround = true;
             canDoubleJump = true;
+            
  
         }
+
+        if(other.gameObject.layer == movingPlatform)
+        {
+            canDoubleJump = true;
+            isOnMovingGround = true;
+            transform.parent = other.transform;
+        }
+
+        if(other.gameObject.layer == killerSpikesLayer)
+        {
+            PlayerDied();
+        }
+
+        if(other.gameObject.layer == pressurePad)
+        {
+            rigidbody.velocity = Vector2.up * 60;
+            animator.SetBool("Jump", true);
+        }
+
+        
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -202,7 +239,13 @@ public class PlayerController : MonoBehaviour
         {
             IsOnGround = false;
         }
+        if(other.gameObject.layer == movingPlatform)
+        {
+            isOnMovingGround =
+            transform.parent = null;
+        }
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -212,7 +255,7 @@ public class PlayerController : MonoBehaviour
         }
 
         
-        if (other.gameObject.layer == deathColliderLauyer)
+        if (other.gameObject.layer == deathColliderLayer)
         {
             //Destroy(gameObject);
             //uiManager.AwakeGameOverPanel();

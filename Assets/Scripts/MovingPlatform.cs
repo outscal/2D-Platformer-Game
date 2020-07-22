@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.UIElements;
+﻿
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    private bool collided = false;
+    private int turnPointPlayer = 19;
     public float speed = 5f;
     // Start is called before the first frame update
     void Start()
@@ -14,16 +12,20 @@ public class MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector2 position = transform.position;
-        position.x += speed * Time.deltaTime;
+        position.x += speed * Time.fixedDeltaTime;
         transform.position = position;
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        speed = -1f * speed;
+        if(other.gameObject.layer == turnPointPlayer)
+        {
+            speed = -1f * speed;
+        }
+        
     }
 }

@@ -8,7 +8,7 @@ public class LevelController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(other.gameObject);
+        
         if(other.gameObject.GetComponent<PlayerController>() !=null)
         {
            
