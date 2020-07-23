@@ -21,36 +21,25 @@ public class EnemyController : MonoBehaviour
         if (gameObject.layer == GunnerLayer)
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
-            if (Mathf.Abs(player.transform.position.x - transform.position.x) < 15)
-            {
-                SoundManager.Instance.Play(Sounds.ChomperMovement);
-            }
-
-
         }
 
         else if(gameObject.layer == chomperLayer)
         {
-            
             transform.Translate(Vector2.right * speed * Time.deltaTime);
-            if (Mathf.Abs(player.transform.position.x - transform.position.x) < 15)
-            {
-                SoundManager.Instance.Play(Sounds.ChomperMovement);
-            }
 
         }
     }
-
-   
-
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            //speed = 0;
-            player.PlayerDied();
+            if(!other.gameObject.GetComponent<Animator>().GetBool("Died"))
+            {
+                player.PlayerDied();
+            }
+            
         }
 
         if(other.gameObject.layer != groundLayer) 

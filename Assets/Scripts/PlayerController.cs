@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,7 +19,6 @@ public class PlayerController : MonoBehaviour
     private int groundLayer = 9;
     private int alienBlockLayer = 12;
     private int deathColliderLayer = 13;
-    private int spawnPointLayer = 14;
     private int killerSpikesLayer = 16;
     private int pressurePad = 17;
     private int movingPlatform = 20;
@@ -86,6 +83,8 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = Vector2.up * doubleJumpSpeed;
             canDoubleJump = false;
         }
+
+       
         else
         {
             animator.SetBool("Jump", false);
@@ -98,7 +97,8 @@ public class PlayerController : MonoBehaviour
         position.x += horizontal * moveSpeed * Time.deltaTime;
         transform.position = position;
 
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        if(IsOnGround)
+            animator.SetFloat("Speed", Mathf.Abs(horizontal));
         
         
 
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = -1f * Mathf.Abs(scale.x);
             
-            if(IsOnGround)
+            if(IsOnGround && !animator.GetBool("Crouch"))
             {
                 SoundManager.Instance.Play(Sounds.PlayerMovement);
             }
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = Mathf.Abs(scale.x);
 
-            if(IsOnGround)
+            if(IsOnGround && !animator.GetBool("Crouch"))
             {
                 SoundManager.Instance.Play(Sounds.PlayerMovement);
             }
@@ -209,7 +209,14 @@ public class PlayerController : MonoBehaviour
             IsOnGround = true;
             canDoubleJump = true;
             
- 
+        }
+
+        if (other.gameObject.GetComponent<MovingMuzzles>() != null)
+        {
+            if(!animator.GetBool("Died"))
+            {
+                PlayerDied();
+            }
         }
 
         if(other.gameObject.layer == movingPlatform)
@@ -230,7 +237,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump", true);
         }
 
-        
+        if (other.gameObject.layer == deathColliderLayer)
+        {
+            PlayerDied();
+        }
+
+
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -246,21 +258,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.layer == spawnPointLayer)
-        {
-            spawnPosition = transform.position;
-        }
-
-        
-        if (other.gameObject.layer == deathColliderLayer)
-        {
-            //Destroy(gameObject);
-            //uiManager.AwakeGameOverPanel();
-            PlayerDied();
-        }
-
-    }
 }
