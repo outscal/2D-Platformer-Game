@@ -13,6 +13,7 @@ public class LobbyController : MonoBehaviour
     public string levelName;
     private void Awake()
     {
+        Time.timeScale = 1f;
         playButton.onClick.AddListener(StartGame);
         quitButton.onClick.AddListener(QuitGame);
     }
@@ -28,6 +29,6 @@ public class LobbyController : MonoBehaviour
     private void QuitGame()
     {
         Application.Quit();
-        //hello
+        
     }
 }

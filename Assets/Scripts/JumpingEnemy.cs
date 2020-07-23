@@ -11,28 +11,24 @@ public class JumpingEnemy : MonoBehaviour
 
     private int movingPlatformLayer = 20;
     private int deathLayer = 13;
-    // Start is called before the first frame update
+
     void Start()
     {
         animator.SetBool("attack", true);
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
-            
-            SoundManager.Instance.PlayMusic(Sounds.ChomperAttack);
-                PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            SoundManager.Instance.Play(Sounds.ChomperAttack);
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            if (!other.gameObject.GetComponent<Animator>().GetBool("Died"))
+            {
                 player.PlayerDied();
-                Destroy(gameObject);
+            }
+            Destroy(gameObject);
 
          }
 
@@ -40,27 +36,20 @@ public class JumpingEnemy : MonoBehaviour
 
         if (other.gameObject.layer == groundLayer || other.gameObject.layer == movingPlatformLayer)
         {
-            
-                rigidbody.velocity = jump;
-            
-            
+            rigidbody.velocity = jump;
         }
 
         if(other.gameObject.GetComponent<JumpingEnemy>()!=null)
         {
             rigidbody.velocity = jump;
         }
-       
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
         if (other.gameObject.layer == deathLayer)
         {
             Destroy(gameObject);
         }
-    }
 
+
+    }
 
 }

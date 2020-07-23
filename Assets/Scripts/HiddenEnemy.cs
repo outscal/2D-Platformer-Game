@@ -7,6 +7,7 @@ public class HiddenEnemy : MonoBehaviour
 {
     public Animator animator;
 
+    private GameObject player;
     private Rigidbody2D rigidbody;
     private BoxCollider2D boxcollider;
     public Vector2 jump;
@@ -19,34 +20,39 @@ public class HiddenEnemy : MonoBehaviour
     private int groundLayer = 9;
     private int movingPlatformLayer = 20;
     private int deathLayer = 13;
+    private int walls = 18;
     private void Awake()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         boxcollider = gameObject.GetComponent<BoxCollider2D>();
 
     }
-    
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.GetComponent<PlayerController>() != null)
         {
+            player = other.gameObject;
             playerCollided++;
             attack = true;
             boxcollider.size = newColliderSize;
             boxcollider.offset = newColliderOffset;
             animator.SetBool("attack", true);
-            SoundManager.Instance.PlayMusic(Sounds.ChomperAttack);
+            
 
             if(playerCollided == 2)
             {
 
                 PlayerController player = other.gameObject.GetComponent<PlayerController>();
-                player.PlayerDied();
+                if (!other.gameObject.GetComponent<Animator>().GetBool("Died"))
+                {
+                    player.PlayerDied();
+                }
                 Destroy(gameObject);
                
             }
-            return;
+            //return;
             
         }
 
@@ -55,19 +61,20 @@ public class HiddenEnemy : MonoBehaviour
             if(attack)
             {
                 rigidbody.velocity = jump;
+                if(Mathf.Abs(transform.position.x - player.transform.position.x) < 30)
+                {
+                    SoundManager.Instance.PlayMusic(Sounds.ChomperAttack);
+                }
+                
             }
-            return;
-        }  
+            //return;
+        }
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.layer == deathLayer)
+        if (other.gameObject.layer == deathLayer || other.gameObject.layer == walls)
         {
             Destroy(gameObject);
         }
-    }
 
+    }
 
 }
