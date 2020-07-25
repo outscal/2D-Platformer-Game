@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         position.x += horizontal * moveSpeed * Time.deltaTime;
         transform.position = position;
 
-        if(IsOnGround)
+        if(IsOnGround || isOnMovingGround)
             animator.SetFloat("Speed", Mathf.Abs(horizontal));
         
         
@@ -223,6 +223,7 @@ public class PlayerController : MonoBehaviour
         {
             canDoubleJump = true;
             isOnMovingGround = true;
+            
             transform.parent = other.transform;
         }
 
