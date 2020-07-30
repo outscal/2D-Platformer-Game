@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 
 public class PlayerController : MonoBehaviour
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private int killerSpikesLayer = 16;
     private int pressurePad = 17;
     private int movingPlatform = 20;
+    private int spawnPressurePad = 23;
 
     private bool IsOnGround;
     private bool canDoubleJump;
@@ -52,24 +54,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
 
         if(!isPlayerDead)
         {
             Move(horizontal);
-            Jump();
-            Crouch();
+            //Jump();
+            //Crouch();
         }
         
        
     }
 
-    
 
 
-    private void Jump()
+
+    public void OnPointerJumpDown()
     {
-        if (Input.GetKey(KeyCode.Space) && (IsOnGround || isOnMovingGround))
+        if (IsOnGround || isOnMovingGround)
         {
             animator.SetBool("Jump", true);
             SoundManager.Instance.Play(Sounds.PlayerJump);
@@ -77,19 +79,21 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+        else if (canDoubleJump)
         {
             animator.SetBool("Jump", true);
             rigidbody.velocity = Vector2.up * doubleJumpSpeed;
             canDoubleJump = false;
         }
-
-       
-        else
-        {
-            animator.SetBool("Jump", false);
-        }
     }
+
+
+    public void OnPointerJumpUp()
+    {
+        animator.SetBool("Jump", false);
+    }
+       
+       
 
     private void Move(float horizontal)
     {
@@ -131,23 +135,23 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Crouch()
+    public void OnPointerCrouchDown()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
+        
             animator.SetBool("Crouch", true);
             collider.size = newColliderSize;
             collider.offset = newColliderOffset;
 
-        }
-
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            animator.SetBool("Crouch", false);
-            collider.size = startingColliderSize;
-            collider.offset = startingColliderOffset;
-        }
     }
+
+    public void OnPointerCrouchUp()
+    {
+        animator.SetBool("Crouch", false);
+        collider.size = startingColliderSize;
+        collider.offset = startingColliderOffset;
+    }
+
+        
 
 
 
@@ -163,23 +167,13 @@ public class PlayerController : MonoBehaviour
     {
         isPlayerDead = true;
         SoundManager.Instance.Play(Sounds.PlayerHurt);
-        lives--;
-        healthController.DecrementLives();
         
-        if (lives > 0)
-        {
-    
-            animator.SetBool("Died", true);
-            StartCoroutine(SpawmAtSpawnPosition());
-
-        }
-        else
-        {
+        
             SoundManager.Instance.Play(Sounds.PlayerDeath);
             StartCoroutine(RestartLevel());
             animator.SetBool("Died", true);
             gameObject.GetComponent<PlayerController>().enabled = false;
-        }
+        
         
         
     }
@@ -237,6 +231,14 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = Vector2.up * 60;
             animator.SetBool("Jump", true);
         }
+
+        if (other.gameObject.layer == spawnPressurePad)
+        {
+            rigidbody.velocity = Vector2.up * 120;
+            animator.SetBool("Jump", true);
+        }
+
+
 
         if (other.gameObject.layer == deathColliderLayer)
         {

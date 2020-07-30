@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
         {
             SetLevelStatus(Levels[0], LevelStatus.Unlocked);
         }
+        
     }
 
     public LevelStatus GetLevelStatus(string level)

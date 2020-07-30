@@ -17,7 +17,7 @@ public class InstantiateEnemies : MonoBehaviour
         
             if (Time.time > time)
             {
-                time += Random.Range(1, 17);
+                time += Random.Range(1, 15);
                 Instantiate(HiddenEnemyPrefab, transform.position, Quaternion.identity);
 
             }
