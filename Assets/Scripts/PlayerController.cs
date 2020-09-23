@@ -17,7 +17,7 @@ namespace Player
             {
                 scale.x = -1f * Mathf.Abs(scale.x);
             }
-            else
+            else if(speed>0)
             {
                 scale.x = Mathf.Abs(scale.x);
             }
