@@ -138,7 +138,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &383062567
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -152,7 +152,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02923286, y: 0.9925773}
+  m_Offset: {x: 0.02923286, y: 0.9917519}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.42, y: 0.1}
@@ -163,7 +163,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6955805, y: 2.16086}
+  m_Size: {x: 0.59, y: 2.098349}
   m_EdgeRadius: 0
 --- !u!114 &383062568
 MonoBehaviour:
@@ -178,6 +178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 383062569}
+  boxCollider: {fileID: 383062567}
+  crouchHeight: 1.322701
 --- !u!95 &383062569 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 58540173583766383, guid: 1c3077c0814568443b0e23720cecc6fa,
@@ -297,7 +299,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.16595024}
+  m_Offset: {x: 0, y: -0.02875252}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -308,7 +310,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.6680995}
+  m_Size: {x: 1, y: 0.942495}
   m_EdgeRadius: 0
 --- !u!212 &1240542036
 SpriteRenderer:
@@ -387,7 +389,7 @@ PrefabInstance:
     - target: {fileID: 2412594986707931822, guid: 1c3077c0814568443b0e23720cecc6fa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6056068
+      value: -3.9
       objectReference: {fileID: 0}
     - target: {fileID: 2412594986707931822, guid: 1c3077c0814568443b0e23720cecc6fa,
         type: 3}
