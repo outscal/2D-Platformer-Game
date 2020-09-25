@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,9 +24,19 @@ public class PlayerController : MonoBehaviour
         if (speed < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
+            if (speed < -0.5 && !Input.GetKey(KeyCode.LeftControl))
+            {
+                transform.position += Vector3.right * 3 * speed * Time.deltaTime;
+            }
+
         }
         else if(speed>0) {
             scale.x = Mathf.Abs(scale.x);
+            if (speed > 0.5 && !Input.GetKey(KeyCode.LeftControl))
+            {
+                transform.position += Vector3.right * 3 * speed * Time.deltaTime;
+            }
+
         }
         transform.localScale = scale;
 
@@ -45,19 +56,29 @@ public class PlayerController : MonoBehaviour
             player.offset = new Vector2(player.offset.x, (player.offset.y) / 0.6f);
         }
 
+        //Moving
         //Jumping
         float jump = Input.GetAxis("Vertical");
         animator.SetFloat("Jump", jump);
-        /*if (jump > 0.3)
+        /*if (Input.GetKeyDown(KeyCode.W))
         {
             player.size = new Vector2(player.size.x, (player.size.y) * 0.6f);
             player.offset = new Vector2(player.offset.x, (player.offset.y) / 0.6f);
+            player.size = new Vector2(player.size.x, (player.size.y) / 0.6f);
+           // Debug.Log("Here");
+            player.offset = new Vector2(player.offset.x, (player.offset.y) * 0.6f);
+            //Debug.Log("Now here");
+            flag = true;
         }
 
-        else if(jump < 0.3 && jump >0){
+        else if(Input.GetKeyDown(KeyCode.W) && flag)
+        {
             player.size = new Vector2(player.size.x, (player.size.y) / 0.6f);
             player.offset = new Vector2(player.offset.x, (player.offset.y) * 0.6f);
+            flag = false;
         }*/
+
+
     }
    
 }   
