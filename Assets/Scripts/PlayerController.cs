@@ -7,31 +7,30 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     public Animator animator;
     BoxCollider2D Collider;
+
+    public float speed;
+    public float Jump;
+    private Rigidbody2D rb;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("collision " + collision.gameObject.name);
     }
-    void Start()
+    void Awake()
     {
         Collider = GetComponent<BoxCollider2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxis("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(speed));
-        Vector3 scale = transform.localScale;
-        if (speed < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }else if (speed > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxisRaw("Jump");
 
-        if(Input.GetKey(KeyCode.LeftControl))
+        PlayerMovementHorizontal(horizontal,vertical);
+        MoveCharacter(horizontal,vertical);
+
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("isCrouch", true);
             Collider.offset = new Vector2(-0.013f, 0.64f);
@@ -42,9 +41,49 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isCrouch", false);
             Collider.offset = new Vector2(0.013f, 0.983f);
-            Collider.size = new Vector3(0.6f, 2.1f);
+            Collider.size = new Vector3(1.6f, 2.1f);
         }
+
+       
         
+        
+    }
+
+    private void MoveCharacter(float horizontal,float vertical)
+    {
+        Vector2 pos = transform.position;
+        pos.x +=  horizontal * speed * Time.deltaTime;
+        
+        transform.position = pos;
+
+        if (vertical > 0)
+        {
+            rb.AddForce(new Vector2(speed, Jump), ForceMode2D.Force);
+        }
+    }
+
+    private void PlayerMovementHorizontal(float horizontal,float vertical)
+    {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        Vector3 scale = transform.localScale;
+        if (horizontal < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+        else if (horizontal > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
+
+        if (vertical > 0)
+        {
+            animator.SetBool("IsJump", true);
+        }
+        else
+        {
+            animator.SetBool("IsJump", false);
+        }
     }
 }
 
