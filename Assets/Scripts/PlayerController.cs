@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-         if(Input.GetKeyDown(KeyCode.Space)){
-            animator.SetBool("isCrouch", )
-         }
+         // if(Input.GetKeyDown(KeyCode.Space)){
+         //    animator.SetBool("isCrouch", )
+         // }
    }
   
 }
