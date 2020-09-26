@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
    // }
 
    private void Update() {
-      float speed = Input.GetAxisRaw("Horizontal");
+        float speed = Input.GetAxisRaw("Horizontal");
       animator.SetFloat("Speed", Mathf.Abs(speed));
 
         Vector3 scale = transform.localScale;
@@ -26,10 +26,9 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-         // if(Input.GetKeyDown(KeyCode.Space)){
-         //    animator.SetBool("isCrouch", )
-         // }
+        
    }
   
 }
 
+     
