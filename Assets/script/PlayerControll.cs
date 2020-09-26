@@ -10,6 +10,7 @@ public class PlayerControll : MonoBehaviour
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
+    public float jump;
 
     private void Awake(){
         Debug.Log("Player controller");
@@ -17,8 +18,6 @@ public class PlayerControll : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
 
     {
-        
-        //Debug.Log("collision:"+collision.gameObject.name);
         if (collision is null)
         {
             throw new System.ArgumentNullException(nameof(collision));
@@ -32,46 +31,38 @@ public class PlayerControll : MonoBehaviour
     private void Update(){
       
     Horizontalspeed=Input.GetAxisRaw("Horizontal");
-     if(Input.GetKeyDown(KeyCode.LeftControl)){
-         sf=2.0f;
-         }
-         else
-         sf=0.0f;
-     //speed=speed*sf; 
-     animator.SetFloat("speed",Mathf.Abs(Horizontalspeed));
+    PlayerAnimation(Horizontalspeed);
+    //     float X=0.55462f;
+    //     float Y=2.2113f;
+    //   collider2D.size=new Vector2(X,collider2D.size.x);
+    //   collider2D.size=new Vector2(Y,collider2D.size.y);
+      PlayerMovementX(Horizontalspeed);
+}
+private void PlayerAnimation(float horizontal){
+animator.SetFloat("speed",Mathf.Abs(horizontal));
     //     //speed=9.0f;
- 
-    //    // animator.SetFloat("jump",Mathf.Abs(jump));
-       
        Vector3 scale =transform.localScale;
-         if (Horizontalspeed<0){
+         if (horizontal<0){
             
              scale.x=-1f*Mathf.Abs(scale.x);
-         }else if(Horizontalspeed>0){
+         }else if(horizontal>0){
              scale.x=Mathf.Abs(scale.x);
          }
          transform.localScale=scale;
-        float jmp=Input.GetAxisRaw("Vertical");
+        float vericalSpeed=Input.GetAxisRaw("Vertical");
         bool v = Input.GetKeyDown(KeyCode.W);
         bool v2=Input.GetKeyDown(KeyCode.S);
-        if(v==true ){
-        animator.SetBool("IsJump",v);
+        if(vericalSpeed>0 ){
+        animator.SetBool("IsJump",true);
         }
         else if(v2==true){
         animator.SetBool("IsJump",v2);
         }
         else
              animator.SetBool("IsJump",false);
-
-        float X=0.55462f;
-        float Y=2.2113f;
-      collider2D.size=new Vector2(X,collider2D.size.x);
-      collider2D.size=new Vector2(Y,collider2D.size.y);
-      PlayerMovementX(Horizontalspeed);
-     
-       
-
-    
+        if(vericalSpeed>0){
+            rigidbody.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
+        }
 }
 private void PlayerMovementX(float Horizontalspeed){
     Vector2 positionX=transform.position;
