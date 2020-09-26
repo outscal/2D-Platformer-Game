@@ -15,6 +15,10 @@ public class PlayerControl : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
+    //separate collider for crouch
+    private PolygonCollider2D pc2d;
+    private BoxCollider2D bc2d;
+
 
     void playerMovement(float horizontal, float vertical)
     {   
@@ -60,18 +64,23 @@ public class PlayerControl : MonoBehaviour
         if (isCrouch)
         {
             animator.SetBool("Crouch", true);
+            pc2d.enabled = false;
+            bc2d.enabled = true;
         }
         else
         {
             animator.SetBool("Crouch", false);
+            pc2d.enabled = true;
+            bc2d.enabled = false;
         }
     }
-
 
 
     void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        pc2d = gameObject.GetComponent<PolygonCollider2D>();
+        bc2d = gameObject.GetComponent<BoxCollider2D>();
     }
 
 
