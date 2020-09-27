@@ -5,75 +5,19 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
 
-    public Animator animator;
-    //bool a;
-    //int b = 0;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private float speed,jump;
 
-    public float speed = 10f;
+    private bool isCrouch;
 
-    public float jump = 10f;
 
     private Rigidbody2D rb2d;
-
-    //separate collider for crouch
+    // Two different collider two state i.e standing and croutch
     private PolygonCollider2D pc2d;
     private BoxCollider2D bc2d;
-
-
-    void playerMovement(float horizontal, float vertical)
-    {   
-        //run animation
-        Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position;
-
-        // jump movement
-        if (vertical > 0)
-        {
-            rb2d.AddForce(new Vector2(0f, jump));
-        }
-    }
-
-    void playerMovementAnimation(float speed,float vertical,bool isCrouch)
-    {   
-        //run animation
-        animator.SetFloat("Speed", Mathf.Abs(speed));
-        Vector3 scale = transform.localScale;
-        if (speed < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-
-        }
-        else if (speed >= 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
-
-        //Jump Animation
-        if (vertical > 0)
-        {
-            animator.SetBool("Jump", true);
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
-        }
-
-        //croutch
-        if (isCrouch)
-        {
-            animator.SetBool("Crouch", true);
-            pc2d.enabled = false;
-            bc2d.enabled = true;
-        }
-        else
-        {
-            animator.SetBool("Crouch", false);
-            pc2d.enabled = true;
-            bc2d.enabled = false;
-        }
-    }
+    
 
 
     void Awake()
@@ -84,16 +28,52 @@ public class PlayerControl : MonoBehaviour
     }
 
 
+
+    void playerMovement(float horizontal, float vertical)
+    {   
+        // Run actual motion
+        Vector3 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+
+        // Jump actual animation
+        if (vertical > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force);
+        }
+    }
+
+    void playerAnimation(float speed,float vertical,bool isCrouch)
+    {   
+        // Run animation
+        animator.SetFloat("Speed", Mathf.Abs(speed));
+        Vector3 scale = transform.localScale;
+        scale.x = ( speed < 0 )? -1f * Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+        transform.localScale = scale;
+
+        // Jump Animation
+        bool isJumping = (vertical > 0) ? true : false; 
+        animator.SetBool("Jump", isJumping);
+
+        // Croutch animation and Collider Resize
+        animator.SetBool("Crouch", isCrouch);
+    }
+
+    void FixedUpdate()
+    {
+      pc2d.enabled = (isCrouch) ? false : true;
+      bc2d.enabled = (isCrouch) ? true : false;
+    }
+
+
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
-        bool isCroutch = Input.GetKey(KeyCode.LeftControl);
-
+        isCrouch = Input.GetKey(KeyCode.LeftControl);
+ 
         playerMovement(horizontal, vertical);
-        playerMovementAnimation(horizontal, vertical,isCroutch);
-
-
+        playerAnimation(horizontal, vertical,isCrouch);
     }
 }
 
