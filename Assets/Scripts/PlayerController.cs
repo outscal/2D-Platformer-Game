@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     private void Awake()
     {
+        Debug.Log("Player Controller awake");
         player = gameObject.GetComponent<BoxCollider2D>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 
     }
     void Start()
     {}
+
 
     // Update is called once per frame
     void Update()
