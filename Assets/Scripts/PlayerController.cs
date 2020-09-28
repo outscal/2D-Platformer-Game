@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
        }*/
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb2d.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(0, 28), ForceMode2D.Impulse);
         }
         else if (Input.GetKey(KeyCode.Space))
         {
