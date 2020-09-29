@@ -40,7 +40,7 @@ public class PlayerScript : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         Animator.SetFloat("Speed", Mathf.Abs(horizontal));
         ChangeDirection(horizontal);
-        MovePlayer(horizontal);
+       
         Crouch();
         CheckGrounded();
         Jump();
@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
 
     void MovePlayer(float horizontal){
         Vector3 position = transform.position;
-        position.x= horizontal * playerSpeed * Time.deltaTime;
+        position.x= position.x + horizontal * playerSpeed * Time.deltaTime;
         transform.position=position;
     }
 
@@ -56,11 +56,11 @@ public class PlayerScript : MonoBehaviour
     void ChangeDirection(float speed){
          Vector3 scale = transform.localScale; 
         if(speed < 0){   
-            
+             MovePlayer(speed);
             scale.x = - 1 * Mathf.Abs(scale.x);
            
         } else if(speed > 0){
-               
+                 MovePlayer(speed);
                 scale.x = Mathf.Abs(scale.x); 
               
         }else{
