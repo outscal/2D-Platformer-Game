@@ -3,12 +3,12 @@
 public class PlayerControll : MonoBehaviour
 {
    // float sf=0.25f;
-    public float fast;
+    private float fast=4f;
     Rigidbody2D rigidbody;
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
-    public float jump;
+    private float jump=18f;
        private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
