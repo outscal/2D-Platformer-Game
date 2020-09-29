@@ -1,30 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerControll : MonoBehaviour
 {
-    float sf=0.25f;
+   // float sf=0.25f;
     public float fast;
     Rigidbody2D rigidbody;
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
     public float jump;
-
-    private void Awake(){
-        Debug.Log("Player controller");
-    }
-    private void OnCollisionEnter(Collision collision)
-
-    {
-        if (collision is null)
-        {
-            throw new System.ArgumentNullException(nameof(collision));
-        }
-       
-    }
-    private void Start(){
+       private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
     }
@@ -32,10 +17,7 @@ public class PlayerControll : MonoBehaviour
       
     Horizontalspeed=Input.GetAxisRaw("Horizontal");
     PlayerAnimation(Horizontalspeed);
-    //     float X=0.55462f;
-    //     float Y=2.2113f;
-    //   collider2D.size=new Vector2(X,collider2D.size.x);
-    //   collider2D.size=new Vector2(Y,collider2D.size.y);
+   
       PlayerMovementX(Horizontalspeed);
 }
 private void PlayerAnimation(float horizontal){
