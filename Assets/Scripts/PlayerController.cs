@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,8 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private BoxCollider2D player;
     private Rigidbody2D rb2d;
+
+    //private int deaths;
+    private bool isGrounded;
     private void Awake()
     {
+        //deaths = 0;
+        isGrounded = true;
         Debug.Log("Player Controller awake");
         player = gameObject.GetComponent<BoxCollider2D>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -29,7 +36,7 @@ public class PlayerController : MonoBehaviour
         //Crouching
         Crouch();
         //Jumping
-        Jump();
+        if(isGrounded) Jump();
     }
 
     void LeftRight() {
@@ -75,20 +82,36 @@ public class PlayerController : MonoBehaviour
            animator.SetBool("Jump", true);
            rb2d.AddForce(new Vector2(0, jump*40), ForceMode2D.Force);
        }
-       else {
+       else {   
            animator.SetBool("Jump", false);
        }*/
-        if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb2d.AddForce(new Vector2(0, 28), ForceMode2D.Impulse);
+                animator.SetBool("Jump", true);
+                isGrounded = false;
+            }
+            /*else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                animator.SetBool("Jump", false);
+            }*/
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            rb2d.AddForce(new Vector2(0, 28), ForceMode2D.Impulse);
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            animator.SetBool("Jump", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
+            isGrounded = true;
             animator.SetBool("Jump", false);
+        }
+
+        else if (collision.gameObject.CompareTag("Spikes")) {
+            Debug.Log("CollisionDetected");
+            Debug.Log("YOU DIED");
+            /*deaths = deaths + 1;
+            Debug.Log("Total Deaths: "+ deaths);*/
+            SceneManager.LoadScene("Start");
         }
     }
 }   
