@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour
     private bool IsCrouching=false;
     private bool IsGrounded=true;
     private bool jumped;
+    private float jumpdistance=1f;
     [SerializeField]
     private Transform groundCheckPosition;
     [SerializeField]
@@ -38,12 +39,13 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Jump");
         Animator.SetFloat("Speed", Mathf.Abs(horizontal));
         ChangeDirection(horizontal);
        
         Crouch();
         CheckGrounded();
-        Jump();
+        Jump(vertical);
     }
 
     void MovePlayer(float horizontal){
@@ -51,6 +53,8 @@ public class PlayerScript : MonoBehaviour
         position.x= position.x + horizontal * playerSpeed * Time.deltaTime;
         transform.position=position;
     }
+
+   
 
     //Packed all the code in one place to change the direction of Player
     void ChangeDirection(float speed){
@@ -93,6 +97,7 @@ public class PlayerScript : MonoBehaviour
                  boxCollider.offset = OriginalColliderOffset;
             }
         }
+
         void CheckGrounded(){
           IsGrounded = Physics2D.Raycast(groundCheckPosition.position,Vector2.down,0.1f,groundLayer);
 
@@ -103,10 +108,11 @@ public class PlayerScript : MonoBehaviour
               }
           }
         }
-        void Jump(){
+        void Jump(float vertical){
          if(IsGrounded){
-             if(Input.GetKey(KeyCode.W)){
+             if(vertical>0){
                  jumped=true;
+                 Playerbody.AddForce(new Vector2(0f,jumpdistance),ForceMode2D.Force);
                  Animator.SetBool("IsJump",true);
              }
          }
