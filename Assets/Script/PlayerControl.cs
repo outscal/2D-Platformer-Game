@@ -36,6 +36,11 @@ public class PlayerControl : MonoBehaviour
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
 
+        Vector3 scale = transform.localScale;
+        scale.x = (horizontal < 0) ? -1f * Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+        transform.localScale = scale;
+
+
         // Jump actual animation
         if (vertical > 0)
         {
@@ -43,14 +48,11 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void playerAnimation(float speed,float vertical,bool isCrouch)
+    void playerAnimation(float horizontal,float vertical,bool isCrouch)
     {   
         // Run animation
-        animator.SetFloat("Speed", Mathf.Abs(speed));
-        Vector3 scale = transform.localScale;
-        scale.x = ( speed < 0 )? -1f * Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-        transform.localScale = scale;
-
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        
         // Jump Animation
         bool isJumping = (vertical > 0) ? true : false; 
         animator.SetBool("Jump", isJumping);
