@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
  {
      private int nextSceneLoad;
-     private void Start(){
+     private void Awake(){
          nextSceneLoad=SceneManager.GetActiveScene().buildIndex+1;
      }
 private    void OnTriggerEnter2D(Collider2D collider){
