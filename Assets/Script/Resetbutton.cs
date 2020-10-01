@@ -16,6 +16,6 @@ public class Resetbutton : MonoBehaviour
     // Update is called once per frame
     private void OnButtonClick()
     {
-        SceneManager.LoadScene("MasterScene");
+        SceneManager.LoadScene(2);
     }
 }
