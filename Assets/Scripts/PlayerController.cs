@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private BoxCollider2D player;
     private Rigidbody2D rb2d;
+    [SerializeField]
+    private PickUpKeys puk;
+    [SerializeField]
+    private DeathCount dc;
+
+    internal void pickUpKey()
+    {
+        Debug.Log("You picked up a key!");
+        puk.KeyPicked();
+        
+    }
 
     //private int deaths;
     private bool isGrounded;
@@ -109,6 +121,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("Spikes")) {
             Debug.Log("CollisionDetected");
             Debug.Log("YOU DIED");
+            dc.PlayerDied();
             /*deaths = deaths + 1;
             Debug.Log("Total Deaths: "+ deaths);*/
             SceneManager.LoadScene("Start");
