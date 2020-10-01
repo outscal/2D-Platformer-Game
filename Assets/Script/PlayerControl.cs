@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerControl : MonoBehaviour
 {
@@ -10,7 +10,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float speed,jump;
 
-    private bool isCrouch;
+    private bool isCrouch,isDead=false,isGrounded;
+
 
 
     private Rigidbody2D rb2d;
@@ -19,7 +20,6 @@ public class PlayerControl : MonoBehaviour
     private BoxCollider2D bc2d;
     
 
-
     void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -27,7 +27,19 @@ public class PlayerControl : MonoBehaviour
         bc2d = gameObject.GetComponent<BoxCollider2D>();
     }
 
+    void OnCollisionEnter2D(Collision2D collisionInfo)
+    {
+        if (collisionInfo.collider.tag == "Finish")
+        {
+            SceneManager.LoadScene("Scene2");
+        }
 
+        if (collisionInfo.collider.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+
+    }
 
     void playerMovement(float horizontal, float vertical)
     {   
@@ -41,10 +53,14 @@ public class PlayerControl : MonoBehaviour
         transform.localScale = scale;
 
 
-        // Jump actual animation
+        // Jump motion
         if (vertical > 0)
         {
-            rb2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force);
+            if (isGrounded)
+            {
+                rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+                isGrounded = false; 
+            }
         }
     }
 
@@ -54,7 +70,7 @@ public class PlayerControl : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         
         // Jump Animation
-        bool isJumping = (vertical > 0) ? true : false; 
+        bool isJumping = (vertical > 0) ? true : false;
         animator.SetBool("Jump", isJumping);
 
         // Croutch animation and Collider Resize
@@ -76,6 +92,13 @@ public class PlayerControl : MonoBehaviour
  
         playerMovement(horizontal, vertical);
         playerAnimation(horizontal, vertical,isCrouch);
+
+        //death condition
+        if (transform.position.y < -12 && !(isDead))
+        {
+            isDead = true;
+            FindObjectOfType<GameManager>().resetGame();
+        }
     }
 }
 
