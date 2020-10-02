@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditorInternal;
 using UnityEngine;
+
+
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        Debug.Log("Player Controllor Awake");
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        Debug.Log("Collison : " + collision.gameObject.name);
     }
 }
