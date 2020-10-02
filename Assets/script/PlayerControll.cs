@@ -2,25 +2,35 @@
 
 public class PlayerControll : MonoBehaviour
 {
-   // float sf=0.25f;
+    public ScoreController scoreController;
     private float fast=4f;
     Rigidbody2D rigidbody;
+    string ver="Vertical";
+    string h="Horizontal";
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
-    private float jump=18f;
+    private float jump=25f;
        private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
     }
+
+    internal void PickKey()
+    {
+        
+        scoreController.IncreaseScore(10);
+    }
+
     private void Update(){
       
-    Horizontalspeed=Input.GetAxisRaw("Horizontal");
+    Horizontalspeed=Input.GetAxisRaw(h);
     PlayerAnimation(Horizontalspeed);
    
       PlayerMovementX(Horizontalspeed);
 }
 private void PlayerAnimation(float horizontal){
+    
 animator.SetFloat("speed",Mathf.Abs(horizontal));
     //     //speed=9.0f;
        Vector3 scale =transform.localScale;
@@ -31,7 +41,7 @@ animator.SetFloat("speed",Mathf.Abs(horizontal));
              scale.x=Mathf.Abs(scale.x);
          }
          transform.localScale=scale;
-        float vericalSpeed=Input.GetAxisRaw("Vertical");
+        float vericalSpeed=Input.GetAxisRaw(ver);
         bool v = Input.GetKeyDown(KeyCode.W);
         bool v2=Input.GetKeyDown(KeyCode.S);
         if(vericalSpeed>0 ){

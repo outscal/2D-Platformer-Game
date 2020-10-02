@@ -10,7 +10,7 @@ private    void OnTriggerEnter2D(Collider2D collider){
             SceneManager.LoadScene(nextSceneLoad);
      }
     
-    void MySceneLoader(int sceneLoader){
-        SceneManager.LoadScene(sceneLoader);
-    }
+    // void MySceneLoader(int sceneLoader){
+    //     SceneManager.LoadScene(sceneLoader);
+    // }
 }
