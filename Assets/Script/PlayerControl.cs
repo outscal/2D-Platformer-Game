@@ -9,8 +9,10 @@ public class PlayerControl : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private float speed,jump;
+    [SerializeField]
+    private ScoreController scoreController;
 
-    private bool isCrouch,isDead=false,isGrounded;
+    private bool isCrouch,isDead=false,isGrounded,hasKey;
 
 
 
@@ -18,6 +20,8 @@ public class PlayerControl : MonoBehaviour
     // Two different collider two state i.e standing and croutch
     private PolygonCollider2D pc2d;
     private BoxCollider2D bc2d;
+
+    
     
 
     void Awake()
@@ -29,7 +33,7 @@ public class PlayerControl : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
-        if (collisionInfo.collider.tag == "Finish")
+        if (collisionInfo.collider.tag == "Finish" && hasKey)
         {
             SceneManager.LoadScene("Scene2");
         }
@@ -39,6 +43,12 @@ public class PlayerControl : MonoBehaviour
             isGrounded = true;
         }
 
+    }
+
+    internal void pickUpKey()
+    {
+        hasKey = true;
+        scoreController.increaseScore(20);
     }
 
     void playerMovement(float horizontal, float vertical)
