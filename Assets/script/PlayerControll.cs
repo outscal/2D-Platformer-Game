@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerControll : MonoBehaviour
 {
@@ -11,7 +12,13 @@ public class PlayerControll : MonoBehaviour
     public Animator animator;
     float Horizontalspeed;
     private float jump=25f;
-       private void Awake(){
+
+    internal void KillPlayer()
+    {
+        //Debug.Log("Player is dead");
+    }
+
+    private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
     }
