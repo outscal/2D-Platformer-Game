@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-
-public class Resetbutton : MonoBehaviour
+public class ReplayButton : MonoBehaviour
 {
-    public Button button;
-    // Start is called before the first frame update
+    [SerializeField]
+    private Button button;
+
     void Start()
     {
         button.onClick.AddListener(OnButtonClick);
@@ -16,6 +15,6 @@ public class Resetbutton : MonoBehaviour
     // Update is called once per frame
     private void OnButtonClick()
     {
-        SceneManager.LoadScene(2);
+        FindObjectOfType<GameManager>().resetGame();
     }
 }
