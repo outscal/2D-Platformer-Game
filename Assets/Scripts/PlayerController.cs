@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +16,17 @@ public class PlayerController : MonoBehaviour
       Debug.Log("Player Controller awake");
       rgbd2D = gameObject.GetComponent<Rigidbody2D>();
    }
-   // private void OnCollisionEnter2D(Collision2D collision) {
-   //    Debug.Log("Collision: " + collision.gameObject.name);
-   // }
 
-   private void Update()
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked up the key");
+    }
+
+    // private void OnCollisionEnter2D(Collision2D collision) {
+    //    Debug.Log("Collision: " + collision.gameObject.name);
+    // }
+
+    private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
