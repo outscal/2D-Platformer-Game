@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControll : MonoBehaviour
 {
@@ -12,16 +13,24 @@ public class PlayerControll : MonoBehaviour
     public Animator animator;
     float Horizontalspeed;
     private float jump=25f;
+    private bool IsPlayerDead;
+    private int currentSceneLoad;
 
-    internal void KillPlayer()
-    {
-        //Debug.Log("Player is dead");
-    }
+   
 
     private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
+            currentSceneLoad=SceneManager.GetActiveScene().buildIndex;
     }
+     internal void KillPlayer()
+    {
+        //Debug.Log("Player is dead");
+        //animator.SetBool("IsDead",true);
+        SceneManager.LoadScene(currentSceneLoad);
+
+    }
+    
 
     internal void PickKey()
     {
