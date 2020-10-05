@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +12,7 @@ public class PlayerControll : MonoBehaviour
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
-    private float jump=25f;
+    private float jump=30f;
     private bool IsPlayerDead;
     private int currentSceneLoad;
 
@@ -26,9 +26,18 @@ public class PlayerControll : MonoBehaviour
      internal void KillPlayer()
     {
         //Debug.Log("Player is dead");
-        //animator.SetBool("IsDead",true);
-        SceneManager.LoadScene(currentSceneLoad);
+        animator.SetBool("IsDead",true);
+        StartCoroutine(Wait());
+       // LoadScene();
+       
 
+    }
+    IEnumerator Wait(){
+        yield return new WaitForSeconds (2);
+        LoadScene();
+    }
+    void LoadScene(){
+         SceneManager.LoadScene(currentSceneLoad);
     }
     
 
