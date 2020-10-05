@@ -15,6 +15,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     [SerializeField]
     private PickUpKeys puk;
+
+    internal void KillPlayer()
+    {
+        Debug.Log("LOL you died noob");
+        SceneManager.LoadScene("Start");
+    }
+
     [SerializeField]
     private DeathCount dc;
 
