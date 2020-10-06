@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerControll : MonoBehaviour
 {
     public ScoreController scoreController;
-    private float fast=4f;
+    private float fast=6f;
     Rigidbody2D rigidbody;
     string ver="Vertical";
     string h="Horizontal";

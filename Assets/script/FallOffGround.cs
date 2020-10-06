@@ -8,7 +8,9 @@ public class FallOffGround : MonoBehaviour
         currentSceneLoad=SceneManager.GetActiveScene().buildIndex;
     }
     private void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.GetComponent<PlayerControll>()!=null){
         SceneManager.LoadScene(currentSceneLoad);
+    }
     }
    
 }
