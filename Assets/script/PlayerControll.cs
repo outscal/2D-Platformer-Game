@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class PlayerControll : MonoBehaviour
 {
+    public GameOverController gameOver;
     public ScoreController scoreController;
     private float fast=6f;
     Rigidbody2D rigidbody;
@@ -14,33 +15,27 @@ public class PlayerControll : MonoBehaviour
     float Horizontalspeed;
     private float jump=30f;
     private bool IsPlayerDead;
-    private int currentSceneLoad;
+ 
 
    
 
     private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
-            currentSceneLoad=SceneManager.GetActiveScene().buildIndex;
     }
      internal void KillPlayer()
     {
-        //Debug.Log("Player is dead");
+        
         animator.SetBool("IsDead",true);
         StartCoroutine(Wait());
-       // LoadScene();
-       
-
+        gameOver.PlayerDied();
+        StartCoroutine(Wait());
+        this.enabled=false;
     }
     IEnumerator Wait(){
         yield return new WaitForSeconds (2);
-        LoadScene();
+       
     }
-    void LoadScene(){
-         SceneManager.LoadScene(currentSceneLoad);
-    }
-    
-
     internal void PickKey()
     {
         

@@ -48,4 +48,5 @@ public class EnemyController : MonoBehaviour
              transform.localScale=localScale;
              rigidbody2.velocity=new Vector2(localScale.x*moveSpeed,rigidbody2.velocity.y);
          }
+    
     }
