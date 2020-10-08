@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerControll : MonoBehaviour
 {
+    [SerializeField]private int health;
+    [SerializeField]private Image[] hearts;
+    [SerializeField]private Sprite fullHeart,emtyHeart;
     public GameOverController gameOver;
     public ScoreController scoreController;
+    [SerializeField]
     private float fast=6f;
     Rigidbody2D rigidbody;
     string ver="Vertical";
@@ -15,26 +20,31 @@ public class PlayerControll : MonoBehaviour
     float Horizontalspeed;
     private float jump=30f;
     private bool IsPlayerDead;
- 
-
+    int i;
+    int numberOfHeart=2;
    
 
     private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
+            
     }
      internal void KillPlayer()
     {
-        
+        health--; 
+       for(i=numberOfHeart-health;i<=numberOfHeart-health;i++){
+                   Destroy( hearts[i]);
+       }
+        if(health==0){
         animator.SetBool("IsDead",true);
-        StartCoroutine(Wait());
-        gameOver.PlayerDied();
         StartCoroutine(Wait());
         this.enabled=false;
     }
-    IEnumerator Wait(){
-        yield return new WaitForSeconds (2);
+           }
        
+    IEnumerator Wait(){
+        yield return new WaitForSeconds (1);
+       gameOver.PlayerDied();
     }
     internal void PickKey()
     {

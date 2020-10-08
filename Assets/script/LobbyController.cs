@@ -10,6 +10,7 @@ public class LobbyController : MonoBehaviour
         button.onClick.AddListener(PlayGame);  
      }
      private void PlayGame(){
+         Debug.Log("button pressed");
          SceneManager.LoadScene(1);
      }
 }
