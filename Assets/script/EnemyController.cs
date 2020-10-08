@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed=3f;
     Transform leftPoint,rightPoint;
     Vector3 localScale;
+    PlayerControll playerControll;
     bool movingRight=true;
     Rigidbody2D rigidbody2;
     private void Awake(){
@@ -17,7 +18,8 @@ public class EnemyController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.GetComponent<PlayerControll>()!=null){
-            PlayerControll playerControll=collision.gameObject.GetComponent<PlayerControll>();
+            playerControll=collision.gameObject.GetComponent<PlayerControll>();
+          
             playerControll.KillPlayer();
            
              }
@@ -48,5 +50,6 @@ public class EnemyController : MonoBehaviour
              transform.localScale=localScale;
              rigidbody2.velocity=new Vector2(localScale.x*moveSpeed,rigidbody2.velocity.y);
          }
+     
     
     }
