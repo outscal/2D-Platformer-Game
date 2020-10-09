@@ -5,11 +5,12 @@ using UnityEngine.UI;
 public class GameOverController : MonoBehaviour
 {
     [SerializeField]
-    private Button buttonRestart;
+    private Button buttonRestart,buttonQuit;
     int currentSceneLoad;
     private void Awake(){
         currentSceneLoad=SceneManager.GetActiveScene().buildIndex;
         buttonRestart.onClick.AddListener(LoadScene);
+        buttonQuit.onClick.AddListener(LoadMainMenu);
     }
     public void PlayerDied(){
         gameObject.SetActive(true);
@@ -17,6 +18,9 @@ public class GameOverController : MonoBehaviour
     public void LoadScene(){
          SceneManager.LoadScene(currentSceneLoad);
          
+    }
+    public void LoadMainMenu(){
+        SceneManager.LoadScene(0);
     }
  
     
