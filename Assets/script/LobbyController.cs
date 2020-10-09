@@ -6,11 +6,12 @@ public class LobbyController : MonoBehaviour
 {
     [SerializeField]
     private Button button;
+    [SerializeField]
+    private GameObject levelSelection;
     private void Awake(){
         button.onClick.AddListener(PlayGame);  
      }
      private void PlayGame(){
-         Debug.Log("button pressed");
-         SceneManager.LoadScene(1);
+         levelSelection.SetActive(true);
      }
 }
