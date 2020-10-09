@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerControll : MonoBehaviour
 {
-    [SerializeField]private int health;
+    [SerializeField]private int health=3;
     [SerializeField]private Image[] hearts;
     [SerializeField]private Sprite fullHeart,emtyHeart;
     public GameOverController gameOver;
@@ -18,7 +18,7 @@ public class PlayerControll : MonoBehaviour
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
-    private float jump=30f;
+    private float jump=33f;
     private bool IsPlayerDead;
     int i;
     int numberOfHeart=2;
