@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         // JUMP 
 
-        if(_verticalMovement > 0 && !isJumping)
+        if(_verticalMovement > 0 && !isJumping)  // vertical input with space key
         {
             Debug.Log("Player jumping" +isJumping); 
             isJumping = true; 
