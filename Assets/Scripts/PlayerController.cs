@@ -7,12 +7,17 @@ public class PlayerController : MonoBehaviour
 {
 
     public Animator animator;
+    
     [SerializeField]  private float _speed =5.0f;
-    [SerializeField] private float _jump = 25.0f;  // jump force 
-    private Rigidbody2D rb2D; 
+    [SerializeField] private float _jump = 15.0f;  // jump force 
+    private Rigidbody2D rb2D;
+    public bool isJumping;
+    public bool isCrouch; 
     // Start is called before the first frame update
     void Start()
     {
+        isJumping = false;
+        isCrouch = false;
         rb2D = GetComponent<Rigidbody2D>(); 
     }
 
@@ -21,16 +26,27 @@ public class PlayerController : MonoBehaviour
 
 
         float _speedInput = Input.GetAxisRaw("Horizontal");
-        float _verticalMovement = Input.GetAxisRaw("Jump");
-        bool _isCrouch = false;
-        _isCrouch = Input.GetButtonDown("Crouch"); 
+        float _verticalMovement = Input.GetAxisRaw("Jump");  // configured to space key
 
-        PlayerAnimationMovement(_speedInput, _verticalMovement,_isCrouch);
-        PlayerTransformMoves(_speedInput, _verticalMovement);
+        isCrouch = Input.GetButtonDown("Crouch");  // 
+        
+            PlayerAnimationMovement(_speedInput, _verticalMovement);
+            PlayerTransformMoves(_speedInput, _verticalMovement);
+
+        
+     
 
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Platform")
+        {
+            Debug.Log("isJumping is false");
+            isJumping = false; 
+        }
+    }
 
-
+   
     void PlayerTransformMoves(float _speedInput, float _verticalMovement)
     {
         Vector3 position = transform.position;
@@ -41,13 +57,18 @@ public class PlayerController : MonoBehaviour
 
         // JUMP 
 
-        if(_verticalMovement > 0)
+        if(_verticalMovement > 0 && !isJumping)
         {
-            rb2D.AddForce(new Vector2(0,_jump), ForceMode2D.Force); 
+            Debug.Log("Player jumping" +isJumping); 
+            isJumping = true; 
+            rb2D.AddForce(new Vector2(0,_jump), ForceMode2D.Impulse); 
         } 
     }
 
-    void PlayerAnimationMovement(float _speedInput, float _verticalMovement, bool _isCrouch)
+  
+   
+
+    void PlayerAnimationMovement(float _speedInput, float _verticalMovement)
     {
         //MOVE
         animator.SetFloat("speed", Mathf.Abs(_speedInput));
@@ -55,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if (_speedInput < 0)
         {
 
-            scale.x = -1f * Mathf.Abs(scale.x);
+            scale.x = -1f * Mathf.Abs(scale.x);           
 
         }
         else if (_speedInput > 0)
@@ -69,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
         // JUMP 
 
-        if (_verticalMovement > 0)
+        if (_verticalMovement > 0 )
         {
             animator.SetBool("isJumping", true);
 
@@ -82,15 +103,15 @@ public class PlayerController : MonoBehaviour
 
         // CROUCH
 
-        if (_isCrouch)
+        if (isCrouch)
         {
             animator.SetBool("isCrouch", true);
-
+            isCrouch = false; 
         }
-        else
+        else 
         {
             animator.SetBool("isCrouch", false);
-
+            Debug.Log("IS crouch is false"); 
         }
     }
 }
