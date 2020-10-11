@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "Ground")
         {
-            Debug.Log("isJumping is false");
+            Debug.Log("ground collsion ");
             isJumping = false; 
         }
     }
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
         if(_verticalMovement > 0 && !isJumping)  
         {
-            Debug.Log("Player jumping" +isJumping); 
+            Debug.Log("Inside Jump Fn" + isJumping); 
             isJumping = true; 
             rb2D.AddForce(new Vector2(0,_jump), ForceMode2D.Impulse); 
         } 
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
         else 
         {
             animator.SetBool("isCrouch", false);
-            Debug.Log("IS crouch is false"); 
+         //   Debug.Log("IS crouch is false"); 
         }
     }
 }

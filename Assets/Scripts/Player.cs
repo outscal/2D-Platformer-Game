@@ -15,20 +15,31 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.transform.position.y < -6.0f)
-        {
-            OnDeath(); 
-
-        }
+       
     }
 
+    
     public void OnDeath()
     {
 
         Debug.Log(" Player has died");
         // reset player position 
-        transform.position = originalPos; 
+        PlayerInit(); 
 
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "BottomMark")
+        {
+
+            OnDeath(); 
+        }
+    }
+    public void PlayerInit()
+    {
+        transform.position = originalPos;
 
     }
 }

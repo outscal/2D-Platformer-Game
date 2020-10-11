@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CamMotion : MonoBehaviour
 {
-    public GameObject player;
+     GameObject player;
     Vector3 temp;
     // Start is called before the first frame update
     void Start()
@@ -17,9 +17,9 @@ public class CamMotion : MonoBehaviour
     void LateUpdate()
     {
         temp = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-        transform.position = temp; 
-        
+        transform.position = temp;
 
+     //   transform.LookAt(player.transform); 
     }
 
 
