@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Platform")
+        if (collision.gameObject.name == "Ground")
         {
             Debug.Log("isJumping is false");
             isJumping = false; 
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         // JUMP 
 
-        if(_verticalMovement > 0 && !isJumping)  // vertical input with space key
+        if(_verticalMovement > 0 && !isJumping)  
         {
             Debug.Log("Player jumping" +isJumping); 
             isJumping = true; 
