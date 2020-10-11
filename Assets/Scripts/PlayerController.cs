@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     
     [SerializeField]  private float _speed =5.0f;
-    [SerializeField] private float _jump = 15.0f;  // jump force 
+    [SerializeField] private float _jump = 15.0f;  // jump force added
     private Rigidbody2D rb2D;
     public bool isJumping;
     public bool isCrouch; 
