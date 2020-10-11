@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
   
    
 
-    void PlayerAnimationMovement(float _speedInput, float _verticalMovement)
+    void PlayerAnimationMovement(float _speedInput , float _verticalMovement )
     {
         //MOVE
         animator.SetFloat("speed", Mathf.Abs(_speedInput));
