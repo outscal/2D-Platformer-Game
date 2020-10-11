@@ -10,6 +10,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public bool crouch = false;
     private void Awake()
     {
         Debug.Log("Player Controllor Awake");
@@ -33,5 +34,35 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-    } 
+
+        
+            
+        
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            GetComponent<BoxCollider2D>().size = new Vector2(1f, 1.883191f);
+            animator.SetBool("crouch", true);
+
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            GetComponent<BoxCollider2D>().size = new Vector2(1f, 1.983191f);
+            animator.SetBool("crouch", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            
+            animator.SetBool("Jump", true);
+        }
+        else if(Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            animator.SetBool("Jump", false);
+        }
+    }
 }
