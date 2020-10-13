@@ -1,13 +1,15 @@
-﻿/*using System.Collections;
-using System.Collections.Generic;*/
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
 
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI HealthText;
     private int score=0;
     public Animator animator;
     BoxCollider2D Collider;
@@ -15,8 +17,11 @@ public class PlayerController : MonoBehaviour
     [Range(0.0f,10.0f)]
     public float speed=3.0f;
     public float Jump = 600f;
-    public int Health = 1;
+    public int Health = 3;
 
+
+    private float StartTime = 3f;
+    private float currentTime=0.0f;
     public LayerMask whatIsGround;
     public Transform GroundCheck;
 
@@ -49,16 +54,38 @@ public class PlayerController : MonoBehaviour
         ScoreText.text = "Score : "+score.ToString("");
         Debug.Log("Key Collected");
     }
-    
+    public void KillPlayer()
+    {
+        if (Health > 0)
+        {
+            Health--;
+        }else if (Health <1)
+        {
+            PlayerCanMove = false;
+
+            _animator.SetTrigger("Death");
+            StartCoroutine("loadDelay");
+
+        }
+
+        HealthText.text = "Health : " + Health.ToString("");
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Die"))
         {
-            //_animator.SetTrigger("Death");
-            SceneManager.LoadScene("1");
+           
+            Health = 0;
+
+            
+            _animator.SetTrigger("Death");
+            StartCoroutine("loadDelay");
+            PlayerCanMove = false;
+            //SceneManager.LoadScene("1");
         }
     }
+    
     void Awake()
     {
         //_animator.SetBool("Grounded", true);
@@ -84,14 +111,21 @@ public class PlayerController : MonoBehaviour
         _PlayerLayer = this.gameObject.layer;
         _PlatformLayer = LayerMask.NameToLayer("Platform");
     }
-    private void Start()
+    void Start()
     {
-       
 
+        
+        HealthText.text ="Health : " +Health.ToString("");
+        
     }
+
+    
     // Update is called once per frame
     void Update()
     {
+
+        
+
         if (!PlayerCanMove || Time.timeScale == 0)
             return;
 
@@ -135,8 +169,7 @@ public class PlayerController : MonoBehaviour
 
         Physics2D.IgnoreLayerCollision(_PlayerLayer,_PlatformLayer,(_vy>0.0f));
 
-        //PlayerMovementHorizontal();
-        //MoveCharacter(_vx);
+        
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
@@ -174,21 +207,18 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = localScale;
     }
-   /* private void MoveCharacter(float _vx)
+
+    
+    IEnumerator loadDelay()
     {
         
-        Vector2 pos = transform.position;
-        pos.x +=  _vx * speed * Time.deltaTime;
-        
-        transform.position = pos;
-        
-        *//*if (vertical > 0 &&vertical<=1)
+        if (Health == 0)
         {
-            
-        }*//*
-    }*/
+            yield return new WaitForSeconds(3f);
+            SceneManager.LoadScene("1");
+        }
+    }
 
-   
 }
 
 
