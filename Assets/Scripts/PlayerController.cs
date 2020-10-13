@@ -2,9 +2,13 @@
 using System.Collections.Generic;*/
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public TextMeshProUGUI ScoreText;
+    private int score=0;
     public Animator animator;
     BoxCollider2D Collider;
 
@@ -39,17 +43,19 @@ public class PlayerController : MonoBehaviour
     
 
 
-   
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void PickUpKey()
     {
-        Debug.Log("collision " + collision.gameObject.name);
-        
+        score=score+10;
+        ScoreText.text = "Score : "+score.ToString("");
+        Debug.Log("Key Collected");
     }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Die"))
         {
+            //_animator.SetTrigger("Death");
             SceneManager.LoadScene("1");
         }
     }
