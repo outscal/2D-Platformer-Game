@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public class Player : MonoBehaviour
 {
-    public ScoreController scoreController; 
+    public ScoreController scoreController;
+    public GameOverController gameOverController; 
     public Vector3 originalPos; 
     // Start is called before the first frame update
     void Start()
@@ -24,12 +26,9 @@ public class Player : MonoBehaviour
     
     public void OnDeath()
     {
-
         Debug.Log(" Player has died");
-        // reset player position 
-        PlayerInit(); 
-
-
+        gameOverController.OnGameOver();
+       
     }
 
     internal void PickUpKey()
@@ -38,11 +37,11 @@ public class Player : MonoBehaviour
         scoreController.IncrementScore(10); 
 
     }
-
-
     public void PlayerInit()
     {
-        transform.position = originalPos;
+
+        transform.position = originalPos; 
 
     }
+
 }

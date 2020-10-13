@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Player player = collision.gameObject?.GetComponent<Player>();
-        if ( player!= null)
+        if (player != null)
         {
-            Destroy(this.gameObject); 
-            player.PickUpKey(); 
-        }        
+            
+            player.OnDeath();
+        }
     }
-
 }
