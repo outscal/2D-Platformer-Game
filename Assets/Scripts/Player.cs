@@ -7,22 +7,19 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public ScoreController scoreController;
-    public GameOverController gameOverController; 
-    public Vector3 originalPos; 
+    public GameOverController gameOverController;
+    public HealthUIController healthUIController; 
+    public Vector3 originalPos;
+    int lives; 
+
     // Start is called before the first frame update
     void Start()
     {
         originalPos = transform.position;
-        
-
+        lives = 3; 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
+    
     
     public void OnDeath()
     {
@@ -30,6 +27,17 @@ public class Player : MonoBehaviour
         gameOverController.OnGameOver();
        
     }
+
+    public void UpdateLives()
+    {
+        lives--;
+        healthUIController.LivesDisplayUpdate(lives); 
+        if (lives == 0)
+        {
+            OnDeath(); 
+        }
+    }
+
 
     internal void PickUpKey()
     {

@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
         if (player != null)
         {
             
-            player.OnDeath();
+            player.UpdateLives();
         }
     }
 }
