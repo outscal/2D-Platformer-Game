@@ -10,12 +10,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public bool crouch = false;
     public float speed;
+    private Rigidbody2D rb2d;
+    public float jump;
+
 
     private void Awake()
     {
         Debug.Log("Player Controllor Awake");
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -25,18 +28,23 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        playerMoveAnime(horizontal);
-        movePlayerHorizontal(horizontal);
+        float vertical = Input.GetAxisRaw("Jump");
+        playerMoveAnime(horizontal ,vertical);
+        movePlayerHorizontal(horizontal,vertical);
 
     }
 
-    private void movePlayerHorizontal(float horizontal)
+    private void movePlayerHorizontal(float horizontal,float vertical)
     {
         Vector3 position = transform.position;
         position.x = position.x + horizontal * speed * Time.deltaTime;
         transform.position = position;
+        if(vertical > 0 )
+        {
+            rb2d.AddForce(new Vector2(0f,jump), ForceMode2D.Force);
+        }
     }
-    private void playerMoveAnime(float horizontal)
+    private void playerMoveAnime(float horizontal, float vertical)
     {
         animator.SetFloat("speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
@@ -49,6 +57,14 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+        if (vertical > 0)
+        {
+            animator.SetBool("Jump",true);
+        }
+        else
+        {
+            animator.SetBool("Jump",false);
+        }
     }
 
     private void FixedUpdate()
@@ -65,14 +81,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("crouch", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            
-            animator.SetBool("Jump", true);
-        }
-        else if(Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            animator.SetBool("Jump", false);
-        }
+        
     }
 }
