@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public bool crouch = false;
+    public float speed;
+
     private void Awake()
     {
         Debug.Log("Player Controllor Awake");
@@ -22,23 +24,31 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("speed", Mathf.Abs(speed));
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        playerMoveAnime(horizontal);
+        movePlayerHorizontal(horizontal);
+
+    }
+
+    private void movePlayerHorizontal(float horizontal)
+    {
+        Vector3 position = transform.position;
+        position.x = position.x + horizontal * speed * Time.deltaTime;
+        transform.position = position;
+    }
+    private void playerMoveAnime(float horizontal)
+    {
+        animator.SetFloat("speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
-        if (speed < 0)
+        if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (speed > 0 )
+        else if (horizontal > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-
-        
-            
-        
-
     }
 
     private void FixedUpdate()
