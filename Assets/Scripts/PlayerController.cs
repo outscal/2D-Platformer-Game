@@ -10,15 +10,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-<<<<<<< HEAD
+
     public float speed;
     private Rigidbody2D rb2d;
     public float jump;
 
 
-=======
-    public bool crouch = false;
->>>>>>> parent of 19ad41b... Move animation horizontal
+
     private void Awake()
     {
         Debug.Log("Player Controllor Awake");
@@ -31,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-<<<<<<< HEAD
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         playerMoveAnime(horizontal ,vertical);
@@ -52,10 +50,10 @@ public class PlayerController : MonoBehaviour
     private void playerMoveAnime(float horizontal, float vertical)
     {
         animator.SetFloat("speed", Mathf.Abs(horizontal));
-=======
+
         float speed = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("speed", Mathf.Abs(speed));
->>>>>>> parent of 19ad41b... Move animation horizontal
+
         Vector3 scale = transform.localScale;
         if (speed < 0)
         {
@@ -66,7 +64,7 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-<<<<<<< HEAD
+
         if (vertical > 0)
         {
             animator.SetBool("Jump",true);
@@ -75,26 +73,20 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump",false);
         }
-=======
 
-        
-            
-        
-
->>>>>>> parent of 19ad41b... Move animation horizontal
     }
 
     private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            GetComponent<BoxCollider2D>().size = new Vector2(1f, 1.883191f);
+            
             animator.SetBool("crouch", true);
 
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            GetComponent<BoxCollider2D>().size = new Vector2(1f, 1.983191f);
+           
             animator.SetBool("crouch", false);
         }
 
