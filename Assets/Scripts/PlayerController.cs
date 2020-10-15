@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Collison : " + collision.gameObject.name);
     }
 
+    public void pickUpKey()
+    {
+        Debug.Log("Key is picked Up");
+    }
+
     private void Update()
     {
 
