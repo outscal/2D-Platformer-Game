@@ -39,14 +39,11 @@ public class Player : MonoBehaviour
 
 
     internal void PickUpKey()
-    {
-        Debug.Log("Player pickedup key");
+    {        
         scoreController.IncrementScore(10); 
-
     }
     public void PlayerInit()
     {
-
         transform.position = originalPos;
         lives = 3; 
     }

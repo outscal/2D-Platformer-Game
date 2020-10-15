@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "Ground")
         {
-            Debug.Log("ground collsion ");
+           // Debug.Log("ground collsion ");
             isJumping = false; 
         }
     }
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
         if(_verticalMovement > 0 && !isJumping)  
         {
-            Debug.Log("Inside Jump Fn" + isJumping); 
+            //Debug.Log("Inside Jump Fn" + isJumping); 
             isJumping = true; 
             rb2D.AddForce(new Vector2(0,_jump), ForceMode2D.Impulse); 
         } 

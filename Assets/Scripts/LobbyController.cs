@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,21 +8,21 @@ using UnityEngine.UI;
 public class LobbyController : MonoBehaviour
 {
     public Button playButton;
-
+    public GameObject LevelSelectionParent; 
     private void Start()
     {
-
-        playButton.onClick.AddListener(LoadLevel1);
-
+        playButton.onClick.AddListener(LevelSelection);
     }
 
-    void LoadLevel1()
+    private void LevelSelection()
     {
-
-        SceneManager.LoadScene(1); 
+        playButton.gameObject.SetActive(false);
+        LevelSelectionParent.SetActive(true);
 
 
     }
+
+
 
 
 

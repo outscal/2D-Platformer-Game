@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
         }
         if (collision.gameObject.name == "EndMarker")
         {
-            Debug.Log("ENd Marker touched");
+            
             transform.Rotate(0.0f, 180.0f, 0.0f, Space.Self);
 
         }
