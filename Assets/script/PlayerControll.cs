@@ -18,7 +18,7 @@ public class PlayerControll : MonoBehaviour
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
-    private float jump=33f;
+    private float jump=35f;
     private bool IsPlayerDead;
     int i;
     int numberOfHeart=2;
