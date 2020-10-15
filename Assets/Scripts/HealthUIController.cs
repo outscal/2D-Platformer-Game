@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthUIController : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class HealthUIController : MonoBehaviour
    
     void Start()
     {
-        
     }
 
     public void LivesDisplayUpdate(int lives)

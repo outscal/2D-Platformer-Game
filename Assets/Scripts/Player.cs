@@ -16,11 +16,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         originalPos = transform.position;
-        lives = 3; 
+        PlayerInit();
     }
 
-    
-    
+
     public void OnDeath()
     {
         Debug.Log(" Player has died");
@@ -48,8 +47,8 @@ public class Player : MonoBehaviour
     public void PlayerInit()
     {
 
-        transform.position = originalPos; 
-
+        transform.position = originalPos;
+        lives = 3; 
     }
 
 }
