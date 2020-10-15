@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private Rigidbody2D rb2d;
     public float jump;
+    private Vector2 startpos;
 
 
 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player Controllor Awake");
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        startpos = transform.position;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -35,6 +37,12 @@ public class PlayerController : MonoBehaviour
         playerMoveAnime(horizontal ,vertical);
         movePlayerHorizontal(horizontal,vertical);
 
+        Vector2 pos = transform.position;
+        if (pos.y < startpos.y-15f)
+        {
+            Debug.Log("Player is Dead");
+            transform.position = startpos;
+        }
     }
 
     private void movePlayerHorizontal(float horizontal,float vertical)
