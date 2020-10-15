@@ -19,9 +19,11 @@ private void clickButton(){
         //Debug.Log("Level is locked can't play");
         break;
         case Levels.unLocked:
+        SoundManager.Instance.PlaySound(Sounds.buttonClick);
         SceneManager.LoadScene(levelIndex);
         break;
         case Levels.completed:
+        SoundManager.Instance.PlaySound(Sounds.buttonClick);
         SceneManager.LoadScene(levelIndex);
         break;
     }

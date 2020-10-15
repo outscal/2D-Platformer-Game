@@ -13,6 +13,7 @@ public class GameOverController : MonoBehaviour
         buttonQuit.onClick.AddListener(LoadMainMenu);
     }
     public void PlayerDied(){
+        //SoundManager.Instance.PlaySound(Sounds.playerDeath);
         gameObject.SetActive(true);
     }
     public void LoadScene(){
