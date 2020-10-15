@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-
+    public ScoreController scoreController;
     public float speed;
     private Rigidbody2D rb2d;
     public float jump;
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public void pickUpKey()
     {
         Debug.Log("Key is picked Up");
+        scoreController.increaseScore(10);
     }
 
     private void Update()
