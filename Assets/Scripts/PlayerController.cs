@@ -20,8 +20,7 @@ public class PlayerController : MonoBehaviour
     public int Health = 3;
 
 
-    private float StartTime = 3f;
-    private float currentTime=0.0f;
+    
     public LayerMask whatIsGround;
     public Transform GroundCheck;
 
@@ -52,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         score=score+10;
         ScoreText.text = "Score : "+score.ToString("");
-        Debug.Log("Key Collected");
+        //Debug.Log("Key Collected");
     }
     public void KillPlayer()
     {

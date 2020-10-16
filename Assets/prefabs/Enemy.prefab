@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 1113215493169621844}
   - component: {fileID: 1113215493169621847}
   - component: {fileID: 1113215493169621846}
-  - component: {fileID: 1113215493169621845}
+  - component: {fileID: 1289946463}
+  - component: {fileID: 1289946462}
+  - component: {fileID: 1289946461}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -107,7 +109,47 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1899307, y: 0.915318}
   m_EdgeRadius: 0
---- !u!114 &1113215493169621845
+--- !u!50 &1289946463
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113215493169621841}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 2
+  m_Material: {fileID: 6200000, guid: 793f95eaaaca3074db73dd28ac72d92f, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!95 &1289946462
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113215493169621841}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8560c56ff91e3eb408bd31d68b48bf23, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1289946461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,6 +158,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1113215493169621841}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e56580bfc3675b438295f2fbc727a77, type: 3}
+  m_Script: {fileID: 11500000, guid: 586776eca37f2414299c828de0cbbda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
+  MoveRight: 1
