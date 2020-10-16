@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     public float jump;
     private Vector2 startpos;
-
+    public int level = 0;
 
 
     private void Awake()
@@ -42,10 +42,15 @@ public class PlayerController : MonoBehaviour
 
     private void reloadLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(level);
     }
 
-    private void Update()
+    public void LoadAnyLevel(int levelIndex)
+    {
+        SceneManager.LoadScene(levelIndex);
+    }
+
+        private void Update()
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
         float horizontal = Input.GetAxisRaw("Horizontal");

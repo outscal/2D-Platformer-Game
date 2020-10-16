@@ -10,6 +10,11 @@ public class LevelController : MonoBehaviour
        if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
             Debug.Log("Level is completed");
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+
+            playerController.level += 1;
+            playerController.LoadAnyLevel(playerController.level);
+
         }
     }
 }
