@@ -7,12 +7,13 @@ public class TurnEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Turn= true");
         if (collision.gameObject.GetComponent<EnemyController>() != null)
         {
             EnemyController enemycontroller = collision.gameObject.GetComponent<EnemyController>();
             Debug.Log(enemycontroller);
-            enemycontroller.turn();
-            Destroy(gameObject);
+            Debug.Log("Turn= true");
+            enemycontroller.turnenemy = true;  
         }
     }
    

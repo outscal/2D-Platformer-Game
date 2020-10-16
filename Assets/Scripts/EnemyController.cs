@@ -5,8 +5,13 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private float horizontal = 1;
+    public bool turnenemy;
     private void Update()
-    {
+    {   if (turnenemy)
+        {
+            turn();
+            turnenemy = false;
+        }
         movePlayerHorizontal(horizontal);
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,7 +27,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("Turn enemy");
         horizontal *= -1;
-        transform.rotation = Quaternion.Euler(transform.rotation.x+180, 0, 0);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.y +180, 0);
     }
     private void movePlayerHorizontal(float horizontal)
     {
