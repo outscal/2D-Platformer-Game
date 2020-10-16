@@ -7,7 +7,7 @@ public class EndLevel : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        GameManager.Instance.NextLevel(); 
+        collision.gameObject.GetComponent<Player>().PlayerInit(); 
 
     }
 

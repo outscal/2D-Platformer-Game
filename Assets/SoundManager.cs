@@ -29,15 +29,23 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource soundEffect;
     public AudioSource BGMusic;
-    public SoundType[] Sounds; 
+    public SoundType[] Sounds;
+    private Dictionary<SoundList, float> soundTimerdictionary;
+   
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
+    public void SMInitialize()
+    {
+        soundTimerdictionary = new Dictionary<SoundList, float>();
+        soundTimerdictionary[SoundList.PlayerMove] = 0.5f;
 
+    }
 
-    public void Play(Sounds sound)
+    public void Play(SoundList sound)
     {
         AudioClip clip = getSoundClip(sound); 
         if (clip != null)
@@ -49,7 +57,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private AudioClip getSoundClip(Sounds sound)
+    private AudioClip getSoundClip(SoundList sound)
     {
         SoundType item = Array.Find(Sounds, i => i.soundType == sound);
         return item?.soundClip;
@@ -60,18 +68,19 @@ public class SoundManager : MonoBehaviour
 [Serializable]
 public class SoundType
 {
-    public Sounds soundType;
+    public SoundList soundType;
     public AudioClip soundClip; 
 }
 
 
-public enum Sounds
+public enum SoundList
 {
 
     ButtonClick, 
-    PlayerMove, 
+    ButtonClickError, 
+    ButtonClickPlay, 
+    PlayerJump, 
     PlayerDeath,
     EnemyDeath,
-
-
+    PlayerMove,
 }

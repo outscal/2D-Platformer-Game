@@ -1384,7 +1384,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1205670877}
   - component: {fileID: 1205670876}
-  - component: {fileID: 1205670875}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -1392,14 +1391,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1205670875
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205670874}
-  m_Enabled: 1
 --- !u!114 &1205670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,8 +1408,14 @@ MonoBehaviour:
   Sounds:
   - soundType: 0
     soundClip: {fileID: 8300000, guid: df6d1af64fdebb04d80a54b27b720509, type: 3}
-  - soundType: 0
-    soundClip: {fileID: 0}
+  - soundType: 1
+    soundClip: {fileID: 8300000, guid: 9a6c7b4eb436659439202963a40d40d2, type: 3}
+  - soundType: 2
+    soundClip: {fileID: 8300000, guid: a4dc23583fb1dc84a89049f88b06efe8, type: 3}
+  - soundType: 3
+    soundClip: {fileID: 8300000, guid: 151cb0c18bcdc6040aa921203a4ca7a5, type: 3}
+  - soundType: 4
+    soundClip: {fileID: 8300000, guid: 27fa7a32ddc541749b7163bd88fbb575, type: 3}
 --- !u!4 &1205670877
 Transform:
   m_ObjectHideFlags: 0
@@ -1492,6 +1489,7 @@ GameObject:
   - component: {fileID: 1499792977}
   - component: {fileID: 1499792976}
   - component: {fileID: 1499792975}
+  - component: {fileID: 1499792980}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1593,6 +1591,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!81 &1499792980
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499792974}
+  m_Enabled: 1
 --- !u!1 &1666495681
 GameObject:
   m_ObjectHideFlags: 0

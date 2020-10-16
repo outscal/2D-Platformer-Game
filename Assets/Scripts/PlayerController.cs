@@ -53,8 +53,8 @@ public class PlayerController : MonoBehaviour
 
         position.x += _speedInput * _speed * Time.deltaTime;
 
-        transform.position = position; 
-
+        transform.position = position;
+       
         // JUMP 
 
         if(_verticalMovement > 0 && !isJumping)  

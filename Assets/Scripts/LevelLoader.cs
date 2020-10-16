@@ -28,9 +28,12 @@ public class LevelLoader : MonoBehaviour
         switch (levelStatus)
         {
             case LevelStatus.Locked:
+                SoundManager.Instance.Play(SoundList.ButtonClickError); 
                 Debug.Log("Cant play the level till you unclock it ");
                 break;
             case LevelStatus.UnLocked:
+                SoundManager.Instance.Play(SoundList.ButtonClick);
+                Debug.Log("Can Play");
                 SceneManager.LoadScene(LevelName); 
                 break;
             case LevelStatus.Completed:

@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public void OnDeath()
     {
         Debug.Log(" Player has died");
+        SoundManager.Instance.Play(SoundList.PlayerDeath); 
         gameOverController.OnGameOver();
        
     }
