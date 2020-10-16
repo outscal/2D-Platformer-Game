@@ -38,8 +38,5 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void NextLevel()
-    {
-        player.PlayerInit(); 
-    }
+    
 }

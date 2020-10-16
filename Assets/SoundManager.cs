@@ -36,27 +36,50 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SMInitialize();
     }
     public void SMInitialize()
     {
         soundTimerdictionary = new Dictionary<SoundList, float>();
-        soundTimerdictionary[SoundList.PlayerMove] = 0.5f;
+        soundTimerdictionary[SoundList.PlayerMove] = 0.2f;
 
     }
 
     public void Play(SoundList sound)
     {
         AudioClip clip = getSoundClip(sound); 
-        if (clip != null)
+        if( (clip != null) && CanPlaySound(sound))
         {
             soundEffect.PlayOneShot(clip); 
-        } else
+        } else if ( clip == null)
         {
             Debug.Log("Sound Effect clip not found"); 
         }
     }
 
+    public bool CanPlaySound(SoundList name)
+    {
+        switch (name)
+        {
+            case SoundList.PlayerMove:
+
+                if (soundTimerdictionary.ContainsKey(name))
+                {
+                    float lastTimePlayed = soundTimerdictionary[name];
+                    float timeGap = 0.1f;
+                    if (lastTimePlayed + timeGap < Time.time)
+                    {
+                        soundTimerdictionary[name] = Time.time;
+                        Debug.Log("Player sound played"); 
+                        return true;
+                    }
+                    else return false;
+                }
+                else return true;
+            default:
+                return true;
+        }
+    }
     private AudioClip getSoundClip(SoundList sound)
     {
         SoundType item = Array.Find(Sounds, i => i.soundType == sound);
@@ -83,4 +106,5 @@ public enum SoundList
     PlayerDeath,
     EnemyDeath,
     PlayerMove,
+    ItemCollect,
 }

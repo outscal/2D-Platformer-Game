@@ -49,11 +49,18 @@ public class PlayerController : MonoBehaviour
    
     void PlayerTransformMoves(float _speedInput, float _verticalMovement)
     {
-        Vector3 position = transform.position;
+        if (_speedInput != 0)
+        {
+            Vector3 position = transform.position;
 
-        position.x += _speedInput * _speed * Time.deltaTime;
+            position.x += _speedInput * _speed * Time.deltaTime;
 
-        transform.position = position;
+            transform.position = position;
+
+            SoundManager.Instance.Play(SoundList.PlayerMove); 
+
+        }
+       
        
         // JUMP 
 
