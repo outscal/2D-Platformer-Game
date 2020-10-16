@@ -21,7 +21,6 @@ public class ScoreController : MonoBehaviour
 
     private void Start()
     {
-        score = 0;
         refreshUpi();
     }
     private void refreshUpi()

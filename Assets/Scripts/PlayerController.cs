@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-
-
-
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,9 +33,21 @@ public class PlayerController : MonoBehaviour
         scoreController.increaseScore(10);
     }
 
+    public void killPlayer()
+    {
+        Debug.Log("Player Died");
+
+        reloadLevel();
+    }
+
+    private void reloadLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void Update()
     {
-
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         playerMoveAnime(horizontal ,vertical);
@@ -46,8 +56,7 @@ public class PlayerController : MonoBehaviour
         Vector2 pos = transform.position;
         if (pos.y < startpos.y-15f)
         {
-            Debug.Log("Player is Dead");
-            transform.position = startpos;
+            reloadLevel();
         }
     }
 
