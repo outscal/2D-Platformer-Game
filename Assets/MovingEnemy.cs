@@ -60,6 +60,7 @@ public class MovingEnemy : MonoBehaviour
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.KillPlayer();
+            
 
         }
 

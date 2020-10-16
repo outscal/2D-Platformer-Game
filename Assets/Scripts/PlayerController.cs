@@ -7,9 +7,9 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-
+   
     public TextMeshProUGUI ScoreText;
-    public TextMeshProUGUI HealthText;
+    //public TextMeshProUGUI HealthText;
     private int score=0;
     public Animator animator;
     BoxCollider2D Collider;
@@ -17,9 +17,9 @@ public class PlayerController : MonoBehaviour
     [Range(0.0f,10.0f)]
     public float speed=3.0f;
     public float Jump = 600f;
-    public int Health = 3;
+    //public int Health = 3;
 
-
+   
     
     public LayerMask whatIsGround;
     public Transform GroundCheck;
@@ -55,10 +55,11 @@ public class PlayerController : MonoBehaviour
     }
     public void KillPlayer()
     {
-        if (Health > 0)
+        
+        if (Health.health > 0)
         {
-            Health--;
-        }else if (Health <1)
+            Health.health--;
+        }else if (Health.health <1)
         {
             PlayerCanMove = false;
 
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        HealthText.text = "Health : " + Health.ToString("");
+        //HealthText.text = "Health : " + Health.health.ToString("");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Die"))
         {
            
-            Health = 0;
+            Health.health = 0;
 
             
             _animator.SetTrigger("Death");
@@ -87,9 +88,11 @@ public class PlayerController : MonoBehaviour
     
     void Awake()
     {
+
+        
         //_animator.SetBool("Grounded", true);
         Collider = GetComponent<BoxCollider2D>();
-
+       
         _transform = GetComponent<Transform>();
 
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -114,7 +117,7 @@ public class PlayerController : MonoBehaviour
     {
 
         
-        HealthText.text ="Health : " +Health.ToString("");
+        //HealthText.text ="Health : " +Health.health.ToString("");
         
     }
 
@@ -207,14 +210,14 @@ public class PlayerController : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    
+
     IEnumerator loadDelay()
     {
-        
-        if (Health == 0)
+
+        if (Health.health == 0)
         {
             yield return new WaitForSeconds(3f);
-            SceneManager.LoadScene("1");
+            SceneManager.LoadScene("GameOver");
         }
     }
 
