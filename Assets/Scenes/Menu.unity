@@ -148,8 +148,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 17.5}
-  m_SizeDelta: {x: 150, y: 50}
+  m_AnchoredPosition: {x: -4.7, y: 9.4}
+  m_SizeDelta: {x: 203.8034, y: 66.17617}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &22765425
 MonoBehaviour:
@@ -191,7 +191,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 22765426}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1551860842}
+        m_MethodName: play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &22765426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000087738}
+  m_AnchoredPosition: {x: 0, y: -0.000091552734}
   m_SizeDelta: {x: -161.52917, y: -0.00012207031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &254979452
@@ -481,8 +492,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: -0.000083923}
-  m_SizeDelta: {x: 800, y: 416.66687}
+  m_AnchoredPosition: {x: -0.013603, y: 0.000095367}
+  m_SizeDelta: {x: 1075.4012, y: 600.0002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1284133270
 MonoBehaviour:
@@ -547,12 +558,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1551860841}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.46, y: 109.96}
-  m_SizeDelta: {x: 646.74286, y: 175.91226}
+  m_AnchoredPosition: {x: 0.000028849, y: 189.6}
+  m_SizeDelta: {x: 913.89923, y: 315.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1531150147
 MonoBehaviour:
@@ -601,6 +612,7 @@ GameObject:
   - component: {fileID: 1551860840}
   - component: {fileID: 1551860839}
   - component: {fileID: 1551860838}
+  - component: {fileID: 1551860842}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -642,7 +654,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -682,8 +694,8 @@ RectTransform:
   - {fileID: 1284133269}
   - {fileID: 254979451}
   - {fileID: 22765424}
-  - {fileID: 1531150146}
   - {fileID: 1992692112}
+  - {fileID: 1531150146}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -692,6 +704,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1551860842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551860837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18ace24a3cc2c24286d507db8b2ffe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Level: 1
 --- !u!1 &1574863587
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,12 +905,12 @@ RectTransform:
   m_Children:
   - {fileID: 1906995300}
   m_Father: {fileID: 1551860841}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -45}
-  m_SizeDelta: {x: 150, y: 50}
+  m_AnchoredPosition: {x: -4.7, y: -73.3}
+  m_SizeDelta: {x: 203.8034, y: 66.17617}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1992692113
 MonoBehaviour:
@@ -927,7 +952,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1992692114}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1551860842}
+        m_MethodName: Exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1992692114
 MonoBehaviour:
   m_ObjectHideFlags: 0

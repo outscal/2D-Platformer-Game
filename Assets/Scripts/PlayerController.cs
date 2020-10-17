@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
 
         if (Health.health == 0)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
             SceneManager.LoadScene("GameOver");
         }
     }

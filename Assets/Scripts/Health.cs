@@ -7,10 +7,10 @@ public class Health : MonoBehaviour
 {
     public GameObject health1, health2, health3;
     public static int health;
-    Animator animator;
+    
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        
         health = 3;
         health1.gameObject.SetActive(true);
         health2.gameObject.SetActive(true);

@@ -63,17 +63,6 @@ public class DumbLeftEnemyController : MonoBehaviour
         transform.Translate(Vector2.left * speed * Time.deltaTime);
         _animator.SetBool("Moving", true);
 
-
-           /* if (movingRight == true)
-            {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                movingRight = false;
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                movingRight = true;
-            }*/
         
         
     }
