@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);
         PlayMovementAnimation(horizontal, vertical);
         checkSurroundings();
-        // can_Jump();
+        can_Jump();
     }
 
     private void MoveCharacter(float horizontal, float vertical){
@@ -68,30 +68,30 @@ public class PlayerController : MonoBehaviour
         position.x +=  horizontal *speed * Time.deltaTime;
         transform.position = position;
 
-        if(vertical > 0)
+
+    }
+
+        void Jump(){
+        // Move Vertically
+        if(canJump)
         {
             rgbd2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
-    }
-
-    // void Jump(){
-    //     //Move Vertically
-    //     // if (canJump)
        
-    // }
+    }
 
     private void checkSurroundings(){
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
-    // private void can_Jump(){
-    //     if(isGrounded && rgbd2D.velocity.y <= 0){
-    //         canJump = true;
-    //     }
-    //     else{
-    //         canJump = false;
-    //     }
-    // }
+    private void can_Jump(){
+        if(isGrounded && rgbd2D.velocity.y <= 0){
+            canJump = true;
+        }
+        else{
+            canJump = false;
+        }
+    }
 
     private void PlayMovementAnimation(float horizontal, float vertical)
     {
