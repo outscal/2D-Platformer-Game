@@ -12,15 +12,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 793f95eaaaca3074db73dd28ac72d92f, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!95 &2145860949
 Animator:
   serializedVersion: 3
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146aba673893c07419026cc857c38468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
 --- !u!1001 &3265172164100667615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60,6 +60,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1289946461, guid: 94b133eb4fc6e6649b04a18a0c5ca773, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1113215493169621841, guid: 94b133eb4fc6e6649b04a18a0c5ca773,
         type: 3}
       propertyPath: m_Name
@@ -183,7 +187,7 @@ PrefabInstance:
     - target: {fileID: 1113215493169621847, guid: 94b133eb4fc6e6649b04a18a0c5ca773,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1113215493169621845, guid: 94b133eb4fc6e6649b04a18a0c5ca773, type: 3}

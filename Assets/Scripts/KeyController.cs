@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class KeyController : MonoBehaviour
 {
-   
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.PickUpKey();
+            
             Destroy(gameObject);
         }
     }
     void Start()
     {
-        
+        //audioSource = GetComponent<audi>
     }
 
     // Update is called once per frame
