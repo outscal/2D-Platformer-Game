@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     Transform _transform;
     Rigidbody2D _rigidbody;
     Animator _animator;
-
+    AudioSource _audioSource;
     float _vx;
     float _vy;
 
@@ -44,13 +44,19 @@ public class PlayerController : MonoBehaviour
     int _PlayerLayer;
     int _PlatformLayer;
 
-    
+    public AudioClip jumpSfx;
+    public AudioClip MoveSfx;
+    public AudioClip keypickupSfx;
+    public AudioClip death;
 
 
     public void PickUpKey()
     {
         score=score+10;
         ScoreText.text = "Score : "+score.ToString("");
+        _audioSource.PlayOneShot(keypickupSfx);
+
+
         //Debug.Log("Key Collected");
     }
     public void KillPlayer()
@@ -62,7 +68,7 @@ public class PlayerController : MonoBehaviour
         }else if (Health.health <1)
         {
             PlayerCanMove = false;
-
+            _audioSource.PlayOneShot(death);
             _animator.SetTrigger("Death");
             StartCoroutine("loadDelay");
 
@@ -78,7 +84,8 @@ public class PlayerController : MonoBehaviour
            
             Health.health = 0;
 
-            
+            _audioSource.PlayOneShot(death);
+
             _animator.SetTrigger("Death");
             StartCoroutine("loadDelay");
             PlayerCanMove = false;
@@ -98,6 +105,8 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
 
         _animator = GetComponent<Animator>();
+
+        _audioSource = GetComponent<AudioSource>();
 
         if(_rigidbody == null)
         {
@@ -139,6 +148,11 @@ public class PlayerController : MonoBehaviour
         if (_vx != 0)
         {
             _isRunning = true;
+            if (_audioSource.isPlaying == false)
+            {
+                _audioSource.PlayOneShot(MoveSfx);
+
+            }
 
         }
         else
@@ -158,7 +172,7 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody.AddForce(new Vector2(0f, Jump));
             _vy = 0;
-            
+            _audioSource.PlayOneShot(jumpSfx);
             
         }
 
