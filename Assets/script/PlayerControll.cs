@@ -18,12 +18,15 @@ public class PlayerControll : MonoBehaviour
     BoxCollider2D collider2D;
     public Animator animator;
     float Horizontalspeed;
-    private float jump=35f;
+    private float jump=14f;
     private bool IsPlayerDead;
     int i;
     int numberOfHeart=2;
-   
-
+    bool IsGrounded;
+    [SerializeField]
+    private Transform groundCheck;
+    [SerializeField]
+    private LayerMask groundLayer;
     private void Awake(){
             rigidbody=GetComponent<Rigidbody2D>();
             collider2D=GetComponent<BoxCollider2D>();
@@ -56,12 +59,15 @@ public class PlayerControll : MonoBehaviour
       
     Horizontalspeed=Input.GetAxisRaw(h);
     PlayerAnimation(Horizontalspeed);
-   
-      PlayerMovementX(Horizontalspeed);
+    PlayerMovementX(Horizontalspeed);
+    IsGrounded=Physics2D.OverlapCircle(groundCheck.position,0.2f,groundLayer);
+    Jump();
+    
+
 }
 private void PlayerAnimation(float horizontal){
     
-animator.SetFloat("speed",Mathf.Abs(horizontal));
+       animator.SetFloat("speed",Mathf.Abs(horizontal));
     //     //speed=9.0f;
        Vector3 scale =transform.localScale;
          if (horizontal<0){
@@ -71,21 +77,18 @@ animator.SetFloat("speed",Mathf.Abs(horizontal));
              scale.x=Mathf.Abs(scale.x);
          }
          transform.localScale=scale;
+      
+}
+private void Jump(){
+        
         float vericalSpeed=Input.GetAxisRaw(ver);
-        bool v = Input.GetKeyDown(KeyCode.W);
-        bool v2=Input.GetKeyDown(KeyCode.S);
-        if(vericalSpeed>0 ){
+        if(vericalSpeed>0 && IsGrounded==true){
         animator.SetBool("IsJump",true);
-        }
-        else if(v2==true){
-        animator.SetBool("IsJump",v2);
+         rigidbody.AddForce(Vector2.up*jump,ForceMode2D.Force);
         }
         else
              animator.SetBool("IsJump",false);
-        if(vericalSpeed>0){
-            rigidbody.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
-        }
-}
+    }
 private void PlayerMovementX(float Horizontalspeed){
     Vector2 positionX=transform.position;
     positionX.x=positionX.x+Horizontalspeed*fast*Time.deltaTime;

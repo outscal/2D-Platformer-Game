@@ -1246,7 +1246,7 @@ GameObject:
   - component: {fileID: 421902198}
   - component: {fileID: 421902197}
   - component: {fileID: 421902199}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3884,6 +3884,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f405f0c242b0104a92925ed2119c6e8, type: 3}
+--- !u!1 &1021105189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1021105190}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1021105190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021105189}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1458864171}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1026266480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9079,6 +9109,12 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 7453695627069509343}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1458864171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2020889922467543727, guid: 3389b61b02ae1a348b8e8e6282e35c2b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7453695627069509343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!50 &1458864173
 Rigidbody2D:
   serializedVersion: 4
@@ -9094,7 +9130,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -9147,8 +9183,12 @@ MonoBehaviour:
   emtyHeart: {fileID: 21300000, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
   gameOver: {fileID: 501767915}
   scoreController: {fileID: 52847427}
-  fast: 5
+  fast: 7
   animator: {fileID: 1458864170}
+  groundCheck: {fileID: 1021105190}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &1470292403
 GameObject:
   m_ObjectHideFlags: 0
@@ -12156,12 +12196,12 @@ PrefabInstance:
     - target: {fileID: 2020889922467543727, guid: 3389b61b02ae1a348b8e8e6282e35c2b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.0885313
+      value: 1.1761042
       objectReference: {fileID: 0}
     - target: {fileID: 2020889922467543727, guid: 3389b61b02ae1a348b8e8e6282e35c2b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.6537501
+      value: 1.0129219
       objectReference: {fileID: 0}
     - target: {fileID: 5961345767573866805, guid: 3389b61b02ae1a348b8e8e6282e35c2b,
         type: 3}
