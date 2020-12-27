@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     public float speed;
     public float jump;
+    private bool is_grounded;
 
     private void Awake() {
         animator = gameObject.GetComponent<Animator>();
@@ -21,6 +23,24 @@ public class PlayerController : MonoBehaviour
         PlayerMovement(horizontal, vertical);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag == "Ground") {
+            is_grounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision) {
+        if (collision.gameObject.tag == "Ground") {
+            is_grounded = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.tag == "Respawn"){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
     void PlayerMovement(float horizontal, float vertical){
         // Horizontal movement of the player
         Vector3 position = transform.position;
@@ -28,8 +48,8 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         // Jump Movement
-        if (vertical > 0) {
-            rb2d.AddForce(new Vector2(0.0f, jump), ForceMode2D.Impulse);
+        if (vertical > 0 && is_grounded) {
+            rb2d.AddForce(new Vector2(0.0f, jump), ForceMode2D.Force);
         }
     }
 
@@ -48,10 +68,10 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         // Jump Animation
-        if (vertical > 0) {
-            animator.SetBool("jump", true); 
-        } else {
-            animator.SetBool("jump", false); 
+        if (vertical > 0 && is_grounded) {
+            animator.SetBool("jump", true);
+        } else if (vertical == 0) {
+            animator.SetBool("jump", false);
         }
     }
 }
