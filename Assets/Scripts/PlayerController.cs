@@ -5,11 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    /*private void OnCollisionEnter20(Collision2D collision)
-    {
-        Debug.Log("collision" + collision.gameObject.name);
-    }
-    */
 
     void Update()
     {
