@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 989792169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: -0.46, z: 0}
-  m_LocalScale: {x: 1.98, y: 1, z: 1}
+  m_LocalScale: {x: 3.92, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -216,7 +216,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.056925207}
+  m_Offset: {x: 0, y: -0.10200539}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -227,7 +227,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.8861496}
+  m_Size: {x: 1, y: 0.7959892}
   m_EdgeRadius: 0
 --- !u!1 &1000172334 stripped
 GameObject:
@@ -282,6 +282,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1000172337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000172334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418fd9e89c54a7f4eac5b2b9a4ba4a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1000172338}
+--- !u!95 &1000172338 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8733047310198390504, guid: 7f2eb48289e465f4bb05d44ea3b196ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 3320372684288929732}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1067443526
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +400,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320372683808736695, guid: 7f2eb48289e465f4bb05d44ea3b196ae,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320372683808736695, guid: 7f2eb48289e465f4bb05d44ea3b196ae,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3320372683808736695, guid: 7f2eb48289e465f4bb05d44ea3b196ae,
         type: 3}

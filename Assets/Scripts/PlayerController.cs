@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Animator animator;
+    private void Awake()
     {
-        
+        Debug.Log("Player Controller awake");
     }
-
-    // Update is called once per frame
-    void Update()
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Debug.Log("Collision : " + collision.gameObject.name);
+    //}
+    private void Update()
     {
-        
+        Debug.Log("Player Controller Update");
+        float speed = Input.GetAxisRaw("Horizontal");
+        animator.SetFloat("Speed", Mathf.Abs(speed));
+
+        Vector2 scale = transform.localScale;
+        if (speed < 0)
+        {
+            scale.x = -1 * Mathf.Abs(scale.x);
+        }
+        else if (speed > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
     }
 }
