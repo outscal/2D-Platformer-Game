@@ -20,9 +20,8 @@ public class PlayerController : MonoBehaviour
     {
         float speed = Input.GetAxisRaw("Horizontal");
         float vSpeed = Input.GetAxisRaw("Vertical");
-        bool jump = false;
+
         animator.SetFloat("Speed", Mathf.Abs(speed));
-        animator.SetBool("Jump", jump);
         Vector3 scale = transform.localScale;
         if (vSpeed > 0)
         {
