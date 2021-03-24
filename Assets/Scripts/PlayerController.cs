@@ -6,49 +6,63 @@ public class PlayerController : MonoBehaviour
 {
     //Cached references
     BoxCollider2D boxCollider;
+    Rigidbody2D rigidBody2D;
+    public Animator animator;
+    bool isGrounded;
     private void Start()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        rigidBody2D = GetComponent<Rigidbody2D>();
+
     }
-    public Animator animator;
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        Debug.Log("Collision :" + collision.gameObject.name);   
+        isGrounded = true;
+        Debug.Log("Collision : " + collision.gameObject.name + " is grounded =  " + isGrounded);
+        if (isGrounded)
+        {
+            rigidBody2D.gravityScale = 0;
+        }
     }
+
     private void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
+        float hspeed = Input.GetAxisRaw("Horizontal");
         float vSpeed = Input.GetAxisRaw("Vertical");
-
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+        animator.SetFloat("Speed", Mathf.Abs(hspeed));
         Vector3 scale = transform.localScale;
-        if (vSpeed > 0)
+        boxCollider.offset = new Vector2(0.024f, 1.01f);
+        boxCollider.size = new Vector2(0.62f, 2.07f);
+
+        if (vSpeed == 1)
         {
             animator.SetBool("Jump", true);
+            boxCollider.offset = new Vector2(0.15f, 1.75f);
+            boxCollider.size = new Vector2(0.86f, 1.45f);
         }
-        else if (vSpeed <= 0)
+        else if (vSpeed < 1)
         {
             animator.SetBool("Jump", false);
+            
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("isCrouch", true);
-            boxCollider.offset =  new Vector2(0.05f,0.77f);
-            boxCollider.size =  new Vector2(0.95f, 1.6f);
+            boxCollider.offset =  new Vector2(-0.17f,0.60f);
+            boxCollider.size =  new Vector2(0.88f, 1.38f);
         }
-
-        else
+        else if(!Input.GetKey(KeyCode.LeftControl))
         {
+            /*animator.SetBool("Jump", false);*/
             animator.SetBool("isCrouch", false);
-            boxCollider.offset = new Vector2(0.024f,1.01f);
-            boxCollider.size = new Vector2(0.62f,2.07f);
+           
         }
-        if (speed < 0)
+        if (hspeed < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (speed > 0)
+        else if (hspeed > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }

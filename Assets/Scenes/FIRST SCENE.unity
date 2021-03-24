@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 1530615031}
   - component: {fileID: 1530615030}
   - component: {fileID: 1530615032}
+  - component: {fileID: 1530615029}
   m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
@@ -145,6 +146,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!50 &1530615029
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530615028}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!212 &1530615030
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -329,13 +351,17 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 19326020}
+    - target: {fileID: 1072893064, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1072893068, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
       propertyPath: m_Offset.x
-      value: 0.024
+      value: 0.023999989
       objectReference: {fileID: 0}
     - target: {fileID: 1072893068, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
       propertyPath: m_Offset.y
-      value: 1.01
+      value: 1.0147996
       objectReference: {fileID: 0}
     - target: {fileID: 1072893068, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
       propertyPath: m_Size.x
@@ -343,7 +369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1072893068, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
       propertyPath: m_Size.y
-      value: 2.07
+      value: 2.060401
       objectReference: {fileID: 0}
     - target: {fileID: 831354284490016492, guid: 98949ee1caad2f44a90b9dbe69783124,
         type: 3}
