@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public BoxCollider2D playerCollider;
     public float initialYoffset, initialYsize, crouchYoffset = 0.07785285f, crouchYsize= 1.278029f;
-
+    public float speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,18 +20,30 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
-        float playerSpeed = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxisRaw("Horizontal");
         //Debug.Log("Player Speed is:"+playerSpeed);
-        animator.SetFloat("Speed", Mathf.Abs(playerSpeed));
+        PlayerMovementAnimation(horizontal);
+        MovePlayer(horizontal);
+    }
+
+    private void MovePlayer(float horizontal)
+    {
+        Vector3 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+    }
+
+    private void PlayerMovementAnimation(float horizontal)
+    {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
-        if (playerSpeed<0)
+        if (horizontal < 0)
         {
-            scale.x = -1f* Mathf.Abs(scale.x);
+            scale.x = -1f * Mathf.Abs(scale.x);
 
         }
-        else if (playerSpeed>0)
+        else if (horizontal > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
@@ -39,7 +52,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("isCrouch", true);
-            playerCollider.offset =new Vector2(playerCollider.offset.x ,crouchYoffset);
+            playerCollider.offset = new Vector2(playerCollider.offset.x, crouchYoffset);
             playerCollider.size = new Vector2(playerCollider.size.x, crouchYsize);
         }
         else
@@ -49,7 +62,7 @@ public class PlayerController : MonoBehaviour
             playerCollider.size = new Vector2(playerCollider.size.x, initialYsize);
         }
         float canJump = Input.GetAxisRaw("Vertical");
-        if(canJump>0)
+        if (canJump > 0)
         {
             animator.SetBool("Jump", true);
         }

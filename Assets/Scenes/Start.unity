@@ -224,7 +224,7 @@ Transform:
   m_GameObject: {fileID: 506659530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.307, y: -4.42, z: 0}
-  m_LocalScale: {x: 6.571512, y: 1, z: 1}
+  m_LocalScale: {x: 20.371687, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -370,7 +370,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &776936290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +384,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 776936286}
+  playerCollider: {fileID: 0}
+  initialYoffset: 0
+  initialYsize: 0
+  crouchYoffset: 0.07785285
+  crouchYsize: 1.278029
+  speed: 8
 --- !u!1001 &1921638799210451430
 PrefabInstance:
   m_ObjectHideFlags: 0
