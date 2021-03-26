@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //State variables
+    public Animator animator;
+    public float speed;
     //Cached references
     BoxCollider2D boxCollider;
     Rigidbody2D rigidBody2D;
-    public Animator animator;
+    
     bool isGrounded;
+    bool isCrouch;
     private void Start()
     {
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -28,13 +32,35 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float hspeed = Input.GetAxisRaw("Horizontal");
+        float hSpeed = Input.GetAxisRaw("Horizontal");
         float vSpeed = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("Speed", Mathf.Abs(hspeed));
-        Vector3 scale = transform.localScale;
+        PlayerMovementHorizontal(hSpeed);
+        ColliderWhenIdle();
+        PlayerJump(vSpeed);
+        PlayerCrouch();
+        MoveCharacter(hSpeed);
+
+
+    }
+
+    private void MoveCharacter(float hSpeed)
+    {
+        if (!isCrouch)
+        {
+            Vector3 playerPos = transform.position;
+            playerPos.x += (hSpeed * speed * Time.deltaTime);
+            transform.position = playerPos;
+        }
+    }
+
+    private void ColliderWhenIdle()
+    {
         boxCollider.offset = new Vector2(0.024f, 1.01f);
         boxCollider.size = new Vector2(0.62f, 2.07f);
+    }
 
+    private void PlayerJump(float vSpeed)
+    {
         if (vSpeed == 1)
         {
             animator.SetBool("Jump", true);
@@ -44,28 +70,39 @@ public class PlayerController : MonoBehaviour
         else if (vSpeed < 1)
         {
             animator.SetBool("Jump", false);
-            
+
         }
+    }
+
+    private void PlayerCrouch()
+    {
         if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("isCrouch", true);
-            boxCollider.offset =  new Vector2(-0.17f,0.60f);
-            boxCollider.size =  new Vector2(0.88f, 1.38f);
+            isCrouch = true;
+            boxCollider.offset = new Vector2(-0.17f, 0.60f);
+            boxCollider.size = new Vector2(0.88f, 1.38f);
         }
-        else if(!Input.GetKey(KeyCode.LeftControl))
+        else if (!Input.GetKey(KeyCode.LeftControl))
         {
-            /*animator.SetBool("Jump", false);*/
             animator.SetBool("isCrouch", false);
-           
+            isCrouch = false;
         }
-        if (hspeed < 0)
+    }
+
+    private void PlayerMovementHorizontal(float hSpeed)
+    {
+        animator.SetFloat("Speed", Mathf.Abs(hSpeed));
+        Vector3 scale = transform.localScale;
+        if (hSpeed < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (hspeed > 0)
+        else if (hSpeed > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+        
     }
 }
