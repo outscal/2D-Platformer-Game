@@ -7,11 +7,15 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     private BoxCollider2D playerCol;
     public float speed;
+    public float jump;
+    public Rigidbody2D rb2d;
     
-//    private void Awake()
-//    {
-    //    Debug.Log("Player Controller awake");
-//    }
+    private void Awake()
+    {
+        Debug.Log("Player Controller awake");
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+
+    }
 
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
@@ -26,19 +30,23 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-
-        MoveCharacter(horizontal);
-        PlayMovementAnimation(horizontal);
+        float vertical = Input.GetAxisRaw("Jump");
+        MoveCharacter(horizontal, vertical);
+        PlayMovementAnimation(horizontal, vertical);
     }
 
-    private void MoveCharacter(float horizontal)
+    private void MoveCharacter(float horizontal, float vertical)
     {
         Vector2 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
         
+        if(vertical > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        }
     }
-    private void PlayMovementAnimation(float horizontal)
+    private void PlayMovementAnimation(float horizontal, float vertical)
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -54,8 +62,8 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
 
-        float jump = Input.GetAxisRaw("Jump");
-        if (jump > 0)
+        
+        if (vertical > 0)
         {
         animator.SetBool("JUMP", true);
         }
@@ -75,5 +83,5 @@ public class PlayerController : MonoBehaviour
             playerCol.offset = new Vector2(playerCol.offset.x, 0.59f);
         }
     }
-
+                      
 }
