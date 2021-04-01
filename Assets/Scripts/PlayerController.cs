@@ -49,12 +49,12 @@ public class PlayerController : MonoBehaviour
 
     private void BoxColliderChanger()
     {
-        if (!isCrouch && isJump)
+        if (animator.GetBool("Jump"))
         {
             boxCollider.offset = new Vector2(0.15f, 1.75f);
             boxCollider.size = new Vector2(0.86f, 1.45f);
         }
-        else if (isCrouch && !isJump)
+        else if (animator.GetBool("isCrouch"))
         {
             boxCollider.offset = new Vector2(-0.17f, 0.60f);
             boxCollider.size = new Vector2(0.88f, 1.38f);
@@ -92,17 +92,15 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovementAnimationYAxis(float vSpeed, float crouch)
     {
         //Jump
-        if (vSpeed > 0 && isGrounded)
+        if (vSpeed > 0&&isGrounded)
         {
-            isJump = true;
-            isGrounded = false;
+            
             animator.SetBool("Jump", true);
             Debug.Log(isGrounded);
             
         }
         else if (vSpeed <= 0)
         {
-            isJump = false;
             animator.SetBool("Jump", false);
            
         }
