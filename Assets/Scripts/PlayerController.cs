@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    private BoxCollider2D playerCol;
+    private BoxCollider2D m_playerCol;
     public float speed;
     public float jump;
     public Rigidbody2D rb2d;
@@ -40,9 +38,11 @@ public class PlayerController : MonoBehaviour
         Vector2 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
-        
+        Debug.Log("vertical value " + vertical); 
+
         if(vertical > 0)
         {
+          
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
     }
@@ -75,12 +75,12 @@ public class PlayerController : MonoBehaviour
 
         bool isCrouching = Input.GetKey(KeyCode.LeftControl);
         animator.SetBool("isCrouch", isCrouching);
-        playerCol = animator.GetComponent<BoxCollider2D>();
+        m_playerCol = animator.GetComponent<BoxCollider2D>();
         if (Input.GetKey(KeyCode.LeftControl))
         {
             isCrouching = true;
-            playerCol.size = new Vector2(playerCol.size.x, 1.33f);
-            playerCol.offset = new Vector2(playerCol.offset.x, 0.59f);
+            m_playerCol.size = new Vector2(m_playerCol.size.x, 1.33f);
+            m_playerCol.offset = new Vector2(m_playerCol.offset.x, 0.59f);
         }
     }
                       
