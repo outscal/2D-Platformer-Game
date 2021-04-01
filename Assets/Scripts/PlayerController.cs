@@ -31,13 +31,18 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Collision : " + collision.gameObject.name + " is grounded =  " + isGrounded);
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isGrounded = false;
+    }
+
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         float crouch = Input.GetAxisRaw("Crouch");
-        PlayerMovementAnimation(horizontal, vertical, crouch);
         MoveCharacter(horizontal, vertical, crouch);
+        PlayerMovementAnimation(horizontal, vertical, crouch);
         BoxColliderChanger();
 
     }
@@ -71,7 +76,7 @@ public class PlayerController : MonoBehaviour
             transform.position = playerPos;
         }
 
-        if (vertical > 0 )
+        if (vertical>0)
         {
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
@@ -87,7 +92,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovementAnimationYAxis(float vSpeed, float crouch)
     {
         //Jump
-        if (vSpeed > 0)
+        if (vSpeed > 0 && isGrounded)
         {
             isJump = true;
             isGrounded = false;
