@@ -28,12 +28,14 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isGrounded = true;
+        isJump = false;
         Debug.Log("Collision : " + collision.gameObject.name + " is grounded =  " + isGrounded);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         isGrounded = false;
+
     }
 
     private void Update()
@@ -76,9 +78,9 @@ public class PlayerController : MonoBehaviour
             transform.position = playerPos;
         }
 
-        if (vertical>0)
+        if (vertical>0 && !isJump)
         {
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
     }
     private void PlayerMovementAnimation(float hSpeed,float vSpeed,float crouch)
@@ -92,19 +94,18 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovementAnimationYAxis(float vSpeed, float crouch)
     {
         //Jump
-        if (vSpeed > 0&&isGrounded)
-        {
+        
+            if (vSpeed > 0)
+            {
+                isJump = true;
+                animator.SetBool("Jump", true);
+                Debug.Log(isGrounded);    
+            }
+            else if (vSpeed <= 0)
+            {
             
-            animator.SetBool("Jump", true);
-            Debug.Log(isGrounded);
-            
-        }
-        else if (vSpeed <= 0)
-        {
-            animator.SetBool("Jump", false);
-           
-        }
-
+                animator.SetBool("Jump", false);
+            }
         //Crouch
         if (crouch > 0)
         {
