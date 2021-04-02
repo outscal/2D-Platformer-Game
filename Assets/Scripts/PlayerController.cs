@@ -1,141 +1,115 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //State variables
+    [Range(0,10)][SerializeField] float moveSpeed;
+    [SerializeField] float jumpForce;
     public Animator animator;
-    public float speed;
-    public float jump   ;
-
-    //Cached references
-    BoxCollider2D boxCollider;
     Rigidbody2D rb2d;
-    
-    //bool
-    bool isCrouch;
-    bool isJump;
+    BoxCollider2D boxCollider;
     bool isGrounded;
 
-    private void Start()
-    {
-        boxCollider = gameObject.GetComponent<BoxCollider2D>();
-        rb2d = GetComponent<Rigidbody2D>();
-
-    }
-    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isGrounded = true;
-        isJump = false;
-        Debug.Log("Collision : " + collision.gameObject.name + " is grounded =  " + isGrounded);
+        if (collision.gameObject.tag == "ground")
+        {
+            isGrounded = true;
+        }
+        Debug.Log(isGrounded);
     }
-
     private void OnCollisionExit2D(Collision2D collision)
     {
-        isGrounded = false;
-
+        if (collision.gameObject.tag == "ground")
+        {
+            isGrounded = false;
+        }
+        Debug.Log(isGrounded);
     }
-
+    private void Start()
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        float horizontal = Input.GetAxisRaw("Horizontal"); 
         float crouch = Input.GetAxisRaw("Crouch");
-        MoveCharacter(horizontal, vertical, crouch);
-        PlayerMovementAnimation(horizontal, vertical, crouch);
-        BoxColliderChanger();
+        float jump = Input.GetAxisRaw("Jump");
+        animator.SetBool("isGrounded", isGrounded);
+        JumpAnimation(jump);
+        MoveAnimation(horizontal);
+        CrouchAnimation(crouch);
+        PlayerMovement(horizontal,crouch,jump);
+    }
+
+    private void PlayerMovement(float horizontal,float crouch,float jump)
+    {
+        Vector3 playerPos = transform.position;
+        if (crouch > 0)
+        {
+            playerPos.x += horizontal * moveSpeed * Time.deltaTime * 0.5f;
+        }
+        else
+        {
+            playerPos.x += horizontal * moveSpeed * Time.deltaTime;
+        }
+        transform.position = playerPos;
+
+        if (jump > 0 && isGrounded)
+        {
+            rb2d.AddForce(new Vector2(0, jumpForce));
+        }
 
     }
 
-    private void BoxColliderChanger()
+    private void CrouchAnimation(float crouch)
     {
-        if (animator.GetBool("Jump"))
+        
+        if (crouch > 0)
         {
-            boxCollider.offset = new Vector2(0.15f, 1.75f);
-            boxCollider.size = new Vector2(0.86f, 1.45f);
-        }
-        else if (animator.GetBool("isCrouch"))
-        {
+            animator.SetBool("isCrouch", true);
             boxCollider.offset = new Vector2(-0.17f, 0.60f);
             boxCollider.size = new Vector2(0.88f, 1.38f);
         }
         else
         {
+            animator.SetBool("isCrouch", false);
             boxCollider.offset = new Vector2(0.024f, 1.01f);
             boxCollider.size = new Vector2(0.62f, 2.07f);
         }
     }
 
-    private void MoveCharacter(float horizontal, float vertical, float Crouch)
+    private void MoveAnimation(float horizontal)
     {
-        //moving player
-        if (!isCrouch)
-        {
-            Vector3 playerPos = transform.position;
-            playerPos.x += horizontal * speed * Time.deltaTime;
-            transform.position = playerPos;
-        }
-
-        if (vertical>0 && !isJump)
-        {
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
-        }
-    }
-    private void PlayerMovementAnimation(float hSpeed,float vSpeed,float crouch)
-    {
-        PlayerMovementAnimationXAxis(hSpeed);
-
-        PlayerMovementAnimationYAxis(vSpeed, crouch);
-
-    }
-
-    private void PlayerMovementAnimationYAxis(float vSpeed, float crouch)
-    {
-        //Jump
         
-            if (vSpeed > 0)
-            {
-                isJump = true;
-                animator.SetBool("Jump", true);
-                Debug.Log(isGrounded);    
-            }
-            else if (vSpeed <= 0)
-            {
-            
-                animator.SetBool("Jump", false);
-            }
-        //Crouch
-        if (crouch > 0)
-        {
-            if (isGrounded)
-            {
-                isCrouch = true;
-                Debug.Log("ctrl detected");
-                animator.SetBool("isCrouch", true);
-            }
-        }
-        else if (crouch <= 0)
-        {
-            isCrouch = false;
-            animator.SetBool("isCrouch", false);
-        }
-    }
 
-    private void PlayerMovementAnimationXAxis(float hSpeed)
-    {
-        //run left and right
-        animator.SetFloat("Speed", Mathf.Abs(hSpeed));
+        float absHorizontal = Mathf.Abs(horizontal);
+        animator.SetFloat("Speed", absHorizontal);
         Vector3 scale = transform.localScale;
-        if (hSpeed < 0)
+        if (horizontal > 0)
         {
-            scale.x = -1f * Mathf.Abs(hSpeed);
+            scale.x = absHorizontal;
         }
-        else if (hSpeed > 0 )
+        else if (horizontal < 0)
         {
-            scale.x = Mathf.Abs(hSpeed);
+            scale.x = -1f * absHorizontal;
         }
         transform.localScale = scale;
+    }
+
+    private void JumpAnimation(float jump)
+    {
+        
+        if (jump > 0)
+        {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
     }
 }
