@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Debug.Log("Start Function ");
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -83,5 +84,16 @@ public class PlayerController : MonoBehaviour
             m_playerCol.offset = new Vector2(m_playerCol.offset.x, 0.59f);
         }
     }
-                      
+
+    private void OnLevelWasLoaded(int level)
+    {
+        FindStartPos();
+    }
+
+    void FindStartPos()
+    {
+        transform.position = GameObject.FindWithTag("StartPos").transform.position;
+    }    
+
+
 }
