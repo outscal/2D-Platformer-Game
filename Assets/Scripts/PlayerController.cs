@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] int scorePerKey;
     [Range(0,10)][SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     public Animator animator;
+    public ScoreController scoreController;
     Rigidbody2D rb2d;
     BoxCollider2D boxCollider;
     bool isGrounded;
@@ -20,6 +22,12 @@ public class PlayerController : MonoBehaviour
         }
         Debug.Log(isGrounded);
     }
+
+    public void PickUpKey()
+    {
+        scoreController.IncreaseScore(scorePerKey);
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "ground")
@@ -107,7 +115,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump", true);
         }
-        else
+        else 
         {
             animator.SetBool("Jump", false);
         }
