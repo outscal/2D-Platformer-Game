@@ -17,6 +17,7 @@ public class RespawnOnDeath : MonoBehaviour
             // player respawn on start position upon dying    
           //  SceneManager.LoadScene(0, LoadSceneMode.Single); 
           player.transform.position = respawn.transform.position;
+          
             //collision.gameObject.transform.position = collision.gameObject.GetComponent<PlayerController>().;
         }
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,12 +9,19 @@ public class PlayerController : MonoBehaviour
     public float jump;
     public Rigidbody2D rb2d;
     public bool onGround;
+    public ScoreController scoreController;
     
     private void Awake()
     {
         Debug.Log("Player Controller awake");
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 
+    }
+
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked up a KEY");
+        scoreController.IncreaseScore(10); 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
