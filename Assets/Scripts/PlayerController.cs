@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     public Rigidbody2D rb2d;
+    public bool onGround;
     
     private void Awake()
     {
@@ -15,10 +16,16 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    Debug.Log("Collision : " + collision.gameObject.name);
-    //}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collision : " + collision.gameObject.name);
+        onGround = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        onGround = false;
+    }
 
     void Start()
     {
@@ -41,9 +48,9 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
         Debug.Log("vertical value " + vertical); 
 
-        if(vertical > 0)
+        if(vertical > 0 && onGround) 
         {
-          
+            onGround = false;
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
     }
