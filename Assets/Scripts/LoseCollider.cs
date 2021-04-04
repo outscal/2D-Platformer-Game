@@ -6,6 +6,10 @@ public class LoseCollider : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
+        if(collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
+
+        }
     }
 }

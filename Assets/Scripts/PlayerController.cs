@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    const string HORIZONTAL = "Horizontal";
+    const string JUMP = "Jump";
+    const string CROUCH = " Crouch";
+    const string GROUNDED = "isGrounded";
     [SerializeField] int scorePerKey;
+
+
+    public JumpCollider jumpCollider;
     [Range(0,10)][SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     public Animator animator;
@@ -14,28 +21,12 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D boxCollider;
     bool isGrounded;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "ground")
-        {
-            isGrounded = true;
-        }
-        Debug.Log(isGrounded);
-    }
-
     public void PickUpKey()
     {
         scoreController.IncreaseScore(scorePerKey);
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "ground")
-        {
-            isGrounded = false;
-        }
-        Debug.Log(isGrounded);
-    }
+    
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -43,14 +34,16 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal"); 
+        float horizontal = Input.GetAxisRaw(HORIZONTAL); 
         float crouch = Input.GetAxisRaw("Crouch");
-        float jump = Input.GetAxisRaw("Jump");
-        animator.SetBool("isGrounded", isGrounded);
+        float jump = Input.GetAxisRaw(JUMP);
+        animator.SetBool(GROUNDED, isGrounded);
         JumpAnimation(jump);
         MoveAnimation(horizontal);
         CrouchAnimation(crouch);
         PlayerMovement(horizontal,crouch,jump);
+
+        isGrounded = jumpCollider.GrounChecker();
     }
 
     private void PlayerMovement(float horizontal,float crouch,float jump)

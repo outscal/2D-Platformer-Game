@@ -2177,7 +2177,7 @@ GameObject:
   - component: {fileID: 1851953901}
   - component: {fileID: 1851953903}
   - component: {fileID: 1851953904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -2193,7 +2193,7 @@ Transform:
   m_GameObject: {fileID: 1851953899}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1.34}
   m_Children: []
   m_Father: {fileID: 1403636039}
   m_RootOrder: 0
@@ -2888,7 +2888,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851953899}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -5608,26 +5608,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 19326018, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
-      propertyPath: jumpForce
-      value: 550
-      objectReference: {fileID: 0}
-    - target: {fileID: 19326018, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 1183435589}
-    - target: {fileID: 19326018, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
-      propertyPath: scorePerKey
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 831354284490016492, guid: 98949ee1caad2f44a90b9dbe69783124,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.44
+      value: -12.47
       objectReference: {fileID: 0}
     - target: {fileID: 831354284490016492, guid: 98949ee1caad2f44a90b9dbe69783124,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.93
+      value: -3.6
       objectReference: {fileID: 0}
     - target: {fileID: 831354284490016492, guid: 98949ee1caad2f44a90b9dbe69783124,
         type: 3}
@@ -5797,6 +5789,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323122930123902495, guid: a8db2a06ba800a24fa93e6928bcb8717,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 246
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323122930123902495, guid: a8db2a06ba800a24fa93e6928bcb8717,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 170
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8db2a06ba800a24fa93e6928bcb8717, type: 3}
