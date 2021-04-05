@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D m_playerCol;
     public float speed;
     public float jump;
-    public Rigidbody2D rb2d;
+    private Rigidbody2D rb2d;
     public bool onGround;
     public ScoreController scoreController;
     
@@ -15,8 +16,19 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player Controller awake");
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-
     }
+
+ //   private void ReloadLevel()
+ //   {
+ //       SceneManager.LoadScene(0);
+ //   }
+
+ //   public void KillPlayer()
+ //   {
+ //      Debug.Log("Player killed by Enemy");
+ //       //Destroy(gameObject);
+ //       ReloadLevel();
+ //   }
 
     public void PickUpKey()
     {

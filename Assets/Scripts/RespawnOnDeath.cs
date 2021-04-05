@@ -15,8 +15,8 @@ public class RespawnOnDeath : MonoBehaviour
         {
             Debug.Log("Player dies on jump landing in gap");
             // player respawn on start position upon dying    
-          //  SceneManager.LoadScene(0, LoadSceneMode.Single); 
-          player.transform.position = respawn.transform.position;
+            SceneManager.LoadScene(0, LoadSceneMode.Single); 
+         // player.transform.position = respawn.transform.position;
           
             //collision.gameObject.transform.position = collision.gameObject.GetComponent<PlayerController>().;
         }
