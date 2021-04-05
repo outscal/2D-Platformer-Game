@@ -18,17 +18,17 @@ public class PlayerController : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
- //   private void ReloadLevel()
- //   {
- //       SceneManager.LoadScene(0);
- //   }
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
 
- //   public void KillPlayer()
- //   {
- //      Debug.Log("Player killed by Enemy");
- //       //Destroy(gameObject);
- //       ReloadLevel();
- //   }
+    public void KillPlayer()
+    {
+       Debug.Log("Player killed by Enemy");
+        //Destroy(gameObject);
+        ReloadLevel();
+    }
 
     public void PickUpKey()
     {
