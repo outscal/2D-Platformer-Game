@@ -13,17 +13,7 @@ public class PlayerController : MonoBehaviour
     public SceneLoader sceneLoader;
     
     public JumpCollider jumpCollider;
-
-    public void KillPlayer()
-    {
-        StartCoroutine(PlayerDeath());
-    }
-    IEnumerator PlayerDeath()
-    {
-        animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(1);
-        sceneLoader.LoadStartScene();
-    }
+    
 
     [Range(0,10)][SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
@@ -32,7 +22,19 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb2d;
     BoxCollider2D boxCollider;
     bool isGrounded;
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<EnemyController>() != null)
+        {
+            StartCoroutine(PlayerDeath());
+        }
+    }
+    IEnumerator PlayerDeath()
+    {
+        animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(1);
+        sceneLoader.ReloadScene();
+    }
     public void PickUpKey()
     {
         scoreController.IncreaseScore(scorePerKey);
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
         Vector3 playerPos = transform.position;
         if (crouch > 0)
         {
-            playerPos.x += horizontal * moveSpeed * Time.deltaTime * 0.5f;
+            playerPos.x += horizontal * moveSpeed * Time.deltaTime * 0.2f;
         }
         else
         {

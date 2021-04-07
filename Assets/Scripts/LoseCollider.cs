@@ -16,7 +16,6 @@ public class LoseCollider : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             sceneLoader.ReloadScene();
-        
         }
     }
 }
