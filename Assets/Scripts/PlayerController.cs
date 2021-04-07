@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     public bool onGround;
     public ScoreController scoreController;
-    
+    private GameObject[] players;
+
     private void Awake()
     {
         Debug.Log("Player Controller awake");
@@ -115,12 +116,16 @@ public class PlayerController : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         FindStartPos();
+
+        players = GameObject.FindGameObjectsWithTag("Player");
+        if(players.Length > 1) 
+        {
+            Destroy(players[0]);
+        }
     }
 
     void FindStartPos()
     {
         transform.position = GameObject.FindWithTag("StartPos").transform.position;
     }    
-
-
 }

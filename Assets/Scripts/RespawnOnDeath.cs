@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class RespawnOnDeath : MonoBehaviour
 
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform respawn;
+    //[SerializeField] private Transform player;
+    //[SerializeField] private Transform respawn;
     
       private void OnTriggerEnter2D(Collider2D collision)
     {
