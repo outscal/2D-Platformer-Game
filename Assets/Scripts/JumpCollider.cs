@@ -8,12 +8,17 @@ public class JumpCollider : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("jump controller is working if true :"+collision.gameObject.CompareTag("ground"));
-        groundChecker = true;
+        if(collision.gameObject.tag == "ground")
+        {
+            groundChecker = true;
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        groundChecker = false;
+        if (collision.gameObject.tag == "ground")
+        {
+            groundChecker = false;
+        }
     }
 
     public bool GrounChecker()

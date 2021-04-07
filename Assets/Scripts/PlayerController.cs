@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int health ;
     const string HORIZONTAL = "Horizontal";
     const string JUMP = "Jump";
     const string CROUCH = " Crouch";
     const string GROUNDED = "isGrounded";
     [SerializeField] int scorePerKey;
     public SceneLoader sceneLoader;
-    
     public JumpCollider jumpCollider;
     
 
@@ -24,11 +24,22 @@ public class PlayerController : MonoBehaviour
     bool isGrounded;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<EnemyController>() != null)
+        Debug.Log("Health: " + health);
+        if (collision.gameObject.GetComponent<EnemyController>() != null && health>0)
+        {
+            health--;
+            
+        }
+    } 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("Health: " + health);
+        if (collision.gameObject.GetComponent<EnemyController>() != null && health==0)
         {
             StartCoroutine(PlayerDeath());
         }
     }
+    
     IEnumerator PlayerDeath()
     {
         animator.SetBool("Dead", true);
