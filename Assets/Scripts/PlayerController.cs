@@ -10,9 +10,21 @@ public class PlayerController : MonoBehaviour
     const string CROUCH = " Crouch";
     const string GROUNDED = "isGrounded";
     [SerializeField] int scorePerKey;
-
-
+    public SceneLoader sceneLoader;
+    
     public JumpCollider jumpCollider;
+
+    public void KillPlayer()
+    {
+        StartCoroutine(PlayerDeath());
+    }
+    IEnumerator PlayerDeath()
+    {
+        animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(1);
+        sceneLoader.LoadStartScene();
+    }
+
     [Range(0,10)][SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     public Animator animator;

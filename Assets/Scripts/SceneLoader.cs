@@ -6,16 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-
+    int currentSceneIndex;
     // Start is called before the first frame update
     bool lvlChange = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        lvlChange = true;
-    }
-    void Start()
-    {
+        if(collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            lvlChange = true;
+        }
         
+    }
+    private void Start()
+    {
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     // Update is called once per frame
@@ -26,11 +30,15 @@ public class SceneLoader : MonoBehaviour
             LoadNextScene();
         }
     }
-
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
+    }
     public void LoadNextScene()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
         SceneManager.LoadScene(currentSceneIndex + 1);
+        lvlChange = false;
     }
 
     public void LoadStartScene()

@@ -1589,12 +1589,12 @@ PrefabInstance:
     - target: {fileID: 1141013106725345856, guid: 4de82f2c3cc49d64297f4a6677c7c732,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1
+      value: -11.8
       objectReference: {fileID: 0}
     - target: {fileID: 1141013106725345856, guid: 4de82f2c3cc49d64297f4a6677c7c732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.4
+      value: -11.3
       objectReference: {fileID: 0}
     - target: {fileID: 1141013106725345856, guid: 4de82f2c3cc49d64297f4a6677c7c732,
         type: 3}
@@ -1673,12 +1673,12 @@ PrefabInstance:
     - target: {fileID: 3021924291422079484, guid: addcbfd64c7204f47b3ef8bdc459f956,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 134.9
+      value: 134.98
       objectReference: {fileID: 0}
     - target: {fileID: 3021924291422079484, guid: addcbfd64c7204f47b3ef8bdc459f956,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.3
+      value: 15.98
       objectReference: {fileID: 0}
     - target: {fileID: 3021924291422079484, guid: addcbfd64c7204f47b3ef8bdc459f956,
         type: 3}
@@ -2557,7 +2557,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19326018, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
       propertyPath: jumpForce
-      value: 950
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 113566792, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 113566793, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.129
+      objectReference: {fileID: 0}
+    - target: {fileID: 113566793, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.161
+      objectReference: {fileID: 0}
+    - target: {fileID: 113566795, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.12847614
+      objectReference: {fileID: 0}
+    - target: {fileID: 113566795, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4865818
+      objectReference: {fileID: 0}
+    - target: {fileID: 113566795, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.14529896
+      objectReference: {fileID: 0}
+    - target: {fileID: 113566795, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
+      propertyPath: m_Size.y
+      value: 0.050815582
       objectReference: {fileID: 0}
     - target: {fileID: 1072893064, guid: 98949ee1caad2f44a90b9dbe69783124, type: 3}
       propertyPath: m_Mass
@@ -3582,7 +3610,6 @@ GameObject:
   - component: {fileID: 1710037496}
   - component: {fileID: 1710037495}
   - component: {fileID: 1710037497}
-  - component: {fileID: 1710037498}
   m_Layer: 8
   m_Name: Ground
   m_TagString: ground
@@ -6757,27 +6784,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!50 &1710037498
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710037493}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!4 &1726837548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4767794831011640070, guid: 28d68aad93d93314e99d9a21771f475d,
@@ -7277,7 +7283,6 @@ GameObject:
   - component: {fileID: 2044150647}
   - component: {fileID: 2044150646}
   - component: {fileID: 2044150645}
-  - component: {fileID: 2044150648}
   m_Layer: 0
   m_Name: Underground
   m_TagString: Untagged
@@ -28369,27 +28374,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!50 &2044150648
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044150643}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!4 &2094712610 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4767794831011640070, guid: 28d68aad93d93314e99d9a21771f475d,
