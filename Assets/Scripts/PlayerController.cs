@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Health: " + health);
         if (collision.gameObject.GetComponent<EnemyController>() != null && health==0)
         {
-            StartCoroutine(PlayerDeath());
+            StartCoroutine(PlayerDeath());      
         }
     }
     
