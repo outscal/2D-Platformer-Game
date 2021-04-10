@@ -9,6 +9,7 @@ public class GameOverController : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("not able to reload");
         buttonRestart.onClick.AddListener(ReloadLevel);
     }
     
@@ -17,10 +18,10 @@ public class GameOverController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void ReloadLevel()
+    void ReloadLevel()
     {
         Debug.Log("Reloading Scene 0");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
 }
