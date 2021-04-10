@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public bool onGround;
     public ScoreController scoreController;
     private GameObject[] players;
+    public GameOverController gameOverController;
 
     private void Awake()
     {
@@ -19,16 +20,14 @@ public class PlayerController : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    private void ReloadLevel()
-    {
-        SceneManager.LoadScene(0);
-    }
+    
 
     public void KillPlayer()
     {
-       Debug.Log("Player killed by Enemy");
+        Debug.Log("Player killed by Enemy");
         //Destroy(gameObject);
-        ReloadLevel();
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
 
     public void PickUpKey()

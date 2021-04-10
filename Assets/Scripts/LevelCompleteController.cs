@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelOverController : MonoBehaviour
+public class LevelCompleteController : MonoBehaviour
 {
     public int buildindex;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -14,5 +14,4 @@ public class LevelOverController : MonoBehaviour
             Debug.Log("Level Finished by Player");
         }
     }
-
 }
