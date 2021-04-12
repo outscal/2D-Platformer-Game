@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int scorePerKey;
     public SceneLoader sceneLoader;
     public JumpCollider jumpCollider;
-    
-
     [Range(0,10)][SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     public Animator animator;
@@ -22,22 +20,22 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb2d;
     BoxCollider2D boxCollider;
     bool isGrounded;
+    bool isDead;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Health: " + health);
         if (collision.gameObject.GetComponent<EnemyController>() != null && health>0)
         {
             health--;
-            
+            if (health == 0)
+            {
+                StartCoroutine(PlayerDeath());
+            }
         }
     } 
     private void OnCollisionExit2D(Collision2D collision)
     {
         Debug.Log("Health: " + health);
-        if (collision.gameObject.GetComponent<EnemyController>() != null && health==0)
-        {
-            StartCoroutine(PlayerDeath());      
-        }
     }
     
     IEnumerator PlayerDeath()
@@ -73,21 +71,25 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement(float horizontal,float crouch,float jump)
     {
-        Vector3 playerPos = transform.position;
-        if (crouch > 0)
+        if (!animator.GetBool("Dead"))
         {
-            playerPos.x += horizontal * moveSpeed * Time.deltaTime * 0.2f;
-        }
-        else
-        {
-            playerPos.x += horizontal * moveSpeed * Time.deltaTime;
-        }
-        transform.position = playerPos;
+            Vector3 playerPos = transform.position;
+            if (crouch > 0)
+            {
+                playerPos.x += horizontal * moveSpeed * Time.deltaTime * 0.2f;
+            }
+            else
+            {
+                playerPos.x += horizontal * moveSpeed * Time.deltaTime;
+            }
+            transform.position = playerPos;
 
-        if (jump > 0 && isGrounded)
-        {
-            rb2d.AddForce(new Vector2(0, jumpForce));
+            if (jump > 0 && isGrounded)
+            {
+                rb2d.AddForce(new Vector2(0, jumpForce));
+            }
         }
+        
 
     }
 
@@ -110,20 +112,23 @@ public class PlayerController : MonoBehaviour
 
     private void MoveAnimation(float horizontal)
     {
-        
 
-        float absHorizontal = Mathf.Abs(horizontal);
-        animator.SetFloat("Speed", absHorizontal);
-        Vector3 scale = transform.localScale;
-        if (horizontal > 0)
+        if (!animator.GetBool("Dead"))
         {
-            scale.x = absHorizontal;
+            float absHorizontal = Mathf.Abs(horizontal);
+            animator.SetFloat("Speed", absHorizontal);
+            Vector3 scale = transform.localScale;
+            if (horizontal > 0)
+            {
+                scale.x = absHorizontal;
+            }
+            else if (horizontal < 0)
+            {
+                scale.x = -1f * absHorizontal;
+            }
+            transform.localScale = scale;
         }
-        else if (horizontal < 0)
-        {
-            scale.x = -1f * absHorizontal;
-        }
-        transform.localScale = scale;
+        
     }
 
     private void JumpAnimation(float jump)
