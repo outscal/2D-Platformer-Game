@@ -115,7 +115,6 @@ public class PlayerController : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         FindStartPos();
-
         players = GameObject.FindGameObjectsWithTag("Player");
         if(players.Length > 1) 
         {
