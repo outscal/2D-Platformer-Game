@@ -9,23 +9,23 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     private Rigidbody2D rb2d;
-    public bool onGround;
+    private bool onGround;
     public ScoreController scoreController;
     private GameObject[] players;
     public GameOverController gameOverController;
+    //public HeartSystem heartSystem;
+    //private bool dead;
 
     private void Awake()
     {
         Debug.Log("Player Controller awake");
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
-
     
 
     public void KillPlayer()
     {
         Debug.Log("Player killed by Enemy");
-        //Destroy(gameObject);
         gameOverController.PlayerDied();
         this.enabled = false;
     }
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FindStartPos()
+   public void FindStartPos()
     {
         transform.position = GameObject.FindWithTag("StartPos").transform.position;
     }    

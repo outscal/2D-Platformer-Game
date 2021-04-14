@@ -10,7 +10,22 @@ public class EnemyPatrol : MonoBehaviour
     public Transform groundCheck;
     bool isFacingLeft = true;
 
+    public HeartSystem heartSystem;
+
     RaycastHit2D hit;
+
+    private void OnCollisionEnter2D(Collision2D collision)                                // OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
+     
+        {
+            //PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+
+            heartSystem.TakeDamage(1);              //  killPlayer()
+        }
+
+    }
 
 
     private void Update()
