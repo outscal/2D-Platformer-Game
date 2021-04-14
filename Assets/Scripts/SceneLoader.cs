@@ -43,6 +43,6 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadStartScene()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(0);
     }
 }
