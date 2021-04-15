@@ -2,8 +2,6 @@
 using UnityEngine;
 using System;
 
-
-
     public class Levels 
     {
     public static string Level1 = "Level1";
