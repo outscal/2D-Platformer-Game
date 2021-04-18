@@ -9,7 +9,7 @@ public class GameOverController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("not able to reload");
+        Debug.Log("Level Restart");
         buttonRestart.onClick.AddListener(ReloadLevel);
     }
     

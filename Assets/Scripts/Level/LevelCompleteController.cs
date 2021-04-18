@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelCompleteController : MonoBehaviour
 {
-   // public int buildindex;
+    public GameObject newLevelComplete;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // if (collision.gameObject.CompareTag("Player")) 
@@ -13,6 +13,7 @@ public class LevelCompleteController : MonoBehaviour
             //level is over
             Debug.Log("Level Finished by Player");
             LevelManager.Instance.MarkCurrentLevelComplete();
+            newLevelComplete.SetActive(true);
         }
     }
 }
