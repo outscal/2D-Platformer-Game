@@ -11,10 +11,10 @@ public class RespawnOnDeath : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Player dies on jump landing in gap");
-            //    SceneManager.LoadScene(1); 
+            Debug.Log("Player dies on jump landing in gap"); 
             heartSystem.TakeDamage(1);
             playerController.FindStartPos();
+            SoundManager.Instance.Play(Sounds.Fall);
         }
     }
 

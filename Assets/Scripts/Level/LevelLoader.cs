@@ -5,14 +5,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
     {
-    private Button button;
+    private Button m_button;
     
     public string LevelName;
 
     private void Awake()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(OnClick);
+        m_button = GetComponent<Button>();
+        m_button.onClick.AddListener(OnClick);
     }
 
     private void OnClick()

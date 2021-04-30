@@ -46,6 +46,7 @@ public class HeartSystem : MonoBehaviour
 
             if(dead == true)
             {
+                SoundManager.Instance.Play(Sounds.PlayerDeath);
                 playerController.KillPlayer();
             }
         }

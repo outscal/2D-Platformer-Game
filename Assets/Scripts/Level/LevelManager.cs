@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,12 +37,7 @@ public class LevelManager : MonoBehaviour
         //set level status to complete
         SetLevelStatus(currentScene.name, LevelStatus.Completed);
 
-        //unlock the next level
-        //int nextSceneIndex = currentScene.buildIndex + 1;
-        //Scene nextScene = SceneManager.GetSceneByBuildIndex(nextSceneIndex);
-        //Debug.Log("next Scene is valid: " + nextScene.IsValid());
-        //SetLevelStatus(nextScene.name, LevelStatus.Unlocked);
-
+        //unlock the next level       
         int currentSceneIndex = Array.FindIndex(Levels, level => level == currentScene.name);
         int nextSceneIndex = currentSceneIndex + 1;
         if (nextSceneIndex < Levels.Length)

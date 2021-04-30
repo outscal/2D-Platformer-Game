@@ -14,15 +14,13 @@ public class EnemyPatrol : MonoBehaviour
 
     RaycastHit2D hit;
 
-    private void OnCollisionEnter2D(Collision2D collision)                                // OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)                              
     {
 
         if (collision.gameObject.GetComponent<PlayerController>() != null)
      
-        {
-            //PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-
-            heartSystem.TakeDamage(1);              //  killPlayer()
+        {            
+            heartSystem.TakeDamage(1);              
         }
 
     }
@@ -37,7 +35,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         if(hit.collider != false)
         {
-            Debug.Log("Hitting Ground");
+            //Debug.Log("Hitting Ground");
             if (isFacingLeft)
             {
                 rb2d.velocity = new Vector2(-speed, rb2d.velocity.y);
@@ -50,7 +48,7 @@ public class EnemyPatrol : MonoBehaviour
 
         else
         {
-            Debug.Log("Not Hitting Ground");
+            //Debug.Log("Not Hitting Ground");
             isFacingLeft = !isFacingLeft;
             transform.localScale = new Vector3(-transform.localScale.x, 0.3f, 1f);
 

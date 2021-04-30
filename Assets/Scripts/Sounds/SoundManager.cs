@@ -100,7 +100,10 @@ public enum Sounds
 {
     ButtonClick,
     Music,
-    PlayerMove,
+    FootStep,
+    KeyPick,
+    Fall,
     PlayerDeath,
-    EnemyDeath,
+    NewLevel,
+    LevelComplete,
 }

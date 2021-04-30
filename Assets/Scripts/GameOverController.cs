@@ -15,14 +15,13 @@ public class GameOverController : MonoBehaviour
     
     public void PlayerDied()
     {
-        SoundManager.Instance.PlayMusic(Sounds.PlayerDeath);
+        //SoundManager.Instance.Play(Sounds.PlayerDeath);
         gameObject.SetActive(true);
     }
 
     void ReloadLevel()
     {
         Debug.Log("Reloading Scene.....");
-        //SceneManager.LoadScene(1);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.buildIndex);
     }

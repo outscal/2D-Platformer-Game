@@ -8,48 +8,49 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D m_playerCol;
     public float speed;
     public float jump;
-    private Rigidbody2D rb2d;
-    private bool onGround;
+    private Rigidbody2D m_rb2d;
+    private bool m_onGround;
     public ScoreController scoreController;
     private GameObject[] players;
     public GameOverController gameOverController;
-    //public HeartSystem heartSystem;
-    //private bool dead;
+    
+    
 
     private void Awake()
     {
-        Debug.Log("Player Controller awake");
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        //Debug.Log("Player Controller awake");
+        m_rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
     
 
     public void KillPlayer()
     {
-        Debug.Log("Player killed by Enemy");
+        //Debug.Log("Player killed by Enemy");
         gameOverController.PlayerDied();
         this.enabled = false;
     }
 
     public void PickUpKey()
     {
-        Debug.Log("Player picked up a KEY");
-        scoreController.IncreaseScore(10); 
+        //Debug.Log("Player picked up a KEY");
+        scoreController.IncreaseScore(10);
+        SoundManager.Instance.Play(Sounds.KeyPick);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision : " + collision.gameObject.name);
-        onGround = true;
+        //Debug.Log("Collision : " + collision.gameObject.name);
+        m_onGround = true;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        onGround = false;
+        m_onGround = false;
     }
 
     void Start()
     {
-        Debug.Log("Start Function ");
+        //Debug.Log("Start Function ");
         DontDestroyOnLoad(gameObject);
     }
 
@@ -66,12 +67,12 @@ public class PlayerController : MonoBehaviour
         Vector2 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
-        Debug.Log("vertical value " + vertical); 
+        //Debug.Log("vertical value " + vertical); 
 
-        if(vertical > 0 && onGround) 
+        if (vertical > 0 && m_onGround == true) 
         {
-            onGround = false;
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            m_rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            m_onGround = false;
         }
     }
     private void PlayMovementAnimation(float horizontal, float vertical)
@@ -110,20 +111,31 @@ public class PlayerController : MonoBehaviour
             m_playerCol.size = new Vector2(m_playerCol.size.x, 1.33f);
             m_playerCol.offset = new Vector2(m_playerCol.offset.x, 0.59f);
         }
-    }
-
-    private void OnLevelWasLoaded(int level)
-    {
-        FindStartPos();
-        players = GameObject.FindGameObjectsWithTag("Player");
-        if(players.Length > 1) 
+        else
         {
-            Destroy(players[0]);
+            isCrouching = false;
+            m_playerCol.size = new Vector2(m_playerCol.size.x, 2.118038f);
+            m_playerCol.offset = new Vector2(m_playerCol.offset.x, 0.9803708f);
         }
     }
 
-   public void FindStartPos()
+   private void OnLevelWasLoaded(int level)
+   {
+       FindStartPos();
+       players = GameObject.FindGameObjectsWithTag("Player");
+       if(players.Length > 1) 
+       {
+           Destroy(players[0]);
+       }
+   }
+
+    public void FindStartPos()
     {
-        transform.position = GameObject.FindWithTag("StartPos").transform.position;
+       transform.position = GameObject.FindWithTag("StartPos").transform.position;
     }    
+
+    private void FootStep()
+    {
+        SoundManager.Instance.Play(Sounds.FootStep);
+    }
 }
