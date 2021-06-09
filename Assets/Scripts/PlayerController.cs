@@ -2,8 +2,13 @@
 
 public class PlayerController : MonoBehaviour
 {
+    private Rigidbody2D rb2d;
     public Animator animator;
- 
+
+    private void Awake()
+    {
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
