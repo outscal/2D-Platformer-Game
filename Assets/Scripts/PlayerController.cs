@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJump", false);
         }
 
-        //crouch
+        //crouch animation
         if(Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("IsCrouch", true);
