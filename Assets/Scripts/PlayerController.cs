@@ -4,10 +4,18 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     public Animator animator;
+    private BoxCollider2D boxcollider2d;
+
+    public float crouchOffSetx, crouchOffSety;
+    public float crouchSizex, crouchSizey;
+    public float offsetx, offsety;
+    public float sizex, sizey;
+
 
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        boxcollider2d = gameObject.GetComponent<BoxCollider2D>();
     }
     void Update()
     {
@@ -40,6 +48,20 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("IsJump", false);
+        }
+
+        //crouch
+        if(Input.GetKey(KeyCode.LeftControl))
+        {
+            animator.SetBool("IsCrouch", true);
+            boxcollider2d.offset = new Vector2(crouchOffSetx, crouchOffSety);
+            boxcollider2d.size = new Vector2(crouchSizex, crouchSizey);
+        }
+        else
+        {
+            animator.SetBool("IsCrouch", false);
+            boxcollider2d.offset = new Vector2(offsetx, offsety);
+            boxcollider2d.size = new Vector2(sizex, sizey);
         }
     }
 }
