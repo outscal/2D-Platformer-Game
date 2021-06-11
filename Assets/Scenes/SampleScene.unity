@@ -175,15 +175,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 9
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &73784887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +206,7 @@ MonoBehaviour:
   sizex: 0.3917714
   sizey: 1.948089
   speed: 10
+  jumpForce: 60
 --- !u!1 &645595707
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +302,7 @@ GameObject:
   - component: {fileID: 1169402525}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: platformtag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -406,6 +407,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4264338123985047920, guid: e7ec21d9362f8034696c05fabb2bfab9,
+        type: 3}
+      propertyPath: m_TagString
+      value: playertag
+      objectReference: {fileID: 0}
     - target: {fileID: 6139451416759799981, guid: e7ec21d9362f8034696c05fabb2bfab9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -464,17 +470,17 @@ PrefabInstance:
     - target: {fileID: 6139451416759799981, guid: e7ec21d9362f8034696c05fabb2bfab9,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.7600199
+      value: 1.4214625
       objectReference: {fileID: 0}
     - target: {fileID: 6139451416759799981, guid: e7ec21d9362f8034696c05fabb2bfab9,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.7600199
+      value: 1.4214625
       objectReference: {fileID: 0}
     - target: {fileID: 6139451416759799981, guid: e7ec21d9362f8034696c05fabb2bfab9,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.7600199
+      value: 1.4214625
       objectReference: {fileID: 0}
     - target: {fileID: 6882331172361042541, guid: e7ec21d9362f8034696c05fabb2bfab9,
         type: 3}
