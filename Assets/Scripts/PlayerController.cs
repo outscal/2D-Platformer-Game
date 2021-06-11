@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float crouchSizex, crouchSizey;
     public float offsetx, offsety;
     public float sizex, sizey;
+    public float speed;
 
 
     private void Awake()
@@ -23,6 +24,15 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         PlayerAnimation(horizontal, vertical);
+        PlayerMovement(horizontal, vertical);
+    }
+
+    private void PlayerMovement(float horizontal, float vertical)
+    {
+        //horizontal movement
+        Vector3 currentPosition = transform.position;
+        currentPosition.x += speed * horizontal *Time.deltaTime;
+        transform.position = currentPosition;
     }
 
     private void PlayerAnimation(float horizontal, float vertical)
