@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -66,53 +67,14 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerAnimation(float horizontal, float vertical)
     {
-        //horizontal animation
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        Vector2 scale = transform.localScale;
-        if (horizontal < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
 
+        HorizontalAnimation(horizontal);
+        VerticalAnimation(vertical);
+        CrouchAnimation();
+    }
 
-
-        //vertical animation
-        if ((vertical > 0) && (rb2d.velocity.y>0))
-        {
-            if(jumpcount == 0 && isGrounded == false) 
-            {
-                animator.SetBool("IsJump", true);
-                jumpcount = 1;
-            }    
-            animator.SetBool("JumpFall", false);
-        }
-        else
-        { 
-            animator.SetBool("JumpFall", true);
-            animator.SetBool("IsJump", false);
-
-            if(isGrounded==true)
-            {
-                jumpcount = 0;
-            }
-        }
-
-        if ((rb2d.velocity.y == 0) && (isGrounded==true))
-        {
-            animator.SetBool("JumpFall", false);
-        }
-
-        if (isGrounded == false)
-        {
-            animator.SetBool("JumpFall", true);
-        }
-
-
+    private void CrouchAnimation()
+    {
         //crouch animation
         if (Input.GetKey(KeyCode.LeftControl))
         {
@@ -126,5 +88,57 @@ public class PlayerController : MonoBehaviour
             boxcollider2d.offset = new Vector2(offsetx, offsety);
             boxcollider2d.size = new Vector2(sizex, sizey);
         }
+    }
+
+    private void VerticalAnimation(float vertical)
+    {
+        //vertical animation
+        if ((vertical > 0) && (rb2d.velocity.y > 0))
+        {
+            if (jumpcount == 0 && isGrounded == false)
+            {
+                animator.SetBool("IsJump", true);
+                jumpcount = 1;
+            }
+            animator.SetBool("JumpFall", false);
+        }
+        else
+        {
+            animator.SetBool("JumpFall", true);
+            animator.SetBool("IsJump", false);
+
+            if (isGrounded == true)
+            {
+                jumpcount = 0;
+            }
+        }
+
+        if ((rb2d.velocity.y == 0) && (isGrounded == true))
+        {
+            animator.SetBool("JumpFall", false);
+        }
+
+        if (isGrounded == false)
+        {
+            animator.SetBool("JumpFall", true);
+        }
+
+    }
+
+    private void HorizontalAnimation(float horizontal)
+    {
+        //horizontal animation
+        
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        Vector2 scale = transform.localScale;
+        if (horizontal < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+        else if (horizontal > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
     }
 }
