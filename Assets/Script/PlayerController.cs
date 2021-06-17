@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +10,12 @@ public class PlayerController : MonoBehaviour
     public BoxCollider2D boxCollider2D;
     private Rigidbody2D rb2D;
 
-    private void Awake(){
-        Debug.Log("Player Controller Awake");
+
+
+    private void Awake()
+    {
+        //awake is used to intialize any variable or game state before game starts
+        //awake is always called before satrt function
         rb2D = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -19,10 +23,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         float horizantal = Input.GetAxisRaw("Horizontal");
-        // float vertical = Input.GetAxisRaw("Vertical");
-        float vertical = Input.GetAxisRaw("Jump");
+        float vertical = Input.GetAxisRaw("Jump");      //use "Jump" or "Vertical" both are same
         bool crouch = Input.GetKey("left ctrl");
-        MoveCharacter(horizantal,vertical);
+        MoveCharacter(horizantal, vertical);
         PlayMovementAniamation(horizantal, vertical, crouch);
 
     }
@@ -30,21 +33,36 @@ public class PlayerController : MonoBehaviour
     private void MoveCharacter(float horizantal, float vertical)
     {
         //Move horizaontally
+        RunChar(horizantal);
+
+        // Move Verically
+        JumpChar(vertical);
+
+    }
+
+    void RunChar(float horizantal)
+    {
         Vector3 pos = transform.position;
         pos.x += horizantal * speed * Time.deltaTime;
         transform.position = pos;
+    }
 
-       // Move Verically
+    void JumpChar(float vertical)
+    {
         if (vertical > 0)
         {
-            rb2D.AddForce( new Vector2(0f, jump), ForceMode2D.Force);
+            rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
-
     }
     private void PlayMovementAniamation(float horizantal, float vertical, bool crouch)
     {
+        RunAnim(horizantal);
+        JumpAnim(vertical);
+        CrouchAnim(crouch);
+    }
 
-        // Run
+    void RunAnim(float horizantal)
+    {
         animator.SetFloat("Speed", Mathf.Abs(horizantal));
         Vector3 scale = transform.localScale;
         if (horizantal < 0)
@@ -57,7 +75,10 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        // vertical
+    }
+
+    void JumpAnim(float vertical)
+    {
         if (vertical > 0)
         {
             animator.SetBool("Jump", true);
@@ -66,14 +87,16 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump", false);
         }
+    }
 
-        //Crouch
+
+    void CrouchAnim(bool crouch)
+    {
         if (crouch == true)
         {
             animator.SetBool("Crouch", crouch);
             boxCollider2D.offset = new Vector2(-0.004810318f, 0.6084107f);
             boxCollider2D.size = new Vector2(0.4740263f, 1.351288f);
-
 
         }
         else
@@ -83,4 +106,5 @@ public class PlayerController : MonoBehaviour
             boxCollider2D.size = new Vector2(0.4740263f, 2.012844f);
         }
     }
+
 }
