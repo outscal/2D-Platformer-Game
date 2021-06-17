@@ -10,13 +10,18 @@ public class PlayerController : MonoBehaviour
     public BoxCollider2D boxCollider2D;
     private Rigidbody2D rb2D;
 
-
+    public ScoreController scoreController;
 
     private void Awake()
     {
         //awake is used to intialize any variable or game state before game starts
         //awake is always called before satrt function
         rb2D = gameObject.GetComponent<Rigidbody2D>();
+    }
+    public void PickUpKey()
+    {
+        Debug.Log("picked Key");
+        scoreController.increaseScore(10);
     }
 
 
