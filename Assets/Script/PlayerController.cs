@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2D;
 
     public ScoreController scoreController;
+    public string startScene;
 
     private void Awake()
     {
@@ -24,6 +26,17 @@ public class PlayerController : MonoBehaviour
         scoreController.increaseScore(10);
     }
 
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed by enemy");
+        ReloadScene();
+        // Destroy(gameObject);
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(startScene);
+    }
 
     private void Update()
     {

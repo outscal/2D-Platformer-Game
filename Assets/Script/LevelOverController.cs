@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelOverController : MonoBehaviour
 {
     public string level2Scene;
-      private void OnTriggerEnter2D(Collider2D collison)
+    private void OnTriggerEnter2D(Collider2D collison)
     {
         // if (collision.gameobject.CompareTag("Player"))
         if (collison.gameObject.GetComponent<PlayerController>() != null)
