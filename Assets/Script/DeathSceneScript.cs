@@ -12,9 +12,11 @@ public class DeathSceneScript : MonoBehaviour
         if (collison.gameObject.GetComponent<PlayerController>() != null)
         {
             Debug.Log("Player is Dead.. ");
-            SceneManager.LoadScene(deathScene);
+            // SceneManager.LoadScene(deathScene);
+            PlayerController playerController = collison.gameObject.GetComponent<PlayerController>();
+            playerController.KillPlayer();
         }
     }
-
+ 
 
 }
