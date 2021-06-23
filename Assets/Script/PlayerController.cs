@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -11,31 +12,91 @@ public class PlayerController : MonoBehaviour
     public BoxCollider2D boxCollider2D;
     private Rigidbody2D rb2D;
 
-    public ScoreController scoreController;
-    public string startScene;
+    private int livesRemain = 3;
+    private bool gameOver;
+    public Image life01;
+    public Image life02;
+    public Image life03;
+    Vector3 startPos;
+    private Text scoreText;
+    public Text highScoreText;
+    public Button gameOverButton;
 
+    public ScoreController scoreController;
+    public string restartScene;
+
+    private int scoreValue = 10;
+
+    //awake is used to intialize any variable or game state before game starts
+    //awake is always called before satrt function
     private void Awake()
     {
-        //awake is used to intialize any variable or game state before game starts
-        //awake is always called before satrt function
         rb2D = gameObject.GetComponent<Rigidbody2D>();
     }
+
+    //PickUpKey() = this will increases score after key pick
     public void PickUpKey()
     {
-        Debug.Log("picked Key");
-        scoreController.increaseScore(10);
+        scoreController.increaseScore(scoreValue);
     }
 
+    //killPlayer will reduce health by one and reload player to start position
+    //after three chance game over button will pop up
     public void KillPlayer()
     {
-        Debug.Log("Player killed by enemy");
-        ReloadScene();
-        // Destroy(gameObject);
+        livesRemain--;
+        transform.position = new Vector3(-80, -1.5f, 0);
+        transform.localScale = new Vector3(2, 2, 2);
+        updateLifeUI();
+        if (gameOver == true)
+        {
+            GameOverButtonText();
+        }
     }
 
-    private void ReloadScene()
+    //this text func helps in showing final score
+    public void GameOverButtonText()
     {
-        SceneManager.LoadScene(startScene);
+        gameOverButton.gameObject.SetActive(true);
+        highScoreText.text = "Total Score: " + scoreController.score.ToString();
+    }
+
+    //this update fun will deactivate heart compoenent
+    private void updateLifeUI()
+    {
+        if (livesRemain == 3)
+        {
+            life01.gameObject.SetActive(true);
+            life02.gameObject.SetActive(true);
+            life03.gameObject.SetActive(true);
+        }
+        if (livesRemain == 2)
+        {
+            life01.gameObject.SetActive(true);
+            life02.gameObject.SetActive(true);
+            life03.gameObject.SetActive(false);
+        }
+        if (livesRemain == 1)
+        {
+
+            life01.gameObject.SetActive(true);
+            life02.gameObject.SetActive(false);
+            life03.gameObject.SetActive(false);
+        }
+        if (livesRemain == 0)
+        {
+
+            life01.gameObject.SetActive(false);
+            life02.gameObject.SetActive(false);
+            life03.gameObject.SetActive(false);
+            gameOver = true;
+        }
+    }
+
+    //this func help inn reloading scene with the help of game over button
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(restartScene);
     }
 
     private void Update()
@@ -58,6 +119,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //this RunChar func will run our player
     void RunChar(float horizantal)
     {
         Vector3 pos = transform.position;
@@ -65,13 +127,23 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
     }
 
+    //JumpChar func will do jump our player
     void JumpChar(float vertical)
     {
         if (vertical > 0)
         {
-            rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            // rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            rb2D.velocity = new Vector2(0.0f, 5.0f);
+            // rb2d.velocity = new Vector2(0.0f, -10.0f);
+        }
+        else
+        {
+            rb2D.velocity = new Vector2(0.0f, -5.0f);
+
         }
     }
+
+    // this will control animation
     private void PlayMovementAniamation(float horizantal, float vertical, bool crouch)
     {
         RunAnim(horizantal);
@@ -79,6 +151,7 @@ public class PlayerController : MonoBehaviour
         CrouchAnim(crouch);
     }
 
+    //RunAnim fun for run animation
     void RunAnim(float horizantal)
     {
         animator.SetFloat("Speed", Mathf.Abs(horizantal));
@@ -95,6 +168,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //JumpAnim fun for jump animation
     void JumpAnim(float vertical)
     {
         if (vertical > 0)
@@ -108,6 +182,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    //CrouchAnim fun for crouch animation
     void CrouchAnim(bool crouch)
     {
         if (crouch == true)
