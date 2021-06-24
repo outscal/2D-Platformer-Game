@@ -19,7 +19,7 @@ public class ScoreController : MonoBehaviour
     {
         score += increment;
         RefreshUI();
-    }
+    } 
 
     private void RefreshUI(){
         scoreText.text = "Score: " + score;

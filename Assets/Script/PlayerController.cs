@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float speed;
-    public float jump;
+    // public float jump;
     public BoxCollider2D boxCollider2D;
     private Rigidbody2D rb2D;
 
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public string restartScene;
 
     private int scoreValue = 10;
+    bool onGround = true;
 
     //awake is used to intialize any variable or game state before game starts
     //awake is always called before satrt function
@@ -103,7 +104,9 @@ public class PlayerController : MonoBehaviour
     {
         float horizantal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");      //use "Jump" or "Vertical" both are same
+        
         bool crouch = Input.GetKey("left ctrl");
+
         MoveCharacter(horizantal, vertical);
         PlayMovementAniamation(horizantal, vertical, crouch);
 
@@ -127,18 +130,21 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
     }
 
-    //JumpChar func will do jump our player
+    // //JumpChar func will do jump our player
     void JumpChar(float vertical)
     {
+        // if (vertical > 0 && onGround == true)
         if (vertical > 0)
         {
             // rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-            rb2D.velocity = new Vector2(0.0f, 5.0f);
+            rb2D.velocity = new Vector2(0.0f,6.0f);
+            // onGround = false;
             // rb2d.velocity = new Vector2(0.0f, -10.0f);
         }
-        else
+        else //if(onGround==false)
         {
-            rb2D.velocity = new Vector2(0.0f, -5.0f);
+            rb2D.velocity = new Vector2(0.0f, -6.0f);
+            onGround = true;
 
         }
     }
@@ -156,11 +162,11 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetFloat("Speed", Mathf.Abs(horizantal));
         Vector3 scale = transform.localScale;
-        if (horizantal < 0)
+        if (horizantal < 0 )
         {
             scale.x = -1 * Mathf.Abs(scale.x);
         }
-        else if (horizantal > 0)
+        else if (horizantal > 0 )
         {
             scale.x = Mathf.Abs(scale.x);
         }
@@ -168,19 +174,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //JumpAnim fun for jump animation
+    // JumpAnim fun for jump animation
     void JumpAnim(float vertical)
     {
-        if (vertical > 0)
+        if (vertical > 0 )
         {
             animator.SetBool("Jump", true);
         }
-        else
+        else 
         {
             animator.SetBool("Jump", false);
         }
     }
-
 
     //CrouchAnim fun for crouch animation
     void CrouchAnim(bool crouch)
