@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RestartLevel : MonoBehaviour
+
+public class LobbyControlller : MonoBehaviour
 {
-    public string restartGame;
+    public string gameSceneName;
+
     public void onButtonClick()
     {
-        SceneManager.LoadScene(restartGame); 
+        SceneManager.LoadScene(gameSceneName);
     }
 
 }
