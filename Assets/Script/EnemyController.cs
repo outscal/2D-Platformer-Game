@@ -6,6 +6,10 @@ public class EnemyController : MonoBehaviour
 {
     public float speed;
     public bool moveRight;
+    public int enemyHealth = 40;
+    public Animator anim;
+    public bool idleEnemy = false;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
@@ -45,8 +49,33 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int damage)
+    {
+        enemyHealth -= damage;
+        if (enemyHealth <= 0)
+        {
+            // anim.SetBool("Dead", true);
+
+            StartCoroutine(PlayDeadEnemy());
+            // Destroy(gameObject);
+
+
+        }
+    }
+
+    IEnumerator PlayDeadEnemy()
+    {
+        anim.SetBool("Dead", true);
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
+    }
+
     void Update()
     {
-        MoveEnemy();
+        if (!idleEnemy)
+        {
+
+            MoveEnemy();
+        }
     }
 }
