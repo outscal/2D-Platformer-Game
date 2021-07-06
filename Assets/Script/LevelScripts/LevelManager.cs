@@ -1,39 +1,60 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using System;
 
-public class LevelManager : MonoBehaviour
+namespace Elle2D
 {
-    private static LevelManager instance;
-    public static LevelManager Instance { get { return instance; } }
-    public string level1;
-
-    private void Awake()
+    public class LevelManager : MonoBehaviour
     {
-        if (instance == null)
+        private static LevelManager instance;
+
+        [SerializeField]
+        private string[] Levels;
+        public static LevelManager Instance { get { return instance; } }
+        private void Awake()
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
+
+        private void Start()
         {
-            Destroy(gameObject);
+            if (GetLevelStatus(Levels[0]) == LevelStatus.Locked)
+            {
+                SetLevelStatus(Levels[0], LevelStatus.Unlocked);
+            }
         }
-    }
-    private void Start(){
-        if (GetLevelStatus(level1) == LevelStatus.Locked)
+
+        public LevelStatus GetLevelStatus(string level)
         {
-            SetLevelStatus(level1,LevelStatus.UnLocked);
+            LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level, 0);
+            return levelStatus;
         }
-    }
+
+        public void MarkCurrentLevelComplete()
+        {
+            Scene currentscene = SceneManager.GetActiveScene();
+            LevelManager.Instance.SetLevelStatus(currentscene.name, LevelStatus.Completed);
+            int currentSceneIndex = Array.FindIndex(Levels, level => level == currentscene.name);
+            int nextSceneINdex = currentSceneIndex + 1;
+            if (nextSceneINdex < Levels.Length)
+            {
+                SetLevelStatus(Levels[nextSceneINdex], LevelStatus.Unlocked);
+            }
+        }
 
 
-    public LevelStatus GetLevelStatus(string level)
-    {
-        LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level, 0);
-        return levelStatus;
-    }
-
-    public void SetLevelStatus(string level, LevelStatus levelStatus)
-    {
-        PlayerPrefs.SetInt(level, (int)levelStatus);
+        public void SetLevelStatus(string level, LevelStatus levelStatus)
+        {
+            PlayerPrefs.SetInt(level, (int)levelStatus);
+        }
     }
 }

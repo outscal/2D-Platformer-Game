@@ -1,44 +1,43 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(Button))]
-public class LevelLoader : MonoBehaviour
+namespace Elle2D
 {
-    private Button button;
-    public string LevelName;
-
-    private void Awake()
+    [RequireComponent(typeof(Button))]
+    public class LevelLoader : MonoBehaviour
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(onClick);
-    }
+        private Button button;
 
-    private void onClick()
-    {
-        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
-
-        switch (levelStatus)
+        public string LevelName;
+        private void Awake()
         {
-            case LevelStatus.Locked:
-                Debug.Log("Level's is Lock");
-                break;
-
-            case LevelStatus.UnLocked:
-                SoundManager.Instance.Play(Sounds.ButtonClick);
-                SceneManager.LoadScene(LevelName);
-                Debug.Log("Level's is UnLock");
-                break;
-
-            case LevelStatus.Completed:
-                SoundManager.Instance.Play(Sounds.ButtonClick);
-                SceneManager.LoadScene(LevelName);
-                Debug.Log("Level's is Completed");
-                break;
+            // PlayerPrefs.DeleteAll();
+            button = GetComponent<Button>();
+            button.onClick.AddListener(onClick);
         }
 
+        private void onClick()
+        {
+            LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+            switch (levelStatus)
+            {
+                case LevelStatus.Locked:
+                    Debug.Log("Can't play this level till you unlock it");
+                    break;
 
+                case LevelStatus.Unlocked:
+                    Debug.Log("Unlocked");
+                    SceneManager.LoadScene(LevelName);
+                    break;
 
+                case LevelStatus.Completed:
+                    Debug.Log("Completed");
+                    SceneManager.LoadScene(LevelName);
+                    break;
+            }
+
+        }
     }
-
 }

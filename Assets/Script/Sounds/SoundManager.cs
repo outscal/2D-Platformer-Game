@@ -3,86 +3,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
-{
-    private static SoundManager instance;
-    public static SoundManager Instance { get { return instance; } }
 
-    public AudioSource soundEffect;
-    public AudioSource soundMusic;
-    public SoundType[] Sounds;
-
-
-    private void Awake()
+    public class SoundManager : MonoBehaviour
     {
-        if (instance == null)
+        private static SoundManager instance;
+        public static SoundManager Instance { get { return instance; } }
+
+        public AudioSource soundEffect;
+        public AudioSource soundMusic;
+        public SoundType[] Sounds;
+
+
+        private void Awake()
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
+
+        private void Start()
         {
-            Destroy(gameObject);
+            PlayMusic(global::Sounds.Music);
+        }
+
+        public void PlayMusic(Sounds sound)
+        {
+
+            AudioClip clip = getSoundClip(sound);
+            if (clip != null)
+            {
+                soundMusic.clip = clip;
+                soundMusic.Play();
+            }
+            else
+            {
+                Debug.LogError("Clip not found : " + sound);
+            }
+        }
+
+        public void Play(Sounds sound)
+        {
+            AudioClip clip = getSoundClip(sound);
+            if (clip != null)
+            {
+                soundEffect.PlayOneShot(clip);
+            }
+            else
+            {
+                Debug.LogError("Clip not found : " + sound);
+            }
+        }
+
+        private AudioClip getSoundClip(Sounds sound)
+        {
+            SoundType item = Array.Find(Sounds, i => i.soundType == sound);
+            if (item != null)
+            {
+                return item.SoundClip;
+            }
+            return null;
         }
     }
 
-    private void Start(){
-        PlayMusic(global::Sounds.Music);
-    }
-
-
-
-    public void PlayMusic(Sounds sound)
+    [Serializable]
+    public class SoundType
     {
-
-        AudioClip clip = getSoundClip(sound);
-        if (clip != null)
-        {
-            soundMusic.clip = clip;
-            soundMusic.Play();
-        }
-        else
-        {
-            Debug.LogError("Clip not found : " + sound);
-        }
+        public Sounds soundType;
+        public AudioClip SoundClip;
     }
 
-    public void Play(Sounds sound)
+    public enum Sounds
     {
-        AudioClip clip = getSoundClip(sound);
-        if (clip != null)
-        {
-            soundEffect.PlayOneShot(clip);
-        }
-        else
-        {
-            Debug.LogError("Clip not found : " + sound);
-        }
+        ButtonClick,
+        Playermove,
+        Music,
+        PlayerDeath,
+        EnemyDeath,
     }
 
-    private AudioClip getSoundClip(Sounds sound)
-    {
-        SoundType item = Array.Find(Sounds, i => i.soundType == sound);
-        if (item != null)
-        {
-            return item.SoundClip;
-        }
-        return null;
-    }
-}
-
-[Serializable]
-public class SoundType
-{
-    public Sounds soundType;
-    public AudioClip SoundClip;
-}
-
-public enum Sounds
-{
-    ButtonClick,
-    Playermove,
-    Music,
-    PlayerDeath,
-    EnemyDeath,
-}
