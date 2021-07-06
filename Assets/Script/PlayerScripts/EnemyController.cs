@@ -67,6 +67,7 @@ namespace Elle2D
             Destroy(gameObject);
         }
 
+
         void Update()
         {
             if (!idleEnemy)

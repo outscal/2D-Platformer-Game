@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//this is camera script
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform target;
@@ -10,7 +11,6 @@ public class CameraFollow : MonoBehaviour
     {
         Follow();
     }
-
     void Follow()
     {
         Vector3 targetPosition = target.position + offset;

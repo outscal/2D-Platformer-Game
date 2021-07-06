@@ -2,37 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Elle2D
 {
-    namespace Elle2D
+    //this script for bullet instantiating
+    public class Wepon : MonoBehaviour
     {
-        public class Wepon : MonoBehaviour
+        public Transform firePoint;
+        public GameObject bulletPrefab;
+        [SerializeField] float timeuntillFire;
+        [SerializeField] float fireRate = 0.2f;
+        PlayerController playerMovement;
+
+        private void Start()
         {
-            public Transform firePoint;
-            public GameObject bulletPrefab;
-            [SerializeField] float timeuntillFire;
-            [SerializeField] float fireRate = 0.2f;
-            PlayerController playerMovement;
+            playerMovement = gameObject.GetComponent<PlayerController>();
+        }
 
-            private void Start()
+        private void Update()
+        {
+            if (timeuntillFire < Time.time && playerMovement.withGun == true)
             {
-                playerMovement = gameObject.GetComponent<PlayerController>();
+                Shoot();
+                timeuntillFire = Time.time + fireRate;
             }
+        }
 
-            private void Update()
-            {
-                if (timeuntillFire < Time.time && playerMovement.withGun == true)
-                {
-                    Shoot();
-                    timeuntillFire = Time.time + fireRate;
-                }
-            }
-
-            void Shoot()
-            {
-                float angle = playerMovement.isFacingRight ? 0f : 180f;
-                Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(new Vector3(0f, 0f, angle)));
-            }
+        void Shoot()
+        {
+            float angle = playerMovement.isFacingRight ? 0f : 180f;
+            Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(new Vector3(0f, 0f, angle)));
         }
     }
 }

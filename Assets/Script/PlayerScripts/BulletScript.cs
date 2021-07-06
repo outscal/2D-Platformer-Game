@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Elle2D
 {
+    //after instantiating bullet this fun will work
     public class BulletScript : MonoBehaviour
     {
         [SerializeField] float speed = 20f;
@@ -23,6 +24,7 @@ namespace Elle2D
                 Destroy(gameObject);
             }
         }
+
 
         private void OnBecameInvisible()
         {

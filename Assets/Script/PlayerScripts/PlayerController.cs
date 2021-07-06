@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    ///from here script is for movement
+    ///from here script is for  movement
     private float horizantal;
     private float vertical;
     private bool crouch;

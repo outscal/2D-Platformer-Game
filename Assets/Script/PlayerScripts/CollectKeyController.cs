@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Elle2D
 {
+    //when player touches key this fun will work
     public class CollectKeyController : MonoBehaviour
     {
         private void OnCollisionEnter2D(Collision2D collision)
@@ -16,4 +17,5 @@ namespace Elle2D
             }
         }
     }
+
 }

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 namespace Elle2D
 {
+
+    //when player touches death platform this fun will works
     public class DeathSceneScript : MonoBehaviour
     {
         private void OnTriggerEnter2D(Collider2D collison)
@@ -17,3 +19,5 @@ namespace Elle2D
         }
     }
 }
+
+
