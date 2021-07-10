@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Elle2D
 {
-    public class MovingPlatform : MonoBehaviour
+    public class MovingPlatform :  MonoBehaviour
     {
         Vector3 moveDirection = Vector3.down;
         [SerializeField] float speed = 4f;

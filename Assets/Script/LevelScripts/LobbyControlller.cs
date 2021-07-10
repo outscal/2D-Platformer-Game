@@ -17,7 +17,7 @@ namespace Elle2D
         public void QuitButton()
         {
             Debug.Log("Should Quit");
-            Application.Quit();
+            Application.Quit(); 
         }
 
     }

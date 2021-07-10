@@ -11,7 +11,7 @@ namespace Elle2D
 
         [SerializeField]
         private string[] Levels;
-        public static LevelManager Instance { get { return instance; } }
+        public static LevelManager Instance { get { return instance; } } 
         private void Awake()
         {
             if (instance == null)

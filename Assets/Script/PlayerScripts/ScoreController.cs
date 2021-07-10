@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Elle2D
 {
-    //this updates score UI
+     //this updates score UI
     public class ScoreController : MonoBehaviour
     {
 

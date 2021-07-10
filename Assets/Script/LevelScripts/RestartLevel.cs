@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 namespace Elle2D
 {
     public class RestartLevel : MonoBehaviour
-    {
+    { 
         public string restartGame;
         public string Scene01;
         public string Scene02;

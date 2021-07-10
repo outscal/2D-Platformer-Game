@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Elle2D
 {
-    //this script for bullet instantiating
+    //this script for bullet  instantiating
     public class Wepon : MonoBehaviour
     {
         public Transform firePoint;
         public GameObject bulletPrefab;
-        [SerializeField] float timeuntillFire;
+        private float timeuntillFire;
         [SerializeField] float fireRate = 0.2f;
         PlayerController playerMovement;
 

@@ -4,7 +4,7 @@ namespace Elle2D
 {
     //this is camera script
     public class CameraFollow : MonoBehaviour
-    {
+    { 
         [SerializeField] private Transform target;
         [SerializeField] private Vector3 offset;
         [Range(1, 10)]

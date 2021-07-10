@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Elle2D
+namespace  Elle2D
 {
     public class SoundManager : MonoBehaviour
     {

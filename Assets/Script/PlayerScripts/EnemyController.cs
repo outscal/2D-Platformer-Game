@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Elle2D
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController :  MonoBehaviour
     {
         [SerializeField] float speed;
-        [SerializeField] bool moveRight;
+        public bool moveRight;
         [SerializeField] int enemyHealth = 40;
         [SerializeField] bool idleEnemy = false;
         public Animator anim;
@@ -23,17 +23,20 @@ namespace Elle2D
 
         private void MoveEnemy()
         {
+
+            Vector3 scale = transform.localScale;
             if (moveRight)
             {
-                transform.Translate(2 * Time.deltaTime * speed, 0, 0);
-                transform.localScale = new Vector2(1.25f, 1.25f);
+                transform.Translate(speed * Time.deltaTime, 0, 0);
+                scale.x = 1 * Mathf.Abs(scale.x);
             }
             else
             {
-
-                transform.Translate(-2 * Time.deltaTime * speed, 0, 0);
-                transform.localScale = new Vector2(-1.25f, 1.25f);
+                transform.Translate(-speed * Time.deltaTime, 0, 0);
+                scale.x = -1 * Mathf.Abs(scale.x);
             }
+
+            transform.localScale = scale;
         }
 
         private void OnTriggerEnter2D(Collider2D trig)
@@ -63,7 +66,8 @@ namespace Elle2D
         IEnumerator PlayDeadEnemy()
         {
             anim.SetBool("Dead", true);
-            yield return new WaitForSeconds(0.5f);
+            idleEnemy = true;
+            yield return new WaitForSeconds(3f);
             Destroy(gameObject);
         }
 

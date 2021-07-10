@@ -16,7 +16,7 @@ namespace Elle2D
             button = GetComponent<Button>();
             button.onClick.AddListener(onClick);
         }
-
+ 
         private void onClick()
         {
             LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);

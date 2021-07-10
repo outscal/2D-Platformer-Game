@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Elle2D
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController :  MonoBehaviour
     {
         private Animator animator;
         private CapsuleCollider2D capCollider2D;
@@ -39,7 +39,7 @@ namespace Elle2D
         [HideInInspector] public bool withGun = false;
         private AudioSource audioSource;
         [SerializeField] AudioClip[] PlayerSounds;
-        private float volume = 0.5f;
+        private float volume = 0.3f;
         private bool gameOver;
         private float horizantal;
         private float vertical;

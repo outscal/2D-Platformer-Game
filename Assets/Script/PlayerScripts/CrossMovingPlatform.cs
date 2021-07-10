@@ -6,7 +6,7 @@ namespace Elle2D
 {
     //this moves platform up and down
     public class CrossMovingPlatform : MonoBehaviour
-    {
+    { 
         [SerializeField] float distance = 2.5f;
         void Update()
         {
