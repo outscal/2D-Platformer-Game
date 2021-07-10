@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+namespace Elle2D
+{
     public class SoundManager : MonoBehaviour
     {
         private static SoundManager instance;
@@ -12,8 +13,6 @@ using UnityEngine;
         public AudioSource soundEffect;
         public AudioSource soundMusic;
         public SoundType[] Sounds;
-
-
         private void Awake()
         {
             if (instance == null)
@@ -78,12 +77,12 @@ using UnityEngine;
         public AudioClip SoundClip;
     }
 
-    public enum Sounds
-    {
-        ButtonClick,
-        Playermove,
-        Music,
-        PlayerDeath,
-        EnemyDeath,
-    }
-
+}
+public enum Sounds
+{
+    ButtonClick,
+    Playermove,
+    Music,
+    PlayerDeath,
+    EnemyDeath,
+}

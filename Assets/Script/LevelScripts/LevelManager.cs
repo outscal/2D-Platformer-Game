@@ -24,7 +24,6 @@ namespace Elle2D
                 Destroy(gameObject);
             }
         }
-
         private void Start()
         {
             if (GetLevelStatus(Levels[0]) == LevelStatus.Locked)

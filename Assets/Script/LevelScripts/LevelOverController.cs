@@ -12,8 +12,8 @@ namespace Elle2D
         {
             if (collison.gameObject.GetComponent<PlayerController>() != null)
             {
-                LevelManager.Instance.MarkCurrentLevelComplete();
-                player.nextSceneButtonImage.gameObject.SetActive(true);
+                    LevelManager.Instance.MarkCurrentLevelComplete();
+                    player.nextSceneButtonImage.gameObject.SetActive(true);
             }
         }
     }

@@ -9,7 +9,6 @@ namespace Elle2D
     public class LevelLoader : MonoBehaviour
     {
         private Button button;
-
         public string LevelName;
         private void Awake()
         {

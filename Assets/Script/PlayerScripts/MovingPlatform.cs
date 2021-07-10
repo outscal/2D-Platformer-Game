@@ -6,15 +6,39 @@ namespace Elle2D
 {
     public class MovingPlatform : MonoBehaviour
     {
-        [SerializeField] float distance = 8f;
+        Vector3 moveDirection = Vector3.down;
+        [SerializeField] float speed = 4f;
+        [SerializeField] float timer = 3.5f;
+
+        void Start()
+        {
+            StartCoroutine(ChangeDirection());
+        }
         void Update()
         {
-
-            float x = transform.position.x;
-            float y = Mathf.Sin(Time.time) * distance;
-            float z = transform.position.z;
-            transform.position = new Vector3(x, y, z);
+            MovePlatform();
         }
+
+        void MovePlatform()
+        {
+            transform.Translate(moveDirection * speed * Time.smoothDeltaTime);
+        }
+
+        IEnumerator ChangeDirection()
+        {
+            yield return new WaitForSeconds(timer);
+            if (moveDirection == Vector3.down)
+            {
+                moveDirection = Vector3.up;
+            }
+            else
+            {
+                moveDirection = Vector3.down;
+            }
+
+            StartCoroutine(ChangeDirection());
+        }
+
     }
-    
+
 }

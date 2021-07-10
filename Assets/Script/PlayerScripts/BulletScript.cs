@@ -26,6 +26,7 @@ namespace Elle2D
         }
 
 
+
         private void OnBecameInvisible()
         {
             Destroy(gameObject);

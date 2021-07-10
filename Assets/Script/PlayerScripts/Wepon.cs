@@ -14,9 +14,13 @@ namespace Elle2D
         [SerializeField] float fireRate = 0.2f;
         PlayerController playerMovement;
 
+        Vector3 originalPos;
+        Vector3 crouchFirePointPos;
+
         private void Start()
         {
             playerMovement = gameObject.GetComponent<PlayerController>();
+            originalPos = firePoint.position;
         }
 
         private void Update()
@@ -31,7 +35,17 @@ namespace Elle2D
         void Shoot()
         {
             float angle = playerMovement.isFacingRight ? 0f : 180f;
-            Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(new Vector3(0f, 0f, angle)));
+            if (!playerMovement.crouch)
+            {
+
+                Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(new Vector3(0f, 0f, angle)));
+            }
+            else if (playerMovement.crouch)
+            {
+                crouchFirePointPos = new Vector3(firePoint.position.x, originalPos.y - 1.5f, 0);
+                Instantiate(bulletPrefab, crouchFirePointPos, Quaternion.Euler(new Vector3(0f, 0f, angle)));
+            }
         }
+
     }
 }
