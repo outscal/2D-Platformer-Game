@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
         float speed = Input.GetAxisRaw("Horizontal");
 
         //tried jump on my own
-        //bool jump = Input.GetKey("space");
+        //bool jump = Input.GetKeyDown("space");
 
         //Since, running can be varied, the Speed is a float value
         //Mathf.Abs(speed) fetches the absolute value
@@ -30,21 +30,23 @@ public class PlayerController : MonoBehaviour
         if (speed < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
+            transform.Translate(Vector3.left * 5 * Time.deltaTime, Space.World);
         }
         else if (speed > 0)
         {
             scale.x = Mathf.Abs(scale.x);
+            transform.Translate(Vector3.right * 5 * Time.deltaTime, Space.World);
         }
 
-        /*if (jump)
+        /*if (jump == true)
         {
-            animator.setbool("jump", true);
-            transform.translate(vector3.up * 3 * time.deltatime, space.world);
+            animator.SetBool("Jump", true);
+            transform.Translate(Vector3.up * 3 * Time.deltaTime, Space.World);
         }
 
         else
         {
-            animator.setbool("jump", false);
+            animator.SetBool("Jump", false);
         }*/
 
 
