@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
         float speed = Input.GetAxisRaw("Horizontal");
 
         //tried jump on my own
-       // bool jump = Input.GetKeyDown("space");
+        //bool jump = Input.GetKey("space");
 
         //Since, running can be varied, the Speed is a float value
         //Mathf.Abs(speed) fetches the absolute value
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         // -1 is used for sign change, irrespective of the value of scale
         // if speed is less, ie, the left, A or left joystick is pressed, the scale value will be reversed
         // Hence the animation will flip, and stay there.
+
         Vector3 scale = transform.localScale;
         if (speed < 0)
         {
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
 
-        /*if (input.getkey("space"))
+        /*if (jump)
         {
             animator.setbool("jump", true);
             transform.translate(vector3.up * 3 * time.deltatime, space.world);
