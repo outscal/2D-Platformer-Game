@@ -5,7 +5,7 @@ using UnityEngine;
 public class playercontrolnew : MonoBehaviour
 {
     public Animator animator;
-
+   
     private void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
@@ -21,6 +21,26 @@ public class playercontrolnew : MonoBehaviour
             scale.x = Mathf.Abs(speed);
         }
         transform.localScale = scale;
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            animator.SetBool("Crouch", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            animator.SetBool("Crouch", false);
+        }
+
+        float vertical = Input.GetAxisRaw("Jump");
+
+        if (vertical>0)
+        {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
     }
 
 }
