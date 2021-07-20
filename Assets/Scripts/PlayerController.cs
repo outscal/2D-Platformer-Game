@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
         //Horizontal comprises of Right and left arrow, A and D, Right and left Joystick
         float speed = Input.GetAxisRaw("Horizontal");
 
-        //tried jump on my own
-        //bool jump = Input.GetKeyDown("space");
+        //tried crouch on my own
+        bool crouch = Input.GetKeyUp(KeyCode.LeftControl);
 
         //Since, running can be varied, the Speed is a float value
         //Mathf.Abs(speed) fetches the absolute value
@@ -38,16 +38,16 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector3.right * 5 * Time.deltaTime, Space.World);
         }
 
-        /*if (jump == true)
+        if (crouch == true)
         {
-            animator.SetBool("Jump", true);
-            transform.Translate(Vector3.up * 3 * Time.deltaTime, Space.World);
+            animator.SetBool("Crouch", true);
+            //transform.Translate(Vector3.up * 3 * Time.deltaTime, Space.World);
         }
 
         else
         {
             animator.SetBool("Jump", false);
-        }*/
+        }
 
 
         transform.localScale = scale;
