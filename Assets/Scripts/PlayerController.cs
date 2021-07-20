@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
-        float crouch = Input.GetAxisRaw("Crouch");
+        float crouch = Input.GetAxisRaw("Crouch"); //made a different instruction for this
         MoveCharacter(horizontal, vertical, crouch);
         PlayMovementAnimation(horizontal, vertical, crouch);
     }
