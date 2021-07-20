@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public SpriteRenderer sprite;
     public Animator Animator;
-    bool isCrouched;
-
+    private bool isCrouched;
+    public float speed;
+    public float jump;
 
     void resizeBoxColliderSize()
     {
@@ -25,18 +26,72 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vert = Input.GetAxisRaw("Vertical");
+        isCrouched = Input.GetKey(KeyCode.LeftControl);
 
+
+        // Plays all Animations
+        AnimationPlay(horizontal, vert);
+
+        // Debug.Log(horizontal);
+
+        MovementPlay(horizontal, vert);
+
+
+
+
+
+
+
+
+    }
+
+    private void MovementPlay(float horizontal, float vert)
+    {
+        Vector3 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+
+        if (vert > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        }
+    }
+
+    private void AnimationPlay(float horizontal, float vert)
+    {
+        Vector3 scale = transform.localScale;
+        if (horizontal < 0)
+        {
+
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+
+        else if (horizontal > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+
+        transform.localScale = scale;
+
+        Animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+
+
+        if (vert > 0)
+        {
+            Animator.SetBool("Jump", true);
+        }
+
+        else  
+        
+            Animator.SetBool("Jump", false);
         
 
-        //isCrouched = Input.GetKeyDown(KeyCode.LeftControl);
-
-        isCrouched = Input.GetKey(KeyCode.LeftControl);
-       // Debug.Log(speed);
-        Animator.SetFloat("Speed", Mathf.Abs(speed));
-
-        Animator.SetBool("Crouched", isCrouched);
+        
         if (isCrouched == true)
         {
             resizeBoxColliderSize();
@@ -44,34 +99,9 @@ public class PlayerController : MonoBehaviour
 
         else if (isCrouched == false)
         {
-            gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.56f, 2.03f); 
-        }
-       
-        
-        Vector3 scale = transform.localScale;
-        if (speed < 0)
-        {
-            
-            scale.x = -1f * Mathf.Abs(scale.x);
+            gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.56f, 2.03f);
         }
 
-        else if (speed > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-
-        transform.localScale = scale;
-
-        if (vert > 0)
-        {
-            Animator.SetBool("Jump", true);
-        }
-
-        else if (vert < 0)
-        {
-            Animator.SetBool("Jump", false);
-        }
-
-      
+        Animator.SetBool("Crouched", isCrouched);
     }
 }
