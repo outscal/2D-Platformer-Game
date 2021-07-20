@@ -8,18 +8,39 @@ public class PlayerController : MonoBehaviour
 
     //this enables us to add GameObject/Prefab to the Script
     public Animator animator;
+    public float acceleration;
+    public float jump;
 
-    
+    private Rigidbody2D rb2d;
 
+    private void Start()
+    {
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+    }
     private void Update()
     {
 
         float speed = Input.GetAxisRaw("Horizontal");
+        float leap = Input.GetAxisRaw("Jump");
         PlayCrouchAnimation();
         PlayJumpAnimation();
         PlayHorizontalAnimation(speed);
+        PlayerMovement(speed, leap);
     }
 
+    private void PlayerMovement(float speed, float leap)
+    {
+        //for horizontal
+        Vector3 position = transform.position;
+        position.x += speed * acceleration * Time.deltaTime;
+        transform.position = position;
+
+        //for vertical
+        if (leap > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        }
+    }
     private void PlayCrouchAnimation()
     {
         bool crouch = Input.GetKey(KeyCode.LeftControl);
@@ -54,10 +75,12 @@ public class PlayerController : MonoBehaviour
         if (speed < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
+            //transform.Translate(Vector3.left * 3 * Time.deltaTime, Space.World);
         }
         else if (speed > 0)
         {
             scale.x = Mathf.Abs(scale.x);
+            //transform.Translate(Vector3.right * 3 * Time.deltaTime, Space.World);
         }
         transform.localScale = scale;
     }
