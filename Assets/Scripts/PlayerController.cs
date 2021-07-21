@@ -13,9 +13,10 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
-    private void Start()
+    private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        Debug.Log("Game has started");
     }
     private void Update()
     {
@@ -36,10 +37,10 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         //for vertical
-        if (leap > 0)
-        {
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-        }
+        //if (leap > 0)
+        //{
+        //    rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        //}
     }
     private void PlayCrouchAnimation()
     {
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour
         if (jump == true)
         {
             animator.SetBool("Jump", true);
-            //transform.Translate(Vector3.up * 3 * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.up * 6 * Time.deltaTime, Space.World);
         }
         else
         {
