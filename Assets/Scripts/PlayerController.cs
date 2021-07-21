@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     public float speed;
+    public float jump;
+    private Rigidbody2D rb2d;
 
 
     // Start is called before the first frame update
     private void Awake()
     {
-       
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
     void Start()
     {
@@ -33,20 +35,26 @@ public class PlayerController : MonoBehaviour
         bool crouchVertical = Input.GetKey(KeyCode.LeftControl);
 
         MovementAnimation(run, vertical, crouchVertical);
-        PlayerMovement(run);
+        PlayerMovement(run, vertical);
 
     }
 
-
-
-
     //Player Movement
-    private void PlayerMovement(float run)
+    private void PlayerMovement(float run,float vertical)
     {
         //Run Movement
         Vector3 position = transform.localPosition;
         position.x = position.x + run * (speed * Time.deltaTime);
         transform.localPosition = position;
+
+
+        //Jump Movement
+
+        if (vertical > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+
+        }
     }
 
         private void MovementAnimation(float run, float vertical, bool crouchVertical)
