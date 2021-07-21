@@ -6,12 +6,19 @@ public class playercontrolnew : MonoBehaviour
 {
     public Animator animator;
     public float race;
+    public float jump;
+    //creating a local variable linked to Jump force
+    // public manually drag // private mein code defines it 
+    public Rigidbody2D rb2d;
 
     private void Update()
     {
         //speed after float can take any name and Horizontal is used to move player in Unity backend
         float speed = Input.GetAxisRaw("Horizontal");
-        MoveCharacter(speed);
+        float vertical = Input.GetAxisRaw("Jump");
+        
+        MoveCharacter(speed, vertical);
+        playermovementanimation(speed, vertical);
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
@@ -21,7 +28,6 @@ public class playercontrolnew : MonoBehaviour
             animator.SetBool("Crouch", false);
         }
         //As jump is already in Unity Backend
-        float vertical = Input.GetAxisRaw("Jump");
 
         if (vertical > 0)
         {
@@ -33,17 +39,22 @@ public class playercontrolnew : MonoBehaviour
         }
     }
 
-    private void MoveCharacter(float speed)
+    private void MoveCharacter(float speed, float vertical)
     {
+        //move char. horizontally
         Vector3 position = transform.position;
         position.x = position.x + speed * race * Time.deltaTime;
         transform.position = position;
 
-        playermovementanimation(speed);
+        //move char. vertically
+        if (vertical>0)
+        {
+            rb2d.AddForce(new Vector2(0, jump), ForceMode2D.Force);
+        }
     }
 
         //Extracted code from above
-        private void playermovementanimation(float speed)
+        private void playermovementanimation(float speed, float vertical)
         {
             animator.SetFloat("speed", Mathf.Abs(speed));
             Vector3 scale = transform.localScale;
