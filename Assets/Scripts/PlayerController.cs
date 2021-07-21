@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     {
 
     public Animator animator;
-  
+    public float speed;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -32,10 +33,23 @@ public class PlayerController : MonoBehaviour
         bool crouchVertical = Input.GetKey(KeyCode.LeftControl);
 
         MovementAnimation(run, vertical, crouchVertical);
-       
+        PlayerMovement(run);
+
     }
 
-    private void MovementAnimation(float run, float vertical, bool crouchVertical)
+
+
+
+    //Player Movement
+    private void PlayerMovement(float run)
+    {
+        //Run Movement
+        Vector3 position = transform.localPosition;
+        position.x = position.x + run * (speed * Time.deltaTime);
+        transform.localPosition = position;
+    }
+
+        private void MovementAnimation(float run, float vertical, bool crouchVertical)
     {
 
         //Run Animation
