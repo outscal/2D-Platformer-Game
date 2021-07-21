@@ -5,23 +5,13 @@ using UnityEngine;
 public class playercontrolnew : MonoBehaviour
 {
     public Animator animator;
-   
+    public float race;
+
     private void Update()
     {
+        //speed after float can take any name and Horizontal is used to move player in Unity backend
         float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("speed", Mathf.Abs(speed));
-        Vector3 scale = transform.localScale;
-
-        if (speed < 0)
-        {
-            scale.x = -1 * Mathf.Abs(speed);
-        }
-        else if (speed > 0)
-        {
-            scale.x = Mathf.Abs(speed);
-        }
-        transform.localScale = scale;
-
+        MoveCharacter(speed);
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
@@ -30,10 +20,10 @@ public class playercontrolnew : MonoBehaviour
         {
             animator.SetBool("Crouch", false);
         }
-
+        //As jump is already in Unity Backend
         float vertical = Input.GetAxisRaw("Jump");
 
-        if (vertical>0)
+        if (vertical > 0)
         {
             animator.SetBool("Jump", true);
         }
@@ -43,4 +33,28 @@ public class playercontrolnew : MonoBehaviour
         }
     }
 
-}
+    private void MoveCharacter(float speed)
+    {
+        Vector3 position = transform.position;
+        position.x = position.x + speed * race * Time.deltaTime;
+        transform.position = position;
+
+        playermovementanimation(speed);
+    }
+
+        //Extracted code from above
+        private void playermovementanimation(float speed)
+        {
+            animator.SetFloat("speed", Mathf.Abs(speed));
+            Vector3 scale = transform.localScale;
+            if (speed < 0)
+            {
+                scale.x = -1 * Mathf.Abs(speed);
+            }
+            else if (speed > 0)
+            {
+                scale.x = Mathf.Abs(speed);
+            }
+            transform.localScale = scale;
+        }
+    }
