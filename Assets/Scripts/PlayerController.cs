@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
         PlayJumpAnimation();
         PlayHorizontalAnimation(speed);
         PlayerMovement(speed, leap);
+
+        
     }
 
     private void PlayerMovement(float speed, float leap)

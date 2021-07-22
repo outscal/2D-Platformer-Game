@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelOverControl : MonoBehaviour
+
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,3 +13,4 @@ public class LevelOverControl : MonoBehaviour
         }
     }
 }
+
