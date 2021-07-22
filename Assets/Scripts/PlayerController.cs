@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Crouch", false);
         }
     }
-
     private void PlayJumpAnimation()
     {
         bool jump = Input.GetKey(KeyCode.Space);
@@ -71,21 +70,22 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump", false);
         }
     }
-
     private void PlayHorizontalAnimation(float speed)
     {
         animator.SetFloat("Speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
-        if (speed < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-            //transform.Translate(Vector3.left * 3 * Time.deltaTime, Space.World);
-        }
-        else if (speed > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-            //transform.Translate(Vector3.right * 3 * Time.deltaTime, Space.World);
-        }
+        //if (speed < 0)
+        //{
+        //    scale.x = -1f * Mathf.Abs(scale.x);
+        //    //transform.Translate(Vector3.left * 3 * Time.deltaTime, Space.World);
+        //}
+        //else if (speed > 0)
+        //{
+        //    scale.x = Mathf.Abs(scale.x);
+        //    //transform.Translate(Vector3.right * 3 * Time.deltaTime, Space.World);
+            
+        //}
+        scale.x = (speed < 0 ? -1 : (speed > 0 ? 1 : scale.x)) * Mathf.Abs(scale.x);
         transform.localScale = scale;
     }
         
