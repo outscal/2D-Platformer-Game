@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public float acceleration;
     public float jump;
+    
 
     private Rigidbody2D rb2d;
 
@@ -36,10 +37,10 @@ public class PlayerController : MonoBehaviour
         position.x += speed * acceleration * Time.deltaTime;
         transform.position = position;
 
-        //for vertical
+        
         //if (leap > 0)
         //{
-        //    rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        //    rb2d.AddForce(new Vector2(0f, leap), ForceMode2D.Force);
         //}
     }
     private void PlayCrouchAnimation()
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
         if (jump == true)
         {
             animator.SetBool("Jump", true);
-            transform.Translate(Vector3.up * 6 * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.up * 10 * Time.deltaTime, Space.World);
         }
         else
         {
