@@ -11,8 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
 
    public void PickUpKey()
-    {
-        Debug.Log("Key Picked Up");
+    { 
         scoreController.IncreaseScore(10);
     }
 

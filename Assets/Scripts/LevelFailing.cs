@@ -10,7 +10,6 @@ public class LevelFailing : MonoBehaviour
    {
       if (collision.gameObject.GetComponent<PlayerController>() != null)
       {
-         Debug.Log("Level Failed");
          SceneManager.LoadScene(Respawn);
       }   
    }
