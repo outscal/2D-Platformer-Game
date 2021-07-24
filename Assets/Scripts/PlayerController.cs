@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    
     public Animator animator;
+    public ScoreController scoreController;
 
     public float speed;
     public float jump;
@@ -16,7 +18,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player Controller awake");
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
-
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked up the key");
+        scoreController.IncreaseScore(10);
+    }
    // private void OnCollisionEnter2D(Collision2D collision)
    // {
    //     Debug.Log("Collision: " + collision.gameObject.name);
