@@ -1,4 +1,4 @@
-﻿    using System.Diagnostics;
+﻿    
     using System.Collections;
     using UnityEngine;
     using System;
@@ -11,10 +11,17 @@
         public float jump;
         private Rigidbody2D rb2d;
         private bool isGrounded = false;
+        public ScoreController ScoreController;
+
+    public void PickUpKey()
+    {
+        Debug.Log("Key is Collected");
+        ScoreController.IncreaseScore(10);
+    }
 
 
-        // Start is called before the first frame update
-        private void Awake()
+    // Start is called before the first frame update
+    private void Awake()
         {
             rb2d = gameObject.GetComponent<Rigidbody2D>();
         }
@@ -42,15 +49,14 @@
 
         private void FixedUpdate()
         {
-            float vertical = Input.GetAxisRaw("Jump");
+            bool vertical = Input.GetKeyDown(KeyCode.Space);
 
             //Jump Animation & Movement
 
-            if (vertical > 0)
+            if (vertical)
 
             {
-                if(
-                    isGrounded == true)
+                if(isGrounded)
                 {
                     animator.SetBool("jump", true);
                     print("Movement: Player is on ground and can jump = " + isGrounded);
@@ -65,11 +71,9 @@
                         "Player is on ground and can jump = " + isGrounded);
                 }
             }
-            else
-            {
-                animator.SetBool("jump", false);
+                
             
-            }
+            
 
 
         }
@@ -129,13 +133,10 @@
             {
                 isGrounded = true;
                 print("Player is on ground and can jump = " + isGrounded);
+                animator.SetBool("jump", false);
             }
-            else
-            {
-                isGrounded = false;
-            }
-       
-        
+            
+
         }
 
     }

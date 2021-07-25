@@ -14,19 +14,28 @@ public class LevelOverController : MonoBehaviour
 
     public string sceneName;
 
+    private void Awake()
+    {
+        levelCompletePanel.SetActive(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
         collision.gameObject.GetComponent<PlayerController>();
-        levelCompletePanel.SetActive(true);
-        Debug.Log("Level Complete");
+        
+            levelCompletePanel.SetActive(true);
+            Debug.Log("LevelOverController Says Level is Complete");
 
-        btnNextLevel.onClick.AddListener(ButtonClick);
+            btnNextLevel.onClick.AddListener(ButtonClick);
 
-        void ButtonClick()
-        {
-            SceneManager.LoadScene(sceneName);
+        
 
-        }
+        
+    }
+    void ButtonClick()
+    {
+        SceneManager.LoadScene(sceneName);
+
     }
 }
