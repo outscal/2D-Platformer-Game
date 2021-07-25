@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelOverController : MonoBehaviour
 {
+    [SerializeField]
+    BoxCollider2D box2D;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
      

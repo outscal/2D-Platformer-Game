@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,10 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
 
+
+    public ScoreController scoreController;
+
+
     void resizeBoxColliderSize()
     {
         Vector2 Box = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
@@ -17,6 +22,14 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<BoxCollider2D>().size = new Vector2((Box.x / 1), (Box.y / 5));
 
     }
+
+    public void pickUpkey()
+    {
+        Debug.Log("PickedUp the key");
+        scoreController.IncreaseScore(10);
+       // throw new NotImplementedException();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
