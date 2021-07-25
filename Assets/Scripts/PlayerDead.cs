@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerDead : MonoBehaviour
 {
+    public GameOverController GameOverController;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Player has fallen");
+            GameOverController.PlayerDied();
         }
     }
 }
