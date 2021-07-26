@@ -22,7 +22,11 @@ public class DeathPointScript : MonoBehaviour
             DeathPanel.SetActive(true);
             Destroy(collision.gameObject);
         }
+
+
     }
+
+   
 
     void ReloadScene()
     {

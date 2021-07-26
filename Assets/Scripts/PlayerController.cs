@@ -12,6 +12,18 @@
         private Rigidbody2D rb2d;
         private bool isGrounded = false;
         public ScoreController ScoreController;
+        public GameObject DeathPanel;
+
+    private void Awake()
+        {
+            rb2d = gameObject.GetComponent<Rigidbody2D>();      
+        }
+
+    public void KillPlayer()
+    {
+        Debug.Log("Player is Killed By Enemy");
+        DeathPanel.SetActive(true);
+    }
 
     public void PickUpKey()
     {
@@ -19,13 +31,8 @@
         ScoreController.IncreaseScore(10);
     }
 
-
     // Start is called before the first frame update
-    private void Awake()
-        {
-            rb2d = gameObject.GetComponent<Rigidbody2D>();
-        }
-        void Start()
+    void Start()
         {
             print("Game Start");
             //Debug.Log("Game Start");
