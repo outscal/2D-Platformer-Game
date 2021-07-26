@@ -14,6 +14,10 @@
         public ScoreController ScoreController;
         public GameObject DeathPanel;
 
+        public HealthManagerController healthManagerController;
+
+    
+
     private void Awake()
         {
             rb2d = gameObject.GetComponent<Rigidbody2D>();      
@@ -21,8 +25,15 @@
 
     public void KillPlayer()
     {
-        Debug.Log("Player is Killed By Enemy");
-        DeathPanel.SetActive(true);
+        if(healthManagerController.healthCounter > 1)
+        {
+            healthManagerController.DecreaseHealth();
+        }
+        else
+        {
+            healthManagerController.DecreaseHealth();
+            DeathPanel.SetActive(true);
+        }
     }
 
     public void PickUpKey()
@@ -35,7 +46,6 @@
     void Start()
         {
             print("Game Start");
-            //Debug.Log("Game Start");
         }
 
         // Update is called once per frame
@@ -77,12 +87,7 @@
                     print("After Movement: " +
                         "Player is on ground and can jump = " + isGrounded);
                 }
-            }
-                
-            
-            
-
-
+            }  
         }
 
         //Player Movement
@@ -92,9 +97,6 @@
             Vector3 position = transform.localPosition;
             position.x = position.x + run * (speed * Time.deltaTime);
             transform.localPosition = position;
-
-
-        
         }
 
             private void MovementAnimation(float run, float vertical, bool crouchVertical)
@@ -129,7 +131,6 @@
             {
                 animator.SetBool("crouch",false);
             }
-
         
         }
 
@@ -142,8 +143,5 @@
                 print("Player is on ground and can jump = " + isGrounded);
                 animator.SetBool("jump", false);
             }
-            
-
         }
-
     }

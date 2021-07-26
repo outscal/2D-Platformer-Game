@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     public GameObject EnemyCollisionWall1;
     PlayerController playerController;
 
+
     bool isEnemyGoingRight=true;
 
     
