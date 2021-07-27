@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +22,20 @@ public class PlayerController : MonoBehaviour
         //gameObject.GetComponent<BoxCollider2D>().size = Box;
         gameObject.GetComponent<BoxCollider2D>().size = new Vector2((Box.x / 1), (Box.y / 5));
 
+    }
+
+    public void killPlayer()
+    {
+        Debug.Log("Player killed by enemy");
+        Animator.SetBool("Dead", true);
+        Invoke("ReloadGame", 3f);
+       // Destroy(gameObject);
+       // throw new NotImplementedException();
+    }
+
+    private void ReloadGame()
+    {
+        SceneManager.LoadScene("S2");
     }
 
     public void pickUpkey()
@@ -50,14 +65,6 @@ public class PlayerController : MonoBehaviour
         // Debug.Log(horizontal);
 
         MovementPlay(horizontal, vert);
-
-
-
-
-
-
-
-
     }
 
     private void MovementPlay(float horizontal, float vert)
