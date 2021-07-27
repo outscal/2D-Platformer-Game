@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
 
     public ScoreController scoreController;
+    public LifeCounter lf;
 
 
     void resizeBoxColliderSize()
@@ -27,8 +28,9 @@ public class PlayerController : MonoBehaviour
     public void killPlayer()
     {
         Debug.Log("Player killed by enemy");
-        Animator.SetBool("Dead", true);
-        Invoke("ReloadGame", 3f);
+        lf.LoseLife();
+       // Animator.SetBool("Dead", true);
+       // Invoke("ReloadGame", 3f);
        // Destroy(gameObject);
        // throw new NotImplementedException();
     }
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        lf = gameObject.GetComponent<LifeCounter>();
     }
 
     // Update is called once per frame
