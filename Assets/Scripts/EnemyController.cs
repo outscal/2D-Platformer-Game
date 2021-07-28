@@ -36,9 +36,10 @@ public class EnemyController : MonoBehaviour
         //Move the enemy toward the goal/next point
         //anim.SetFloat("Speed", 3);
         transform.position = Vector2.MoveTowards(transform.position, goalPoint.position, speed*Time.deltaTime);
-        
+        //anim.SetFloat("Speed", 3);
+
         //Check the distance b/w enemy & goal pt to trigger to trigger next point
-        if(Vector2.Distance(transform.position, goalPoint.position) < 1f)
+        if (Vector2.Distance(transform.position, goalPoint.position) < 1f)
         {
             //Check if we are at the end of the line, (make the change -1)
             //2points (0,1) next == points.count(2)-1
@@ -49,7 +50,15 @@ public class EnemyController : MonoBehaviour
                 idChangeValue = 1;
             //Apply the change on the nextID
             nextID += idChangeValue;
+          //  anim.SetFloat("Speed", 3);
         }
+        
+    }
+
+    private void Start()
+    {
+        //anim.Play("Chomper_Idle");
+        anim.SetFloat("Speed", 3);
     }
 
     private void Update()
