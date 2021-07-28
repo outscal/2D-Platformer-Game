@@ -14,10 +14,11 @@ public class PlayerController : MonoBehaviour
     public bool grounded;
 
     public ScoreController ScoreController;
-    public GameOverController GameOverController;
+    //public GameOverController GameOverController;
     public LivesController LivesController;
 
     private Rigidbody2D rigid;
+    private GameObject currentTeleporter;
 
     public void Awake()
     {
@@ -26,9 +27,10 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer()
     {
-        GameOverController.PlayerDied();
+        //GameOverController.PlayerDied();
         //this.enabled = false;
         LivesController.LifeReducer();
+        animator.SetBool("Hurt", true);
     }
 
     public void Update()
@@ -39,6 +41,9 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal,vertical);
         PlayMovementAnimation(horizontal,vertical);
         CrouchAnimation();
+        AttackAnimation();
+        Teleporter();
+
     }
 
     public void PickUpKey()
@@ -51,7 +56,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "Ground")
         {
             grounded = true;
-        }
+        }      
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -59,9 +64,25 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "Ground")
         {
             grounded = false;
-        }
+        }       
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Teleporter"))
+        {
+            currentTeleporter = collision.gameObject;
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Teleporter"))
+        {
+            currentTeleporter = null;
+        }
+    }
     private void MoveCharacter(float horizontal,float vertical)
     {
         Vector3 position = transform.position;
@@ -111,6 +132,28 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Crouch", false);
         }
+    }
 
+    public void AttackAnimation()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetBool("Attack", true);
+        }
+        else
+        {
+            animator.SetBool("Attack", false);
+        }
+    }
+    
+    public void Teleporter()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (currentTeleporter != null)
+            {
+                transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestionation().position;
+            }
+        }
     }
 }

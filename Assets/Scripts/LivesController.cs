@@ -6,6 +6,7 @@ public class LivesController : MonoBehaviour
 {
     public GameObject[] LivesUI;
     public Animator animator;
+    public GameOverController GameOverController;
 
     public int Life;
 
@@ -16,29 +17,32 @@ public class LivesController : MonoBehaviour
 
         if (Life < 5)
         {
-            animator.SetBool("Enemy", true);
-            Destroy(LivesUI[1].gameObject, 1);
-            Debug.Log("Life reduced");
+            //animator.SetBool("Enemy", true);
+            Destroy(LivesUI[0].gameObject, 1);           
         }
-        else if (Life < 4)
+
+        if (Life < 4)
         {
-            animator.SetBool("Enemy", true);
+            //animator.SetBool("Enemy", true);
+            Destroy(LivesUI[1], 1);
+        }
+
+        if (Life < 3)
+        {
+            //animator.SetBool("Enemy", true);
             Destroy(LivesUI[2], 1);
         }
-        else if (Life < 3)
+
+        if (Life < 2)
         {
-            animator.SetBool("Enemy", true);
+            //animator.SetBool("Enemy", true);
             Destroy(LivesUI[3], 1);
         }
-        else if (Life < 2)
+        if (Life == 0)
         {
-            animator.SetBool("Enemy", true);
+            //animator.SetBool("Enemy", true);
             Destroy(LivesUI[4], 1);
-        }
-        else if (Life < 1)
-        {
-            animator.SetBool("Enemy", true);
-            Destroy(LivesUI[5], 1);
+            GameOverController.PlayerDied();
         }
 
     }

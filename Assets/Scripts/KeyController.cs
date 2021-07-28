@@ -11,8 +11,9 @@ public class KeyController : MonoBehaviour
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.PickUpKey();
+            KeyUIController.KeyReducer();
             Destroy(gameObject, 0.05f);
-            KeyUIController.KeyCollected();
+            
         }
     }
 }
