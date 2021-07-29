@@ -20,7 +20,7 @@ public class LifeCounter : MonoBehaviour
         {
             Debug.Log("Die Die You Player");
              pl.Animator.SetBool("Dead", true);
-             pl.Invoke("ReloadGame", 3f);
+           //  pl.Invoke("ReloadGame", 3f);
             // Destroy(gameObject);
             // throw new NotImplementedException();
         }

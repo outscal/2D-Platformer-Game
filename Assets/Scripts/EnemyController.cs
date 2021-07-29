@@ -58,7 +58,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         //anim.Play("Chomper_Idle");
-        anim.SetFloat("Speed", 3);
+      //  anim.SetFloat("Speed", 3);
     }
 
     private void Update()
