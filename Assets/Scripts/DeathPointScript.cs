@@ -8,11 +8,13 @@ public class DeathPointScript : MonoBehaviour
 {
     public GameObject DeathPanel;
     public Button btnRestartGame;
+    public Button btnQuitGame;
     public string sceneName;
     // Start is called before the first frame update
     void Start()
     {
         btnRestartGame.onClick.AddListener(ReloadScene);
+        btnQuitGame.onClick.AddListener(ReloadScene);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -23,15 +25,16 @@ public class DeathPointScript : MonoBehaviour
             DeathPanel.SetActive(true);
             Destroy(collision.gameObject);
         }
-
-
     }
 
-   
-
-    void ReloadScene()
+    public void ReloadScene()
     {
         DeathPanel.SetActive(false);
-        SceneManager.LoadScene("sceneName");
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

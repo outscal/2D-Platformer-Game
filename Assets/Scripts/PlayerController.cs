@@ -14,6 +14,8 @@
         public ScoreController ScoreController;
         public GameObject DeathPanel;
 
+
+
         public HealthManagerController healthManagerController;
 
     
@@ -23,6 +25,7 @@
             rb2d = gameObject.GetComponent<Rigidbody2D>();      
         }
 
+    
     public void KillPlayer()
     {
         if(healthManagerController.healthCounter > 1)
