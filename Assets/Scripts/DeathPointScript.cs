@@ -8,6 +8,7 @@ public class DeathPointScript : MonoBehaviour
 {
     public GameObject DeathPanel;
     public Button btnRestartGame;
+    public string sceneName;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,6 @@ public class DeathPointScript : MonoBehaviour
     void ReloadScene()
     {
         DeathPanel.SetActive(false);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("sceneName");
     }
 }
