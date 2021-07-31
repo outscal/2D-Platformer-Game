@@ -122,20 +122,31 @@
                 transform.localScale = scale; //transform.localScale=(scale.x,2.0f,1.0f);
             }
 
-        
-            //crouch Animation
 
-            if (crouchVertical == true)
-            {
-                animator.SetBool("crouch", true);
+        //crouch Animation
+
+            if (crouchVertical)
+             {
+              animator.SetBool("crouch", true);
 
             }
             else
             {
-                animator.SetBool("crouch",false);
+             animator.SetBool("crouch", false);
             }
-        
-        }
+
+
+        /* if (crouchVertical == true)
+         {
+             animator.SetBool("crouch", true);
+
+         }
+         else
+         {
+             animator.SetBool("crouch",false);
+         }*/
+
+    }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
