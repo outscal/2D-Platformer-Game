@@ -14,7 +14,11 @@ public class LifeCounter : MonoBehaviour
         //Decrease the value of livesRemaing
         livesRemaining--;
         //Hide one of the heart image
-        lives[livesRemaining].enabled = false;
+        if (livesRemaining >-1)
+        {
+            lives[livesRemaining].enabled = false;
+        }
+        
         //If we run out of life. we Lose the game
         if(livesRemaining == 0)
         {
