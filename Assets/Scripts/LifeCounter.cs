@@ -8,6 +8,7 @@ public class LifeCounter : MonoBehaviour
     public Image[] lives;
     public int livesRemaining;
     PlayerController pl;
+    public GameOverScripter gameOverScripter;
 
     public void LoseLife()
     {
@@ -24,7 +25,9 @@ public class LifeCounter : MonoBehaviour
         {
             Debug.Log("Die Die You Player");
              pl.Animator.SetBool("Dead", true);
-           //  pl.Invoke("ReloadGame", 3f);
+            gameOverScripter.playerDied();
+            //gameObject.GetComponent<GameOverScripter>().playerDied();
+            //  pl.Invoke("ReloadGame", 3f);
             // Destroy(gameObject);
             // throw new NotImplementedException();
         }
@@ -33,5 +36,7 @@ public class LifeCounter : MonoBehaviour
     private void Start()
     {
         pl = gameObject.GetComponent<PlayerController>();
+       // gameOverScripter = gameObject.GetComponent<GameOverScripter>();
+        
     }
 }

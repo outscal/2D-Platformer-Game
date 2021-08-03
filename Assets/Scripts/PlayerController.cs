@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
 
 
     public ScoreController scoreController;
-    public LifeCounter lf;
+    LifeCounter lf;
+    GameOverScripter gameOverScripter;
 
 
     void resizeBoxColliderSize()
@@ -29,16 +30,14 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player killed by enemy");
         lf.LoseLife();
-       // Animator.SetBool("Dead", true);
-       // Invoke("ReloadGame", 3f);
-       // Destroy(gameObject);
-       // throw new NotImplementedException();
+        // Animator.SetBool("Dead", true);
+        // Invoke("ReloadGame", 3f);
+        // Destroy(gameObject);
+        // throw new NotImplementedException();
+       // gameOverScripter.playerDied();
     }
 
-    private void ReloadGame()
-    {
-        SceneManager.LoadScene("S2");
-    }
+   
 
     public void pickUpkey()
     {
@@ -51,6 +50,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         lf = gameObject.GetComponent<LifeCounter>();
+        gameOverScripter = gameObject.GetComponent<GameOverScripter>();
+        
     }
 
     // Update is called once per frame
