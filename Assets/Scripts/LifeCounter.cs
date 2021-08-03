@@ -26,6 +26,7 @@ public class LifeCounter : MonoBehaviour
             Debug.Log("Die Die You Player");
              pl.Animator.SetBool("Dead", true);
             gameOverScripter.playerDied();
+            pl.enabled = false;
             //gameObject.GetComponent<GameOverScripter>().playerDied();
             //  pl.Invoke("ReloadGame", 3f);
             // Destroy(gameObject);

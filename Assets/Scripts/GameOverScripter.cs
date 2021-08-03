@@ -11,8 +11,7 @@ public class GameOverScripter : MonoBehaviour
     private void Awake()
     {
          buttonRestart.onClick.AddListener(ReloadGame);
-        // buttonRestart.onClick.AddListener(playerDied);
-       // buttonRestart.onClick.AddListener(playerDied);
+      
     }
 
     public void playerDied()
