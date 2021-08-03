@@ -24,10 +24,12 @@ public class LevelOverController : MonoBehaviour
 
         collision.gameObject.GetComponent<PlayerController>();
         
-            levelCompletePanel.SetActive(true);
-            Debug.Log("LevelOverController Says Level is Complete");
+        levelCompletePanel.SetActive(true);
+        Debug.Log("LevelOverController Says Level is Complete");
+        LevelManager.Instance.MarkLevelComplete();
 
-            btnNextLevel.onClick.AddListener(ButtonClick);
+
+        btnNextLevel.onClick.AddListener(ButtonClick);
 
         
 
