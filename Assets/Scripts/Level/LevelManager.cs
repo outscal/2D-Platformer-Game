@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
         if (nextSceneIndex < Levels.Length)
         {
             SetlevelStatus(Levels[nextSceneIndex], LevelStatus.Unlocked);
+
         }
     }
 

@@ -63,22 +63,29 @@
             bool crouchVertical = Input.GetKey(KeyCode.LeftControl);
 
             MovementAnimation(run, vertical, crouchVertical);
-            PlayerMovement(run, vertical);
 
-        }
+            PlayerMovement(run, vertical);
+        
+
+
+    }
 
         private void FixedUpdate()
         {
             bool vertical = Input.GetKeyDown(KeyCode.Space);
+            
 
-            //Jump Animation & Movement
+        //Jump Animation & Movement
 
-            if (vertical)
+        if (vertical)
 
             {
                 if(isGrounded)
                 {
                     animator.SetBool("jump", true);
+
+                    SoundManager.Instance.Play(Sounds.PlayerJump);
+
                     print("Movement: Player is on ground and can jump = " + isGrounded);
 
                     //rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
@@ -100,51 +107,53 @@
             Vector3 position = transform.localPosition;
             position.x = position.x + run * (speed * Time.deltaTime);
             transform.localPosition = position;
-        }
+            
+
+    }
 
             private void MovementAnimation(float run, float vertical, bool crouchVertical)
         {
 
-            //Run Animation
-            Vector3 scale = transform.localScale;
-            // scale = x=2.0f, y=2.0f,z=1.0f
-            // scale =(2.0f,2.0f,1.0f);
-            if (run < 0)
-            {
-                scale.x = -1f * Mathf.Abs(scale.x);
-                //scale=(scale.x,2.0f,1.0f);
-                transform.localScale = scale; //transform.localScale=(scale.x,2.0f,1.0f);
-            }
+   
 
-            else if (run > 0)
-            {
-                scale.x = Mathf.Abs(scale.x);
-                transform.localScale = scale; //transform.localScale=(scale.x,2.0f,1.0f);
-            }
+        //Run Animation
+        Vector3 scale = transform.localScale;
+        // scale = x=2.0f, y=2.0f,z=1.0f
+        // scale =(2.0f,2.0f,1.0f);
+
+            if (run < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+            //scale=(scale.x,2.0f,1.0f);
+            transform.localScale = scale; //transform.localScale=(scale.x,2.0f,1.0f);
+            SoundManager.Instance.Play(Sounds.PlayerMovement);
+        }
+
+        else if (run > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+            transform.localScale = scale; //transform.localScale=(scale.x,2.0f,1.0f);
+            SoundManager.Instance.Play(Sounds.PlayerMovement);
+
+        }
+
 
 
         //crouch Animation
 
-            if (crouchVertical)
-             {
-              animator.SetBool("crouch", true);
-
-            }
-            else
-            {
-             animator.SetBool("crouch", false);
-            }
-
-
-        /* if (crouchVertical == true)
-         {
+        if (crouchVertical)
+        {
              animator.SetBool("crouch", true);
+            SoundManager.Instance.Play(Sounds.PlayerCrouch);
 
-         }
-         else
-         {
-             animator.SetBool("crouch",false);
-         }*/
+        }
+        else
+        {
+            animator.SetBool("crouch", false);
+        }
+
+
+
 
     }
 

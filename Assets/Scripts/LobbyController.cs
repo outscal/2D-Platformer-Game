@@ -20,12 +20,14 @@ public class LobbyController : MonoBehaviour
     {
         print("play Button Clicked");
         // SceneManager.LoadScene(1);
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         LevelSelectionPopUp.SetActive(true);
     }
 
     public void QuitGame()
     {
         print("Quit Button Clicked");
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         Application.Quit();
     }
 
