@@ -8,20 +8,13 @@ using System;
 public class GameOverScripter : MonoBehaviour
 {
     public Button buttonRestart;
-    public Button quiter;
+    
 
     private void Awake()
     {
          buttonRestart.onClick.AddListener(ReloadGame);
-        quiter.onClick.AddListener(QuitGame);
+        
       
-    }
-
-    private void QuitGame()
-    {
-        Application.Quit();
-        Debug.Log("Game Quit");
-        //throw new NotImplementedException();
     }
 
     public void playerDied()
@@ -32,7 +25,9 @@ public class GameOverScripter : MonoBehaviour
     private void ReloadGame()
     {
         Debug.Log("Reload");
-        SceneManager.LoadScene("S2");
+        //SceneManager.LoadScene("S2");
+        Scene Active = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(Active.buildIndex);
     }
 
 }
