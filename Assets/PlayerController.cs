@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        float speed = Input.GetAxis("Horizontal");
+        GetComponent<Animator>().SetFloat("Speed", Mathf.Abs(speed));
+        if (speed < 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        GetComponent<SpriteRenderer>().flipY = false;
         
     }
 }
