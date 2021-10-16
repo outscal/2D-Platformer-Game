@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    bool Crouch = false;
     private void Awake()
+
     {
     Debug.Log("Player controller awake");    
     }
@@ -16,7 +18,32 @@ public class PlayerController : MonoBehaviour
     // }
 
     private void Update()
-    {
+    {   
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        { Crouch=! Crouch;
+          animator.SetBool("Crouch",Crouch);    
+        } 
+
+        //  if(Input.GetKeyUp(KeyCode.LeftControl))
+        //  {
+        //    animator.SetBool("Crouch",false);  
+        //  }
+         
+
+
+
+        float vertical = Input.GetAxisRaw("Vertical");
+        if (vertical>0)
+        {
+         animator.SetBool("Jump", true);
+        }
+        else
+        {
+         animator.SetBool("Jump", false);
+        }
+        
+
+
         float speed = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("Speed", Mathf.Abs(speed));
 
