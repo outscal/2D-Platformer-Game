@@ -25,8 +25,7 @@ public class PlayerController:MonoBehaviour
 
     private void Run()
     {
-        direction = Input.GetAxis("Horizontal");
-        transform.position += new Vector3(speed * direction * Time.deltaTime, 0 , 0);
+        
         if(direction!=0)
         {
             GetComponent<Animator>().SetFloat("Speed", 1);
