@@ -7,6 +7,7 @@ public class PlayerController:MonoBehaviour
     float direction;
     Vector2 boxSize;
     Vector2 boxOffset;
+    public LayerMask ground;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerController:MonoBehaviour
         Run();
         jump();
         crouch();
+
     }
 
     private void Run()
@@ -37,16 +39,19 @@ public class PlayerController:MonoBehaviour
     
     private void jump()
     {
-        if(Input.GetAxis("Vertical")>0)
+        if(isGround())
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpSpeed));
-            GetComponent<Animator>().SetBool("jump",true);
-        }
-        if ((Input.GetAxis("Vertical") <= 0))
-        {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 0));
-            GetComponent<Animator>().SetBool("jump", false);
+            if (Input.GetAxis("Vertical") > 0)
+            {
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10*jumpSpeed));
+                GetComponent<Animator>().SetBool("jump", true);
+            }
+            else 
+            {
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 0));
+                GetComponent<Animator>().SetBool("jump", false);
 
+            }
         }
 
     }
@@ -67,4 +72,10 @@ public class PlayerController:MonoBehaviour
             GetComponent<BoxCollider2D>().offset = boxOffset - new Vector2(0, 0);
         }
     }    
+
+    bool isGround()
+    {
+        RaycastHit2D rayHit = Physics2D.BoxCast(GetComponent<BoxCollider2D>().bounds.center, GetComponent<BoxCollider2D>().bounds.size, 0, Vector2.down, 0.1f, ground);
+        return rayHit.collider != null;
+    }
 }
