@@ -24,7 +24,15 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
 
+        MoveCharacter(horizontal, vertical); 
         PlayerMovementAnimation(horizontal, vertical);
+    }
+
+    private void MoveCharacter(float horizontal, float vertical)
+    {
+        Vector3 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position; 
     }
 
     private void PlayerMovementAnimation(float horizontal, float vertical)
