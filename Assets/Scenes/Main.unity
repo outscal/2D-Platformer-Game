@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 262617411}
   m_Layer: 7
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -328,31 +328,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6790741910558663182, guid: 592736ee3f65d044aa2a158e305aadf1,
+    - target: {fileID: 554577924312462812, guid: 592736ee3f65d044aa2a158e305aadf1,
         type: 3}
-      propertyPath: m_Size.x
-      value: 0.45
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6790741910558663182, guid: 592736ee3f65d044aa2a158e305aadf1,
+    - target: {fileID: 6790741910558663183, guid: 592736ee3f65d044aa2a158e305aadf1,
         type: 3}
-      propertyPath: m_Size.y
-      value: 2.0612836
-      objectReference: {fileID: 0}
-    - target: {fileID: 6790741910558663182, guid: 592736ee3f65d044aa2a158e305aadf1,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6790741910558663182, guid: 592736ee3f65d044aa2a158e305aadf1,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: 0.98
+      propertyPath: m_Mass
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6790741910558663184, guid: 592736ee3f65d044aa2a158e305aadf1,
         type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 6790741910558663187}
+      propertyPath: jump
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6790741910558663184, guid: 592736ee3f65d044aa2a158e305aadf1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8836720446488683828, guid: 592736ee3f65d044aa2a158e305aadf1,
         type: 3}
       propertyPath: m_RootOrder
@@ -410,9 +405,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592736ee3f65d044aa2a158e305aadf1, type: 3}
---- !u!95 &6790741910558663187 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7619159361956039937, guid: 592736ee3f65d044aa2a158e305aadf1,
-    type: 3}
-  m_PrefabInstance: {fileID: 6790741910558663180}
-  m_PrefabAsset: {fileID: 0}

@@ -6,12 +6,21 @@ public class PlayerController : MonoBehaviour
 {
     public Animator playerAnimator;
     public float speed;
+    public float jump;
+    public bool isGrounded; 
+
+    private Rigidbody2D rb; 
 
     private Vector2 standingColliderOffset = new Vector2(0f, 0.98f);
     private Vector2 standingColliderSize = new Vector2(0.45f, 2.05f);
     private Vector2 crouchingColliderOffset = new Vector2(-0.15f, 0.6f);
     private Vector2 crouchingColliderSize = new Vector2(0.75f, 1.3f);
 
+
+    void Awake()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();     
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +39,17 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharacter(float horizontal, float vertical)
     {
+        //move character horizontally
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position; 
+        transform.position = position;
+
+        //move character vertically
+        if(vertical > 0 && isGrounded)
+        {
+            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force); 
+        }
+
     }
 
     private void PlayerMovementAnimation(float horizontal, float vertical)
@@ -80,4 +97,21 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Platform")
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Platform")
+        {
+            isGrounded = false;
+        }
+    }
+
 }
