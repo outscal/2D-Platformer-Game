@@ -23,5 +23,16 @@ public class PlayerController : MonoBehaviour
             scale.x=Mathf.Abs(scale.x);
         }
         transform.localScale=scale;
+        
+        bool crouch=Input.GetKey(KeyCode.Space);
+        animator.SetBool("Crouch",crouch);
+        
+        // jumping
+        bool jump=Input.GetKey(KeyCode.UpArrow);
+            animator.SetBool("Jump",jump);
+        
+        
+        
+
     }
 }
