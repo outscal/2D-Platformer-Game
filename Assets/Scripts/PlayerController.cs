@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator playerAnimator;
+
     public float speed;
     public float jump;
+
     public bool isGrounded; 
 
     private Rigidbody2D rb; 
@@ -33,23 +35,8 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
 
-        MoveCharacter(horizontal, vertical); 
         PlayerMovementAnimation(horizontal, vertical);
-    }
-
-    private void MoveCharacter(float horizontal, float vertical)
-    {
-        //move character horizontally
-        Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position;
-
-        //move character vertically
-        if(vertical > 0 && isGrounded)
-        {
-            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force); 
-        }
-
+        MoveCharacter(horizontal, vertical);       
     }
 
     private void PlayerMovementAnimation(float horizontal, float vertical)
@@ -71,7 +58,7 @@ public class PlayerController : MonoBehaviour
         
 
         //Jump
-        if (vertical > 0)
+        if (vertical > 0 && isGrounded)
         {
             playerAnimator.SetBool("jump", true);
         }
@@ -94,6 +81,21 @@ public class PlayerController : MonoBehaviour
 
             GetComponent<BoxCollider2D>().offset = standingColliderOffset;
             GetComponent<BoxCollider2D>().size = standingColliderSize;
+        }
+
+    }
+
+    private void MoveCharacter(float horizontal, float vertical)
+    {
+        //move character horizontally
+        Vector3 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+
+        //move character vertically
+        if (vertical > 0 && isGrounded)
+        {
+            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
 
     }
