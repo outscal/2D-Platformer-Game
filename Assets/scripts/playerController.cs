@@ -19,7 +19,7 @@ public class playerController : MonoBehaviour
     {
        
         anmi.SetFloat("run",0);
-        transform.position += new Vector3(Input.GetAxis("Horizontal"),  Input.GetAxis("Vertical"),0) *5*Time.deltaTime;
+        transform.position += new Vector3(Input.GetAxis("Horizontal"),  Input.GetAxis("Vertical") *3, 0) *5*Time.deltaTime;
         if(Input.GetAxis("Horizontal")>0)
         {
             sr.flipX = false;
