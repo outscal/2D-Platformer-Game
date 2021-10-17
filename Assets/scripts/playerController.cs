@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
@@ -49,5 +50,12 @@ public class playerController : MonoBehaviour
         }
 
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("door"))
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
