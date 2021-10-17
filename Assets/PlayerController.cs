@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController:MonoBehaviour
 {
@@ -8,11 +10,16 @@ public class PlayerController:MonoBehaviour
     Vector2 boxSize;
     Vector2 boxOffset;
     public LayerMask ground;
+    BoxCollider2D box;
+    public TextMeshProUGUI scoreText;
+    float score;
+
 
     private void Start()
     {
-         boxSize = GetComponent<BoxCollider2D>().size;
-         boxOffset = GetComponent<BoxCollider2D>().offset;
+         box = GetComponent<BoxCollider2D>();
+         boxSize = box.size;
+         boxOffset = box.offset;
     }
 
     private void Update()
@@ -20,6 +27,7 @@ public class PlayerController:MonoBehaviour
         Run();
         jump();
         crouch();
+        scoreUpdate();
 
     }
 
@@ -62,20 +70,42 @@ public class PlayerController:MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             GetComponent<Animator>().SetBool("Crouch", true);
-            GetComponent<BoxCollider2D>().size = new Vector2(boxSize.x, boxSize.y / 2);
-            GetComponent<BoxCollider2D>().offset = boxOffset - new Vector2(0, 0.5f);
+            box.size = new Vector2(boxSize.x, boxSize.y / 2);
+            box.offset = boxOffset - new Vector2(0, 0.5f);
         }
         if (!Input.GetKey(KeyCode.LeftControl))
         {
             GetComponent<Animator>().SetBool("Crouch", false);
-            GetComponent<BoxCollider2D>().size = boxSize;
-            GetComponent<BoxCollider2D>().offset = boxOffset - new Vector2(0, 0);
+            box.size = boxSize;
+            box.offset = boxOffset - new Vector2(0, 0);
         }
     }    
 
     bool isGround()
     {
-        RaycastHit2D rayHit = Physics2D.BoxCast(GetComponent<BoxCollider2D>().bounds.center, GetComponent<BoxCollider2D>().bounds.size, 0, Vector2.down, 0.1f, ground);
+        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.1f, ground);
         return rayHit.collider != null;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            print("Hi");
+            SceneManager.LoadScene(2);
+        }
+
+        if (other.gameObject.tag == "nextlevel")
+            SceneManager.LoadScene(1);
+
+        if (other.gameObject.tag == "collectible")
+            score += 10;
+        Destroy(other.gameObject);
+    }
+
+    void scoreUpdate()
+    {
+        scoreText.text = score.ToString();
     }
 }
