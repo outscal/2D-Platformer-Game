@@ -5,11 +5,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float speed;
+    
     // Update is called once per frame
     void Update()
     {
        float horizontal= Input.GetAxisRaw("Horizontal");
        playAnimationMovement(horizontal); 
+       moveCharacter(horizontal);
+    }
+    private void moveCharacter(float horizontal){
+        Vector3 position =transform.position;
+        position.x +=horizontal*speed*Time.deltaTime;
+        transform.position=position;
     }
     private void playAnimationMovement(float horizontal){
         animator.SetFloat("Speed",Mathf.Abs(horizontal));
@@ -31,8 +39,5 @@ public class PlayerController : MonoBehaviour
         bool jump=Input.GetKey(KeyCode.UpArrow);
             animator.SetBool("Jump",jump);
         
-        
-        
-
     }
 }
