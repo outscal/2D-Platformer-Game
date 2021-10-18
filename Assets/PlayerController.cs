@@ -13,6 +13,7 @@ public class PlayerController:MonoBehaviour
     BoxCollider2D box;
     public TextMeshProUGUI scoreText;
     float score;
+    
 
 
     private void Start()
@@ -100,8 +101,12 @@ public class PlayerController:MonoBehaviour
             SceneManager.LoadScene(1);
 
         if (other.gameObject.tag == "collectible")
+        {
             score += 10;
-        Destroy(other.gameObject);
+            other.gameObject.GetComponent<Animator >().SetTrigger("collected");
+        }
+
+        Destroy(other.gameObject,1);
     }
 
     void scoreUpdate()
