@@ -6,11 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float speed;
+    public float jump;
+    private bool Ground;
     //bool Crouch = false;
+    private Rigidbody2D rb2d;
      
     private void Awake()
     {
-    Debug.Log("Player controller awake");    
+    Debug.Log("Player controller awake");   
+    rb2d= gameObject.GetComponent<Rigidbody2D>(); 
     }
 
     // private void OnCollisionEnter2D(Collision2D collision)
@@ -26,47 +30,32 @@ public class PlayerController : MonoBehaviour
         //     animator.SetBool("Crouch", Crouch);
         // }
 
-         if(Input.GetKeyDown(KeyCode.LeftControl))
-         {
-           animator.SetBool("Crouch",true);  
-         }
-
-         if(Input.GetKeyUp(KeyCode.LeftControl))
-         {
-           animator.SetBool("Crouch",false);  
-         }
-
-
-
-
-        float vertical = Input.GetAxisRaw("Vertical");
-        if (vertical > 0)
-        {
-            animator.SetBool("Jump", true);
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
-        }
+        float vertical = Input.GetAxisRaw("Jump");
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         
-        PlayMovementAnimation(horizontal);
-        MoveCharacter(horizontal);
-
-
-
-        
-        
+        PlayMovementAnimation(horizontal,vertical);
+        MoveCharacter(horizontal, vertical);    
     }
 
-    private void MoveCharacter(float horizontal)
+    private void MoveCharacter(float horizontal, float vertical)
     {
+      //move character horizontally  
       Vector3 position = transform.position;
       position.x = position.x + horizontal * speed * Time.deltaTime;
       transform.position = position;
+
+      //move character vertically
+      
+      if(Ground)
+      {
+        rb2d.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
+      }
+
+    
     }
 
-    private void PlayMovementAnimation(float horizontal)
+    private void PlayMovementAnimation(float horizontal, float vertical)
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
          Vector3 scale = transform.localScale;
@@ -81,5 +70,45 @@ public class PlayerController : MonoBehaviour
             //scale.x = 1;
         }
         transform.localScale = scale;
+
+        //Jump
+        if (vertical > 0 && Ground)
+        {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
+
+        //crouch
+         if(Input.GetKeyDown(KeyCode.LeftControl))
+         {
+           animator.SetBool("Crouch",true);  
+         }
+
+         if(Input.GetKeyUp(KeyCode.LeftControl))
+         {
+           animator.SetBool("Crouch",false);  
+         }
+
+
+
+    }
+
+    public void OnCollisionEnter2D(Collision2D platform)
+    {
+      if (platform.gameObject.CompareTag("Ground"))
+      {
+         Ground = true;
+      }  
+    }
+
+     public void OnCollisionExit2D(Collision2D platform)
+    {
+      if (platform.gameObject.CompareTag("Ground"))
+      {
+         Ground = false;
+      }  
     }
 }
