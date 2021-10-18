@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 public class DeathController : MonoBehaviour
 {
@@ -10,7 +10,12 @@ public class DeathController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             Debug.Log("Player died");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Invoke("ReloadScene", 2f); 
         }
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

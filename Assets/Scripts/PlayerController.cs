@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController; 
+
     public Animator playerAnimator;
 
     public float speed;
@@ -39,11 +41,16 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);       
     }
 
+    public void PickUpKey()
+    {
+        scoreController.IncreaseScore(10); 
+    }
+
     private void PlayerMovementAnimation(float horizontal, float vertical)
     {
 
         //Move horizontally to Walk/Run
-        playerAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         Vector3 scale = transform.localScale;
         if (horizontal < 0)
@@ -60,24 +67,25 @@ public class PlayerController : MonoBehaviour
         //Jump
         if (vertical > 0 && isGrounded)
         {
-            playerAnimator.SetBool("jump", true);
+            playerAnimator.SetBool("Jump", true);
+            Debug.Log("Jump anim playing");
         }
         else
         {
-            playerAnimator.SetBool("jump", false);
+            playerAnimator.SetBool("Jump", false);
         }
 
         //Crouch
         if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
-            playerAnimator.SetBool("crouch", true);
+            playerAnimator.SetBool("Crouch", true);
 
             GetComponent<BoxCollider2D>().offset = crouchingColliderOffset;
             GetComponent<BoxCollider2D>().size = crouchingColliderSize;
         }
         else
         {
-            playerAnimator.SetBool("crouch", false);
+            playerAnimator.SetBool("Crouch", false);
 
             GetComponent<BoxCollider2D>().offset = standingColliderOffset;
             GetComponent<BoxCollider2D>().size = standingColliderSize;
