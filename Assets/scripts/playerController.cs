@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,32 @@ public class playerController : MonoBehaviour
     [SerializeField] SpriteRenderer sr;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator anmi;
+    [SerializeField] GameObject resetButton;
     bool crouch = false;
     bool ground;
+    public int speed;
    
     public float jumpForce;
+
+    internal void KillPlayer()
+    {
+        anmi.SetBool("die", true);
+        speed = 0;
+        jumpForce = 0;
+        resetButton.SetActive(true);
+
+
+    }
+
+    public void reset()
+    {
+        speed = 5;
+        jumpForce = 200;
+        SceneManager.LoadScene(0);
+       
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +48,7 @@ public class playerController : MonoBehaviour
 
         anmi.SetFloat("run", 0);
         anmi.SetBool("jump",!ground);
-        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0 , 0) * 5 * Time.deltaTime;
+        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0 , 0) * speed * Time.deltaTime;
         if (Input.GetAxis("Horizontal") > 0)
         {
             sr.flipX = false;
