@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController; 
-
     public Animator playerAnimator;
 
     public float speed;
@@ -25,13 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();     
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -39,6 +33,18 @@ public class PlayerController : MonoBehaviour
 
         PlayerMovementAnimation(horizontal, vertical);
         MoveCharacter(horizontal, vertical);       
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(0); 
+    }
+
+    public void KillPlayer()
+    {
+        playerAnimator.SetTrigger("Death");
+        
+        ReloadLevel(); 
     }
 
     public void PickUpKey()
@@ -62,10 +68,11 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-        
+
 
         //Jump
-        if (vertical > 0 && isGrounded)
+        //if (Input.GetKey(KeyCode.Space) && isGrounded)
+        if (vertical > 0)
         {
             playerAnimator.SetBool("Jump", true);
             Debug.Log("Jump anim playing");
@@ -101,7 +108,8 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         //move character vertically
-        if (vertical > 0 && isGrounded)
+        //if (vertical > 0 && isGrounded)
+        if (vertical > 0)
         {
             rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
@@ -110,6 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        Debug.Log("Grounded"); 
         if (collision.transform.tag == "Platform")
         {
             isGrounded = true;
@@ -118,6 +127,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        Debug.Log("Not Grounded");
         if (collision.transform.tag == "Platform")
         {
             isGrounded = false;
