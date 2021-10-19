@@ -11,17 +11,25 @@ public class playerController : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator anmi;
     [SerializeField] GameObject resetButton;
+    [SerializeField] Collider2D bodyCollider;
+    [SerializeField] Collider2D footCollider;
+    [SerializeField] GameObject[] heelthUI ;
     bool crouch = false;
     bool ground;
     public int speed;
+    int numberOFLives = 3;
    
     public float jumpForce;
 
-    internal void KillPlayer()
+    public void KillPlayer()
     {
         anmi.SetBool("die", true);
         speed = 0;
         jumpForce = 0;
+        print(ground);
+     
+
+
         resetButton.SetActive(true);
 
 
@@ -30,9 +38,31 @@ public class playerController : MonoBehaviour
     public void reset()
     {
         speed = 5;
-        jumpForce = 200;
+        jumpForce = 100;
         SceneManager.LoadScene(0);
        
+
+    }
+
+    public void LoosePlayerLIfe()
+    {
+        
+        healthController hc;
+        numberOFLives -= 1;
+        if(numberOFLives>=0)
+        {
+            hc = heelthUI[numberOFLives].GetComponent<healthController>();
+            hc.looseHeart();
+
+        }
+        
+            
+        
+        if (numberOFLives == 0)
+        {
+            KillPlayer();
+        }
+        
 
     }
 
@@ -94,6 +124,14 @@ public class playerController : MonoBehaviour
         {
             ground = true;
         }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            ground = true;
+        }
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
