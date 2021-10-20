@@ -26,7 +26,7 @@ public class playerController : MonoBehaviour
         anmi.SetBool("die", true);
         speed = 0;
         jumpForce = 0;
-        print(ground);
+       
      
 
 
@@ -44,6 +44,7 @@ public class playerController : MonoBehaviour
 
     }
 
+
     public void LoosePlayerLIfe()
     {
         
@@ -60,7 +61,7 @@ public class playerController : MonoBehaviour
         
         if (numberOFLives == 0)
         {
-            KillPlayer();
+           KillPlayer();
         }
         
 

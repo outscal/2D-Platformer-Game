@@ -24,28 +24,36 @@ public class enemyController : MonoBehaviour
         sr.flipX = flip;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void changeDrirection()
     {
-       
-       
-
+        direction *= -1;
+        flip = !flip;
     }
+
+    
+  
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
          if (collision.gameObject.CompareTag("enemyTarget") && collision.transform.parent.position==transform.parent.position)
         {
-            direction *= -1;
-            flip = !flip;
+            changeDrirection();
         }
 
-        if (collision.gameObject.GetComponent<playerController>() != null)
+        if (collision.gameObject.GetComponent<playerController>() != null && collision.gameObject.CompareTag("Player"))
         {
             playerController pc = collision.gameObject.GetComponent<playerController>();
+
+            
             pc.LoosePlayerLIfe();
+            changeDrirection();
+
+
 
         }
     }
-
+ 
 
 
 }
