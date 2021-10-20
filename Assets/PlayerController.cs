@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController:MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class PlayerController:MonoBehaviour
     BoxCollider2D box;
     public TextMeshProUGUI scoreText;
     float score;
+    public float playerHealth = 100;
+    public Image healthBar;
+
+    
     
 
 
@@ -29,6 +34,8 @@ public class PlayerController:MonoBehaviour
         jump();
         crouch();
         scoreUpdate();
+        reloadLevelAfterDeath();
+        healthBarUpdate();
 
     }
 
@@ -104,13 +111,30 @@ public class PlayerController:MonoBehaviour
         {
             score += 10;
             other.gameObject.GetComponent<Animator >().SetTrigger("collected");
+            Destroy(other.gameObject,1);
         }
-
-        Destroy(other.gameObject,1);
+        
     }
+
+    
+
+
 
     void scoreUpdate()
     {
-        scoreText.text = score.ToString();
+        scoreText.text = "Score: " + score.ToString();
+    }
+
+    void reloadLevelAfterDeath()
+    {
+        if(playerHealth<=0)
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+
+    void healthBarUpdate()
+    {
+        healthBar.fillAmount = playerHealth / 100;
     }
 }
