@@ -11,6 +11,7 @@ public class enemy : MonoBehaviour
     public float flip = 1 ;
     public float enemyDamage;
     bool isAttacking = false;
+    public int direction;
 
 
     private void Start()
@@ -29,8 +30,8 @@ public class enemy : MonoBehaviour
 
     void walkToAndFro()
     {
-        transform.Translate(Vector2.right * speed * Time.deltaTime*Mathf.Sign(Mathf.Sin(Mathf.PI*Time.time)));
-        flip =  Mathf.Sign(Mathf.Sin( Mathf.PI * Time.time));
+        transform.Translate(Vector2.right * speed * direction * Time.deltaTime*Mathf.Sign(Mathf.Sin(Mathf.PI*Time.time)));
+        flip =  direction * Mathf.Sign(Mathf.Sin( Mathf.PI * Time.time));
         transform.localScale = new Vector2(flip, 1);
         GetComponent<Animator>().SetFloat("speed", speed);
     }
