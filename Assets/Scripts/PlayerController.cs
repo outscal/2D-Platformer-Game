@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public float speed;
     public float jump;
-    private bool Ground;
+    //private bool Ground;
     //bool Crouch = false;
     private Rigidbody2D rb2d;
      
@@ -40,17 +40,24 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharacter(float horizontal, float vertical)
     {
-      //move character horizontally  
+      //move character horizontally 
+      
+      
+      
       Vector3 position = transform.position;
       position.x = position.x + horizontal * speed * Time.deltaTime;
       transform.position = position;
-
+      
       //move character vertically
       
-      if(Ground)
-      {
+      
+       //if(Ground)
+       //{
+         if(vertical>0)
+         {
         rb2d.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
-      }
+         }
+      // }
 
     
     }
@@ -72,7 +79,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         //Jump
-        if (vertical > 0 && Ground)
+        if (vertical > 0 )
         {
             animator.SetBool("Jump", true);
         }
@@ -91,24 +98,25 @@ public class PlayerController : MonoBehaviour
          {
            animator.SetBool("Crouch",false);  
          }
-
+      
+          
 
 
     }
 
-    public void OnCollisionEnter2D(Collision2D platform)
-    {
-      if (platform.gameObject.CompareTag("Ground"))
-      {
-         Ground = true;
-      }  
-    }
+    // public void OnCollisionEnter2D(Collision2D platform)
+    // {
+    //   if (platform.gameObject.CompareTag("Ground"))
+    //   {
+    //      Ground = true;
+    //   }  
+    // }
 
-     public void OnCollisionExit2D(Collision2D platform)
-    {
-      if (platform.gameObject.CompareTag("Ground"))
-      {
-         Ground = false;
-      }  
-    }
+    //  public void OnCollisionExit2D(Collision2D platform)
+    // {
+    //   if (platform.gameObject.CompareTag("Ground"))
+    //   {
+    //      Ground = false;
+    //   }  
+    // }
 }
