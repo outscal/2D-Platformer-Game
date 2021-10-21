@@ -101,11 +101,11 @@ public class PlayerController:MonoBehaviour
         if (other.gameObject.layer == 8)
         {
             print("Hi");
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
 
         if (other.gameObject.tag == "nextlevel")
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
 
         if (other.gameObject.tag == "collectible")
         {
@@ -129,7 +129,7 @@ public class PlayerController:MonoBehaviour
     {
         if(playerHealth<=0)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
 
