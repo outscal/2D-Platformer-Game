@@ -26,11 +26,7 @@ public class playerController : MonoBehaviour
         anmi.SetBool("die", true);
         speed = 0;
         jumpForce = 0;
-       
-     
-
-
-        resetButton.SetActive(true);
+       resetButton.SetActive(true);
 
 
     }
@@ -39,7 +35,7 @@ public class playerController : MonoBehaviour
     {
         speed = 5;
         jumpForce = 100;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
        
 
     }
@@ -59,7 +55,7 @@ public class playerController : MonoBehaviour
         
             
         
-        if (numberOFLives == 0)
+        if (numberOFLives <= 0 )
         {
            KillPlayer();
         }
