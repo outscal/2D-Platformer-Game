@@ -13,11 +13,13 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject resetButton;
     [SerializeField] Collider2D bodyCollider;
     [SerializeField] Collider2D footCollider;
-    [SerializeField] GameObject[] heelthUI ;
+
+    [SerializeField] GameObject healthBar;
     bool crouch = false;
     bool ground;
     public int speed;
-    int numberOFLives = 3;
+   
+    
    
     public float jumpForce;
 
@@ -39,29 +41,16 @@ public class playerController : MonoBehaviour
        
 
     }
-
-
-    public void LoosePlayerLIfe()
+    public void looseHealth()
     {
-        
-        healthController hc;
-        numberOFLives -= 1;
-        if(numberOFLives>=0)
-        {
-            hc = heelthUI[numberOFLives].GetComponent<healthController>();
-            hc.looseHeart();
-
-        }
-        
-            
-        
-        if (numberOFLives <= 0 )
-        {
-           KillPlayer();
-        }
-        
+        healthBarController hbc;
+        hbc = healthBar.GetComponent<healthBarController>();
+        hbc.ChangeHealth(5);
 
     }
+
+
+   
 
     // Start is called before the first frame update
     void Start()
@@ -89,20 +78,13 @@ public class playerController : MonoBehaviour
         if (Input.GetAxis("Vertical") > 0 && ground)
         {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Force);
-
-           
-
-        }
-
-       
+        }      
 
       
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             crouch = !crouch;
-            anmi.SetBool("crouch", crouch);
-
-
+            anmi.SetBool("crouch", crouch);            
         }
 
 
