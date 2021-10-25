@@ -6,15 +6,21 @@ using UnityEngine;
 public class enemyController : MonoBehaviour
 {
     int speed = 2;
-    bool  flip=false;
+    public int patrollingDistance;
+    public Transform groundDection;
+   
     int direction = 1;
-    SpriteRenderer sr;
+   
     playerController pc;
     Animator anmi;
+    Vector3 distance;
+    Vector3 position;
     private void Start()
     {
-        sr = gameObject.GetComponent<SpriteRenderer>();
+
         anmi = gameObject.GetComponent < Animator >();
+        position = gameObject.transform.position;
+
     }
     private void Update()
     {
@@ -23,14 +29,27 @@ public class enemyController : MonoBehaviour
 
     private void move()
     {
-        transform.position += Vector3.right * direction * Time.deltaTime*speed;
-        sr.flipX = flip;
+        DistanceCheck();
+        transform.position += Vector3.right * direction * Time.deltaTime*speed;        
+       RaycastHit2D groundInfo = Physics2D.Raycast(groundDection.position, Vector2.down, 2);
+        if (groundInfo.collider == false)
+            changeDrirection();
+
+    }
+    private void DistanceCheck()
+    {
+        
+        distance.x =(int) Mathf.Abs(position.x - transform.position.x);
+        if (distance.x > patrollingDistance)
+            changeDrirection();
     }
 
+    
     private void changeDrirection()
     {
         direction *= -1;
-        flip = !flip;
+        transform.rotation =  Quaternion.Euler (new Vector3(0, 90 + (-direction * 90), 0));
+       
     }
 
     
@@ -39,10 +58,7 @@ public class enemyController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-         if (collision.gameObject.CompareTag("enemyTarget") && collision.transform.parent.position==transform.parent.position)
-        {
-            changeDrirection();
-        }
+        
 
         if (collision.gameObject.GetComponent<playerController>() != null && collision.gameObject.CompareTag("Player"))
         {
@@ -65,7 +81,7 @@ public class enemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(secs);
         pc.looseHealth();
-        anmi.SetBool("attack",false);
+        anmi.SetBool("attack", false);
 
     }
 

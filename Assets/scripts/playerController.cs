@@ -11,6 +11,7 @@ public class playerController : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator anmi;
     [SerializeField] GameObject resetButton;
+    [SerializeField] GameObject gameOverImage;
     [SerializeField] Collider2D bodyCollider;
     [SerializeField] Collider2D footCollider;
 
@@ -29,6 +30,7 @@ public class playerController : MonoBehaviour
         speed = 0;
         jumpForce = 0;
        resetButton.SetActive(true);
+        gameOverImage.SetActive(true);
 
 
     }
