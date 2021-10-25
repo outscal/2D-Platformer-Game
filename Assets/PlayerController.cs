@@ -26,6 +26,7 @@ public class PlayerController:MonoBehaviour
          box = GetComponent<BoxCollider2D>();
          boxSize = box.size;
          boxOffset = box.offset;
+        
     }
 
     private void Update()
@@ -105,7 +106,8 @@ public class PlayerController:MonoBehaviour
         }
 
         if (other.gameObject.tag == "nextlevel")
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+            PlayerPrefs.SetInt("sceneNoo", SceneManager.GetActiveScene().buildIndex);
 
         if (other.gameObject.tag == "collectible")
         {

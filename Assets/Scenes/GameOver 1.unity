@@ -393,7 +393,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1189616189}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: play
+        m_MethodName: LoadGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play Again
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -525,8 +525,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -604,6 +604,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16366587de3e8e4c8c61ef29a9bbd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pausePanel: {fileID: 0}
+  player: {fileID: 0}
+  isPaused: 0
 --- !u!4 &1189616190
 Transform:
   m_ObjectHideFlags: 0
