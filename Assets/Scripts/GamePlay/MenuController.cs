@@ -24,4 +24,9 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void Lobby()
+    {
+        SceneManager.LoadScene("Lobby"); 
+    }
+
 }
