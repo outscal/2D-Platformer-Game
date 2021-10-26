@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public Animator enemyAnimator;
-
+    
     public float speed;
 
     public float RayDistance;
@@ -13,14 +13,17 @@ public class EnemyController : MonoBehaviour
     public bool ismovingRight = true;
 
     public Transform groundDetection;
-    
 
+    public LivesController livesController;
+     
+    
+    //when a player collide with an enemy
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer(); 
+            livesController.LoseLife(); 
         }
     }
 
@@ -44,5 +47,6 @@ public class EnemyController : MonoBehaviour
             }
 
         }
+
     }
 }

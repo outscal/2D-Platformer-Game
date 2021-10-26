@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public ScoreController scoreController; 
+    public ScoreController scoreController;
+    private GameOverController gameOverController;
+    private DeathController deathController; 
+
     public Animator playerAnimator;
 
     public float speed;
@@ -35,16 +38,12 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);       
     }
 
-    private void ReloadLevel()
-    {
-        SceneManager.LoadScene(0); 
-    }
-
     public void KillPlayer()
     {
         playerAnimator.SetTrigger("Death");
-        
-        ReloadLevel(); 
+
+        deathController.PlayerDied(); 
+        gameOverController.GameOver();  
     }
 
     public void PickUpKey()
