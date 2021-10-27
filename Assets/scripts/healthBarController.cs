@@ -15,7 +15,8 @@ public class healthBarController : MonoBehaviour
         health -= damage;
         Debug.Log(health);
         if(health<=0)
-        { health = 100;
+        { 
+            health = 100;
           LoosePlayerLIfe();
         }
         RefeshUI();

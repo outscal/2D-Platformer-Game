@@ -24,12 +24,21 @@ public class enemyController : MonoBehaviour
     }
     private void Update()
     {
+        
+       
+    }
+    private void FixedUpdate()
+    {
+        DistanceCheck();
+    }
+    private void LateUpdate()
+    {
         move();
     }
 
     private void move()
     {
-        DistanceCheck();
+        
         transform.position += Vector3.right * direction * Time.deltaTime*speed;        
        RaycastHit2D groundInfo = Physics2D.Raycast(groundDection.position, Vector2.down, 2);
         if (groundInfo.collider == false)
@@ -40,8 +49,14 @@ public class enemyController : MonoBehaviour
     {
         
         distance.x =(int) Mathf.Abs(position.x - transform.position.x);
+        
         if (distance.x > patrollingDistance)
+        {
             changeDrirection();
+        }
+
+           
+            
     }
 
     
@@ -65,12 +80,12 @@ public class enemyController : MonoBehaviour
            pc = collision.gameObject.GetComponent<playerController>();          
             
            changeDrirection();
+            pc.looseHealth();
             anmi.SetBool("attack", true);
-            collision.transform.position -= new Vector3(2, -2);
-            
-            collision.GetComponent<Rigidbody2D>().AddForce(new Vector2(-4, 2), ForceMode2D.Impulse);
+            //collision.GetComponent<Rigidbody2D>().AddForce(new Vector2(direction*10, 2), ForceMode2D.Impulse);
             StartCoroutine (Attack(1));
            
+
 
         }
     }
@@ -80,7 +95,7 @@ public class enemyController : MonoBehaviour
  IEnumerator Attack(int secs)
     {
         yield return new WaitForSeconds(secs);
-        pc.looseHealth();
+       
         anmi.SetBool("attack", false);
 
     }
