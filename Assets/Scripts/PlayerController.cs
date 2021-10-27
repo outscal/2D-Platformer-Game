@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     public Animator animator;
     public float speed;
     public float jump;
@@ -13,13 +14,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player Controller Awake");
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     // Update is called once per frame
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked the Key");
+        scoreController.IncreaseScore(5);
+    }
     private void Update()
     {
         float Horizontal = Input.GetAxisRaw("Horizontal");
@@ -62,6 +62,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("AnimCrouch", false);
+        }
+
+        //Death Animator Panel
+        if (Vertical < 0)
+        {
+            animator.SetBool("AnimDeath", true);
+        }
+        else
+        {
+            animator.SetBool("AnimDeath", false);
         }
     }
     private void MoveCharacter(float Horizontal,float Vertical)
