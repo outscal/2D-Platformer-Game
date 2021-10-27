@@ -43,19 +43,25 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        //Vertical Animator Panel
+        //Jump Animator Panel
         if (Vertical > 0)
         {
             animator.SetBool("AnimJump", true);
         }
-        /*else if(Vertical < 0)
-        {
-            animator.SetBool("Crouch", true);
-        }*/
         else
         {
             animator.SetBool("AnimJump", false);
-            //animator.SetBool("AnimCrouch", false);
+        }
+
+        //Crouch Animator Panel
+        bool Crouch = Input.GetKeyUp(KeyCode.LeftControl);
+        if (Crouch == true)
+        {
+            animator.SetBool("AnimCrouch", true);
+        }
+        else
+        {
+            animator.SetBool("AnimCrouch", false);
         }
     }
     private void MoveCharacter(float Horizontal,float Vertical)
