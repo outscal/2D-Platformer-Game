@@ -14,7 +14,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player Controller Awake");
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
-    // Update is called once per frame
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed by enemy");
+        bool Impact = true;
+        PlayerDeathAnimation(Impact);
+    }
     public void PickUpKey()
     {
         Debug.Log("Player picked the Key");
@@ -26,6 +31,17 @@ public class PlayerController : MonoBehaviour
         float Vertical = Input.GetAxisRaw("Jump");
         PlayerMovementAnimation(Horizontal,Vertical);
         MoveCharacter(Horizontal,Vertical);
+    }
+    private void PlayerDeathAnimation(bool Impact)
+    {
+        if (Impact == true)
+        {
+            animator.SetBool("AnimDeath",true);
+        }
+        else
+        {
+            animator.SetBool("AnimDeath",false);
+        }
     }
     private void PlayerMovementAnimation(float Horizontal,float Vertical)
     {
@@ -62,16 +78,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("AnimCrouch", false);
-        }
-
-        //Death Animator Panel
-        if (Vertical < 0)
-        {
-            animator.SetBool("AnimDeath", true);
-        }
-        else
-        {
-            animator.SetBool("AnimDeath", false);
         }
     }
     private void MoveCharacter(float Horizontal,float Vertical)
