@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    LevelLoader levelLoader; 
+
     public GameObject LevelMenu;
     public GameObject MainMenu; 
 
@@ -27,6 +29,17 @@ public class MenuController : MonoBehaviour
     public void Lobby()
     {
         SceneManager.LoadScene("Lobby"); 
+    }
+
+    public void CloseBtn()
+    {
+        gameObject.SetActive(false); 
+    }
+
+    public void NextLevelBtn()
+    {
+        LevelManager.Instance.MarkLevelComplete();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }

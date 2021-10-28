@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class LevelCompleteController : MonoBehaviour
 {
+    [SerializeField] private GameObject levelCompleteUI; 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
             Debug.Log("Level finished");
-            LevelManager.Instance.MarkLevelComplete();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+            levelCompleteUI.SetActive(true); 
         }
     }
 }
