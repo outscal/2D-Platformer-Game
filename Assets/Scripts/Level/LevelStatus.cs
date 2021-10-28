@@ -1,6 +1,6 @@
 public enum LevelStatus
 {
-    Locked,
-    Unlocked,
-    Completed
+    Locked,     //0
+    Unlocked,   //1
+    Completed   //2 
 }

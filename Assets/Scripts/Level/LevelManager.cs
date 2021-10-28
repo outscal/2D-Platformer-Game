@@ -6,19 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    // singleton - to keep only one instance of it all over the game 
     private static LevelManager instance;
+
+    /* to only read the value of instance */ 
+    public static LevelManager Instance { get { return instance; } }
 
     public string[] Levels;
 
-    public static LevelManager Instance { get { return instance; } }
-
     private void Awake()
     {
+        /* the very first time this game obj comes into existence, it's instance will be null so setting its value to the 
+         * correct obj & that shouldn't be destroyed because this LevelManager is going to be consistent throughout the 
+         entire game */
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        /* if somehow a copy of it is created then we're destroying it */
         else
         {
             Destroy(gameObject);
@@ -27,6 +34,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        // the very first time the game starts, the first level1 should be unlocked to play 
         if (GetLevelStatus(Levels[0]) == LevelStatus.Locked)
         {
             SetLevelStatus(Levels[0], LevelStatus.Unlocked);
@@ -35,13 +43,16 @@ public class LevelManager : MonoBehaviour
 
     public void MarkLevelComplete()
     {
-        int CurrentIndex = Array.FindIndex(Levels, level => level == SceneManager.GetActiveScene().name);
+        // finding the index of the active level from the array of Levels
+        int currentSceneIndex = Array.FindIndex(Levels, level => level == SceneManager.GetActiveScene().name);
 
-        SetLevelStatus(Levels[CurrentIndex], LevelStatus.Completed);
+        // set levelStatus to complete
+        SetLevelStatus(Levels[currentSceneIndex], LevelStatus.Completed);
 
-        if (CurrentIndex + 1 < Levels.Length)
+        // unlock the next level
+        if (currentSceneIndex + 1 < Levels.Length)
         {
-            SetLevelStatus(Levels[CurrentIndex + 1], LevelStatus.Unlocked);
+            SetLevelStatus(Levels[currentSceneIndex + 1], LevelStatus.Unlocked);
         }
     }
 

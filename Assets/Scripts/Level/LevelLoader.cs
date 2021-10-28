@@ -18,6 +18,7 @@ public class LevelLoader : MonoBehaviour
 
     private void onlevelBtnClick()
     {
+        // checking the levelStatus
         LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(levelName);
 
         switch (levelStatus)
