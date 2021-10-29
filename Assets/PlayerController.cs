@@ -1,7 +1,9 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class PlayerController:MonoBehaviour
 {
@@ -13,19 +15,32 @@ public class PlayerController:MonoBehaviour
     public LayerMask ground;
     BoxCollider2D box;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI levelText;
     float score;
     public float playerHealth = 100;
     public Image healthBar;
+    public int levelclear;
+    public GameObject pausePanel;
+    public GameObject levelClearedPanel;
+    public GameObject diedPanel;
+    public AudioClip newLevelSound;
+    public AudioClip playerDiedSound;
+    AudioSource audioController;
 
-    
-    
 
 
     private void Start()
     {
+         LevelManage.Instance.levelStatus = SceneManager.GetActiveScene().buildIndex;
          box = GetComponent<BoxCollider2D>();
+         audioController = GetComponent<AudioSource>();
          boxSize = box.size;
          boxOffset = box.offset;
+         pausePanel.SetActive(false);
+        diedPanel.SetActive(false);
+        levelClearedPanel.SetActive(false);
+        
+       
         
     }
 
@@ -35,10 +50,13 @@ public class PlayerController:MonoBehaviour
         jump();
         crouch();
         scoreUpdate();
+        levelUpdate();
         reloadLevelAfterDeath();
         healthBarUpdate();
+        levelclear = LevelManage.Instance.levelStatus ;
 
     }
+    
 
     private void Run()
     {
@@ -101,37 +119,58 @@ public class PlayerController:MonoBehaviour
     {
         if (other.gameObject.layer == 8)
         {
-            print("Hi");
-            SceneManager.LoadScene(3);
+            AudioSource.PlayClipAtPoint(playerDiedSound, Camera.main.transform.position );
+            GetComponent<Animator>().SetTrigger("died");
+            diedPanel.SetActive(true);
         }
 
         if (other.gameObject.tag == "nextlevel")
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-            PlayerPrefs.SetInt("sceneNoo", SceneManager.GetActiveScene().buildIndex);
+        {
+            AudioSource.PlayClipAtPoint(newLevelSound, Camera.main.transform.position);
+            activateLevelClearedPanel();
+        }
+        
 
         if (other.gameObject.tag == "collectible")
         {
             score += 10;
-            other.gameObject.GetComponent<Animator >().SetTrigger("collected");
-            Destroy(other.gameObject,1);
+            other.gameObject.GetComponent<Animator>().SetTrigger("collected");
+            Destroy(other.gameObject, 1);
         }
-        
+
     }
 
-    
+    public  void LoadNextLevel()
+    {
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        PlayerPrefs.SetInt("sceneNoo", SceneManager.GetActiveScene().buildIndex);
+        
+       
+    }
 
-
+    void activateLevelClearedPanel()
+    {
+        audioController.PlayOneShot(newLevelSound);
+        levelClearedPanel.SetActive (true);
+    }
 
     void scoreUpdate()
     {
         scoreText.text = "Score: " + score.ToString();
     }
-
-    void reloadLevelAfterDeath()
+    void levelUpdate()
+    {
+        levelText.text = "Level: " + SceneManager.GetActiveScene().buildIndex.ToString();
+    }
+    public void reloadLevelAfterDeath()
     {
         if(playerHealth<=0)
         {
-            SceneManager.LoadScene(3);
+            AudioSource.PlayClipAtPoint(playerDiedSound, Camera.main.transform.position);
+            GetComponent<Animator>().SetTrigger("died");
+            
+            diedPanel.SetActive(true);
         }
     }
 
@@ -139,4 +178,6 @@ public class PlayerController:MonoBehaviour
     {
         healthBar.fillAmount = playerHealth / 100;
     }
+
+    
 }

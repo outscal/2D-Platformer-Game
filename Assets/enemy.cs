@@ -18,6 +18,7 @@ public class enemy : MonoBehaviour
     {
         GetComponent<Animator>().SetFloat("speed", speed);
     }
+    
 
     private void Update()
     {

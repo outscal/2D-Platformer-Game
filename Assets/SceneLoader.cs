@@ -30,7 +30,13 @@ public class SceneLoader : MonoBehaviour
 
     public void play()
     {
+        PlayerPrefs.SetInt("levelsCleared",0);
         SceneManager.LoadScene(1);
+    }
+    
+    public void restartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void mainMenu()
     {
@@ -73,6 +79,21 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene(2);
         
+    }
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene(3);
+
+    }
+    public void LoadLevel4()
+    {
+        SceneManager.LoadScene(4);
+
+    }
+    public void LoadLevel5()
+    {
+        SceneManager.LoadScene(5);
+
     }
 
 
