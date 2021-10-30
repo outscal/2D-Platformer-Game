@@ -6,72 +6,60 @@ using UnityEngine;
 public class enemyController : MonoBehaviour
 {
     int speed = 2;
-    public int patrollingDistance;
-    public Transform groundDection;
-   
-    int direction = 1;
-   
+    public float  patrollingDistance;
+    public Transform groundDection;   
+     
     playerController pc;
     Animator anmi;
-    Vector3 distance;
+   float distance;
     Vector3 position;
-    private void Start()
+    void Start()
     {
 
         anmi = gameObject.GetComponent < Animator >();
-        position = gameObject.transform.position;
+        position = transform.position;
 
     }
     private void Update()
     {
-        
-       
-    }
-    private void FixedUpdate()
-    {
-        DistanceCheck();
-    }
-    private void LateUpdate()
-    {
+        transform.Translate(new Vector3(speed, 0, 0) * Time.deltaTime);
+
         move();
+        raycastMove();
     }
+
+   
+    
 
     private void move()
     {
-        
-        transform.position += Vector3.right * direction * Time.deltaTime*speed;        
-       RaycastHit2D groundInfo = Physics2D.Raycast(groundDection.position, Vector2.down, 2);
+        distance = Mathf.Abs(position.x - transform.position.x);
+        if ( patrollingDistance < distance)
+            changeDrirection();               
+            }
+    void raycastMove()
+    {
+        RaycastHit2D groundInfo = Physics2D.Raycast(groundDection.position, Vector2.down, 2);
         if (groundInfo.collider == false)
             changeDrirection();
-
     }
-    private void DistanceCheck()
-    {
-        
-        distance.x =(int) Mathf.Abs(position.x - transform.position.x);
-        
-        if (distance.x > patrollingDistance)
-        {
-            changeDrirection();
-        }
-
-           
-            
-    }
+   
 
     
     private void changeDrirection()
     {
-        direction *= -1;
-        transform.rotation =  Quaternion.Euler (new Vector3(0, 90 + (-direction * 90), 0));
        
+        transform.Translate(new Vector3( -1, 0, 0) );
+        transform.Rotate(new Vector3(0, 180 , 0));
+
     }
 
-    
-  
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+
+
+
+private void OnCollisionEnter2D(Collision2D collision)
+{
 
         
 

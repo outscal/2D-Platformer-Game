@@ -20,19 +20,23 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject healthBar;
     bool crouch = false;
     bool ground;
+    int movement = 1;
     
     public int speed;
+    
     public float jumpForce;
     int numberOFLevels;
     public void KillPlayer()
     {
         anmi.SetBool("die", true);
-        speed = 0;
+        movement = 0;
         jumpForce = 0;
-       resetButton.SetActive(true);
+        Invoke("ShowGAMEOVER", 2);  
+    }
+    void ShowGAMEOVER()
+    {
+        resetButton.SetActive(true);
         gameOverImage.SetActive(true);
-
-
     }
 
     public void reset()
@@ -49,6 +53,8 @@ public class playerController : MonoBehaviour
         hbc = healthBar.GetComponent<healthBarController>();
         hbc.ChangeHealth(5);
         anmi.SetBool("hurt", true);
+        Invoke("HurtFalse", 0.5f);
+
         
 
     }
@@ -77,22 +83,44 @@ public class playerController : MonoBehaviour
     void Update()
     {
         //anmi.SetBool("hurt", false);
-        anmi.SetFloat("run", 0);
+        anmi.SetInteger("motion", 0);
         anmi.SetBool("jump",!ground);
-        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0 , 0) * speed * Time.deltaTime;
-        if (Input.GetAxis("Horizontal") > 0)
+        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0 , 0) * speed * Time.deltaTime*movement;
+      
+        
+        if (Input.GetAxis("Horizontal") < 0 )
         {
-            sr.flipX = false;
-            anmi.SetFloat("run", 0.6f);
-        }
-        if (Input.GetAxis("Horizontal") < 0)
+                sr.flipX = true;
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = 7;
+                anmi.SetInteger("motion", 2);
+            }
+            else
+            {
+                speed = 5;
+                anmi.SetInteger("motion", 1);
+            }
+          
+        }if (Input.GetAxis("Horizontal") > 0 )
         {
-            sr.flipX = true;
-            anmi.SetFloat("run", 0.6f);
+                sr.flipX = false;
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = 7;
+                anmi.SetInteger("motion", 2);
+            }
+            else
+            {
+                speed = 5;
+                anmi.SetInteger("motion", 1);
+            }
+          
         }
+
         if (Input.GetAxis("Vertical") > 0 && ground)
         {
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Force);
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }      
 
       
@@ -151,5 +179,9 @@ public class playerController : MonoBehaviour
         {
             anmi.SetBool("hurt", false);
         }
+    }
+    void HurtFalse()
+    {
+        anmi.SetBool("hurt", false);
     }
 }

@@ -14,6 +14,7 @@ public class menuConroller : MonoBehaviour
     {
         playButton.onClick.AddListener(PlayGame);
         backButton.onClick.AddListener(closePopUp);
+        soundManager.Instance.PlayBGMusic(Music.lobbyBgMusic);
     }
 
     private void closePopUp()
