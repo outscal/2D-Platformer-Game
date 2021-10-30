@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
         transform.Translate(Vector2.right * speed * Time.deltaTime);
 
         RaycastHit2D GroundDetector = Physics2D.Raycast(groundDetection.position, Vector2.down, RayDistance);
-        
+
         if (!GroundDetector.collider)
         {
             if (ismovingRight)
