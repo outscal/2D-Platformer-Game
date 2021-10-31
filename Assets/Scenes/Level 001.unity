@@ -2375,7 +2375,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1142029875}
   - component: {fileID: 1142029876}
-  - component: {fileID: 1142029877}
   - component: {fileID: 1142029878}
   - component: {fileID: 1142029880}
   - component: {fileID: 1142029879}
@@ -2426,18 +2425,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6486511, y: 3.3485587}
   m_EdgeRadius: 0
---- !u!114 &1142029877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142029874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17c1eb1dc49e5d04ca162aae6ee5cd07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1142029878
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5397,7 +5384,7 @@ PrefabInstance:
     - target: {fileID: 7462072830229088531, guid: b5fb9f1685a487241af184d441816e94,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.67
+      value: 13.2
       objectReference: {fileID: 0}
     - target: {fileID: 7462072830229088531, guid: b5fb9f1685a487241af184d441816e94,
         type: 3}
@@ -5595,6 +5582,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7705997598718480748, guid: d7a43e686ff5ef346907a20fc18dfcbe,
         type: 3}
+      propertyPath: Heart
+      value: 
+      objectReference: {fileID: 21300010, guid: fc49794cc535bef4f969645c4eb97b80,
+        type: 3}
+    - target: {fileID: 7705997598718480748, guid: d7a43e686ff5ef346907a20fc18dfcbe,
+        type: 3}
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 596638145}
@@ -5603,5 +5596,30 @@ PrefabInstance:
       propertyPath: gameOverController
       value: 
       objectReference: {fileID: 1428529284}
+    - target: {fileID: 7705997598718480748, guid: d7a43e686ff5ef346907a20fc18dfcbe,
+        type: 3}
+      propertyPath: hearts.Array.data[0]
+      value: 
+      objectReference: {fileID: 535755950}
+    - target: {fileID: 7705997598718480748, guid: d7a43e686ff5ef346907a20fc18dfcbe,
+        type: 3}
+      propertyPath: hearts.Array.data[1]
+      value: 
+      objectReference: {fileID: 1816276092}
+    - target: {fileID: 7705997598718480748, guid: d7a43e686ff5ef346907a20fc18dfcbe,
+        type: 3}
+      propertyPath: hearts.Array.data[2]
+      value: 
+      objectReference: {fileID: 1307611818}
+    - target: {fileID: 7705997598718480748, guid: d7a43e686ff5ef346907a20fc18dfcbe,
+        type: 3}
+      propertyPath: hearts.Array.data[3]
+      value: 
+      objectReference: {fileID: 837130146}
+    - target: {fileID: 7705997598718480748, guid: d7a43e686ff5ef346907a20fc18dfcbe,
+        type: 3}
+      propertyPath: hearts.Array.data[4]
+      value: 
+      objectReference: {fileID: 1267492854}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7a43e686ff5ef346907a20fc18dfcbe, type: 3}

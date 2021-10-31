@@ -8,11 +8,14 @@ public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
     public Animator animator;
+    public int health;
+    public int numOfHearts;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
     public float speed;
     public float jump;
     private Rigidbody2D rb2d;
-    private int health = 3;
-    public GameObject[] hearts;
     public GameOverController gameOverController;
     private void Awake()
     {
@@ -22,7 +25,17 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log("Player Killed by enemy:");
-        gameOverController.PlayerDied();
+        if(health>0)
+        {
+            health=health-1;
+            PlayerPrefs.SetInt("Health",health);
+            gameOverController.ReloadLevel();
+            Debug.Log("Health now" + health);
+        }
+        else
+        {
+            gameOverController.PlayerDied();
+        }
     }
     public void PickUpKey()
     {
@@ -35,6 +48,30 @@ public class PlayerController : MonoBehaviour
         float Vertical = Input.GetAxisRaw("Jump");
         PlayerMovementAnimation(Horizontal,Vertical);
         MoveCharacter(Horizontal,Vertical);
+        if(health > numOfHearts)
+        {
+            health = numOfHearts;
+        }
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if(i<health)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+            if(i<numOfHearts)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+                
+            }
+        }
     }
     public void PlayerDeathAnimation(bool Impact)
     {
