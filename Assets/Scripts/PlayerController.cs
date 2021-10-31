@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
     public Animator animator;
-    public int health;
+    public static int health;
     public int numOfHearts;
     public Image[] hearts;
     public Sprite fullHeart;
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log("Player Killed by enemy:");
+        PlayerDeathAnimation(true);
         if(health>0)
         {
             health=health-1;
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         for (int i = 0; i < hearts.Length; i++)
         {
-            if(i<health)
+            if(i<=health)
             {
                 hearts[i].sprite = fullHeart;
             }
@@ -69,7 +70,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 hearts[i].enabled = false;
-                
             }
         }
     }
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Impact == true)
         {
+            health--;
             animator.SetBool("AnimDeath",true);
         }
         else
@@ -134,5 +135,4 @@ public class PlayerController : MonoBehaviour
             rb2d.AddForce(new Vector2(0f,jump), ForceMode2D.Force);
         }
     }
-    
 }
