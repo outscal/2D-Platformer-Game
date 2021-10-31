@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     private Rigidbody2D rb2d;
+    private int health = 3;
+    public GameObject[] hearts;
+    public GameOverController gameOverController;
     private void Awake()
     {
         Debug.Log("Player Controller Awake");
@@ -16,9 +21,8 @@ public class PlayerController : MonoBehaviour
     }
     public void KillPlayer()
     {
-        Debug.Log("Player killed by enemy");
-        bool Impact = true;
-        PlayerDeathAnimation(Impact);
+        Debug.Log("Player Killed by enemy:");
+        gameOverController.PlayerDied();
     }
     public void PickUpKey()
     {
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovementAnimation(Horizontal,Vertical);
         MoveCharacter(Horizontal,Vertical);
     }
-    private void PlayerDeathAnimation(bool Impact)
+    public void PlayerDeathAnimation(bool Impact)
     {
         if (Impact == true)
         {
