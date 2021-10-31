@@ -9,8 +9,11 @@ public class soundManager : MonoBehaviour
     public static soundManager Instance { get { return instance; } }
     public AudioSource SoundEffect;
     public AudioSource soundMusic;
+    public AudioSource PlayerSounds;
+    
     public SoundType[] sounds;
     public MusicType[] music;
+    public PlayerSounds[] playerS;
    
 
     private void Awake()
@@ -22,20 +25,47 @@ public class soundManager : MonoBehaviour
         }
 
     }
+    //bg musci
     public void PlayBGMusic(Music  music)
     {
         AudioClip clip = getMusicClip (music);
         if (clip != null)
+        {
+            soundMusic.Stop();
+            soundMusic.clip = clip;
             soundMusic.Play();
+            
+               
+        }           
+            
     }
-
     public void Play(Sounds sound)
     {
         AudioClip clip = getSoundClip(sound);
         if (clip != null)
-            SoundEffect.PlayOneShot(clip);
-    }
+        {
+            SoundEffect.Stop();
+            //if (!SoundEffect.isPlaying)
+                SoundEffect.PlayOneShot(clip);
+        }
+           
+    } public void PlayPlayerSounds( playerSounds sound)
+    {
+        AudioClip clip = getSoundClip(sound);
+        if (clip != null)
+        {
+            
 
+            if (!PlayerSounds.isPlaying)
+            {
+                PlayerSounds.Stop();               
+                PlayerSounds.PlayOneShot(clip);
+            }
+             
+        }
+           
+    }
+    // button Effects
     private AudioClip getSoundClip(Sounds sound)
     {
         SoundType item = Array.Find(sounds, i => i.soundType == sound);
@@ -51,6 +81,18 @@ public class soundManager : MonoBehaviour
         else
             return null;
     }
+
+    // player Sounds effect
+    private AudioClip getSoundClip(playerSounds sound)
+    {
+        PlayerSounds item = Array.Find(playerS, i => i.playerSounds == sound);
+        if (item != null)
+            return item.soundClip;
+        else
+            return null;
+    }
+   
+
 }
 [Serializable]
 public class SoundType
@@ -62,10 +104,15 @@ public class SoundType
 
     public enum Sounds
     {
-    ButtonClick,
-    PlayerMove,
-    PlayerDeath,
-    EnemyDeath,
+    ButtonClickNormal,
+    ButtonClickLocked,
+    healthLoose,
+    healthGain,
+    pickUpCoin,
+    enemyAttack,
+    enemyDie,
+  
+   
 
     }
 
@@ -82,4 +129,18 @@ public class MusicType
     gameOverMusic,
 
     }
+[Serializable]
+public class PlayerSounds
+{   
+    public playerSounds playerSounds;
+    public AudioClip soundClip;
+}
+    public enum playerSounds
+    {
+    PlayerMove,
+    PlayerRun,
+    Playerhurt,
+    playerJump,
+    playerAttack
+}
 

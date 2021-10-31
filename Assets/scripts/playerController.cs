@@ -16,7 +16,7 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject gameOverImage;
     [SerializeField] Collider2D bodyCollider;
     [SerializeField] Collider2D footCollider;
-
+    [SerializeField] GameObject melee;
     [SerializeField] GameObject healthBar;
     bool crouch = false;
     bool ground;
@@ -35,6 +35,7 @@ public class playerController : MonoBehaviour
     }
     void ShowGAMEOVER()
     {
+        soundManager.Instance.PlayBGMusic(Music.gameOverMusic);
         resetButton.SetActive(true);
         gameOverImage.SetActive(true);
     }
@@ -43,19 +44,19 @@ public class playerController : MonoBehaviour
     {
         speed = 5;
         jumpForce = 100;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
        
 
     }
     public void looseHealth()
     {
+        soundManager.Instance.PlayerSounds.Stop();
+        soundManager.Instance.PlayPlayerSounds(playerSounds.Playerhurt);
         healthBarController hbc;
         hbc = healthBar.GetComponent<healthBarController>();
         hbc.ChangeHealth(5);
         anmi.SetBool("hurt", true);
-        Invoke("HurtFalse", 0.5f);
-
-        
+        Invoke("HurtFalse", 0.5f);        
 
     }
 
@@ -73,6 +74,7 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        soundManager.Instance.PlayBGMusic(Music.gamePlayMusic);
         numberOFLevels = levelManager.Instance.Levels.Length;
         //Scene currentLevel = SceneManager.GetActiveScene();
         //levelManager.Instance.setLevelStatus(currentLevel.name, LevelStatus.unlocked);
@@ -90,28 +92,35 @@ public class playerController : MonoBehaviour
         
         if (Input.GetAxis("Horizontal") < 0 )
         {
-                sr.flipX = true;
+            
+            sr.flipX = true;
             if(Input.GetKey(KeyCode.LeftShift))
             {
+                soundManager.Instance.PlayPlayerSounds(playerSounds.PlayerRun);
                 speed = 7;
                 anmi.SetInteger("motion", 2);
             }
             else
             {
+                soundManager.Instance.PlayPlayerSounds(playerSounds.PlayerMove);
                 speed = 5;
                 anmi.SetInteger("motion", 1);
             }
           
         }if (Input.GetAxis("Horizontal") > 0 )
         {
-                sr.flipX = false;
+
+            
+            sr.flipX = false;
             if(Input.GetKey(KeyCode.LeftShift))
             {
+                soundManager.Instance.PlayPlayerSounds(playerSounds.PlayerRun);
                 speed = 7;
                 anmi.SetInteger("motion", 2);
             }
             else
             {
+                soundManager.Instance.PlayPlayerSounds(playerSounds.PlayerMove);
                 speed = 5;
                 anmi.SetInteger("motion", 1);
             }
@@ -120,7 +129,9 @@ public class playerController : MonoBehaviour
 
         if (Input.GetAxis("Vertical") > 0 && ground)
         {
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            soundManager.Instance.PlayerSounds.Stop();
+            soundManager.Instance.PlayPlayerSounds(playerSounds.playerJump);
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Force);
         }      
 
       
@@ -129,8 +140,22 @@ public class playerController : MonoBehaviour
             crouch = !crouch;
             anmi.SetBool("crouch", crouch);            
         }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Attack();
+        }if(Input.GetKeyUp(KeyCode.Space))
+        {
+            AttackFalse();
+        }
 
 
+    }
+    public void Attack()
+    {
+        melee.SetActive(true);
+        soundManager.Instance.PlayerSounds.Stop();
+        soundManager.Instance.PlayPlayerSounds(playerSounds.playerAttack);
+        anmi.SetInteger("attack", 1);
     }
     public void  PickUpKey()
     {
@@ -167,8 +192,8 @@ public class playerController : MonoBehaviour
         {
             ground = true;
         }
-
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("ground"))
@@ -183,5 +208,10 @@ public class playerController : MonoBehaviour
     void HurtFalse()
     {
         anmi.SetBool("hurt", false);
+    }
+    void AttackFalse()
+    {
+        melee.SetActive(false);
+        anmi.SetInteger("attack", 0);
     }
 }

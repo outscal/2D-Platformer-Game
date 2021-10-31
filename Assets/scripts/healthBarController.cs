@@ -34,6 +34,7 @@ public class healthBarController : MonoBehaviour
         {
             hc = heelthUI[numberOFLives].GetComponent<healthController>();
             hc.looseHeart();
+            soundManager.Instance.Play(Sounds.healthLoose);
 
 
         }

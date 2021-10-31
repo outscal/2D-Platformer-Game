@@ -8,6 +8,7 @@ public class key : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<playerController>() !=null)
         {
+            soundManager.Instance.Play(Sounds.pickUpCoin);
             playerController pc = collision.gameObject.GetComponent<playerController>();
             pc.PickUpKey();
             Destroy(gameObject);

@@ -11,8 +11,10 @@ public class levelManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance==null)
+        
+        if (instance==null)
         {
+            //PlayerPrefs.DeleteAll();
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -20,7 +22,7 @@ public class levelManager : MonoBehaviour
     }
     private void Start()
     {
-        PlayerPrefs.DeleteAll();
+       
         if(GetLevelStatus(Levels[0])== LevelStatus.locked)
         {
             setLevelStatus(Levels[0], LevelStatus.unlocked);
