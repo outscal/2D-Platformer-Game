@@ -7,13 +7,27 @@ using UnityEngine.SceneManagement;
 public class GameOverController : MonoBehaviour
 {
     public Button buttonRestart;
+    public Button exitGame;
+    public Button mainMenu;
     private void Awake()
     {
         buttonRestart.onClick.AddListener(ReloadLevel);
+        mainMenu.onClick.AddListener(MainMenu);
+        exitGame.onClick.AddListener(ExitGame);
     }
     public void PlayerDied()
     {
         gameObject.SetActive(true);
+    }
+    private void MainMenu()
+    {
+        Debug.Log("Back to Main Menu");
+        SceneManager.LoadScene(0);
+    }
+    private void ExitGame()
+    {
+        Debug.Log("Game has been exited");
+        Application.Quit();
     }
     public void ReloadLevel()
     {
