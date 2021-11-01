@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LivesController : MonoBehaviour
 {
-    public PlayerController playerController;
+    public PlayerMovement playerMovement;
 
     public Image[] lives; 
     private int livesCount = 3;
@@ -22,7 +22,7 @@ public class LivesController : MonoBehaviour
             {
                 lives[livesCount].gameObject.SetActive(false);
 
-                playerController.KillPlayer();
+                playerMovement.KillPlayer();
             }
         }
     }

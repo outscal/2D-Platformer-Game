@@ -10,7 +10,7 @@ public class DeathController : MonoBehaviour
     private LivesController livesController; 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        if (collision.gameObject.GetComponent<PlayerMovement>() != null)
         {
             Debug.Log("Player died"); 
         }
