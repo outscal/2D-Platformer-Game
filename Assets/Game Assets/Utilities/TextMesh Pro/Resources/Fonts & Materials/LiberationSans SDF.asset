@@ -138,7 +138,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
-    - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceColor: {r: 0.6, g: 0.019607842, b: 0.044088542, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
@@ -165,6 +165,8 @@ Texture2D:
   m_TextureFormat: 1
   m_MipCount: 1
   m_IsReadable: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_IsPreProcessed: 0
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
   m_AlphaIsTransparency: 0
@@ -200,13 +202,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hashCode: 231247347
   material: {fileID: 2180264}
-  materialHashCode: -1183942120
+  materialHashCode: 198912371
   m_Version: 1.1.0
   m_SourceFontFileGUID: 
   m_SourceFontFile_EditorRef: {fileID: 0}
   m_SourceFontFile: {fileID: 0}
   m_AtlasPopulationMode: 0
   m_FaceInfo:
+    m_FaceIndex: 0
     m_FamilyName: Liberation Sans
     m_StyleName: 
     m_PointSize: 86
@@ -214,7 +217,7 @@ MonoBehaviour:
     m_LineHeight: 98.90625
     m_AscentLine: 77.84375
     m_CapLine: 59.1875
-    m_MeanLine: 0
+    m_MeanLine: 45.4375
     m_Baseline: 0
     m_DescentLine: -18.21875
     m_SuperscriptOffset: 77.84375
@@ -4731,6 +4734,8 @@ MonoBehaviour:
   m_AtlasTextures:
   - {fileID: 2846298}
   m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 0
+  m_ClearDynamicDataOnBuild: 0
   m_UsedGlyphRects: []
   m_FreeGlyphRects: []
   m_fontInfo:
@@ -8575,6 +8580,7 @@ MonoBehaviour:
           m_XAdvance: 0
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
+  fallbackFontAssets: []
   m_FallbackFontAssetTable: []
   m_CreationSettings:
     sourceFontFileName: 
