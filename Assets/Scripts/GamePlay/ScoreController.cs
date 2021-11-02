@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 using TMPro; 
 
 public class ScoreController : MonoBehaviour
 {
-    private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI levelIndicatorText;
+
+    private LevelLoader levelLoader;
+    private LevelManager levelManager; 
 
     private int score = 0; 
 
     private void Awake()
     {
-        scoreText = GetComponent<TextMeshProUGUI>(); 
+        scoreText = GetComponent<TextMeshProUGUI>();
+        levelIndicatorText = GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -27,6 +33,7 @@ public class ScoreController : MonoBehaviour
 
     private void RefreshUI()
     {
-        scoreText.text = "Score: " + score; 
+        scoreText.text = "Score: " + score;
+        //levelIndicatorText.text = levelManager.Levels[SceneManager.GetActiveScene().buildIndex]; 
     }
 }

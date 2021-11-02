@@ -2,18 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 
 public class LevelCompleteController : MonoBehaviour
 {
-    [SerializeField] private GameObject levelCompleteUI; 
+    public Button RestartBtn;
+    public Button NextLevelBtn;
+    public Button LobbyBtn;
+    public Button CloseBtn;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Awake()
     {
-        if(collision.gameObject.GetComponent<PlayerMovement>() != null)
-        {
-            Debug.Log("Level finished");
+        RestartBtn.onClick.AddListener(onRestartBtnClick);
+        NextLevelBtn.onClick.AddListener(onNextLevelBtnClick);
+        LobbyBtn.onClick.AddListener(onLobbyBtnClick);
+        CloseBtn.onClick.AddListener(onCloseBtnClick); 
+    }
 
-            levelCompleteUI.SetActive(true); 
-        }
+    public void LevelCompleted()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void onRestartBtnClick()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void onLobbyBtnClick()
+    {
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void onCloseBtnClick()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void onNextLevelBtnClick()
+    {
+        LevelManager.Instance.MarkLevelComplete();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

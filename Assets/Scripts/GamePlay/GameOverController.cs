@@ -6,21 +6,39 @@ using UnityEngine.UI;
 
 public class GameOverController : MonoBehaviour
 {
-    public Button restartBtn;
+    [SerializeField] private GameObject gameOverUI;
+
+    public Button RestartBtn;
+    public Button LobbyBtn;
+    public Button QuitBtn; 
 
     private void Awake()
     {
-        restartBtn.onClick.AddListener(ReloadLevel);     
+        RestartBtn.onClick.AddListener(onRestartBtnClick);      
+        LobbyBtn.onClick.AddListener(onLobbyBtnClick);
+        QuitBtn.onClick.AddListener(onQuitBtnClick);
     }
 
     public void GameOver()
     {
-        SceneManager.LoadScene("GameOver"); 
+        gameOverUI.SetActive(true); 
     }
 
-    private void ReloadLevel()
-    { 
-        SceneManager.LoadScene("Level1");
+    public void onRestartBtnClick()
+    {
+        Time.timeScale = 1f; 
+        gameOverUI.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void onLobbyBtnClick()
+    {
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void onQuitBtnClick()
+    {
+        Application.Quit();
     }
 
 }
