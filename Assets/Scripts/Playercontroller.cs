@@ -11,10 +11,12 @@ public class Playercontroller : MonoBehaviour
     [SerializeField]
     private float jump;
     private Rigidbody2D rb;
+    private bool isGrounded;
     // Start is called before the first frame update
     void Awake()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();    
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        isGrounded = true;
     }
         // Update is called once per frame
     void Update()
@@ -50,8 +52,13 @@ public class Playercontroller : MonoBehaviour
         transform.position = temp;
         if (vertical > 0)
         {
-            
-            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            if(isGrounded)
+            {
+                rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+               // rb.AddForce(Vector2.up * jump * Time.deltaTime);
+                isGrounded = false;
+            }
+
         }
 
        
@@ -70,5 +77,12 @@ public class Playercontroller : MonoBehaviour
         if (speed < 0)scale.x = -1.0f * Mathf.Abs(scale.x);
         else if (speed > 0) scale.x = Mathf.Abs(scale.x);
         transform.localScale = scale;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Platform")
+        {
+            isGrounded = true;
+        }
     }
 }
