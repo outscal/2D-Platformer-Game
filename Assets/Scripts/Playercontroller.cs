@@ -24,11 +24,11 @@ public class Playercontroller : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         isGrounded = true;
         
-        m_ScaleX = Player_Collider.size.x;
+       /* m_ScaleX = Player_Collider.size.x;
         m_ScaleY = Player_Collider.size.y;
-        // m_ScaleZ = Player_Collider.size.z;
+        m_ScaleZ = Player_Collider.size.z;
         Debug.Log("Current Sprite Size before: " + sr.sprite.bounds.size);
-        Debug.Log("Current BoxCollider Size before: " + Player_Collider.size);
+        Debug.Log("Current BoxCollider Size before: " + Player_Collider.size);*/
 
     }
         // Update is called once per frame
@@ -51,19 +51,11 @@ public class Playercontroller : MonoBehaviour
             animator.SetBool("crouch", true);
             print("Control key was pressed");
             print("Sprite bound size:"+sr.sprite.bounds.size/2);
-                    
-            /* m_ScaleX = sr.sprite.bounds.size.x;
-             m_ScaleY = sr.sprite.bounds.size.y;*/
-
-            //Player_Collider.size = new Vector3(m_ScaleX, m_ScaleY);
-            Player_Collider.size = new Vector3(1.13f, 1.64f);
+            
+            /*Player_Collider.size = new Vector3(1.13f, 1.64f);
             Player_Collider.offset = new Vector3(0f,0.63f);
-            Debug.Log("Current BoxCollider Size : " + Player_Collider.size);
-            /*Destroy(Player_Collider);
-            gameObject.AddComponent<BoxCollider2D>();
-            x=1.07,y=1.2 offx=-0.13,y=0.63
-            jump x=1.07y=1.8 , xoff=0.07547355 yoff=1.6
-             */
+            Debug.Log("Current BoxCollider Size : " + Player_Collider.size);*/
+            
 
         }
         else if (Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.LeftControl))
@@ -85,16 +77,16 @@ public class Playercontroller : MonoBehaviour
         if (vertical > 0)
         {
              animator.SetBool("jump", true);
-            Player_Collider.size = new Vector3(1f, 1.8f);
-            Player_Collider.offset = new Vector3(0f, 1.6f);
+            /*Player_Collider.size = new Vector3(1f, 1.8f);
+            Player_Collider.offset = new Vector3(0f, 1.6f);*/
 
         }
             
         else
         {
             animator.SetBool("jump", false);
-            Player_Collider.size = new Vector3(0.6f, 2.3f);
-            Player_Collider.offset = new Vector3(0f, 0.98f);
+           /* Player_Collider.size = new Vector3(0.6f, 2.3f);
+            Player_Collider.offset = new Vector3(0f, 0.98f);*/
         }
             
     }
