@@ -16,13 +16,17 @@ public class Playercontroller : MonoBehaviour
     private BoxCollider2D Player_Collider;
     private SpriteRenderer sr;
     private float m_ScaleX, m_ScaleY, m_ScaleZ;
+    private bool isDeath;
+    private UIManager _uimanager;
     // Start is called before the first frame update
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         Player_Collider = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
+        _uimanager = GameObject.Find("Canvas").GetComponent<UIManager>();
         isGrounded = true;
+        isDeath = false;
         
        /* m_ScaleX = Player_Collider.size.x;
         m_ScaleY = Player_Collider.size.y;
@@ -31,7 +35,14 @@ public class Playercontroller : MonoBehaviour
         Debug.Log("Current BoxCollider Size before: " + Player_Collider.size);*/
 
     }
-        // Update is called once per frame
+    private void Start()
+    {
+        if (_uimanager == null)
+        {
+            Debug.LogError("The UIMnager is null");
+        }
+    }
+    // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -129,6 +140,16 @@ public class Playercontroller : MonoBehaviour
         if(collision.gameObject.tag == "Platform")
         {
             isGrounded = true;
+        }else if(collision.gameObject.tag == "Dead")
+        {
+            isDeath = true;
+           // Debug.Log("Game Lost");
+            _uimanager.gameStatus(isDeath);
         }
+    }
+
+    public bool playerDeath()
+    {
+        return isDeath;
     }
 }
