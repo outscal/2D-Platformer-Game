@@ -21,13 +21,15 @@ public class LobbyController : MonoBehaviour
 
     public void onStartBtnClick()
     {
+        SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
         LevelMenu.SetActive(true);
-        MainMenu.SetActive(false); 
+        MainMenu.SetActive(false);        
     }
 
     public void onExitBtnClick()
     {
-        Application.Quit();
+        SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
+        Application.Quit();       
     }
 
 }

@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     public PlayerMovement playerMovement; 
     public ScoreController scoreController;
     private GameOverController gameOverController;
-    private DeathController deathController; 
+    private DeathController deathController;
+    private HealthController healthController; 
 
     public Animator playerAnimator;
 
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
     void hurtAnim()
     {
         playerAnimator.SetBool("isHurt", true);
+        StartCoroutine(TimedelayForHurting()); 
     }
 
     public void OnLanding()
@@ -76,6 +78,14 @@ public class PlayerController : MonoBehaviour
     public void OnCrouching(bool IsCrouching)
     {
         playerAnimator.SetBool("isCrouching", IsCrouching); 
+    }
+
+
+    public void DamagePlayer()
+    {
+        playerMovement.hurtPlayer();
+        hurtAnim();
+        healthController.LoseLife();
     }
 
     public void KillPlayer()
@@ -89,6 +99,12 @@ public class PlayerController : MonoBehaviour
     public void PickUpKey()
     {
         scoreController.IncreaseScore(10); 
+    }
+
+    IEnumerator TimedelayForHurting()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playerAnimator.SetBool("isHurt", false);
     }
 
 }

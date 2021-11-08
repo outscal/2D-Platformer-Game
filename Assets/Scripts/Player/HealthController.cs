@@ -17,8 +17,10 @@ public class HealthController : MonoBehaviour
         if(livesCount > 0)
         {
             lives[livesCount].gameObject.SetActive(false);
+            
+            SoundManager.Instance.Play(SoundManager.Sounds.ChomperEnemyCollision);
 
-            if(livesCount == 0)
+            if (livesCount == 0)
             {
                 lives[livesCount].gameObject.SetActive(false);
 

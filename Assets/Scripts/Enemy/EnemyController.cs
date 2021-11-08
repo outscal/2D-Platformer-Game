@@ -13,8 +13,8 @@ public class EnemyController : MonoBehaviour
 
     public Transform groundDetection;
 
-    public HealthController livesController;
-     
+    public HealthController healthController;
+    public PlayerController playerController; 
     
     //when a player collide with an enemy
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController playerMovement = collision.gameObject.GetComponent<PlayerController>();
-            livesController.LoseLife(); 
+            playerController.DamagePlayer();  
         }
     }
 

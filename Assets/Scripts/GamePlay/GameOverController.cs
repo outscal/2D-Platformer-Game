@@ -26,7 +26,8 @@ public class GameOverController : MonoBehaviour
 
     public void onRestartBtnClick()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
+        SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
         gameOverUI.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -34,11 +35,13 @@ public class GameOverController : MonoBehaviour
     public void onLobbyBtnClick()
     {
         SceneManager.LoadScene("Lobby");
+        SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
     }
 
     public void onQuitBtnClick()
     {
         Application.Quit();
+        SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
     }
 
 }

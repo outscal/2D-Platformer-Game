@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField] private float jumpForce = 400f;                          // Amount of force added when the player jumps.
+	[SerializeField] private float recoilForce = 50f;                         // Amount of force added when the player gets hurt.
 	[Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] private bool airControl = false;                         // Whether or not a player can steer while jumping;
@@ -18,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody2D playerRB;	
 	private bool facingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
+	private Vector3 scale;
+	private Vector2 lookDir; 
 
 	[Header("Events")]
 	[Space]
@@ -58,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
+
+		lookDir = Camera.main.ScreenToWorldPoint(transform.position);
 	}
 
 	public void Move(float move, bool crouch, bool jump)
@@ -141,6 +146,19 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 scale = transform.localScale;
 		scale.x *= -1;
 		transform.localScale = scale;
+	}
+
+	public void hurtPlayer()
+    {
+		scale = transform.localScale;
+		if (scale.x == 1)
+		{
+			playerRB.AddForce(lookDir * recoilForce, ForceMode2D.Impulse);
+		}
+		else
+		{
+			playerRB.AddForce(-lookDir * recoilForce, ForceMode2D.Impulse);
+		}
 	}
 
 }

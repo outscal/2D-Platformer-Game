@@ -12,7 +12,8 @@ public class DeathController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Player died"); 
+            Debug.Log("Player died");
+            SoundManager.Instance.Play(SoundManager.Sounds.PlayerDeath);
         }
     }
 
