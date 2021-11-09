@@ -27,10 +27,10 @@ public class UIManager : MonoBehaviour
     {
         
     }
-    public void gameStatus(bool status)
+    public void gameStatus()
     {
-        Debug.Log("Game Lost");
+        Debug.Log("print UI");
         _gameOverText.gameObject.SetActive(true);
-        //_levelOver.restart();
+        
     }
 }
