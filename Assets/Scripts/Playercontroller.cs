@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Playercontroller : MonoBehaviour
 {
+    
+    private int _keyCollected;
     [SerializeField]
     private Animator animator;
     [SerializeField]
@@ -17,14 +19,14 @@ public class Playercontroller : MonoBehaviour
     private SpriteRenderer sr;
     private float m_ScaleX, m_ScaleY, m_ScaleZ;
     private bool isDeath;
-   // private UIManager _uimanager;
+    private UIManager _uimanager;
     // Start is called before the first frame update
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         Player_Collider = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
-      //  _uimanager = GameObject.Find("Canvas").GetComponent<UIManager>();
+       _uimanager = GameObject.Find("Canvas").GetComponent<UIManager>();
         isGrounded = true;
         isDeath = false;
         
@@ -139,8 +141,13 @@ public class Playercontroller : MonoBehaviour
         }
     }
 
-    public bool playerDeath()
+    public void addKeyScore(int score)
     {
-        return isDeath;
+       
+        _keyCollected+=score;
+        Debug.Log(_keyCollected);
+        _uimanager.displayScoreText(_keyCollected);
+
+
     }
 }

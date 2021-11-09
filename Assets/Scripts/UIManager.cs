@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private Text _gameOverText;
+    [SerializeField]
+    private Text _scoreText;
     private LeveloverController _levelOver;
 
     private void Awake()
@@ -32,5 +34,9 @@ public class UIManager : MonoBehaviour
         Debug.Log("print UI");
         _gameOverText.gameObject.SetActive(true);
         
+    }
+    public void displayScoreText(int score)
+    {
+        _scoreText.text = "Score :" + score;
     }
 }

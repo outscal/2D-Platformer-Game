@@ -23,6 +23,7 @@ public class LeveloverController : MonoBehaviour
     }
     private void Update()
     {
+
         if(reset)
         {
             reload();
@@ -31,12 +32,12 @@ public class LeveloverController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<Playercontroller>() !=null)
+        Playercontroller player = collision.GetComponent<Playercontroller>();
+        if (player != null)
         {
             Debug.Log("End of the Game");
             _uimanager.gameStatus();
             reset = true;
-          
         } 
     }
 
