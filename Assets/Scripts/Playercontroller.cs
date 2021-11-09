@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Playercontroller : MonoBehaviour
 {
@@ -149,5 +150,15 @@ public class Playercontroller : MonoBehaviour
         _uimanager.displayScoreText(_keyCollected);
 
 
+    }
+    public void killPlayer()
+    {
+        Debug.Log("Player Killed by the EnemyChomper");
+        ReloadScene();
+    }
+    private void ReloadScene()
+    {
+            SceneManager.LoadScene(0);
+        
     }
 }
