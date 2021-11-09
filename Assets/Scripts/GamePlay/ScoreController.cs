@@ -33,7 +33,7 @@ public class ScoreController : MonoBehaviour
 
     private void RefreshUI()
     {
-        scoreText.text = "Score: " + score;
+        scoreText.text = "Keys: " + score;
         //levelIndicatorText.text = levelManager.Levels[SceneManager.GetActiveScene().buildIndex]; 
     }
 }
