@@ -8,10 +8,17 @@ public class LobbyController : MonoBehaviour
 {
     public Button playButton;
     public Button exitButton;
+    public Button levelSelectButton;
+    public GameObject levelSelectPanel;
     private void Awake()
     {
         playButton.onClick.AddListener(PlayGame);
+        levelSelectButton.onClick.AddListener(SelectLevel);
         exitButton.onClick.AddListener(ExitGame);
+    }
+    private void SelectLevel()
+    {
+        levelSelectPanel.SetActive(true);
     }
     private void ExitGame()
     {
