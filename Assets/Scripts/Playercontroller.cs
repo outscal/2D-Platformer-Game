@@ -23,6 +23,7 @@ public class Playercontroller : MonoBehaviour
     private UIManager _uimanager;
     public ScoreManager _scorecontroller;
     public GameOverCpontroller _gamecontroller;
+    private int gameLives;
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,7 +33,7 @@ public class Playercontroller : MonoBehaviour
        _uimanager = GameObject.Find("Canvas").GetComponent<UIManager>();
         isGrounded = true;
         isDeath = false;
-        
+        gameLives = 3;
        /* m_ScaleX = Player_Collider.size.x;
         m_ScaleY = Player_Collider.size.y;
         m_ScaleZ = Player_Collider.size.z;
@@ -164,10 +165,21 @@ public class Playercontroller : MonoBehaviour
     }
     public void killPlayer()
     {
-        Debug.Log("Player Killed by the EnemyChomper");
-        animator.SetBool("dead", true);
-        _gamecontroller.playerDead();
+        
+        gameLives--;
+        if (gameLives < 0)
+        {
+            
+            Debug.Log("Player Killed by the EnemyChomper ");
+        }else if(gameLives == 0)
+        {
+            animator.SetBool("dead", true);
+            _gamecontroller.playerDead();
+            Debug.Log("Remaining Lives : "+ gameLives);
+        }
+       
         //ReloadLevel();
+        
     }
     
 }
