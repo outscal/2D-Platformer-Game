@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelCompleteController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class LevelCompleteController : MonoBehaviour
             Debug.Log("Level Complete");
             DoorAnimation(Door);
             Door = true;
+            LevelManager.Instance.MarkCurrentLevelComplete();
             gameOverController.ReloadLevel();
         }
     }
