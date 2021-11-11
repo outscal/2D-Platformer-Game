@@ -21,6 +21,8 @@ public class Playercontroller : MonoBehaviour
     private float m_ScaleX, m_ScaleY, m_ScaleZ;
     private bool isDeath;
     private UIManager _uimanager;
+    public ScoreManager _scorecontroller;
+    public GameOverCpontroller _gamecontroller;
     // Start is called before the first frame update
     void Awake()
     {
@@ -151,14 +153,21 @@ public class Playercontroller : MonoBehaviour
 
 
     }
+    public void pickUpKey(int score)
+    {
+        Debug.Log("Key pickedup");
+      //  _keyCollected += score;
+        _scorecontroller.IncreaseScore(10);
+
+      //  _uimanager.displayScoreText(_keyCollected);
+
+    }
     public void killPlayer()
     {
         Debug.Log("Player Killed by the EnemyChomper");
-        ReloadScene();
+        animator.SetBool("dead", true);
+        _gamecontroller.playerDead();
+        //ReloadLevel();
     }
-    private void ReloadScene()
-    {
-            SceneManager.LoadScene(0);
-        
-    }
+    
 }
