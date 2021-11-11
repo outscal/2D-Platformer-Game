@@ -10,6 +10,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _scoreText;
     private LeveloverController _levelOver;
+    [SerializeField]
+    private Image _livesImage;
+    [SerializeField]
+    private Sprite[] _livesSprites;
 
     private void Awake()
     {
@@ -38,5 +42,11 @@ public class UIManager : MonoBehaviour
     public void displayScoreText(int score)
     {
         _scoreText.text = "Score :" + score;
+    }
+    public void updateLives(int currentLives)
+    {
+        //access display images sprite
+        // give new one based on current Index
+        _livesImage.sprite = _livesSprites[currentLives];
     }
 }

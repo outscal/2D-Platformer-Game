@@ -43,10 +43,10 @@ public class Playercontroller : MonoBehaviour
     }
     private void Start()
     {
-        /*if (_uimanager == null)
+        if (_uimanager == null)
         {
             Debug.LogError("The UIMnager is null");
-        }*/
+        }
     }
     // Update is called once per frame
     void Update()
@@ -142,6 +142,10 @@ public class Playercontroller : MonoBehaviour
         if(collision.gameObject.tag == "Platform")
         {
             isGrounded = true;
+        }else if(collision.gameObject.tag == "Dead")
+        {
+            Debug.Log("Dead");
+            _gamecontroller.playerDead();
         }
     }
 
@@ -149,7 +153,6 @@ public class Playercontroller : MonoBehaviour
     {
        
         _keyCollected+=score;
-        Debug.Log(_keyCollected);
         _uimanager.displayScoreText(_keyCollected);
 
 
@@ -157,16 +160,16 @@ public class Playercontroller : MonoBehaviour
     public void pickUpKey(int score)
     {
         Debug.Log("Key pickedup");
-      //  _keyCollected += score;
         _scorecontroller.IncreaseScore(10);
-
-      //  _uimanager.displayScoreText(_keyCollected);
 
     }
     public void killPlayer()
     {
         
         gameLives--;
+       // Debug.Log(gameLives);
+        _uimanager.updateLives(gameLives);
+        
         if (gameLives < 0)
         {
             
@@ -175,10 +178,9 @@ public class Playercontroller : MonoBehaviour
         {
             animator.SetBool("dead", true);
             _gamecontroller.playerDead();
-            Debug.Log("Remaining Lives : "+ gameLives);
+           // Debug.Log("Remaining Lives : "+ gameLives);
         }
        
-        //ReloadLevel();
         
     }
     
