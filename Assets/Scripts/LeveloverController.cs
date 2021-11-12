@@ -46,7 +46,7 @@ public class LeveloverController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }else if(Input.GetKeyDown(KeyCode.N))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
