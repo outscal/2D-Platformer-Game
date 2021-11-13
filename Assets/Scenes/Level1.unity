@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 76003202}
   - component: {fileID: 76003201}
   - component: {fileID: 76003204}
+  - component: {fileID: 76003205}
   m_Layer: 0
   m_Name: LevelComplete
   m_TagString: Dead
@@ -331,7 +332,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76003200}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.901852, y: -2.6990101, z: 1.0507812}
+  m_LocalPosition: {x: -6.47, y: -0.56, z: 1.0507812}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 1008943428}
@@ -349,6 +350,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46238c8f2c2f1fb4aa62c6fb86a36665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextSceneLoad: 3
+--- !u!114 &76003205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76003200}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7f8919fd2634e45b23a8d711551f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneLoad: 3
 --- !u!1001 &104198669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1142,7 +1157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -282, y: -50}
+  m_AnchoredPosition: {x: -256.8, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1178307875
@@ -1164,7 +1179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300010, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58d3b73cf8615c14ea686404f5e3190f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2584,6 +2599,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOverText: {fileID: 1828038304}
   _scoreText: {fileID: 2078582287}
+  _livesImage: {fileID: 1178307875}
+  _livesSprites:
+  - {fileID: 21300000, guid: 8bc32f6d67d80ac43b94d16bc0ff0269, type: 3}
+  - {fileID: 21300000, guid: f8a753947b9cafc48b0c922bbe9078be, type: 3}
+  - {fileID: 21300000, guid: e1aed0d89db97e544842730e2f3ff2ed, type: 3}
 --- !u!4 &1481023437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7083592638237589042, guid: fde913ac747deb74f958f48b198bb840,

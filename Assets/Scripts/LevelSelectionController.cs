@@ -20,12 +20,17 @@ public class LevelSelectionController : MonoBehaviour
     }
 
     
-    public void ChangeScene(string sceneName)
+    public void ChangeScene(int sceneIndex)
     {
         
-        Debug.Log("sceneName to load: " + sceneName);
+        Debug.Log("sceneName to load: " + sceneIndex);
         // SceneManager.LoadScene(sceneIndex);
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneIndex);
     }
+    public void deletePref()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+    
 
 }
