@@ -7,11 +7,13 @@ public class LeveloverController : MonoBehaviour
 {
     private bool reset;
     private UIManager _uimanager;
-    
+    public int nextSceneLoad;
+
     private void Awake()
     {
         reset = false;
         _uimanager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        nextSceneLoad = SceneManager.GetActiveScene().buildIndex + 1;
     }
 
     private void Start()
@@ -26,6 +28,7 @@ public class LeveloverController : MonoBehaviour
 
         if(reset)
         {
+            
             reload();
         }
         
@@ -37,19 +40,36 @@ public class LeveloverController : MonoBehaviour
         {
             Debug.Log("End of the Game");
             _uimanager.gameStatus();
-            reset = true;
+            StartCoroutine("setTrueLevelCompleted");
+            Time.timeScale = 0;
+
+
         } 
     }
 
- 
+    IEnumerator setTrueLevelCompleted()
+    {
+        
+        while(!reset)
+        {
+            yield return new WaitForSecondsRealtime(2.0f);
+            reset = true;
+            
+
+        }
+
+    }
+
     private void reload()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+       
+        //Move to next level
+        SceneManager.LoadScene(nextSceneLoad);
+
+        //Setting Int for Index
+        if (nextSceneLoad > PlayerPrefs.GetInt("levelAt"))
         {
-            SceneManager.LoadScene(1);
-        }else if(Input.GetKeyDown(KeyCode.N))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            PlayerPrefs.SetInt("levelAt", nextSceneLoad);
         }
     }
 

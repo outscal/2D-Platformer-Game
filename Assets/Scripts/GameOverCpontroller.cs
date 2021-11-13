@@ -18,7 +18,7 @@ public class GameOverCpontroller : MonoBehaviour
     }
     private void ReloadLevel()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
 
     }
 }
