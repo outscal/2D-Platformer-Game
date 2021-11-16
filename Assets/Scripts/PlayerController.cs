@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,10 +19,16 @@ public class PlayerController : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         
     }
-    /*private void OnCollisionEnter2D(Collision2D collision)
+
+    public void PickUpKey()
     {
-        Debug.Log("Collision:" + collision.gameObject.name);
-    }*/
+        Debug.Log("Player Pikedup the Key");
+    }
+
+    /*private void OnCollisionEnter2D(Collision2D collision)
+{
+   Debug.Log("Collision:" + collision.gameObject.name);
+}*/
 
     private void Update()
     {
