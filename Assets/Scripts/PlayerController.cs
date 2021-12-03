@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
     // Start is called before the first frame update
     private void Start()
     {
@@ -13,6 +14,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+        float speed = Input.GetAxisRaw("Horizontal");
+
+        animator.SetFloat("Speed", Mathf.Abs(speed));
+
+        //Debug.Log("Speed is" + speed);
+        Vector3 scale = transform.localScale;
+        if (speed < 0)
+        {
+            scale.x = -1f * (Mathf.Abs(scale.x));
+        }
+        else if (speed > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+
+        transform.localScale = scale;
     }
 }
