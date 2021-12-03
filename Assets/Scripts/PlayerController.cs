@@ -9,20 +9,22 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
 
+    public bool isGrounded = false;
+
     private Rigidbody2D rBody;
-    
+  
 
     private void Awake()
     {
         rBody = gameObject.GetComponent<Rigidbody2D>();
-        gameObject.GetComponent<SpriteRenderer>();
+        gameObject.GetComponent<SpriteRenderer>();        
 
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-         
+        
     } 
 
     // Update is called once per frame
@@ -30,18 +32,10 @@ public class PlayerController : MonoBehaviour
     {
         //horizontal movement
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        float vertical = Input.GetAxis("Jump");
         
         PlayerMovementAnimation(horizontal, vertical);
         MoveCharacter(horizontal, vertical);
-
-        //vertical movement
-        if (vertical > 0)
-        {
-            rBody.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-        }
-
-
     }
 
     private void FixedUpdate()
@@ -50,7 +44,21 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
+        }
+    }
 
     private void MoveCharacter(float horizontal, float vertical)
     {
@@ -58,6 +66,13 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
+
+        //vertical player movement
+        if (vertical > 0 && isGrounded)
+        {
+            rBody.AddForce(Vector3.up * jump * Time.deltaTime, ForceMode2D.Impulse);
+        }
+
 
     }
 
