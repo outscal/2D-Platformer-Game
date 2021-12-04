@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour
         //vertical player movement
         if (vertical > 0 && isGrounded)
         {
-            rBody.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+            rBody.velocity = Vector2.up * jump;
+            //rBody.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
         }
 
     }
