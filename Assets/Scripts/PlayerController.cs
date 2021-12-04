@@ -32,15 +32,27 @@ public class PlayerController : MonoBehaviour
     {
         //horizontal movement
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxis("Jump");
-        
+        float vertical = Input.GetAxisRaw("Jump");
+
         PlayerMovementAnimation(horizontal, vertical);
         MoveCharacter(horizontal, vertical);
+
+        //vertical player movement
+        //if (vertical > 0 && isGrounded)
+        //{
+        //    rBody.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+        //}
+
     }
 
     private void FixedUpdate()
     {
-
+        float vertical = Input.GetAxisRaw("Jump");
+        //vertical player movement
+        if (vertical > 0 && isGrounded)
+        {
+            rBody.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+        }
 
     }
 
@@ -66,13 +78,6 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
-
-        //vertical player movement
-        if (vertical > 0 && isGrounded)
-        {
-            rBody.AddForce(Vector3.up * jump * Time.deltaTime, ForceMode2D.Impulse);
-        }
-
 
     }
 
