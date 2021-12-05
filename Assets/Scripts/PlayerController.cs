@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded = false;
 
+    [SerializeField] private LayerMask platformMask;
     private Rigidbody2D rBody;
     private BoxCollider2D boxCollider2D; 
 
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         float vertical = Input.GetAxisRaw("Jump");
         //vertical player movement
-        if (vertical > 0 && IsGrounded())
+        if (vertical > 0 && isGrounded)
         {
             //rBody.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
             rBody.velocity = Vector3.up * jump;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
         }
@@ -115,7 +116,7 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         float extraHeightText = 0.01f;
-        RaycastHit2D raycasthit = Physics2D.Raycast(boxCollider2D.bounds.center, Vector2.down, boxCollider2D.bounds.extents.y + extraHeightText);
+        RaycastHit2D raycasthit = Physics2D.Raycast(boxCollider2D.bounds.center, Vector2.down, boxCollider2D.bounds.extents.y + extraHeightText, platformMask);
         Color rayColor;
         if (raycasthit.collider != null)
         {
