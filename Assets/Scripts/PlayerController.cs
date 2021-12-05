@@ -12,13 +12,13 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
 
     private Rigidbody2D rBody;
-  
+    private BoxCollider2D boxCollider2D; 
 
     private void Awake()
     {
         rBody = gameObject.GetComponent<Rigidbody2D>();
-        gameObject.GetComponent<SpriteRenderer>();        
-
+        gameObject.GetComponent<SpriteRenderer>();
+        boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
     }
 
     // Start is called before the first frame update
@@ -49,9 +49,10 @@ public class PlayerController : MonoBehaviour
     {
         float vertical = Input.GetAxisRaw("Jump");
         //vertical player movement
-        if (vertical > 0 && isGrounded)
+        if (vertical > 0 && IsGrounded())
         {
-            rBody.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+            //rBody.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+            rBody.velocity = Vector3.up * jump;
         }
 
     }
@@ -109,5 +110,22 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump", false);
         }
+    }
+
+    private bool IsGrounded()
+    {
+        float extraHeightText = 0.01f;
+        RaycastHit2D raycasthit = Physics2D.Raycast(boxCollider2D.bounds.center, Vector2.down, boxCollider2D.bounds.extents.y + extraHeightText);
+        Color rayColor;
+        if (raycasthit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(boxCollider2D.bounds.center, Vector2.down * (boxCollider2D.bounds.extents.y + extraHeightText));
+        return raycasthit.collider != null;
     }
 }
