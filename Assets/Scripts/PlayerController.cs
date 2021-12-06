@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
+
     public Animator animator;
 
     public float speed;
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public void PickUpKey()
     {
         Debug.Log("Player Pikedup the Key");
+        scoreController.IncreaseScore(10);
     }
 
     /*private void OnCollisionEnter2D(Collision2D collision)
