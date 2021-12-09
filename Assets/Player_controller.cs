@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_controller : MonoBehaviour
 {
-    public Animator animator , Animator anim;
+    public Animator animator;
     private void Awake()
     {
         Debug.Log(" player controller awake ");
@@ -26,15 +26,5 @@ public class Player_controller : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-
-
-
-        float sit = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("Sit", Mathf.Abs (sit)); 
-
-        if (Input.GetKeyDown(KeyCode.RightControl))
-        {
-            anim.SetFloat(sit);
-        }
     }
 }
