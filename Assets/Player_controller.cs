@@ -21,7 +21,10 @@ public class Player_controller : MonoBehaviour
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (speed > 0){
+
+        else if (speed > 0)
+        {
+
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
