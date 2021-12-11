@@ -25,5 +25,24 @@ public class PlayerController : MonoBehaviour
           scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+        
+      
+        if( Input.GetKeyDown(KeyCode.LeftControl))
+        {
+             
+             animator.SetBool("Crouch",true);
+            Debug.Log("Crouching");
+        }
+         else if(Input.GetKeyUp(KeyCode.LeftControl)) 
+         {
+              
+             animator.SetBool("Crouch",false);
+             Debug.Log("NotCrouching");
+
+         }
+        
+        
+
+
     }
 }
