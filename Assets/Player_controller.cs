@@ -14,8 +14,8 @@ public class Player_controller : MonoBehaviour
     private void Awake()
     {
         Debug.Log(" player controller awake ");
-       // rigi2D = gameObject.GetComponent<Rigidbody2D>();
-        rigi2D = GetComponent<Animator>();
+        rigi2D = gameObject.GetComponent<Rigidbody2D>();
+      // rigi2D = GetComponent<Animator>();
     }
 
     private void Update()
@@ -30,7 +30,7 @@ public class Player_controller : MonoBehaviour
 
         if (vertical > 0)
         {
-            rigi2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            rigi2D.AddForce(new Vector2(0f , jump), ForceMode2D.Force);
 
         }
 
@@ -79,7 +79,9 @@ public class Player_controller : MonoBehaviour
 
         if (animator == true && Input.GetKey(KeyCode.Z))
         {
-            animator.SetTrigger("takeof"); 
+            animator.SetTrigger("takeof");
+            
+            
         }
 
 
