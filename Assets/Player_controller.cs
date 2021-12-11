@@ -27,7 +27,7 @@ public class Player_controller : MonoBehaviour
 
         if (vertical > 0)
         {
-            rigi2D.Addforce(new Vector2(0f, jump), ForceMode2D.Impulse);
+            rigi2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
 
         }
 
