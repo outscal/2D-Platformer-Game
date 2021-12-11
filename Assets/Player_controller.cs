@@ -5,14 +5,17 @@ using UnityEngine;
 public class Player_controller : MonoBehaviour
 {
     public Animator animator;
+    
     public float speed;
     public float jump;
+
 
     private Rigidbody2D rigi2D;
     private void Awake()
     {
         Debug.Log(" player controller awake ");
-        rigi2D = gameObject.GetComponent<Rigidbody2D>();
+       // rigi2D = gameObject.GetComponent<Rigidbody2D>();
+        rigi2D = GetComponent<Animator>();
     }
 
     private void Update()
@@ -27,7 +30,7 @@ public class Player_controller : MonoBehaviour
 
         if (vertical > 0)
         {
-            rigi2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+            rigi2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
 
         }
 
@@ -73,6 +76,12 @@ public class Player_controller : MonoBehaviour
         }
 
         //Input.GetKeyDown(KeyCode.RightControl );
+
+        if (animator == true && Input.GetKey(KeyCode.Z))
+        {
+            animator.SetTrigger("takeof"); 
+        }
+
 
 
 
