@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_controller : MonoBehaviour
 {
+    public ScoreController scoreController;
     public Animator animator;
     
     public float speed;
@@ -16,6 +18,13 @@ public class Player_controller : MonoBehaviour
         Debug.Log(" player controller awake ");
         rigi2D = gameObject.GetComponent<Rigidbody2D>();
       // rigi2D = GetComponent<Animator>();
+    }
+ 
+
+    public void PickUpKey()
+    {
+        Debug.Log("player picked up the key");
+        scoreController.IncreaseScore(10);
     }
 
     private void Update()

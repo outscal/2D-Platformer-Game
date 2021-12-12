@@ -15,13 +15,13 @@ public class LevelOverController : MonoBehaviour
         {
         //level is completed
           Debug.Log("Level 1 is finished by player");
-    }
+        }
     // {
     // if (collision.gameObject.CompareTag("Player"))
     // if (collision.gameObject.GetComponent<Player_controller>() != null)
     //  {
     // level is completed
     // Debug.Log("Level 1 is finished by player");
+    }   
 }
-      }
 
