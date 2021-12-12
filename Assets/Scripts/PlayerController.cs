@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             {
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
             }
-        if(isCrouching )
+      
     }
    
 
