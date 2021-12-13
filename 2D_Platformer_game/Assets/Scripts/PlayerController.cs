@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
   public Animator animator;
+  public float speed;
     private void Awake()
     {
         Debug.Log("Player Awake");
@@ -12,37 +13,64 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+        // Code for keybinding #1 Run
+        float horizontal = Input.GetAxisRaw("Horizontal");
+       MovementAnimation(horizontal);
+       MoveCharacter(horizontal);
 
-        Vector3 scale = transform.localScale;
-        if(speed < 0)
+        //Code for Keybinding #1.2 Walk/Run Toggle
+        if (Input.GetKeyDown(KeyCode.RightAlt))
         {
-          scale.x = -1f * Mathf.Abs(scale.x);
+            animator.SetTrigger("Walk/Run Toggle");
         }
-        else if(speed > 0)
+        else if (Input.GetKeyUp(KeyCode.RightAlt))
         {
-          scale.x = Mathf.Abs(scale.x);
+            animator.ResetTrigger("Walk/Run Toggle");
         }
-        transform.localScale = scale;
         
-      
-        if( Input.GetKeyDown(KeyCode.LeftControl))
+        // Code for Keybinding #2 crouch
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-             
-             animator.SetBool("Crouch",true);
-            Debug.Log("Crouching");
-        }
-         else if(Input.GetKeyUp(KeyCode.LeftControl)) 
-         {
-              
-             animator.SetBool("Crouch",false);
-             Debug.Log("NotCrouching");
 
-         }
+            animator.SetBool("Crouch", true);
+            //Debug.Log("Crouching");
+
+
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+
+            animator.SetBool("Crouch", false);
+            // Debug.Log("NotCrouching");
+        }
+
         
-        
+
+
 
 
     }
+
+    private void MovementAnimation(float horizontal)
+    {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        Vector3 scale = transform.localScale;
+        if (horizontal < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+        else if (horizontal > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
+    }
+
+    private void MoveCharacter(float horizontal)
+    {
+      Vector3 position = transform.position;
+      position.x += horizontal * speed * Time.deltaTime;
+      transform.position = position;
+     }
 }
