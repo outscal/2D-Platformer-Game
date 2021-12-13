@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2025520872849910212
+--- !u!1 &3357929235028377940
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6213334486601368170}
-  - component: {fileID: 4335799738766741803}
-  - component: {fileID: 6393177455700416409}
-  - component: {fileID: 6393177455700416410}
-  - component: {fileID: 6393177455700416405}
-  - component: {fileID: 6393177455700416408}
+  - component: {fileID: 7259776839937207034}
+  - component: {fileID: 1057783762482624955}
+  - component: {fileID: 7655269854958632713}
+  - component: {fileID: 7655269854958632714}
+  - component: {fileID: 7655269854958632709}
+  - component: {fileID: 7655269854958632712}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -21,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6213334486601368170
+--- !u!4 &7259776839937207034
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025520872849910212}
+  m_GameObject: {fileID: 3357929235028377940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4335799738766741803
+--- !u!212 &1057783762482624955
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025520872849910212}
+  m_GameObject: {fileID: 3357929235028377940}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -86,14 +86,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &6393177455700416409
+--- !u!50 &7655269854958632713
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025520872849910212}
+  m_GameObject: {fileID: 3357929235028377940}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -107,13 +107,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &6393177455700416410
+--- !u!61 &7655269854958632714
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025520872849910212}
+  m_GameObject: {fileID: 3357929235028377940}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -133,14 +133,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5340977, y: 2.025652}
   m_EdgeRadius: 0
---- !u!95 &6393177455700416405
+--- !u!95 &7655269854958632709
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025520872849910212}
+  m_GameObject: {fileID: 3357929235028377940}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3677ff6d45a341b46bb664efe32230e1, type: 2}
@@ -152,16 +152,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6393177455700416408
+--- !u!114 &7655269854958632712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025520872849910212}
+  m_GameObject: {fileID: 3357929235028377940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843de466f12f4d64f8baf4d47e84af65, type: 3}
+  m_Script: {fileID: 11500000, guid: 0df3ec64549c0a34695fb04d2eaf3948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6393177455700416405}
+  animator: {fileID: 7655269854958632709}
+  speed: 0
+  Jump: 0
