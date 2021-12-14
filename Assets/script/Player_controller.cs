@@ -12,6 +12,23 @@ public class Player_controller : MonoBehaviour
     public float speed;
     public float jump;
 
+    // for heart and game over 
+
+    public GameObject Heart1, Heart2, Heart3, gameOver;
+    public static int health;
+
+
+    private void Start()
+    {
+        health = 3;
+        Heart1.gameObject.SetActive(true);
+        Heart2.gameObject.SetActive(true);
+        Heart3 .gameObject.SetActive(true);
+        gameOver.gameObject.SetActive(false);
+    }
+
+   
+
 
     private Rigidbody2D rigi2D;
     private void Awake()
@@ -55,7 +72,40 @@ public class Player_controller : MonoBehaviour
             rigi2D.AddForce(new Vector2(0f , jump), ForceMode2D.Force);
 
         }
+        // update is called onces per frame
+        // for heart and gameover function
 
+        if(health > 3)
+            health = 3;
+
+        switch (health)
+        {
+            case 3:
+                Heart1.gameObject.SetActive(true);
+                Heart2.gameObject.SetActive(true);
+                Heart3.gameObject.SetActive(true);
+                break;
+            case 2:
+                Heart1.gameObject.SetActive(true);
+                Heart2.gameObject.SetActive(true);
+                Heart3.gameObject.SetActive(false);
+                break;
+            case 1:
+                Heart1.gameObject.SetActive(true);
+                Heart2.gameObject.SetActive(false);
+                Heart3.gameObject.SetActive(false);
+                break;
+            case 0:
+                Heart1.gameObject.SetActive(false);
+                Heart2.gameObject.SetActive(false);
+                Heart3.gameObject.SetActive(false);
+                gameOver.gameObject.SetActive(true);
+                Time.timeScale = 0;
+                KillPlayer();
+                break;
+
+
+        }
     }
     private void MoveCharacter(float horizontal, float vertical)
     {
