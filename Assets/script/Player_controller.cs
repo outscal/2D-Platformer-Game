@@ -8,6 +8,7 @@ public class Player_controller : MonoBehaviour
 {
     public ScoreController scoreController;
     public Animator animator;
+    public LevelCompletController levelCompletController;
     
     public float speed;
     public float jump;
@@ -24,7 +25,7 @@ public class Player_controller : MonoBehaviour
         Heart1.gameObject.SetActive(true);
         Heart2.gameObject.SetActive(true);
         Heart3 .gameObject.SetActive(true);
-        gameOver.gameObject.SetActive(false);
+        //gameOver.gameObject.SetActive(false);
     }
 
    
@@ -41,15 +42,13 @@ public class Player_controller : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log("player was killed by enemy");
-        Destroy(gameObject);
-        ReloadLevel();
+        //Destroy(gameObject);
+        levelCompletController.PlayerDied();
+        this.enabled = false;
+       // ReloadLevel();
     }
 
-    private void ReloadLevel()
-    {
-        Debug.Log("Reloading scene 0");
-        SceneManager.LoadScene(0);
-    }
+    
 
     public void PickUpKey()
     {
@@ -99,7 +98,7 @@ public class Player_controller : MonoBehaviour
                 Heart1.gameObject.SetActive(false);
                 Heart2.gameObject.SetActive(false);
                 Heart3.gameObject.SetActive(false);
-                gameOver.gameObject.SetActive(true);
+               // gameOver.gameObject.SetActive(true);
                // Time.timeScale = 0;
                 KillPlayer();
                 break;
