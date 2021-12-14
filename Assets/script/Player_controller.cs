@@ -100,7 +100,7 @@ public class Player_controller : MonoBehaviour
                 Heart2.gameObject.SetActive(false);
                 Heart3.gameObject.SetActive(false);
                 gameOver.gameObject.SetActive(true);
-                Time.timeScale = 0;
+               // Time.timeScale = 0;
                 KillPlayer();
                 break;
 
