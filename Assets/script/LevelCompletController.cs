@@ -19,7 +19,9 @@ public class LevelCompletController : MonoBehaviour
     private void ReloadLevel()
     {
         Debug.Log("Reloading scene 0");
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 
 }
