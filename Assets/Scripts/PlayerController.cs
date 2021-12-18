@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private LayerMask platformLayerMask;
 
+
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -24,7 +26,6 @@ public class PlayerController : MonoBehaviour
 
     public void PickUpKey()
     {
-        Debug.Log("Key");
         scoreController.IncreaseScore(10);
     }
 
@@ -67,6 +68,17 @@ public class PlayerController : MonoBehaviour
         float extraHeight = 0.3f;
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, extraHeight, platformLayerMask);
         return raycastHit.collider != null;
+    }
+
+    public void KillPlayer()
+    {
+        animator.SetTrigger("Death");
+        Invoke("ReloadLevel", 2f);
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
