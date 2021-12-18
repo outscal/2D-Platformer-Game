@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public ScoreController scoreController;
+    public GameObject gameOver;
 
     public float Speed;
     public float jump;
@@ -76,9 +77,9 @@ public class PlayerController : MonoBehaviour
         Invoke("ReloadLevel", 2f);
     }
 
-    private void ReloadLevel()
+    public void ReloadLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameOver.SetActive(true);
     }
 
 }
