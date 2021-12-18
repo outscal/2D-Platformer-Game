@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public ScoreController scoreController;
 
     public float Speed;
     public float jump;
@@ -20,86 +22,51 @@ public class PlayerController : MonoBehaviour
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
     }
 
+    public void PickUpKey()
+    {
+        Debug.Log("Key");
+        scoreController.IncreaseScore(10);
+    }
+
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
-       
+
         PlayerMovementAnimation(horizontal, vertical);
         MoveCharacter(horizontal, vertical);
-
-        // play crouch animation
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-        {
-            if(animator != null)
-            {
-                animator.SetBool("Crouch", true);
-            }
-        }
-        else
-        {
-            if(animator != null)
-            {
-                animator.SetBool("Crouch", false);
-            }
-        }
-        
+        Crouch();
     }
 
     private void PlayerMovementAnimation(float horizontal, float vertical)
     {
-        if(animator != null)
-        {
-            // Setting float value of speed inside animator
-            animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        animator.SetBool("Jump", (vertical > 0 && IsGrounded()));
 
-            // Setting value of 'jump' boolean
-            if (vertical > 0 && IsGrounded())
-            {
-                animator.SetBool("Jump", true);
-            }
-            else
-            {
-                animator.SetBool("Jump", false);
-            }
-        }
-
-        // Change the direction of player
         Vector3 scale = transform.localScale;
-
-        if (horizontal < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-
+        scale.x = horizontal < 0 ? -1f * Mathf.Abs(scale.x) : horizontal > 0 ? Mathf.Abs(scale.x) : scale.x ;
         transform.localScale = scale;
     }
 
     private void MoveCharacter(float horizontal, float vertical)
     {
-        // Horizontal character movement
         Vector3 position = transform.position;
         position.x += horizontal * Speed * Time.deltaTime;
         transform.position = position;
 
-        // Vertical Character movement
-        if(vertical > 0 && IsGrounded())
-        {
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-        }
+        rb2d.AddForce(new Vector2(0f, ((vertical > 0 && IsGrounded()) ? jump : 0f)), ForceMode2D.Force);
+    }
+
+    private void Crouch()
+    {
+        animator.SetBool("Crouch", (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)));
     }
 
     private bool IsGrounded()
     {
-        RaycastHit2D raycastHit ;
-        float extraHeight = 1f;
-
-        raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, extraHeight, platformLayerMask);
-        return true; //raycastHit.collider != null;
+        float extraHeight = 0.3f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, extraHeight, platformLayerMask);
+        return raycastHit.collider != null;
     }
 
 }
