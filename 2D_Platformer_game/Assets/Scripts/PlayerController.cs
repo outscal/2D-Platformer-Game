@@ -18,23 +18,20 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Code for keybinding #1 Run
+       
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        bool vertical = Input.GetKeyDown(KeyCode.Space);
        MovementAnimation(horizontal , vertical);
        MoveCharacter(horizontal , vertical);
 
-        //Code for Keybinding #1.2 Walk/Run Toggle
+       
         if (Input.GetKeyDown(KeyCode.RightAlt))
         {
             animator.SetTrigger("Walk/Run Toggle");
         }
-        else if (Input.GetKeyUp(KeyCode.RightAlt))
-        {
-            animator.ResetTrigger("Walk/Run Toggle");
-        }
         
-        // Code for Keybinding #2 crouch
+        
+       
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
 
@@ -55,7 +52,7 @@ public class PlayerController : MonoBehaviour
        
     }
 
-     private void MovementAnimation(float horizontal , float vertical)
+     private void MovementAnimation(float horizontal , bool vertical)
      {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -68,30 +65,29 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = Mathf.Abs(scale.x);
         }
-     transform.localScale = scale;
+       transform.localScale = scale;
+       if (Input.GetKeyDown(KeyCode.Space))
+       {
+         animator.SetBool("Jump", true);
+       }
 
-         //Code for Keybinding #3 Jump
-
+       else 
+       {
+           animator.SetBool("Jump", false);
+       }
+      
           
-         if(vertical > 0)
-          {
-            animator.SetBool("Jump", true);
-          }
-         else
-         {
-           animator.SetBool("Jump", false); 
-         }
      }
 
       
-      private void MoveCharacter(float horizontal, float vertical)
+      private void MoveCharacter(float horizontal, bool vertical)
      {
         // Player Movement Horizontal
        Vector3 position = transform.position;
        position.x += horizontal * speed * Time.deltaTime;
        transform.position = position;
        // Player Movement Vertical
-         if (vertical > 0)
+         if (vertical)
         {
          rb2d.AddForce(new Vector2(0f , jump),ForceMode2D.Impulse);
         
