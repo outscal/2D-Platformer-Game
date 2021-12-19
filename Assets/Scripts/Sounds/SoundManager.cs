@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        SetVolume(0.3f);
+        SetVolume(0.7f);
         PlayMusic(SoundManager.Sounds.Music);    
     }
 

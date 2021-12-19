@@ -49,15 +49,18 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement(float horizontal, float vertical)
     {
-        animator.SetFloat("Speed", Mathf.Abs(horizontal)); 
+        if(!isCrouch)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-        Vector3 scale = transform.localScale;
-        scale.x = horizontal < 0 ? -1f * Mathf.Abs(scale.x) : horizontal > 0 ? Mathf.Abs(scale.x) : scale.x ;
-        transform.localScale = scale;
+            Vector3 scale = transform.localScale;
+            scale.x = horizontal < 0 ? -1f * Mathf.Abs(scale.x) : horizontal > 0 ? Mathf.Abs(scale.x) : scale.x;
+            transform.localScale = scale;
 
-        Vector3 position = transform.position;
-        position.x += horizontal * Speed * Time.deltaTime;
-        transform.position = position;
+            Vector3 position = transform.position;
+            position.x += horizontal * Speed * Time.deltaTime;
+            transform.position = position;
+        }
     }
 
     private void Jump(float horizontal, float vertical)
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Jump", (vertical > 0 && IsGrounded() && !isCrouch));
 
         if (vertical > 0 && IsGrounded() && !isCrouch)
-        {         
+        {
             rb2d.velocity = Vector2.up * jump;
         }
     }
