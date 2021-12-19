@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     {
        
         float horizontal = Input.GetAxisRaw("Horizontal");
-        bool vertical = Input.GetKeyDown(KeyCode.Space);
+        float vertical = Input.GetAxisRaw("Jump");
        MovementAnimation(horizontal , vertical);
        MoveCharacter(horizontal , vertical);
 
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
        
     }
 
-     private void MovementAnimation(float horizontal , bool vertical)
+     private void MovementAnimation(float horizontal , float vertical)
      {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -66,7 +66,9 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
        transform.localScale = scale;
-       if (Input.GetKeyDown(KeyCode.Space))
+       
+       vertical = Input.GetAxisRaw("Jump");
+       if (vertical > 0)
        {
          animator.SetBool("Jump", true);
        }
@@ -80,18 +82,20 @@ public class PlayerController : MonoBehaviour
      }
 
       
-      private void MoveCharacter(float horizontal, bool vertical)
+      private void MoveCharacter(float horizontal, float vertical)
      {
         // Player Movement Horizontal
        Vector3 position = transform.position;
        position.x += horizontal * speed * Time.deltaTime;
        transform.position = position;
        // Player Movement Vertical
-         if (vertical)
+         if (vertical > 0)
         {
          rb2d.AddForce(new Vector2(0f , jump),ForceMode2D.Impulse);
         
         }
+
+       
       
       }
 
