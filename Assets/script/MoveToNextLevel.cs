@@ -24,7 +24,7 @@ public class MoveToNextLevel : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            m_Object.text = " ";
+            
 
             if (SceneManager.GetActiveScene().buildIndex == 5)
             {
