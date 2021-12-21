@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelOverController : MonoBehaviour
 {
@@ -8,20 +9,25 @@ public class LevelOverController : MonoBehaviour
     // public string sLevelToLad;
 
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
-       // if (collision.gameObject.GetComponent<Player_controller>() != null)
+        // if (collision.gameObject.GetComponent<Player_controller>() != null)
         {
-        //level is completed
-          Debug.Log("Level 1 is finished by player");
+            //level is completed
+            Debug.Log("Level 1 is finished by player");
         }
-    // {
-    // if (collision.gameObject.CompareTag("Player"))
-    // if (collision.gameObject.GetComponent<Player_controller>() != null)
-    //  {
-    // level is completed
-    // Debug.Log("Level 1 is finished by player");
-    }   
+        // {
+        // if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.GetComponent<Player_controller>() != null)
+        {
+            //level is completed
+            Debug.Log("Level 1 is finished by player");
+           
+           
+           // LevelManager.Instance.MarkCurrentLevelComplete();
+        }
+    }
 }
 

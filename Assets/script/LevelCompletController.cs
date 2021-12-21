@@ -8,6 +8,7 @@ public class LevelCompletController : MonoBehaviour
 {
     public Button buttonRestart;
 
+
     private void Awake()
     {
         buttonRestart.onClick.AddListener(ReloadLevel); 
@@ -18,7 +19,7 @@ public class LevelCompletController : MonoBehaviour
     }
     private void ReloadLevel()
     {
-        Debug.Log("Reloading scene 0");
+        Debug.Log("Reloading scene ....");
         //SceneManager.LoadScene(1);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.buildIndex);
