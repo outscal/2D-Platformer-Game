@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,22 @@ public class PlayerController : MonoBehaviour
   BoxCollider2D bc;
   public float speed;
   public float jump;
+
+  public ScoreController scoreController;
+
+  
   private Rigidbody2D rb2d;
     private void Awake()
     {
         Debug.Log("Player Awake");
         bc = gameObject.GetComponent<BoxCollider2D>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+    }
+
+    internal void PickupKey()
+    {
+       Debug.Log("Key Picked up");
+       scoreController.ScoreIncrease(10);
     }
 
     private void Update()
@@ -53,6 +64,7 @@ public class PlayerController : MonoBehaviour
     }
 
      private void MovementAnimation(float horizontal , float vertical)
+
      {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -67,7 +79,7 @@ public class PlayerController : MonoBehaviour
         }
        transform.localScale = scale;
        
-       vertical = Input.GetAxisRaw("Jump");
+       
        if (vertical > 0)
        {
          animator.SetBool("Jump", true);
@@ -94,6 +106,7 @@ public class PlayerController : MonoBehaviour
          rb2d.AddForce(new Vector2(0f , jump),ForceMode2D.Impulse);
         
         }
+        
 
        
       
