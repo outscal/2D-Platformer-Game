@@ -1589,7 +1589,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164728212}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e6718ac839dfae9419ba11fae494bfff, type: 2}
   m_CullingMode: 0
@@ -1612,6 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a27760dc2c978943b26c3cb1883394c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &1167205400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,12 +1958,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1154516762, guid: 8715ea907955a4d4bbea0201289898fb, type: 3}
+      propertyPath: m_Mass
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154516762, guid: 8715ea907955a4d4bbea0201289898fb, type: 3}
       propertyPath: m_GravityScale
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1154516763, guid: 8715ea907955a4d4bbea0201289898fb, type: 3}
       propertyPath: jump
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1154516763, guid: 8715ea907955a4d4bbea0201289898fb, type: 3}
       propertyPath: IsGrounded
@@ -1972,6 +1977,10 @@ PrefabInstance:
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 59865949}
+    - target: {fileID: 1154516763, guid: 8715ea907955a4d4bbea0201289898fb, type: 3}
+      propertyPath: groundLayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 1625780273, guid: 8715ea907955a4d4bbea0201289898fb, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -2325,5 +2334,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9193399763129418884, guid: 2908359f54c41a747b36e699ad7ba123, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2908359f54c41a747b36e699ad7ba123, type: 3}
