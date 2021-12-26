@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
   public float jump;
   public ScoreController scoreController;
   private Rigidbody2D rb2d;
+  public List<GameObject> hearts ;
+  public int heartcount = 3;
+
+
   //Awake
     private void Awake()
     {
@@ -22,6 +26,22 @@ public class PlayerController : MonoBehaviour
     }
 
 // Player Death Logic
+
+
+    public void DamagePlayer()
+ {
+    if (heartcount > 0)
+    {
+     Destroy(hearts[0]);
+      hearts.Remove(hearts[0]);
+      heartcount--;
+    }
+
+    else
+    {
+        KillPlayer();
+    }
+ }
     public void KillPlayer()
     {
         
