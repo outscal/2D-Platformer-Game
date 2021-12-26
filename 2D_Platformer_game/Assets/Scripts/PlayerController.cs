@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
             rayColor = Color.red;
         }
         Debug.DrawRay(bc.bounds.center, Vector2.down*(bc.bounds.extents.y + extraheightcheck));
-        Debug.Log(raycastHit.collider);
+        
         return raycastHit.collider != null;
 
     }
@@ -156,6 +156,7 @@ public class PlayerController : MonoBehaviour
          if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
          {
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+            
 
          }
        }

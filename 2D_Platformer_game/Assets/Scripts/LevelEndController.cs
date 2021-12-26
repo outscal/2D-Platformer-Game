@@ -9,7 +9,7 @@ public class LevelEndController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             // Level end trigger check
-           
+           Debug.Log("Level Ended");
         }
     }
 }
