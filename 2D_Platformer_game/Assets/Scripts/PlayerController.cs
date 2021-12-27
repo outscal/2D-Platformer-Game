@@ -26,9 +26,7 @@ public class PlayerController : MonoBehaviour
     }
 
 // Player Death Logic
-
-
-    public void DamagePlayer()
+ public void DamagePlayer()
  {
     if (heartcount > 0)
     {
@@ -36,13 +34,12 @@ public class PlayerController : MonoBehaviour
       hearts.Remove(hearts[0]);
       heartcount--;
     }
-
     else
     {
         KillPlayer();
     }
  }
-    public void KillPlayer()
+ public void KillPlayer()
     {
         
         animator.SetBool("Death",true);
@@ -64,8 +61,7 @@ public class PlayerController : MonoBehaviour
     }
 
 // GroundChecker
-
-    private bool IsGrounded()
+  private bool IsGrounded()
     {
        float  extraheightcheck = .1f;
        RaycastHit2D raycastHit = Physics2D.Raycast(bc.bounds.center, Vector2.down, bc.bounds.extents.y + extraheightcheck,groundLayerMask);
@@ -104,8 +100,6 @@ public class PlayerController : MonoBehaviour
 
         PlayerCrouch();
     }
-
-
 
 // CrouchHandler
     private void PlayerCrouch()
@@ -169,8 +163,7 @@ public class PlayerController : MonoBehaviour
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
        }
-
-    // Movement Handler_Vertical
+   // Movement Handler_Vertical
        private void MoveCharacterVertical()
        {
          if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))

@@ -9,9 +9,7 @@ public class DeathTrigger : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            // Level end trigger check
-            Debug.Log("Player is dead");
-            SceneManager.LoadScene("Start");
+           SceneManager.LoadScene("Start");
            
         }
     }
