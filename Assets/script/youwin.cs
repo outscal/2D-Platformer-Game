@@ -10,6 +10,7 @@ public class youwin : MonoBehaviour
 
     void Start()
     {
-        m_Object.text = "Enter Your Text Here";
+        m_Object.text = " ";
+        
     }
 }

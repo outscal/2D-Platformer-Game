@@ -13,6 +13,7 @@ public class Player_controller : MonoBehaviour
     public float speed;
     public float jump;
 
+
     // for heart and game over 
 
     public GameObject Heart1, Heart2, Heart3, gameOver;

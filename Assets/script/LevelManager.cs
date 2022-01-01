@@ -12,8 +12,9 @@ public class LevelManager : MonoBehaviour
     public string Level1;
 
     public string[] Levels;
+    public AudioSource click;
 
-    
+
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        click.Play();
     }
 
     private void Start()
@@ -34,6 +36,7 @@ public class LevelManager : MonoBehaviour
         {
             SetLevelStatus(Levels[0], LevelStatus.Unlocked);   
         }
+        click.Play();
     }
 
     public void MarkCurrentLevelComplete()          // set level status to complete and unlock next level
@@ -48,21 +51,24 @@ public class LevelManager : MonoBehaviour
         if(nextsceneIndex < Levels.Length)
         {
             SetLevelStatus(Levels[nextsceneIndex], LevelStatus.Unlocked);
+            click.Play();
         }
+        
     }
     
     public LevelStatus GetLevelStatus(string level)
     {
        LevelStatus levelStatus = (LevelStatus) PlayerPrefs.GetInt(level, 0);
         return levelStatus;
-
+        
     }
 
     public void SetLevelStatus(string level, LevelStatus levelStatus)
      {
         PlayerPrefs.SetInt(level, (int) levelStatus);
         Debug.Log("Setting level:" + level + "status:" + levelStatus);
-     }
+        click.Play();
+    }
 
 
 }

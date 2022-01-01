@@ -30,7 +30,10 @@ public class MoveToNextLevel : MonoBehaviour
             {
                 Debug.Log("you win the game");
                 m_Object.text = "You win !!!!!!!!!";
+                 //Time.timeScale = 0;
+                // Invoke("ReloadLevel()", .5f);
 
+                
             }
             else 
             {

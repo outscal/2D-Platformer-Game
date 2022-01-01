@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LevelSelection : MonoBehaviour
 {
     public Button[] lvlButtons;
-    
+    public AudioSource click;
 
 
     // Start is called before the first frame update
@@ -16,7 +16,9 @@ public class LevelSelection : MonoBehaviour
         
         for (int i = 0; i < lvlButtons.Length; i++)
         {
+            SoundManager.Instance.Play(Sounds.ButtonClick);
             if ( i + 2 > levelAt) lvlButtons[i].interactable = false; 
+            click.Play();
         }
     }
 
