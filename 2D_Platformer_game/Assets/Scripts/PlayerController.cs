@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
   public float speed;
   public float jump;
   public ScoreController scoreController;
+  public GameOverController gameOverController;
   private Rigidbody2D rb2d;
   public List<GameObject> hearts ;
   public int heartcount = 3;
@@ -43,15 +44,12 @@ public class PlayerController : MonoBehaviour
     {
         
         animator.SetBool("Death",true);
-        Invoke("ReloadScene",1f);
+       // Invoke("ReloadScene",1f);
+        gameOverController.Playerdied();
        
     }
 
-    public void ReloadScene()
-    {
-        
-        SceneManager.LoadScene("Start");
-    }
+    
 
 // ScoreHandler
     public void PickupKey()
