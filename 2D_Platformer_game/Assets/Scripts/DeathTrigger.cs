@@ -12,7 +12,7 @@ public class DeathTrigger : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
          gameOverController.Playerdied();
-           Debug.Log("Player fallen");
+           
            
         }
     }
