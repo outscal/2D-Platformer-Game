@@ -44,8 +44,9 @@ public class PlayerController : MonoBehaviour
     {
         
         animator.SetBool("Death",true);
-       // Invoke("ReloadScene",1f);
         gameOverController.Playerdied();
+        this.enabled = false;
+        
        
     }
 
