@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     {
 
         animator.SetBool("Death", true);
-        gameOverController.Playerdied();
+       gameOverController.Playerdied();
         this.enabled = false;
 
 
