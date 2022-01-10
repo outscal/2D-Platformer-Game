@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
             Destroy(hearts[0]);
             hearts.Remove(hearts[0]);
             heartcount--;
+           
         }
         else
         {
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Death", true);
        gameOverController.Playerdied();
         this.enabled = false;
+         Debug.Log("Player ");
 
 
     }
