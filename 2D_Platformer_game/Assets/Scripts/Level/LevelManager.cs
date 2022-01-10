@@ -35,9 +35,7 @@ public class LevelManager : MonoBehaviour
     {
        Scene currentScene = SceneManager.GetActiveScene();
        SetLevelStatus(currentScene.name,LevelStatus.Completed);
-        //    int nextSceneIndex = Currentscene.buildIndex + 1;
-        //   Scene Nextscene = SceneManager.GetSceneByBuildIndex(nextSceneIndex);
-        //    SetLevelStatus(Nextscene.name,LevelStatus.Completed);
+        
         int currentSceneIndex = Array.FindIndex (Levels,level => level == currentScene.name);
         int nextSceneIndex = currentSceneIndex + 1;
         if(nextSceneIndex < Levels.Length)

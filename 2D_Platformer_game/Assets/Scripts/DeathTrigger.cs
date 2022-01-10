@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class DeathTrigger : MonoBehaviour
 {
-    public GameOverController gameOverController;
+    private PlayerController playerController;
      private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        if (collision.gameObject.tag == "Player")
         {
-         gameOverController.Playerdied();
+         playerController = collision.gameObject.GetComponent<PlayerController>();
+         playerController.KillPlayer();
+
            
            
         }

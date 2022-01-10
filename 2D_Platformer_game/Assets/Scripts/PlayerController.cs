@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     public List<GameObject> hearts;
     public int heartcount = 3;
+    public GameObject gameOverUI;
 
 
     //Awake
@@ -45,11 +46,15 @@ public class PlayerController : MonoBehaviour
     {
 
         animator.SetBool("Death", true);
-       gameOverController.Playerdied();
+      Invoke("LoadGameoverUI", 1f);
         this.enabled = false;
-         Debug.Log("Player ");
+         
 
 
+    }
+    public void LoadGameoverUI()
+    {
+       gameOverUI.SetActive(true);
     }
 
 

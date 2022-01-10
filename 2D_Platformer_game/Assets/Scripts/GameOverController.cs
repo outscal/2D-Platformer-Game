@@ -8,17 +8,14 @@ public class GameOverController : MonoBehaviour
 {
     public Button RestartButton;
     public Button QuitButton;
+    
 
     private void Awake()
     {
         RestartButton.onClick.AddListener(ReloadScene);
         QuitButton.onClick.AddListener(LoadLobbyScene);
     }
-   public void Playerdied()
-   {
-       gameObject.SetActive(true);
-       Debug.Log("Player died");
-   }
+   
 
    public void ReloadScene()
     {
@@ -31,6 +28,10 @@ public class GameOverController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         gameObject.SetActive(false);
+    }
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
     

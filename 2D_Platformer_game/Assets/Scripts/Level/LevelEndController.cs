@@ -5,14 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelEndController : MonoBehaviour
 {
-    
+    public GameObject levelEndUI;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            // Level end trigger check
-           Debug.Log("Level Ended");
            LevelManager.Instance.MarkCurrentLevelComplete();
+           levelEndUI.SetActive(true);
         }
     }
 }
