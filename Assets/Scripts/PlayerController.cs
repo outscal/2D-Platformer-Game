@@ -26,5 +26,15 @@ public class PlayerController : MonoBehaviour
         } 
         
         transform.localScale = scale;
+
+
+        bool crouch = Input.GetKeyDown(KeyCode.LeftControl);
+        animator.SetBool("Crouch", crouch);
+
+        
+
+        
+
+
     }
 }
