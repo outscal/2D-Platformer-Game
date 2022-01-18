@@ -5,36 +5,33 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    // Start is called before the first frame update
-    void Start()
+    public float speed;    
+
+    private void Update()
     {
-        
+        float horizontal = Input.GetAxisRaw("Horizontal");  
+        Debug.Log("horizontal = " + horizontal);
+        MoveCharacter(horizontal); 
+        PlayerMovementAnimation(horizontal); 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        float speed = Input.GetAxisRaw("Horizontal");
+    private void MoveCharacter(float horizontal){
+        Vector3 position = transform.position;
+        //(distance / time)  * (1 / frames per second) 
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;         
+    }
 
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+    private void PlayerMovementAnimation(float horizontal)
+    {   
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
 
-        if(speed < 0){
+        if(horizontal < 0){
             scale.x = -1f * Mathf.Abs(scale.x);
-        } else if(speed > 0){
+        } else if(horizontal > 0){
             scale.x = Mathf.Abs(scale.x);
-        } 
-        
+        }         
         transform.localScale = scale;
-
-
-        bool crouch = Input.GetKeyDown(KeyCode.LeftControl);
-        animator.SetBool("Crouch", crouch);
-
-        
-
-        
-
-
     }
 }
