@@ -6,6 +6,15 @@ public class PlayerController : MonoBehaviour
 {
 
     public Animator anim;
+    private float speed = 5f;
+    private float jump = 50f;
+    private Rigidbody2D rb;
+
+
+    private void Awake()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -16,23 +25,59 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        float speed = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-        anim.SetFloat("Speed", Mathf.Abs(speed));
+        PlayerMovementAnimation(horizontal, vertical);
+        MoveCharacter(horizontal, vertical);
+
+        
+    }
+
+    public void MoveCharacter(float horizontal, float vertical)
+    {
+
+        Vector2 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+
+        if (vertical>0)
+        {
+            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        }
+    }
+
+
+    public void PlayerMovementAnimation(float horizontal, float vertical)
+    {
+
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
 
         Vector3 scale = transform.localScale;
-        if (speed<0)
+        if (horizontal < 0)
         {
-            scale.x = -1 * Mathf.Abs(speed);
+            scale.x = -1 * Mathf.Abs(horizontal);
         }
 
-        else if(speed > 0)
+        else if (horizontal > 0)
         {
-            scale.x = Mathf.Abs(speed);
+            scale.x = Mathf.Abs(horizontal);
 
         }
 
         transform.localScale = scale;
-        
+
+        if (vertical>0)
+        {
+            anim.SetBool("Jump", true);
+        }
+
+        else
+        {
+            anim.SetBool("Jump", false);
+        }
     }
+
+
+    
 }
