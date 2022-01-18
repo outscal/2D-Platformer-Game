@@ -4,44 +4,71 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
-        
-   
-    private void Awake() 
-    {
-      Debug.Log("Player controller awake");  
-    }
-  // private void OnCollisionEnter2D(Collision2D collision)
-   //{
-    //  Debug.Log("Collision:" + collision.gameObject.name);
- // }
- private void Update()
+  public Animator animator;
+  public Rigidbody2D rb2D;
+  public float moveSpeed;
+  public float jumpSpeed;
+  public bool isGrounded;
+  public bool isCrouching;
+  
+  private void Awake() 
   {
-     float speed = Input.GetAxisRaw("Horizontal");
-     animator.SetFloat("Speed", Mathf.Abs(speed));
-     
-     {
-         Vector3 scale = transform.localScale;
-         if(speed < 0)
-         {
-         scale.x = -1f * Mathf.Abs(scale.x);
-     }
-     else if(speed > 0)
-     {
-         scale.x = Mathf.Abs(scale.x);
-     }
-     transform.localScale = scale;
+    Debug.Log("Player controller awake");  
+  }
+  
+  private void Update()
+  {
+    float speed = Input.GetAxisRaw("Horizontal");
+    animator.SetFloat("Speed", Mathf.Abs(speed));
+    if(isCrouching == true)
+    {
+      speed = 0;
+    }
+    // rb2D.velocity = new Vector2(speed * moveSpeed,rb2D.velocity.y);
+    transform.localPosition += Vector3.right * speed * moveSpeed * Time.deltaTime;
+    
+    if(speed < 0)
+    {
+      transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
+    }
+    else if(speed > 0)
+    {
+      transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
+    }
 
-      if(Input.GetKeyDown("s"))
-        {
-            animator.Play("Player_crouch");
-        }
+    // Jump
+    if(Input.GetKeyDown(KeyCode.W) && isGrounded)
+    {
+      animator.SetTrigger("Jump");
+      rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
+    }
+    // Crouch
+    if(Input.GetKeyDown(KeyCode.S))
+    {
+      animator.SetBool("Crouch", true);
+      isCrouching = true;
+    }
+    else if (Input.GetKeyUp(KeyCode.S))
+    {
+      animator.SetBool("Crouch", false);
+      isCrouching = false;
+    }
+    
+  }
 
-        if(Input.GetKeyDown("w"))
-        {
-            animator.Play("Player_Jump");
-        }
- }
-       
-   }
+  void OnCollisionEnter2D(Collision2D other) 
+  {
+    if (other.gameObject.tag == "Ground")
+    {
+      isGrounded = true;
+    }
+  }
+  void OnCollisionExit2D(Collision2D other) 
+  {
+    if (other.gameObject.tag == "Ground")
+    {
+      isGrounded = false;
+    }
+  }
+  
 }
