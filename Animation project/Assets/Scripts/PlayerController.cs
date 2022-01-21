@@ -10,11 +10,28 @@ public class PlayerController : MonoBehaviour
   public float jumpSpeed;
   public bool isGrounded;
   public bool isCrouching;
+  // public Camera mainCamera;
+
+  // Vector3 cameraPos;
   
   private void Awake() 
   {
     Debug.Log("Player controller awake");  
   }
+
+  // void Start()
+
+  //  {
+
+  //      if (mainCamera)
+
+  //       {
+
+  //           cameraPos = mainCamera.transform.position;
+
+  //       }
+
+  //  }
   
   private void Update()
   {
@@ -35,6 +52,13 @@ public class PlayerController : MonoBehaviour
     {
       transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
     }
+
+    //Camera
+
+    // if (mainCamera)
+    // {
+    //   mainCamera.transform.position = new Vector3(transform.position.x, cameraPos.y, cameraPos.z);
+    // }
 
     // Jump
     if(Input.GetKeyDown(KeyCode.W) && isGrounded)
