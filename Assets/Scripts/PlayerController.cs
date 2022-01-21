@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
 
     public Animator anim;
     private float speed = 5f;
@@ -31,6 +33,12 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);
 
         
+    }
+
+    public void PickUpKeys()
+    {
+        Debug.Log("Player picked up the key");
+        scoreController.ScoreIncrease(10);
     }
 
     public void MoveCharacter(float horizontal, float vertical)
