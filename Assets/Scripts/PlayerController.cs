@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private float jump = 50f;
     private Rigidbody2D rb;
 
-
     private void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -78,6 +77,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    
 }
