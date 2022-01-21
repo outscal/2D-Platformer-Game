@@ -10,21 +10,19 @@ public class PlayerController : MonoBehaviour
   public float jumpSpeed;
   public bool isGrounded;
   public bool isCrouching;
-   public Camera mainCamera;
- 
-   Vector3 cameraPos;
+  public Collider2D groundCheck;
  
   private void Awake() 
   {
     Debug.Log("Player controller awake");  
   }
-   void Start()
-   {
-       if (mainCamera)
-        {
-            cameraPos = mainCamera.transform.position;
-        }
-   }
+  //  void Start()
+  //  {
+  //      if (mainCamera)
+  //       {
+  //           cameraPos = mainCamera.transform.position;
+  //       }
+  //  }
   
   private void Update()
   {
@@ -45,11 +43,11 @@ public class PlayerController : MonoBehaviour
     {
       transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
     }
-    //Camera
-     if (mainCamera)
-        {
-            mainCamera.transform.position = new Vector3(transform.position.x, cameraPos.y, cameraPos.z);
-        }
+    // //Camera
+    //  if (mainCamera)
+    //     {
+    //         mainCamera.transform.position = new Vector3(transform.position.x, cameraPos.y, cameraPos.z);
+    //     }
   
     // Jump
     if(Input.GetKeyDown(KeyCode.W) && isGrounded)
@@ -71,10 +69,15 @@ public class PlayerController : MonoBehaviour
     
   }
  
-  void OnCollisionEnter2D(Collision2D other) 
+  void OnCollisionStay2D(Collision2D other) 
   {
     if (other.gameObject.tag == "Ground")
     {
+      if(!groundCheck.IsTouching(other.collider))
+      {
+        return;
+      }
+
       isGrounded = true;
     }
   }
@@ -82,8 +85,15 @@ public class PlayerController : MonoBehaviour
   {
     if (other.gameObject.tag == "Ground")
     {
+      if(groundCheck.IsTouching(other.collider))
+      {
+        return;
+      }
+
       isGrounded = false;
+      
     }
+    
   }
   
 }
