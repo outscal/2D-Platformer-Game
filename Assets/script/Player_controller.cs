@@ -9,6 +9,8 @@ public class Player_controller : MonoBehaviour
     public ScoreController scoreController;
     public Animator animator;
     public LevelCompletController levelCompletController;
+    [SerializeField] private AudioSource keypickup;
+    [SerializeField] private AudioSource walking;
     
     public float speed;
     public float jump;
@@ -53,13 +55,14 @@ public class Player_controller : MonoBehaviour
 
     public void PickUpKey()
     {
+        keypickup.Play();
         Debug.Log("player picked up the key");
         scoreController.IncreaseScore(10);
     }
 
     private void Update()
     {      // for moving character horizontally
-
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         MoveCharacter(horizontal, vertical);
@@ -69,6 +72,7 @@ public class Player_controller : MonoBehaviour
 
         if (vertical > 0)
         {
+            
             rigi2D.AddForce(new Vector2(0f , jump), ForceMode2D.Force);
 
         }
@@ -109,6 +113,7 @@ public class Player_controller : MonoBehaviour
     }
     private void MoveCharacter(float horizontal, float vertical)
     {
+        
         Vector3 position = transform.position;
         // (distance / time(sec)) * ( 1/ 30 sec)
         
@@ -120,17 +125,20 @@ public class Player_controller : MonoBehaviour
 
     private void PlayMovementAnimation(float horizontal, float vertical)
     {
+        
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         Vector3 scale = transform.localScale;
         if (horizontal < 0)
         {
+            walking.Play();
             scale.x = -1f * Mathf.Abs(scale.x);                          
         }
 
         else if (horizontal > 0)
         {
 
+            walking.Play();
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;

@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     private bool movingRight = true;
     public Transform groundDetection;
     public float distance;
+    [SerializeField] AudioSource heart;
 
     private void Update()
     {
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         {
+            heart.Play();
             Player_controller.health -= 1;
         }
        // if (collision.gameObject.GetComponent<Player_controller>() != null)

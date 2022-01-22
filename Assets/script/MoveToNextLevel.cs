@@ -11,6 +11,7 @@ public class MoveToNextLevel : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] TextMeshProUGUI m_Object;
+    [SerializeField] private AudioSource nxtlvl;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class MoveToNextLevel : MonoBehaviour
 
                 if (nexSceneLoad > PlayerPrefs.GetInt("levelAt"))
                 {
+                    nxtlvl.Play();
                     PlayerPrefs.SetInt("levelAt", nexSceneLoad);
                 }
             }

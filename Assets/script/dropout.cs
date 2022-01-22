@@ -8,6 +8,7 @@ public class dropout : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+           
             Debug.Log("Game over");
         }
     }
