@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private float jump = 50f;
     private Rigidbody2D rb;
 
+    [SerializeField]
+    private bool isCrouching=false;
+
     private void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -32,7 +35,25 @@ public class PlayerController : MonoBehaviour
         PlayerMovementAnimation(horizontal, vertical);
         MoveCharacter(horizontal, vertical);
 
-        
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            anim.SetBool("Crouch", true);
+            isCrouching = true;
+        }
+
+        else if (Input.GetKeyUp(KeyCode.C))
+        {
+            anim.SetBool("Crouch", false);
+            isCrouching = false ;
+        }
+
+        if (isCrouching)
+        {
+            speed = 0;
+        }
+
+
+
     }
 
     public void PickUpKeys()
@@ -79,10 +100,21 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Jump", true);
         }
 
-        else
+        /*
+        else if (vertical<0)
+        {
+            anim.SetBool("Crouch", true);
+        }
+
+        else if(vertical == 0)
         {
             anim.SetBool("Jump", false);
-        }
+            //anim.SetBool("Crouch", false);
+        }*/
+
+        
+
+
     }
 
 }
