@@ -1,78 +1,90 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
+using UnityEngine; 
+using UnityEngine.UI;
+using TMPro;
 public class PlayerController : MonoBehaviour
 {
-public Animator animator;
-public float speed;
-public float jumpSpeed;
+   public Animator animator;
+   public Rigidbody2D RB2D;
+   public float moveSpeed;
+   public float jumpSpeed;
+   public bool isGrounded;
+   public bool isCrouching; 
+   public ScoreController scoreController;
 
-public Rigidbody2D RB2D;
-private void Awake() 
-   {
-      Debug.Log("Player controller awake");
-      RB2D = gameObject.GetComponent<Rigidbody2D>();
-   }
+private void Awake()
+{
+   Debug.Log("Player controller awake"); 
+}
+// void Start()
+//    {
+//    if (mainCamera)
+//    {
+//       cameraPos = mainCamera.transform.position;
+//    }
+//    }
 private void Update()
-{
-   float horizontal = Input.GetAxisRaw("Horizontal");
-   float vertical = Input.GetAxisRaw("Jump");
+   {
+   float speed = Input.GetAxisRaw("Horizontal");
+   animator.SetFloat("Speed", Mathf.Abs(speed));
+   if(isCrouching == true)
+   {
+      speed = 0;
+   }
+    // rb2D.velocity = new Vector2(speed * moveSpeed,rb2D.velocity.y);
+    transform.localPosition += Vector3.right * speed * moveSpeed * Time.deltaTime;
+   if(speed < 0)
+   {
+      transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
+   }
+   else if(speed > 0)
+   {
+      transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
+   }
 
-   MoveCharacter(horizontal,vertical);
-   PlayMovementAnimation(horizontal,vertical); 
+    //Camera
+
+   // if (mainCamera)
+
+   //    {
+   //       mainCamera.transform.position = new Vector3(transform.position.x, cameraPos.y, cameraPos.z);
+   //    }
+    // Jump
+   if(Input.GetKeyDown(KeyCode.W) && isGrounded)
+   {
+   animator.SetTrigger("Jump");
+      RB2D.velocity = new Vector2(RB2D.velocity.x, jumpSpeed);
+   }
+    // Crouch
+   if(Input.GetKeyDown(KeyCode.S))
+   {
+      animator.SetBool("Crouch", true);
+      isCrouching = true;
+   }
+   else if (Input.GetKeyUp(KeyCode.S))
+   {
+      animator.SetBool("Crouch", false);
+      isCrouching = false;
+   } 
 }
-private void MoveCharacter(float horizontal , float vertical)
-{
-   Vector2 position = transform.position;
-   position.x = position.x + horizontal * speed * Time.deltaTime;
-   transform.position = position;
-
-   if (vertical > 0)
+void OnCollisionStay2D(Collision2D other)
    {
-      RB2D.AddForce(new Vector2(0f , jumpSpeed),ForceMode2D.Impulse);
+   if (other.gameObject.tag == "Ground")
+      {
+      isGrounded = true;
+      }
+   }
+void OnCollisionExit2D(Collision2D other)
+{
+   if (other.gameObject.tag == "Ground")
+   {
+      isGrounded = false;
    }
 }
-private void PlayMovementAnimation(float horizontal, float vertical)
+//pick up  keys
+public void PickUpKeys ()
 {
-
-animator.SetFloat("speed", Mathf.Abs(horizontal));
-
-Vector2 scale = transform.localScale;
-if(horizontal < 0)
-   {
-     scale.x = -1f * Mathf.Abs(scale.x);
-   }
-else if(horizontal > 0)
-   {
-      scale.x = Mathf.Abs(scale.x);
-   }
-   transform.localScale = scale;
-
-   //to jump
-   // if (vertical>0)
-   // {
-   //    animator.SetBool("Jump",true);
-   // } 
-   // else
-   // {
-   //    animator.SetBool("Jump",false);
-   // }
-   //if (Input.GetButtonDown("Jump"))
-   //if (vertical > 0)
-   if (Input.GetKeyDown(KeyCode.W))
-   {
-      animator.SetTrigger("Jump");
-      RB2D.velocity = new Vector2(RB2D.velocity.x,jumpSpeed);
-   }
-
-   if (Input.GetKeyDown(KeyCode.S))
-   {
-      animator.SetBool("Crouch",true);
-   }
-   else if(Input.GetKeyUp(KeyCode.S))
-   {
-      animator.SetBool("Crouch",false);
-   }
-} 
+   scoreController.ScoreIncrease(10);
+}
 }
