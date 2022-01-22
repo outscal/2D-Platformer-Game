@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    public PlayerController playerController;
+    [SerializeField] private PlayerController playerController;
 
     public Image[] lives; 
     private int livesCount = 3;
@@ -16,15 +16,15 @@ public class HealthController : MonoBehaviour
         
         if(livesCount > 0)
         {
+            playerController.DamagePlayer();
+
             lives[livesCount].gameObject.SetActive(false);
-            
-            SoundManager.Instance.Play(SoundManager.Sounds.ChomperEnemyCollision);
 
             if (livesCount == 0)
             {
-                lives[livesCount].gameObject.SetActive(false);
-
                 playerController.KillPlayer();
+
+                lives[livesCount].gameObject.SetActive(false);
             }
         }
     }

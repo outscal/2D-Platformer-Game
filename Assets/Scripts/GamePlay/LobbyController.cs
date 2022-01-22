@@ -32,4 +32,9 @@ public class LobbyController : MonoBehaviour
         Application.Quit();       
     }
 
+    private void OnDestroy()
+    {
+        StartBtn.onClick.RemoveAllListeners();
+        ExitBtn.onClick.RemoveAllListeners();
+    }
 }

@@ -48,4 +48,12 @@ public class LevelCompleteController : MonoBehaviour
         LevelManager.Instance.MarkLevelComplete();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
+    private void OnDestroy()
+    {
+        RestartBtn.onClick.RemoveAllListeners();
+        NextLevelBtn.onClick.RemoveAllListeners();
+        LobbyBtn.onClick.RemoveAllListeners();
+        CloseBtn.onClick.RemoveAllListeners(); 
+    }
 }

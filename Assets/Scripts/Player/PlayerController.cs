@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerMovement playerMovement; 
     public ScoreController scoreController;
-    private GameOverController gameOverController;
+    [SerializeField] private GameOverController gameOverController;
     private DeathController deathController;
-    private HealthController healthController; 
+    [SerializeField] private HealthController healthController; 
 
     public Animator playerAnimator;
 
+    [Header("Movement Controls")]
     public float runSpeed;   
     private float horizontalMove = 0f;
     public bool jump;
@@ -85,7 +86,6 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement.hurtPlayer();
         hurtAnim();
-        healthController.LoseLife();
     }
 
     public void KillPlayer()

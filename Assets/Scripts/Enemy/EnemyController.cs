@@ -14,15 +14,18 @@ public class EnemyController : MonoBehaviour
     public Transform groundDetection;
 
     public HealthController healthController;
-    public PlayerController playerController; 
+    public PlayerController playerController;
+    public DeathController deathController; 
     
     //when a player collide with an enemy
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            PlayerController playerMovement = collision.gameObject.GetComponent<PlayerController>();
-            playerController.DamagePlayer();  
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+            healthController.LoseLife(); 
+
+            SoundManager.Instance.Play(SoundManager.Sounds.ChomperEnemyCollision);
         }
     }
 

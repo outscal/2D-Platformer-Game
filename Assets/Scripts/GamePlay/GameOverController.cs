@@ -44,4 +44,10 @@ public class GameOverController : MonoBehaviour
         SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
     }
 
+    private void OnDestroy()
+    {
+        RestartBtn.onClick.RemoveAllListeners();
+        LobbyBtn.onClick.RemoveAllListeners();
+        QuitBtn.onClick.RemoveAllListeners(); 
+    }
 }

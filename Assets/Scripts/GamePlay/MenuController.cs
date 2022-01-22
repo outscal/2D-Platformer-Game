@@ -54,4 +54,13 @@ public class MenuController : MonoBehaviour
         SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
         menuUI.SetActive(false);
     }
+
+    private void OnDestroy()
+    {
+        RestartBtn.onClick.RemoveAllListeners();
+        LobbyBtn.onClick.RemoveAllListeners();
+        CloseBtn.onClick.RemoveAllListeners();
+        PauseBtn.onClick.RemoveAllListeners();
+        SettingsBtn.onClick.RemoveAllListeners(); 
+    }
 }

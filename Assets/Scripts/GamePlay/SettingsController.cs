@@ -27,4 +27,10 @@ public class SettingsController : MonoBehaviour
         SoundManager.Instance.Play(SoundManager.Sounds.ButtonClick);
         Application.Quit();
     }
+
+    private void OnDestroy()
+    {
+        LobbyBtn.onClick.RemoveAllListeners();
+        QuitBtn.onClick.RemoveAllListeners(); 
+    }
 }
