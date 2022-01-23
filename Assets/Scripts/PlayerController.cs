@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
@@ -35,22 +35,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovementAnimation(horizontal, vertical);
         MoveCharacter(horizontal, vertical);
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            anim.SetBool("Crouch", true);
-            isCrouching = true;
-        }
-
-        else if (Input.GetKeyUp(KeyCode.C))
-        {
-            anim.SetBool("Crouch", false);
-            isCrouching = false ;
-        }
-
-        if (isCrouching)
-        {
-            speed = 0;
-        }
+        
 
 
 
@@ -61,6 +46,21 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player picked up the key");
         scoreController.ScoreIncrease(10);
     }
+
+    public void PlayerKill()
+    {
+
+        Destroy(gameObject);
+        ReloadScene();
+
+    }
+
+    public void ReloadScene()
+    {
+
+        SceneManager.LoadScene(0);
+    }
+
 
     public void MoveCharacter(float horizontal, float vertical)
     {
@@ -100,21 +100,41 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Jump", true);
         }
 
-        /*
-        else if (vertical<0)
-        {
-            anim.SetBool("Crouch", true);
-        }
-
-        else if(vertical == 0)
+        else
         {
             anim.SetBool("Jump", false);
-            //anim.SetBool("Crouch", false);
-        }*/
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            anim.SetBool("Crouch", true);
+            isCrouching = true;
+        }
 
-        
+        else if (Input.GetKeyUp(KeyCode.C))
+        {
+            anim.SetBool("Crouch", false);
+            isCrouching = false;
+        }
 
 
+        StaffAttackAnimation();
+
+    }
+
+
+    public void StaffAttackAnimation()
+    {
+
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            anim.SetBool("StaffAttck", true);
+        }
+
+        else
+        {
+            anim.SetBool("StaffAttck", false);
+        }
     }
 
 }
