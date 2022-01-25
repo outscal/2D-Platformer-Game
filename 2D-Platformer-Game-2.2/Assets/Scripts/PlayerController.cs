@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,19 +22,57 @@ public class PlayerController : MonoBehaviour
     Debug.Log("Player controller awake");  
   }
 
+  void start()
+  {
+    respawnPoint = transform.position;
+  }
+
+  // public void UpdateHealth(float mod)
+  // {
+  //   health += mod;
+
+  //   if(health > maxHealth)
+  //   {
+  //     health = maxHealth;
+  //   }
+  //   else if (health <= 0f)
+  //   {
+  //     health = 0f;
+  //     KillPlayer();
+  //     Debug.Log("Damage inflicted");
+  //   }
+  // }
+
+  public void KillPlayer()
+  {
+    Debug.Log("Player died");
+    //Destroy(gameObject);
+    //ReloadLevel();
+  }
+
+  private void ReloadLevel ()
+  {
+    Debug.Log("Reloading Scene 0 ........");
+    SceneManager.LoadScene(0);
+  }
+
   public void PickUpKey()
   {
     Debug.Log("Player picked up the key");
     keyScoreController.IncreaseScore(1);
   }
-
-  void start()
-  {
-    respawnPoint = transform.position;
-  }
   
   private void Update()
   {
+    
+    if(PlayerHealth.gameOver)
+    {
+      //death animation
+      animator.SetTrigger("Death");
+
+      //disable script
+      this.enabled = false;
+    }
     float speed = Input.GetAxisRaw("Horizontal");
     animator.SetFloat("Speed", Mathf.Abs(speed));
     if(isCrouching == true)
