@@ -30,19 +30,19 @@ private void Update()
    float speed = Input.GetAxisRaw("Horizontal");
    animator.SetFloat("Speed", Mathf.Abs(speed));
    if(isCrouching == true)
-   {
-      speed = 0;
-   }
+       {
+          speed = 0;
+       }
     // rb2D.velocity = new Vector2(speed * moveSpeed,rb2D.velocity.y);
     transform.localPosition += Vector3.right * speed * moveSpeed * Time.deltaTime;
    if(speed < 0)
-   {
-      transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
-   }
+       {
+          transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
+       }
    else if(speed > 0)
-   {
-      transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
-   }
+       {
+          transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
+       }
 
     //Camera
 
@@ -53,31 +53,23 @@ private void Update()
    //    }
     // Jump
    if(Input.GetKeyDown(KeyCode.W) && isGrounded)
-   {
-   animator.SetTrigger("Jump");
-      RB2D.velocity = new Vector2(RB2D.velocity.x, jumpSpeed);
-   }
+       {
+       animator.SetTrigger("Jump");
+          RB2D.velocity = new Vector2(RB2D.velocity.x, jumpSpeed);
+       }
     // Crouch
    if(Input.GetKeyDown(KeyCode.S))
-   {
-      animator.SetBool("Crouch", true);
-      isCrouching = true;
-   }
+       {
+          animator.SetBool("Crouch", true);
+          isCrouching = true;
+       }
    else if (Input.GetKeyUp(KeyCode.S))
-   {
-      animator.SetBool("Crouch", false);
-      isCrouching = false;
-   }
-   //death temp
-    if(RB2D.position.y < -11f)
-        {
-            if (GameHasEnded == false)
-            {
-                GameHasEnded = true;
-                animator.SetTrigger("Death");
-            }
-        }
-  }
+       {
+          animator.SetBool("Crouch", false);
+          isCrouching = false;
+       }
+ }
+    
 void OnCollisionStay2D(Collision2D other)
    {
    if (other.gameObject.tag == "Ground")
@@ -98,4 +90,12 @@ public void PickUpKeys ()
    scoreController.ScoreIncrease(10);
         Debug.Log("You Picked up a KEY");
 }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "death_bed")
+        {
+            animator.SetTrigger("Death");
+        }
+    }
+    
 }
