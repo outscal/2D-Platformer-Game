@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,10 @@ public class EnemyController : MonoBehaviour
         {
 
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.PlayerKill();
+            //playerController.PlayerKill();
+            playerController.GameOverPanal();
+            
+
 
 
         }

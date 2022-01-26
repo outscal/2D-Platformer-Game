@@ -8,12 +8,16 @@ public class PlayerController : MonoBehaviour
     public ScoreController scoreController;
 
     public Animator anim;
-    private float speed = 5f;
-    private float jump = 50f;
+    private float speed = 6f;
+    private float jump = 7f;
     private Rigidbody2D rb;
+
+    public GameObject gameOverPanal;
 
     [SerializeField]
     private bool isCrouching=false;
+    public bool isGrounded;
+    public bool isJumping;
 
     private void Awake()
     {
@@ -46,40 +50,46 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player picked up the key");
         scoreController.ScoreIncrease(10);
     }
-
+    /*
     public void PlayerKill()
     {
 
-        Destroy(gameObject);
-        ReloadScene();
+        //Destroy(gameObject);
+        //ReloadScene();
+        //this.enabled = false;
 
     }
 
     public void ReloadScene()
     {
-
-        SceneManager.LoadScene(0);
-    }
+        //GameOverPanal();
+        //SceneManager.LoadScene(0);
+    }*/
 
 
     public void MoveCharacter(float horizontal, float vertical)
     {
-
+        
         Vector2 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
-
+        /*
         if (vertical>0)
         {
             rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-        }
+        }*/
     }
 
 
     public void PlayerMovementAnimation(float horizontal, float vertical)
     {
 
-        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (isGrounded == true)
+        {
+            anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        }
+
+        
 
         Vector3 scale = transform.localScale;
         if (horizontal < 0)
@@ -95,15 +105,14 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = scale;
 
-        if (vertical>0)
+        if (vertical>0 && isGrounded)
         {
-            anim.SetBool("Jump", true);
+            anim.SetTrigger("Jump");
+            rb.velocity = new Vector2(rb.velocity.x, jump);
+            isJumping = true;
         }
+        isJumping = false;
 
-        else
-        {
-            anim.SetBool("Jump", false);
-        }
         if (Input.GetKeyDown(KeyCode.C))
         {
             anim.SetBool("Crouch", true);
@@ -121,6 +130,41 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
+        }
+    }
+
+    public void GameOverPanal()
+    {
+        this.enabled = false;
+        gameOverPanal.SetActive(true);
+        
+    }
+    
+    public void RestartGame()
+    {
+        //SceneManager.LoadScene(0);
+        gameOverPanal.SetActive(false);
+        SceneManager.LoadScene(0);
+        //PlayerKill();
+    }
+
+    public void OnApplicationQuit()
+    {
+        Application.Quit();
+      
+    }
 
     public void StaffAttackAnimation()
     {
