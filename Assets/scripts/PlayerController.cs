@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
    public bool isGrounded;
    public bool isCrouching; 
    public ScoreController scoreController;
+    public bool GameHasEnded = false;
 
 private void Awake()
 {
@@ -66,8 +67,17 @@ private void Update()
    {
       animator.SetBool("Crouch", false);
       isCrouching = false;
-   } 
-}
+   }
+   //death temp
+    if(RB2D.position.y < -11f)
+        {
+            if (GameHasEnded == false)
+            {
+                GameHasEnded = true;
+                animator.SetTrigger("Death");
+            }
+        }
+  }
 void OnCollisionStay2D(Collision2D other)
    {
    if (other.gameObject.tag == "Ground")
@@ -86,5 +96,6 @@ void OnCollisionExit2D(Collision2D other)
 public void PickUpKeys ()
 {
    scoreController.ScoreIncrease(10);
+        Debug.Log("You Picked up a KEY");
 }
 }
