@@ -22,12 +22,14 @@ public class GameOverController : MonoBehaviour
         
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.buildIndex);
+        SoundManager.Instance.PlayMusic(Sounds.GamePlay);
     }
 
     public void LoadLobbyScene()
     {
         SceneManager.LoadScene(0);
         gameObject.SetActive(false);
+         SoundManager.Instance.PlayMusic(Sounds.GamePlay);
     }
     public void LoadNextLevel()
     {

@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     }
     public void KillPlayer()
     {
-
+      SoundManager.Instance.PlayMusic(Sounds.GameOver);
         animator.SetBool("Death", true);
       Invoke("LoadGameoverUI", 1f);
         this.enabled = false;
@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public void LoadGameoverUI()
     {
        gameOverUI.SetActive(true);
+      
     }
 
 
@@ -168,6 +169,7 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
+        
     }
     // Movement Handler_Vertical
     private void MoveCharacterVertical()
