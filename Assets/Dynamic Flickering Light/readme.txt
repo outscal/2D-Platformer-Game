@@ -1,0 +1,1 @@
+Just attach to script to a GameObject which has a light component. Adjust the values as you like.
