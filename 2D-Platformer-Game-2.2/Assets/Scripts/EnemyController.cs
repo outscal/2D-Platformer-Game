@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public Animator animator;
-    [SerializeField] private float attackDamage = 10f;
+    [SerializeField] private float attackDamage = 40f;
     [SerializeField] private float attackSpeed = 1f;
     private float canAttack;
 
@@ -13,33 +13,37 @@ public class EnemyController : MonoBehaviour
     {
         if(PlayerHealth.gameOver)
         {
+            //animator.enabled = false;
+            GetComponent<Collider2D>().enabled = false;
             this.enabled = false;
         }
+
+        canAttack += Time.deltaTime; 
            
     }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.tag == "Player")
         {
             if(attackSpeed <= canAttack)
             {
-                other.gameObject.GetComponent<PlayerHealth>().UpdateHealth(-attackDamage);
+                other.gameObject.GetComponent<PlayerController>().PlayerDamaged(attackDamage);
                 canAttack= 0f;
             }
-            else
-            {
-                canAttack += Time.deltaTime;
-            }
+            // else
+            // {
+            //     canAttack += Time.deltaTime;
+            // }
         }
     }
 
-    // private void OnCollisionEnter2D(Collision2D collision)
+    // private void OnCollisionStay2D(Collision2D collision)
     // {
     //     if(collision.gameObject.GetComponent<PlayerController>() != null)
     //     {
     //         PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-    //         playerController.KillPlayer();
+    //         playerController.PlayerDamaged(-attackDamage);
     //     }
     // }
 }

@@ -6,42 +6,29 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
   public KeyScoreController keyScoreController;
+  public GameOverController gameOverController;
+  private PlayerHealth health;
   public Animator animator;
   public Rigidbody2D rb2D;
+  public Collider2D groundCheck;
   public float moveSpeed;
   public float jumpSpeed;
   public bool isGrounded;
   public bool isCrouching;
-  public Collider2D groundCheck;
-
+  
   private Vector3 respawnPoint;
   public GameObject fallDetector;
   
   private void Awake() 
   {
-    Debug.Log("Player controller awake");  
+    Debug.Log("Player controller awake");
+    health = GetComponent<PlayerHealth>();
   }
 
   void start()
   {
     respawnPoint = transform.position;
   }
-
-  // public void UpdateHealth(float mod)
-  // {
-  //   health += mod;
-
-  //   if(health > maxHealth)
-  //   {
-  //     health = maxHealth;
-  //   }
-  //   else if (health <= 0f)
-  //   {
-  //     health = 0f;
-  //     KillPlayer();
-  //     Debug.Log("Damage inflicted");
-  //   }
-  // }
 
   public void KillPlayer()
   {
@@ -50,21 +37,34 @@ public class PlayerController : MonoBehaviour
     //ReloadLevel();
   }
 
-  private void ReloadLevel ()
-  {
-    Debug.Log("Reloading Scene 0 ........");
-    SceneManager.LoadScene(0);
-  }
+  // private void ReloadLevel ()
+  // {
+  //   Debug.Log("Reloading Scene 0 ........");
+  //   SceneManager.LoadScene(0);
+  // }
 
   public void PickUpKey()
   {
     Debug.Log("Player picked up the key");
     keyScoreController.IncreaseScore(1);
   }
+
+  public void PlayerDamaged (float enemyDamage) 
+  {
+    health.UpdateHealth(-enemyDamage);
+    if(PlayerHealth.gameOver)
+    {
+      // animator.SetTrigger("Death");
+      gameOverController.PlayerDied();
+      return;
+    }
+    rb2D.velocity += Vector2.up * 10;
+    animator.SetTrigger("Hurting");
+  }
   
   private void Update()
   {
-    
+
     if(PlayerHealth.gameOver)
     {
       //death animation

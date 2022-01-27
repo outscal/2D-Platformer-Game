@@ -61,9 +61,10 @@ GameObject:
   - component: {fileID: 3640215956152531689}
   - component: {fileID: 3640215956152531685}
   - component: {fileID: 3640215956152531687}
+  - component: {fileID: 519571801}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,11 +204,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyScoreController: {fileID: 0}
+  gameOverController: {fileID: 0}
   animator: {fileID: 3640215956152531685}
   rb2D: {fileID: 420620564}
+  groundCheck: {fileID: 1697903448}
   moveSpeed: 6
   jumpSpeed: 9
   isGrounded: 0
   isCrouching: 0
-  groundCheck: {fileID: 1697903448}
   fallDetector: {fileID: 0}
+--- !u!114 &519571801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6891207953228804317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04093f41ee4c994c8e638368605a7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthBar: {fileID: 0}

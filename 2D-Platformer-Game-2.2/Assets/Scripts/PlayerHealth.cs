@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     private float health = 0f;
     [SerializeField] private float maxHealth = 100f;
+
     public Slider healthBar;
     public static bool gameOver;
 
