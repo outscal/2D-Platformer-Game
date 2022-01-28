@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
       gameOverController.PlayerDied();
       return;
     }
-    rb2D.velocity += Vector2.up * 10;
+    rb2D.velocity += Vector2.up * 6;
     animator.SetTrigger("Hurting");
   }
   
@@ -119,6 +119,8 @@ public class PlayerController : MonoBehaviour
     if(collision.tag == "FallDetector")
     {
       transform.position = respawnPoint;
+      GetComponent<PlayerController>().enabled = false;
+      gameOverController.PlayerDied();
     }
   }
 

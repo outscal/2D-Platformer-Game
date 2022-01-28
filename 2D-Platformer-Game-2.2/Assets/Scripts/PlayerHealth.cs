@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private float health = 0f;
+    private float health;
     [SerializeField] private float maxHealth = 100f;
 
     public Slider healthBar;
@@ -14,13 +14,14 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
+        healthBar.value = health;
         gameOver = false;
     }
 
     public void UpdateHealth(float mod)
     {
-        healthBar.value = health;   
         health += mod;
+        healthBar.value = health;
 
          if(health > maxHealth)
          {

@@ -22,6 +22,6 @@ public class KeyScoreController : MonoBehaviour
 
     private void RefreshUI()
     {
-        scoreText.text = "Key Collected : " + score;
+        scoreText.text = "Key : " + score;
     }
 }
