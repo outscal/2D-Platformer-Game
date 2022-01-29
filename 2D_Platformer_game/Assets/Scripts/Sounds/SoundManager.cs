@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
    public AudioSource soundEffect;
    public AudioSource soundMusic;
     public SoundType[] Sounds;
+    public PlayersoundType[] PlayerSounds;
    private void Awake()
     {
         if (instance == null)
@@ -46,6 +47,32 @@ public class SoundManager : MonoBehaviour
         AudioClip clip = getSoundClip(sound);
         if(clip != null)
         {
+          soundEffect.clip =clip;
+          soundEffect.Play();
+        }
+        else
+        {
+            Debug.LogError("Clip not found for sound type: " + sound);
+        }
+    }
+
+    public void PlayPlayerSounds( PlayerSounds sound)
+    {
+        
+         AudioClip clip;
+         PlayersoundType item = Array.Find(PlayerSounds, i => i.playersoundtype == sound);
+        if(item != null)
+         {
+              clip = item.soundClip;
+         }
+         else
+         {
+              clip = null;
+         }
+        
+        if(clip != null)
+        {
+
           soundEffect.PlayOneShot(clip);
         }
         else
@@ -69,7 +96,14 @@ public class SoundManager : MonoBehaviour
 public class SoundType
 {
     public Sounds soundType;
+    
     public AudioClip soundClip;
+}
+[Serializable]
+public class PlayersoundType
+{
+   public PlayerSounds playersoundtype;
+   public AudioClip soundClip;
 }
 
 public enum Sounds
@@ -78,7 +112,12 @@ public enum Sounds
     GamePlay,
     GameOver,
     GameWin,
-    PlayerFootsteps,
-    PlayerHurt,
     
+    
+}
+
+public enum PlayerSounds
+{
+ PlayerFootsteps,
+ PlayerHurt,
 }

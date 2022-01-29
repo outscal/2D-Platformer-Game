@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // GroundChecker
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         float extraheightcheck = .1f;
         RaycastHit2D raycastHit = Physics2D.Raycast(bc.bounds.center, Vector2.down, bc.bounds.extents.y + extraheightcheck, groundLayerMask);
@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    
 
 
 
