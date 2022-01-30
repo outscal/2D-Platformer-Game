@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine; 
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
    public Animator animator;
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
    public bool isGrounded;
    public bool isCrouching; 
    public ScoreController scoreController;
-    public bool GameHasEnded = false;
+   public bool GameHasEnded = false;
 
 private void Awake()
 {
@@ -52,7 +53,7 @@ private void Update()
    //       mainCamera.transform.position = new Vector3(transform.position.x, cameraPos.y, cameraPos.z);
    //    }
     // Jump
-   if(Input.GetKeyDown(KeyCode.W) && isGrounded)
+   if(Input.GetKeyDown(KeyCode.W) && isGrounded )
        {
        animator.SetTrigger("Jump");
           RB2D.velocity = new Vector2(RB2D.velocity.x, jumpSpeed);
@@ -94,8 +95,14 @@ public void PickUpKeys ()
     {
         if (other.gameObject.tag == "death_bed")
         {
-            animator.SetTrigger("Death");
+            RB2D.bodyType = RigidbodyType2D.Static;
+            animator.SetTrigger("Die");
+            RestartLevel();
         }
     }
-    
+    public static void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("You died from falling");
+    }
 }

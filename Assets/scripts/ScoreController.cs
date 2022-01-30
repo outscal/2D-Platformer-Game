@@ -30,9 +30,9 @@ public class ScoreController : MonoBehaviour
         ScoreText.text = "Score: " + Score;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //Update is called once per frame
+       void Update()
+       {
         
-    }
+       }
 }
