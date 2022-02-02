@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float StartingHealth;
-    public PlayerController playercontroller;
+    private PlayerController playercontroller;
     private bool dead;
 
     public float CurrentHealth 
