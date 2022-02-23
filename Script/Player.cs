@@ -14,14 +14,17 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-
+        
+        //Adding Movement To Our Player
         Move();
-
+         
+        //Adding Jump To Our Player
         if(Input.GetKeyDown(KeyCode.Space) ) {
         rb.AddForce(new Vector2(0,JumpForce),ForceMode2D.Impulse);
         SetJumpAnimation();
         }
-
+        
+        //Adding Crouch To Player
         if(Input.GetKeyDown(KeyCode.C)) {
         SetCrouchAnimation();
         }
@@ -37,10 +40,14 @@ public class Player : MonoBehaviour {
     }
 
     private void Move() {
-
-        var movement = Input.GetAxisRaw("Horizontal");
+        
+        //Setting Up The Movement In Horizontal Direction
+        var movement = Input.GetAxisRaw("Horizontal");   
+        
+        //Changing Player Position According to Movement
         transform.position += new Vector3(movement,0,0) * Time.deltaTime * MoveSpeed;
-
+        
+        //Left Movement 
         if(Input.GetKey(KeyCode.D) && movement > 0) {
 
              MoveSpeed = Runspeed;
@@ -49,7 +56,9 @@ public class Player : MonoBehaviour {
              transform.localScale = temp;
              anim.SetBool("isRun",true);
         }
-
+        
+        
+        //Right Movement
         else if( movement < 0 && Input.GetKey(KeyCode.A) ) {
 
             MoveSpeed = Runspeed;
@@ -58,7 +67,8 @@ public class Player : MonoBehaviour {
             transform.localScale = temp;
             anim.SetBool("isRun",true);
         }
-
+        
+        //if No key Pressed Go Back To Idle Animation
         else {
             anim.SetBool("isRun",false);
             }
