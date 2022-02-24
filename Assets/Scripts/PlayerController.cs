@@ -49,5 +49,5 @@ public class PlayerController : MonoBehaviour
     void setCrouch ()
     {
         animator.SetTrigger("Crouch");
-    }
+    }// update
 }
