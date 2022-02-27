@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
      public Animator animator;     // Animator class animator is object   (its from Unity)
      private Rigidbody2D rb;       // Rigidbody2D is a class   (its from Unity)
-     public float speed;
+     public float speed; 
      /*private void Awake()
      {
         Debug.Log("Player Controller awake");  
@@ -74,5 +74,5 @@ public class PlayerController : MonoBehaviour
          animator.SetBool("Jump", false);
        }
     }
-
+    // Updated Assignment 3
 }
