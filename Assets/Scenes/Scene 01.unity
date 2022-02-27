@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 555912020}
   - component: {fileID: 555912019}
   - component: {fileID: 555912021}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,8 +280,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555912018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.17, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.336, y: -1.744, z: 0}
+  m_LocalScale: {x: 12.176868, y: 2.1478593, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -377,6 +377,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 556232254}
   speed: 4
+  transfrm: {fileID: 556232259}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  jumpForce: 10
+  rb: {fileID: 556232257}
 --- !u!50 &556232257
 Rigidbody2D:
   serializedVersion: 4
@@ -389,7 +395,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -398,6 +404,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!4 &556232259 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8951935101717400438, guid: 4c1e691b7e47bf34a9a6ac146faeb229,
+    type: 3}
+  m_PrefabInstance: {fileID: 1431775584773905547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!70 &556232260
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
