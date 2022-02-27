@@ -1,2 +1,1 @@
-# 2D-Platformer-Game
-The 2D platformer game to be forked something like mario its a clean repo made for LTS version
+# 23_Feb_2D_Outscal
