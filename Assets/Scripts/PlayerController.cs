@@ -3,22 +3,27 @@
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    public Animator animator;
+    private Animator animator;
     private BoxCollider2D boxcollider2d;
 
-    public float crouchOffSetx, crouchOffSety;
-    public float crouchSizex, crouchSizey;
-    public float offsetx, offsety;
-    public float sizex, sizey;
-    public float speed;
-    public float jumpForce;
-    private bool isGrounded;
-    private int jumpcount=0;
+    [SerializeField] private float crouchOffSetx, crouchOffSety;
+    [SerializeField] private float crouchSizex, crouchSizey;
+    [SerializeField] private float offsetx, offsety;
+    [SerializeField] private float sizex, sizey;
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private int jumpcount=0;
+    private float horizontal;
+    private float vertical;
+    private bool moving=false;
+
 
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         boxcollider2d = gameObject.GetComponent<BoxCollider2D>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,40 +31,43 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("platformtag"))
         {
             isGrounded = true;
-            Debug.Log("On Ground !! Can Jump");
         }
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("platformtag"))
         {
             isGrounded = false;
-            Debug.Log("On Air !! Jump stopped");
         }
     }
 
+
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
+        
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
         PlayerAnimation(horizontal, vertical);
+    }
+
+
+    private void FixedUpdate()
+    {
         PlayerMovement(horizontal, vertical);
+        moving = (rb2d.velocity.magnitude < 0.03f) ? false : true;
     }
 
     private void PlayerMovement(float horizontal, float vertical)
     {
         //horizontal movement
-        Vector2 currentPosition = transform.position;
-        currentPosition.x += speed * horizontal *Time.deltaTime;
-        transform.position = currentPosition;
+        rb2d.velocity = (Mathf.Abs(horizontal) >= 0.1f) ? horizontal * speed * Vector2.right : (rb2d.velocity * Vector2.up);
 
         //vertical movement
         if ((vertical > 0) && (isGrounded==true))
         {
             rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-            Debug.Log("jump on");
             isGrounded = false;
         }
     }
@@ -127,7 +135,6 @@ public class PlayerController : MonoBehaviour
     private void HorizontalAnimation(float horizontal)
     {
         //horizontal animation
-        
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector2 scale = transform.localScale;
         if (horizontal < 0)
