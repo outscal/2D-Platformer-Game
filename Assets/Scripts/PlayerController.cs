@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,11 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sizex, sizey;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private int jumpcount=0;
+    private bool isGrounded;
+    private int jumpcount=0;
     private float horizontal;
     private float vertical;
-    private bool moving=false;
 
 
     private void Awake()
@@ -46,35 +46,38 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+
         PlayerAnimation(horizontal, vertical);
+        PlayerHorizontalMovement(horizontal);
     }
 
+    private void PlayerHorizontalMovement(float horizontal)
+    {
+        //horizontal
+        Vector2 currentPosition = transform.position;
+        currentPosition.x += speed * horizontal * Time.deltaTime;
+        transform.position = currentPosition;
+    }
 
     private void FixedUpdate()
     {
-        PlayerMovement(horizontal, vertical);
-        moving = (rb2d.velocity.magnitude < 0.03f) ? false : true;
+        PlayerVerticalMovement(vertical);
     }
 
-    private void PlayerMovement(float horizontal, float vertical)
+    private void PlayerVerticalMovement(float vertical)
     {
-        //horizontal movement
-        rb2d.velocity = (Mathf.Abs(horizontal) >= 0.1f) ? horizontal * speed * Vector2.right : (rb2d.velocity * Vector2.up);
-
         //vertical movement
-        if ((vertical > 0) && (isGrounded==true))
+        if ((vertical > 0) && (isGrounded == true))
         {
-            rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
         }
     }
 
     private void PlayerAnimation(float horizontal, float vertical)
     {
-
         HorizontalAnimation(horizontal);
         VerticalAnimation(vertical);
         CrouchAnimation();
@@ -129,7 +132,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("JumpFall", true);
         }
-
     }
 
     private void HorizontalAnimation(float horizontal)
