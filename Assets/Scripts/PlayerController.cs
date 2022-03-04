@@ -103,9 +103,9 @@ public class PlayerController : MonoBehaviour
     private void VerticalAnimation(float vertical)
     {
         //vertical animation
-        if ((vertical > 0) && (rb2d.velocity.y > 0))
+        if ((vertical > 0) && (rb2d.velocity.y > 0) && (isGrounded == false))
         {
-            if (jumpcount == 0 && isGrounded == false)
+            if (jumpcount == 0)
             {
                 animator.SetBool("IsJump", true);
                 jumpcount = 1;
