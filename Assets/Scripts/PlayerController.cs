@@ -1,6 +1,5 @@
-﻿using System;
-using UnityEngine;
-
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb2d;
@@ -31,6 +30,11 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("platformtag"))
         {
             isGrounded = true;
+        }
+
+        if (collision.gameObject.CompareTag("Death"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -149,4 +153,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
     }
+
+
+
 }
