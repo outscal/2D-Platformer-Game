@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private ScoreController scoreController;
     private Rigidbody2D rb2d;
     private Animator animator;
     private BoxCollider2D boxcollider2d;
@@ -155,5 +156,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void CollectibleKey()
+    {
+        scoreController.IncrementScore(10);
+    }
 
 }
