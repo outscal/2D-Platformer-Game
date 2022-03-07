@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
-
-
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,38 +12,34 @@ public class PlayerController : MonoBehaviour
     public float speed;
     bool crouch;
     public Transform transfrm;
-    public LayerMask layerMask;
+    public LayerMask whatIsGround;
 
-    public float jumpForce = 10f;
+    public float checkRadius;
     public Rigidbody2D rb;
-
+    public float jumpForce;
+    private bool isGrounded;
 
     private void Update()
     {
+
+        
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         PlayerMovementAnimation(horizontal);
         MoveCharacter(horizontal);
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+
+        //Jump
+        isGrounded = Physics2D.OverlapCircle(transfrm.position, checkRadius, whatIsGround);
+        if (isGrounded == true && Input.GetKey(KeyCode.Space))
         {
-            Jump();
+            rb.velocity = Vector2.up * jumpForce;
         }
+    
+      
     }
 
-    private void Jump()
-    {
-        Vector3 movement = new Vector3(rb.velocity.x, jumpForce, 0);
-        rb.velocity = movement; 
-    }
-
-    public bool IsGrounded()
-    {
-        Collider2D groundCheck = Physics2D.OverlapCircle(transfrm.position, 0.5f,layerMask);
-        if (groundCheck.gameObject != null)
-        {
-            return true;
-        }
-        return false;
-    }
+    
+   
     private void MoveCharacter(float horizontal)
     {
         Vector3 position = transform.position;
@@ -93,6 +88,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("Jump", false);
-        }
+        } 
     }
 }
