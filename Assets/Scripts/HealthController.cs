@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// If the number of hearts or health becomes 0 then player dies. 
 /// Scene gets restarted when player dies and this function is implemented in the PlayerController script and called from the current health controller script. 
 /// </summary>
-/// 
+
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private int health;
@@ -39,7 +39,7 @@ public class HealthController : MonoBehaviour
     }
 
 
-    public void EnemyAttack()
+    public void PlayerTakeDamage()
     {
         health -= 1;
         if (health == 0)

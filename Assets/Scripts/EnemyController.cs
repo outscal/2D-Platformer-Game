@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             HealthController playerHealthController = collision.gameObject.GetComponent<HealthController>();
-            playerHealthController.EnemyAttack();
+            playerHealthController.PlayerTakeDamage();
         }
     }
 
