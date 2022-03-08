@@ -13,10 +13,18 @@ public class PlayerController : MonoBehaviour
     bool crouch;
     public Transform transfrm;
     public LayerMask whatIsGround;
+    public ScoreController scoreController;
+
 
     public float checkRadius;
     public Rigidbody2D rb;
     public float jumpForce;
+
+    internal void PickUpKey()
+    {
+        scoreController.IncreaseScore(10);
+    }
+
     private bool isGrounded;
 
     private void Update()
