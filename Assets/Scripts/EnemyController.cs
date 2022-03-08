@@ -6,6 +6,14 @@ public class EnemyController : MonoBehaviour
     private bool moveRight=true;
     [SerializeField] private Transform groundDetection;
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            HealthController playerHealthController = collision.gameObject.GetComponent<HealthController>();
+            playerHealthController.EnemyAttack();
+        }
+    }
 
     void Update()
     {

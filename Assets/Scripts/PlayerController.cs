@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
@@ -161,4 +162,8 @@ public class PlayerController : MonoBehaviour
         scoreController.IncrementScore(10);
     }
 
+    public void PlayerDead()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
