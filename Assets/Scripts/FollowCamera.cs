@@ -10,7 +10,10 @@ public class FollowCamera : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     void LateUpdate()
     {
-        transform.position=Vector3.SmoothDamp(transform.position, 
-                            new Vector3(playerPos.position.x,playerPos.position.y,-10f), ref velocity, 0.3f);
+        if (playerPos.position.x > 0)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position,
+                                new Vector3(playerPos.position.x, playerPos.position.y, -10f), ref velocity, 0.3f);
+        }
     }
 }
