@@ -1,6 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+
+/// <summary>
+/// Implementation of Player Animations:Idle,Run,Crouch,Jump.
+/// Player Movements: Run, Jump 
+/// </summary>
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private ScoreController scoreController;
@@ -18,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private int jumpcount=0;
     private float horizontal;
     private float vertical;
-
+    private int score = 10;
 
     private void Awake()
     {
@@ -159,11 +164,6 @@ public class PlayerController : MonoBehaviour
 
     public void CollectibleKey()
     {
-        scoreController.IncrementScore(10);
-    }
-
-    public void PlayerDead()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        scoreController.IncrementScore(score);
     }
 }

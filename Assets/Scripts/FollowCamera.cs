@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// This script is used for the Camera to follow the player
+/// </summary>
 public class FollowCamera : MonoBehaviour
 {
     [SerializeField] Transform playerPos;

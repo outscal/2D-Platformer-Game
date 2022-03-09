@@ -16,7 +16,16 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
+    [SerializeField] private GameOverController gameOverController;
 
+    private PlayerController playerController;
+    private Animator animator;
+
+    private void Awake()
+    {
+        playerController = GetComponent<PlayerController>();
+        animator = gameObject.GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -44,8 +53,9 @@ public class HealthController : MonoBehaviour
         health -= 1;
         if (health == 0)
         {
-            PlayerController playerController = gameObject.GetComponent<PlayerController>();
-            playerController.PlayerDead();
+            animator.SetBool("isDead", true);
+            gameOverController.PlayerDead();
+            playerController.enabled = false;
         }
     }
 }

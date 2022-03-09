@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// This script is used for the implementation of Patrolling enemies
+/// It also calls the player's HealthController to implement the decrease health functions when colliding with the enemy 
+/// </summary>
+
 public class EnemyController : MonoBehaviour
 {
+    private bool moveRight = true;
     [SerializeField] private float speed;
-    private bool moveRight=true;
     [SerializeField] private Transform groundDetection;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -14,6 +19,7 @@ public class EnemyController : MonoBehaviour
             playerHealthController.PlayerTakeDamage();
         }
     }
+
 
     void Update()
     {
