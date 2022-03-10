@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
+    [SerializeField] private GameObject LevelSelection;
     [SerializeField] private Button buttonPlay;
     [SerializeField] private Button buttonQuit;
     private void Awake()
@@ -26,6 +27,6 @@ public class LobbyController : MonoBehaviour
 
     private void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        LevelSelection.SetActive(true);
     }
 }
