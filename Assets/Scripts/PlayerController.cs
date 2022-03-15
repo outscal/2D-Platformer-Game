@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
 
 
     public float checkRadius;
+
+    internal void KillPlayer()
+    {
+        Destroy(gameObject);    }
+
     public Rigidbody2D rb;
     public float jumpForce;
 
