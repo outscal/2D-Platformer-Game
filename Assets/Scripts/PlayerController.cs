@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
 
     internal void KillPlayer()
     {
-        Destroy(gameObject);    }
+       // Destroy(gameObject);
+    }
 
     public Rigidbody2D rb;
     public float jumpForce;
@@ -35,8 +36,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
 
-        
-
         float horizontal = Input.GetAxisRaw("Horizontal");
         PlayerMovementAnimation(horizontal);
         MoveCharacter(horizontal);
@@ -50,9 +49,6 @@ public class PlayerController : MonoBehaviour
     
       
     }
-
-    
-   
     private void MoveCharacter(float horizontal)
     {
         Vector3 position = transform.position;

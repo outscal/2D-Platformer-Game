@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -13,6 +14,10 @@ public class EnemyController : MonoBehaviour
     public Transform groundDetect;
     Animator animator;
 
+
+    [SerializeField] private int enemyDamage;
+    [SerializeField] private HeartSystem _heartSystem;
+    
     private void Update()
     {
         transform.Translate(Vector2.right * speedy * Time.deltaTime);
@@ -36,13 +41,20 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            animator.SetBool("Attack", attack);
-            playerController.KillPlayer();
-        }
+       
+       if (collision.gameObject.GetComponent<PlayerController>() != null)
+         {
+           PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+      ///  playerController.KillPlayer();
+           Damage();
+         }
     }
 
-
+    private void Damage()
+    {
+        _heartSystem.playerHealth -= enemyDamage;
+        _heartSystem.UpdateHealth();
+    //Needs to Disable Enemy
+   // gameObject.SetActive(true);
+    }
 }

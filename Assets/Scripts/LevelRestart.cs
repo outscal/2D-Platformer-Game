@@ -10,7 +10,7 @@ public class LevelRestart : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            SceneManager.LoadScene("Level01");
+            SceneManager.LoadScene("Level02");
         }
     }
 }
