@@ -1,5 +1,4 @@
-﻿using Microsoft.Unity.VisualStudio.Editor;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +7,7 @@ using UnityEngine.UI;
 public class HeartSystem : MonoBehaviour
 {
     [SerializeField] public int playerHealth;
-    [SerializeField] private Image[] hearts;
+    [SerializeField] private Image[] hearts;    
     private void Start()
     {
         UpdateHealth();

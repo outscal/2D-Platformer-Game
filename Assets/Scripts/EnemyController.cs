@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
     private void Damage()
     {
-        _heartSystem.playerHealth -= enemyDamage;
+        _heartSystem.playerHealth -= enemyDamage; 
         _heartSystem.UpdateHealth();
     //Needs to Disable Enemy
    // gameObject.SetActive(true);

@@ -9,7 +9,7 @@ public class LevelOverComplete : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            SceneManager.LoadScene("Level02");
+            SceneManager.LoadScene("Level02");  
         }
     }
 }

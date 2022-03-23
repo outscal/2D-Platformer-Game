@@ -14,13 +14,16 @@ public class PlayerController : MonoBehaviour
     public Transform transfrm;
     public LayerMask whatIsGround;
     public ScoreController scoreController;
+    public LevelOverCntrllr levelOverCntrllr;
 
 
     public float checkRadius;
 
     internal void KillPlayer()
     {
-       // Destroy(gameObject);
+       levelOverCntrllr.PlayerDied();
+        //Destroy(gameObject);
+        this.enabled = false;
     }
 
     public Rigidbody2D rb;
