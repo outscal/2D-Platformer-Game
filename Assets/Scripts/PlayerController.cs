@@ -10,19 +10,18 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     public float speed;
+    private bool isGrounded;
     bool crouch;
     public Transform transfrm;
     public LayerMask whatIsGround;
     public ScoreController scoreController;
     public LevelOverCntrllr levelOverCntrllr;
-
-
     public float checkRadius;
 
     internal void KillPlayer()
     {
        levelOverCntrllr.PlayerDied();
-        //Destroy(gameObject);
+        
         this.enabled = false;
     }
 
@@ -31,10 +30,10 @@ public class PlayerController : MonoBehaviour
 
     internal void PickUpKey()
     {
-        scoreController.IncreaseScore(10);
+       scoreController.IncreaseScore(10);
     }
 
-    private bool isGrounded;
+    
 
     private void Update()
     {

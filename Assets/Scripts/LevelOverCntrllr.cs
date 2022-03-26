@@ -24,7 +24,6 @@ public class LevelOverCntrllr : MonoBehaviour
     public void PlayerDied()
     {
         gameObject.SetActive(true);
-      //  SceneManager.LoadScene(1);
     }
     private void ReloadLevel()
     {
