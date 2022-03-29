@@ -66,9 +66,11 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
         
          // jump animation
-        if (vertical > 0){
-            animator.SetBool("Jump",true);
-        } else {
+        if (vertical > 0)
+        {
+            animator.SetBool("Jump",true)  ;
+        } else 
+        {
              animator.SetBool("Jump",false);
         }
         
