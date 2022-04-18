@@ -21,8 +21,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Jump");
         MoveCharacter(horizontal);
-        PlayerAnimationMovement(horizontal);
+        PlayerAnimationMovement(horizontal, vertical);
 
        
 
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
     }
     //Player Movement Animation 
-    private void PlayerAnimationMovement(float horizontal)
+    private void PlayerAnimationMovement(float horizontal, float vertical)
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
@@ -51,7 +52,13 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
          //Jump
-        Input.GetAxisRaw("Vertical");
-        Input.GetKeyDown(KeyCode.Space);
+        if(vertical > 0)
+        {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
     }
 }
