@@ -6,9 +6,8 @@ public class Playercontroller : MonoBehaviour
 {
 
 
-
-    float speed = 0f;
-    Animator movementanimator;
+     //public float speed = 0f;
+    public Animator movementanimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +17,13 @@ public class Playercontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxis("Horizontal");
-        movementanimator.SetFloat("speed", Mathf.Abs(speed));
-
+        float horizontalMovement = Input.GetAxis("Horizontal");
+        movementanimator.SetFloat("speed", Mathf.Abs(horizontalMovement));
+        Debug.Log(horizontalMovement);
         Vector2 scale = transform.localScale;
-        if (speed < 0)
+        if (horizontalMovement < 0)
             scale.x = -1f * Mathf.Abs(scale.x);
-        else if (speed > 0)
+        else if (horizontalMovement > 0)
             scale.x = Mathf.Abs(scale.x);
         transform.localScale = scale;
     }

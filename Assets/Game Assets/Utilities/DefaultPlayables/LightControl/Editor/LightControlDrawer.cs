@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Playables;
 
 [CustomPropertyDrawer(typeof(LightControlBehaviour))]
 public class LightControlDrawer : PropertyDrawer

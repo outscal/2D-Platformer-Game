@@ -1,7 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.UI;
 
 [CustomPropertyDrawer(typeof(TextSwitcherBehaviour))]
 public class TextSwitcherDrawer : PropertyDrawer

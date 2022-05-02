@@ -1,10 +1,9 @@
-using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Video;
 
 namespace UnityEngine.Timeline
 {
-	public class VideoPlayableBehaviour : PlayableBehaviour
+    public class VideoPlayableBehaviour : PlayableBehaviour
     {
         public VideoPlayer videoPlayer;
 		public VideoClip videoClip;

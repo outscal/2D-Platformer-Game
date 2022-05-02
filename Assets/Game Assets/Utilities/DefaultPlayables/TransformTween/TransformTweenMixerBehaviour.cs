@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Playables;
 
 public class TransformTweenMixerBehaviour : PlayableBehaviour

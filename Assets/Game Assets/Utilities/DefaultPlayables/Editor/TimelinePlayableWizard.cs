@@ -7,7 +7,6 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Timeline;
-using UnityEngine.UI;
 
 public class TimelinePlayableWizard : EditorWindow
 {

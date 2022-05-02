@@ -1,11 +1,10 @@
 using System;
-using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Video;
 
 namespace UnityEngine.Timeline
 {
-	[Serializable]
+    [Serializable]
     public class VideoScriptPlayableAsset : PlayableAsset
 	{
         public ExposedReference<VideoPlayer> videoPlayer;

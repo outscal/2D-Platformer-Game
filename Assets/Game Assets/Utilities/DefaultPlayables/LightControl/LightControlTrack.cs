@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
-using System.Collections.Generic;
 
 [TrackColor(0.9454092f, 0.9779412f, 0.3883002f)]
 [TrackClipType(typeof(LightControlClip))]
