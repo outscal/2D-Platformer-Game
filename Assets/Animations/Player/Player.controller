@@ -442,6 +442,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-322909876498714301
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Fall
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -8242316272421884008}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 0
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -466,6 +491,18 @@ AnimatorController:
   - m_Name: Crouch
     m_Type: 4
     m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Fall
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: fallingSpeed
+    m_Type: 1
+    m_DefaultFloat: 0.3
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
@@ -563,6 +600,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &1157961133279575430
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Key
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 87232d210f2513a41be489121ac7e61c, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &1579937082615048687
 AnimatorState:
   serializedVersion: 6
@@ -643,7 +706,11 @@ AnimatorStateMachine:
     m_Position: {x: 1050, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8242316272421884008}
+<<<<<<< Updated upstream
     m_Position: {x: 820, y: 240, z: 0}
+=======
+    m_Position: {x: 1030, y: 210, z: 0}
+>>>>>>> Stashed changes
   - serializedVersion: 1
     m_State: {fileID: -5038950865834767370}
     m_Position: {x: 855, y: 305, z: 0}
@@ -668,10 +735,14 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -3020931116990330217}
     m_Position: {x: 1100, y: 760, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1157961133279575430}
+    m_Position: {x: 1135, y: 825, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1915351564620802325}
   - {fileID: -818279144494011009}
+  - {fileID: -322909876498714301}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
