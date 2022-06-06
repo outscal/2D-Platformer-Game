@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public BoxCollider2D collider2d;
     public float speed;
     private Rigidbody2D rb;
+    private bool isGrounded;
     public float jumpForce;
     // Start is called before the first frame update
     void Awake()
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
         // and hence it falls back down to the earth.
         //_move.y += vertical * jumpHeight * Time.deltaTime;
         // Just for consistency, using the implementation in the tutorial.
-        if(vertical>0)
+        if(vertical>0 && isGrounded)
         {
             rb.AddForce(new Vector2(0,jumpForce), ForceMode2D.Force);
         }
@@ -90,5 +91,25 @@ public class PlayerController : MonoBehaviour
             collider2d.offset = new Vector2(0.01034069f, 0.9780799f);
         }
 
+    }
+
+    //make sure u replace "floor" with your gameobject name.on which player is standing
+     void OnCollisionEnter2D(Collision2D other)
+    {
+        
+        if (other.gameObject.name == "Platform")
+        {
+            Debug.Log("I am in Enter");
+            isGrounded = true;
+        }
+    }
+
+    //consider when character is jumping .. it will exit collision.
+     void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.name == "Platform")
+        {
+              isGrounded = false;
+        }
     }
 }
