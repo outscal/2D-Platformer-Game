@@ -9,70 +9,51 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     public float jumpForce;
-    // Start is called before the first frame update
+   
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
         MoveAnimation(horizontal);
-        MoveCharacter(horizontal, vertical);
+        MoveCharacter(horizontal, spacePressed);
         CheckForCrouch();
-        CheckForJump();
+        CheckForJump(spacePressed);
 
     }
-
-    private void MoveCharacter(float horizontal, float vertical)
+    private void MoveCharacter(float horizontal, bool spacePressed)
     {
         Vector2 _move = transform.position;
         _move.x += horizontal * speed * Time.deltaTime;
         transform.position = _move;
-        // In Contrast to the video, this implementation actually work because the player has an RB
-        // and hence it falls back down to the earth.
-        //_move.y += vertical * jumpHeight * Time.deltaTime;
-        // Just for consistency, using the implementation in the tutorial.
-        if(vertical>0 && isGrounded)
+        /*In Contrast to the video, this implementation actually work because the player has an RB
+         and hence it falls back down to the earth.
+        _move.y += vertical * jumpForce * Time.deltaTime;
+         Just for consistency, using the implementation in the tutorial.*/
+        if (spacePressed && isGrounded)
         {
-            rb.AddForce(new Vector2(0,jumpForce), ForceMode2D.Force);
-        }
-
+            rb.AddForce(new Vector2(0,jumpForce), ForceMode2D.Impulse);
+        }  
     }
 
     private void MoveAnimation(float horizontal)
     {
-        
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
-        if (horizontal < 0)
-        {
-            scale.x = (-1) * Mathf.Abs(scale.x);
-        }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
+        // if horizontal is < 0 -> player is moving to the left -> rotate the player
+        scale.x = (horizontal < 0) ? (-1) * Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
         transform.localScale = scale;
     }
 
-    private void CheckForJump()
-    {
-        
-       if(Input.GetKeyDown(KeyCode.Space))
-       //if(vertical > 0)
+    private void CheckForJump(bool spacePressed)
+    {  
+       if(spacePressed && isGrounded)
         {
             animator.SetTrigger("JumpTrigger");
-            Debug.Log("Jump Triggered");
-            //animator.SetBool("Jump", true);
         }
-        /*else
-        {
-            //animator.SetBool("Jump", false);
-        }*/
     }
 
     private void CheckForCrouch()
@@ -81,6 +62,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
+            // hard coded values, observed from the Scene view.
+            // ? What is the alternative where we need not depend on hard coded values?
             collider2d.size = new Vector2(0.6311399f, 1.327474f);
             collider2d.offset = new Vector2(0.01034069f, 0.5875177f);
         }
@@ -94,22 +77,21 @@ public class PlayerController : MonoBehaviour
     }
 
     //make sure u replace "floor" with your gameobject name.on which player is standing
-     void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        
-        if (other.gameObject.name == "Platform")
+
+        if (other.gameObject.tag == "Platform")
         {
-            Debug.Log("I am in Enter");
             isGrounded = true;
         }
     }
 
     //consider when character is jumping .. it will exit collision.
-     void OnCollisionExit2D(Collision2D other)
+    void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.name == "Platform")
+        if (other.gameObject.tag == "Platform")
         {
-              isGrounded = false;
+            isGrounded = false;
         }
     }
 }
