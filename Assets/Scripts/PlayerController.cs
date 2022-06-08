@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
         // if horizontal is < 0 -> player is moving to the left -> rotate the player
-        scale.x = (horizontal < 0) ? (-1) * Mathf.Abs(scale.x) : scale.x;
+        scale.x = (horizontal < 0) ? (-1) * Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
         transform.localScale = scale;
     }
 
