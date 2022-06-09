@@ -4,15 +4,25 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public Transform spawnPoint;
     public BoxCollider2D collider2d;
-    public float speed;
+    private float walkSpeed;
+    private float runSpeed;
     private Rigidbody2D rb;
     private bool isGrounded;
     public float jumpForce;
-   
+    private bool isWalking;
+
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+    }
+    private void Start()
+    {
+        transform.position = spawnPoint.position;
+        walkSpeed = 3;
+        runSpeed = 5;
+        isWalking = true;
     }
     void Update()
     {
@@ -27,7 +37,7 @@ public class PlayerController : MonoBehaviour
     private void MoveCharacter(float horizontal, bool spacePressed)
     {
         Vector2 _move = transform.position;
-        _move.x += horizontal * speed * Time.deltaTime;
+        _move.x = (isWalking) ? (_move.x + horizontal * walkSpeed * Time.deltaTime) : (_move.x + horizontal * runSpeed * Time.deltaTime) ;
         transform.position = _move;
         /*In Contrast to the video, this implementation actually work because the player has an RB
          and hence it falls back down to the earth.
@@ -36,7 +46,15 @@ public class PlayerController : MonoBehaviour
         if (spacePressed && isGrounded)
         {
             rb.AddForce(new Vector2(0,jumpForce), ForceMode2D.Impulse);
-        }  
+        }
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            isWalking = false;
+        }
+        else
+        {
+            isWalking = true;
+        }
     }
 
     private void MoveAnimation(float horizontal)
