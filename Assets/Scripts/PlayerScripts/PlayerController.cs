@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     public float jumpForce;
     private bool isWalking;
+    public int health;
 
     void Awake()
     {
@@ -28,9 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Respawn();
-        walkSpeed = 3;
-        runSpeed = 5;
-        isWalking = true;
+        
     }
     void Update()
     {
@@ -72,6 +71,11 @@ public class PlayerController : MonoBehaviour
         // if horizontal is < 0 -> player is moving to the left -> rotate the player
         scale.x = (horizontal < 0) ? (-1) * Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
         transform.localScale = scale;
+    }
+
+    public void DecreaseHealth()
+    {
+        health -= 10;
     }
 
     private void CheckForJump(bool spacePressed)
@@ -124,5 +128,9 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         transform.position = spawnPoint.position;
+        health = 100;
+        walkSpeed = 3;
+        runSpeed = 5;
+        isWalking = true;
     }
 }
