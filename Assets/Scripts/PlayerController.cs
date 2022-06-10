@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public Transform spawnPoint;
     public BoxCollider2D collider2d;
-    private float walkSpeed;
-    private float runSpeed;
+    public ScoreController scoreController;
+    public float walkSpeed;
+    public float runSpeed;
     private Rigidbody2D rb;
     private bool isGrounded;
     public float jumpForce;
@@ -17,9 +18,16 @@ public class PlayerController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
+
+    public void KeyPicked()
+    {
+        Debug.Log("Player got a key!");
+        scoreController.IncreaseScore(10);
+    }
+
     private void Start()
     {
-        transform.position = spawnPoint.position;
+        Respawn();
         walkSpeed = 3;
         runSpeed = 5;
         isWalking = true;
@@ -112,5 +120,9 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+    public void Respawn()
+    {
+        transform.position = spawnPoint.position;
     }
 }
