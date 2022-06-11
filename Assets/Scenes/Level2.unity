@@ -1102,6 +1102,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1272864676}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &557645913 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1426956295546254046, guid: a21b6a0e15262084aa04443a9170fe09,
+    type: 3}
+  m_PrefabInstance: {fileID: 96670798}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de429affd3d9bb44c8a76c178d70fbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &691062281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,16 +1361,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630859324141491982, guid: 3dbee4d60ecf4634f8ff50a2db266630,
         type: 3}
-      propertyPath: runSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6630859324141491982, guid: 3dbee4d60ecf4634f8ff50a2db266630,
-        type: 3}
-      propertyPath: walkSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6630859324141491982, guid: 3dbee4d60ecf4634f8ff50a2db266630,
-        type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 759215781}
@@ -1367,6 +1369,11 @@ PrefabInstance:
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 1646415131}
+    - target: {fileID: 6630859324141491982, guid: 3dbee4d60ecf4634f8ff50a2db266630,
+        type: 3}
+      propertyPath: healthController
+      value: 
+      objectReference: {fileID: 557645913}
     - target: {fileID: 7906602336937882112, guid: 3dbee4d60ecf4634f8ff50a2db266630,
         type: 3}
       propertyPath: m_Name
@@ -4406,6 +4413,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1757280021, guid: 09f18d0502efb664cb5716d674a53f95, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757280021, guid: 09f18d0502efb664cb5716d674a53f95, type: 3}
+      propertyPath: coolDown
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1757280021, guid: 09f18d0502efb664cb5716d674a53f95, type: 3}
       propertyPath: movementSpeed
       value: 0.8

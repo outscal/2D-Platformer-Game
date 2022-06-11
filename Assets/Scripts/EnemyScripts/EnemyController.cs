@@ -9,23 +9,24 @@ public class EnemyController : MonoBehaviour
     public Transform patrolPointEnd;
     public float movementSpeed;
     public bool bIsGoingLeft = true;
+    public float coolDown = 1f;
+    public float currentAttackTime = 0f;
+    public float damage;
     public Animator anim;
     private bool isTouchingPlayer;
-    private bool isDead;
     private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-       
     }
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = patrolPointBegin.position;
-        isDead = false;
-        spriteRenderer.flipX = bIsGoingLeft;
-
+        transform.position = patrolPointBegin.position; //spawn
+        spriteRenderer.flipX = bIsGoingLeft; // face the end spawn point location
+        movementSpeed = 1f;
+        damage = 10f;
     }
 
     // Update is called once per frame
@@ -35,19 +36,21 @@ public class EnemyController : MonoBehaviour
     }
 
     private void Patrol()
-    {
+    {   
+        // Assumption: end point is always at the right,
+        // so is player walking towards begin point?
         Vector3 directionTranslation = (bIsGoingLeft) ? -transform.right : transform.right;
         directionTranslation *= Time.deltaTime * movementSpeed;
         transform.Translate(directionTranslation);
-        if(Vector2.Distance(transform.position, patrolPointEnd.position) < 1)
+        if(Vector2.Distance(transform.position, patrolPointEnd.position) < 1) //has reached end point
         {
-            bIsGoingLeft = true;
-            spriteRenderer.flipX = bIsGoingLeft;
+            bIsGoingLeft = true; 
+            spriteRenderer.flipX = bIsGoingLeft; // turn towards left
         }
         if (Vector2.Distance(transform.position, patrolPointBegin.position) < 1)
         {
             bIsGoingLeft = false;
-            spriteRenderer.flipX = bIsGoingLeft;
+            spriteRenderer.flipX = bIsGoingLeft; // turn towards right
         }
 
     }
@@ -75,7 +78,16 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            collision.gameObject.GetComponent<PlayerController>().DecreaseHealth();
+            if (currentAttackTime < coolDown)
+            {
+                currentAttackTime += Time.deltaTime;
+            }
+            else
+            {
+                collision.gameObject.GetComponent<PlayerController>().DecreaseHealth(damage);
+                currentAttackTime = 0;
+            }
+            
         }
     }
 
