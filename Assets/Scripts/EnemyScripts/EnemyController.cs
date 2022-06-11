@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -59,9 +57,13 @@ public class EnemyController : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Player Entered");
+            
             isTouchingPlayer = true;
             anim.SetBool("IsTouchingPlayer", isTouchingPlayer);
+        }
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Touching another enemy!");
         }
         
     }
@@ -69,7 +71,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Player Exit");
+            
             isTouchingPlayer = false;
             anim.SetBool("IsTouchingPlayer", isTouchingPlayer);
         }
