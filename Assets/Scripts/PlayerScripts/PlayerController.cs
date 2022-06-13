@@ -1,28 +1,38 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public Transform spawnPoint;
     public BoxCollider2D collider2d;
-    private float walkSpeed;
-    private float runSpeed;
+    public ScoreController scoreController;
+    public HealthController healthController;
+    public float walkSpeed;
+    public float runSpeed;
+    public float jumpForce;
+
     private Rigidbody2D rb;
     private bool isGrounded;
-    public float jumpForce;
     private bool isWalking;
+    private float health;
+   
 
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
+
+    public void KeyPicked()
+    {
+        scoreController.IncreaseScore(10); // Update UI
+    }
+
     private void Start()
     {
-        transform.position = spawnPoint.position;
-        walkSpeed = 3;
-        runSpeed = 5;
-        isWalking = true;
+        Respawn();
+        
     }
     void Update()
     {
@@ -37,8 +47,10 @@ public class PlayerController : MonoBehaviour
     private void MoveCharacter(float horizontal, bool spacePressed)
     {
         Vector2 _move = transform.position;
+        // is player Walking or Running?
         _move.x = (isWalking) ? (_move.x + horizontal * walkSpeed * Time.deltaTime) : (_move.x + horizontal * runSpeed * Time.deltaTime) ;
-        transform.position = _move;
+        transform.position = _move; // update player position
+
         /*In Contrast to the video, this implementation actually work because the player has an RB
          and hence it falls back down to the earth.
         _move.y += vertical * jumpForce * Time.deltaTime;
@@ -47,7 +59,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector2(0,jumpForce), ForceMode2D.Impulse);
         }
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift)) // if Shift Pressed, Player is RUNNING.
         {
             isWalking = false;
         }
@@ -66,6 +78,36 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
+    public void DecreaseHealth(float _damage)
+    {
+        
+        if(health > 0)
+        {
+            health -= _damage;
+            healthController.UpdateHealth(-_damage); //Update UI
+        }
+        else
+        {
+            PlayerDead(); // play death animation
+            Invoke("ResetLevel", 4f); // wait and reset the level
+        }
+        
+
+
+    }
+
+    private void ResetLevel()
+    {
+        // load the current scene again
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex));
+    }
+
+    private void PlayerDead()
+    {   
+        // play the dead animation
+        animator.SetBool("Dead", true);
+    }
+
     private void CheckForJump(bool spacePressed)
     {  
        if(spacePressed && isGrounded)
@@ -77,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckForCrouch()
     {
-     
+        // if crouching, change collider size and play animation
         if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
@@ -95,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //make sure u replace "floor" with your gameobject name.on which player is standing
+   
     void OnCollisionEnter2D(Collision2D other)
     {
 
@@ -104,13 +146,20 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
     }
-
-    //consider when character is jumping .. it will exit collision.
     void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.tag == "Platform")
         {
             isGrounded = false;
         }
+    }
+    public void Respawn()
+    {   
+        // basic player stats initialization
+        transform.position = spawnPoint.position;
+        health = 100;
+        walkSpeed = 3;
+        runSpeed = 5;
+        isWalking = true;
     }
 }
