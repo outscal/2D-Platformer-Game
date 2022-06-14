@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
     public Transform patrolPointBegin;
     public Transform patrolPointEnd;
     public float movementSpeed;
-    public bool bIsGoingLeft = true;
+    public bool bIsGoingLeft;
     public float coolDown = 1f;
     public float currentAttackTime = 0f;
     public float damage;
@@ -22,7 +22,10 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         transform.position = patrolPointBegin.position; //spawn
-        spriteRenderer.flipX = bIsGoingLeft; // face the end spawn point location
+        bIsGoingLeft = ((patrolPointBegin.transform.position.x - patrolPointEnd.transform.position.x) > 0); // true
+        Debug.Log((patrolPointBegin.transform.position.x - patrolPointEnd.transform.position.x));
+        Debug.Log(bIsGoingLeft);
+        spriteRenderer.flipX = bIsGoingLeft;
         movementSpeed = 1f;
         damage = 10f;
     }
@@ -40,16 +43,17 @@ public class EnemyController : MonoBehaviour
         Vector3 directionTranslation = (bIsGoingLeft) ? -transform.right : transform.right;
         directionTranslation *= Time.deltaTime * movementSpeed;
         transform.Translate(directionTranslation);
-        if(Vector2.Distance(transform.position, patrolPointEnd.position) < 1) //has reached end point
+        float x = Vector2.Distance(transform.position, patrolPointEnd.position);
+        float y = Vector2.Distance(transform.position, patrolPointBegin.position);
+        if(x<0.05) //you are at the end
         {
-            bIsGoingLeft = true; 
-            spriteRenderer.flipX = bIsGoingLeft; // turn towards left
+            bIsGoingLeft = !((patrolPointBegin.transform.position.x - patrolPointEnd.transform.position.x) > 0);
         }
-        if (Vector2.Distance(transform.position, patrolPointBegin.position) < 1)
+        if(y<0.5) // you are at the begin
         {
-            bIsGoingLeft = false;
-            spriteRenderer.flipX = bIsGoingLeft; // turn towards right
+            bIsGoingLeft = ((patrolPointBegin.transform.position.x - patrolPointEnd.transform.position.x) > 0);
         }
+        spriteRenderer.flipX = bIsGoingLeft;
 
     }
 
