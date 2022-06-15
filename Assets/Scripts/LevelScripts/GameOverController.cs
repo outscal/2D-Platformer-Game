@@ -7,10 +7,11 @@ public class GameOverController : MonoBehaviour
 {
 
     public Button playAgainButton;
+    public Button quitButton;
     // prepare button to detect clicks and fire up the RestartLevel method
     private void Start()
     {
-        
+        quitButton.onClick.AddListener(QuitGame);
         playAgainButton.onClick.AddListener(RestartLevel);
         Debug.Log("Awoke");
     }
@@ -26,5 +27,12 @@ public class GameOverController : MonoBehaviour
         Debug.Log("Trying to laod");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-  
+    private void QuitGame()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #endif
+        Application.Quit();
+    }
+
 }
