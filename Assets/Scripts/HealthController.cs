@@ -11,7 +11,7 @@ public class HealthController : MonoBehaviour
     }
     private void Start()
     {
-        health = 100;
+        health = 50;
         RefreshUI();
     }
 

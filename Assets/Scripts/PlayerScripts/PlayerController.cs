@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     public float jumpForce;
-
+    public GameOverController gameOverController; // game over logic script
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool isWalking;
@@ -42,8 +42,20 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, spacePressed);
         CheckForCrouch();
         CheckForJump(spacePressed);
+        IsPlayerAlive();
+        
 
     }
+
+    private void IsPlayerAlive()
+    {
+        if (health <= 0)
+        {
+            PlayerDead(); // play death animation
+            //Invoke("ResetLevel", 4f); // wait and reset the level
+        }
+    }
+
     private void MoveCharacter(float horizontal, bool spacePressed)
     {
         Vector2 _move = transform.position;
@@ -86,14 +98,6 @@ public class PlayerController : MonoBehaviour
             health -= _damage;
             healthController.UpdateHealth(-_damage); //Update UI
         }
-        else
-        {
-            PlayerDead(); // play death animation
-            Invoke("ResetLevel", 4f); // wait and reset the level
-        }
-        
-
-
     }
 
     private void ResetLevel()
@@ -106,6 +110,9 @@ public class PlayerController : MonoBehaviour
     {   
         // play the dead animation
         animator.SetBool("Dead", true);
+        //activate the game over menu
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
 
     private void CheckForJump(bool spacePressed)
@@ -157,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {   
         // basic player stats initialization
         transform.position = spawnPoint.position;
-        health = 100;
+        health = 50;
         walkSpeed = 3;
         runSpeed = 5;
         isWalking = true;
