@@ -1,13 +1,12 @@
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
 
 public class LobbyController : MonoBehaviour
 {
     public Button playButton;
     public Button quitButton;
+    public GameObject levelSelectionMenu;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,7 +24,7 @@ public class LobbyController : MonoBehaviour
 
     private void PlayGame()
     {
-        SceneManager.LoadScene(1); 
+        levelSelectionMenu.SetActive(true);
     }
 
 }
