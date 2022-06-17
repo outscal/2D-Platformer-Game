@@ -9,10 +9,11 @@ public class LevelOverController : MonoBehaviour
     {   
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            
-                Debug.Log("Level Complete!");
-                // Load the next level, however loop back from last level to level 1.
-                SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
+            Scene _currentLevel = SceneManager.GetActiveScene();
+            LevelManager.Instance.setLevelStatus(_currentLevel.name, LevelStatus.Completed);
+            LevelManager.Instance.setLevelStatus("Level" + (_currentLevel.buildIndex+1).ToString(), LevelStatus.Unlocked);
+            // Load the next level, however loop back from last level to level 1.
+            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
         }
         
     }
