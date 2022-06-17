@@ -4,14 +4,15 @@ using UnityEngine;
 public class ScoreController : MonoBehaviour
 {
     private TextMeshProUGUI scoreText;
-    private int score;
+    
+    //private int score;
     private void Awake()
     {
         scoreText = gameObject.GetComponent<TextMeshProUGUI>();
     }
     private void Start()
     {
-        score = 0;
+        //score = 0;
         RefreshUI();
     }
 
@@ -23,10 +24,10 @@ public class ScoreController : MonoBehaviour
     }
     public void IncreaseScore(int increment)
     {
-        score += increment;
+        GameManager.Instance.setPlayerScore(increment);
     }
     private void RefreshUI()
     {
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = "Score: " + GameManager.Instance.getPlayerScore().ToString();
     }
 }

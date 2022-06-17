@@ -28,12 +28,14 @@ public class GameOverController : MonoBehaviour
     public void PlayerDied()
     {
         gameObject.SetActive(true);
+        GameManager.Instance.resetPlayerScore();
     }
 
     // Reload the current active level/scene
     public void RestartLevel()
     {
         Debug.Log("Trying to laod");
+        GameManager.Instance.resetPlayerScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void QuitGame()

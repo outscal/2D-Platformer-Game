@@ -9,7 +9,7 @@ public class LevelFailController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {   
             Debug.Log("Level Failed!");
-
+            GameManager.Instance.resetPlayerScore();
             collision.gameObject.GetComponent<PlayerController>().Respawn();
         }
     }    
