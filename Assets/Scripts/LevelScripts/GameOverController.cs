@@ -9,12 +9,14 @@ public class GameOverController : MonoBehaviour
     public Button playAgainButton;
     public Button quitButton;
     public Button mainMenuButton;
+    public Button nextLevelButton;
     // prepare button to detect clicks and fire up the RestartLevel method
     private void Start()
     {
         quitButton.onClick.AddListener(QuitGame);
         playAgainButton.onClick.AddListener(RestartLevel);
         mainMenuButton.onClick.AddListener(GoToLobby);
+        nextLevelButton.onClick.AddListener(NextLevel);
         Debug.Log("Awoke");
         
     }
@@ -30,6 +32,10 @@ public class GameOverController : MonoBehaviour
         gameObject.SetActive(true);
         GameManager.Instance.resetPlayerScore();
     }
+    public void LevelCompleted()
+    {
+        gameObject.SetActive(true);
+    }
 
     // Reload the current active level/scene
     public void RestartLevel()
@@ -44,6 +50,11 @@ public class GameOverController : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     #endif
         Application.Quit();
+    }
+    public void NextLevel()
+    {
+        Debug.Log("NextLevel");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
 }
