@@ -20,7 +20,7 @@ public class LevelLoader : MonoBehaviour
         LevelStatus levelStatus = LevelManager.Instance.getLevelStatus(levelName);
         if (levelStatus == LevelStatus.Locked)
         {
-            button.interactable = false;
+            //button.interactable = false;
         }
     }
 
@@ -33,6 +33,7 @@ public class LevelLoader : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.Play(Sounds.ButtonClickLocked);
             Debug.Log("Level is locked!");
         }
             
