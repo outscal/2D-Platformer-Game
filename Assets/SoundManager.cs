@@ -57,7 +57,7 @@ public class SoundManager : MonoBehaviour
     {
         volume = _volume;
         SoundFX.volume = volume;
-        MusicFX.volume = 0.8f*volume;
+        MusicFX.volume = 0.25f*volume;
 
     }
 }
@@ -68,6 +68,7 @@ public enum Sounds
     BackgroundMusic, // done
     EnemyAttack, // done
     Jump, // done
+    Walk,
     LevelFail, // done
     ItemPickup // done
 }

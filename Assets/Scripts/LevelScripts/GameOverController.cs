@@ -31,11 +31,13 @@ public class GameOverController : MonoBehaviour
     public void PlayerDied()
     {
         gameObject.SetActive(true);
+        
         GameManager.Instance.resetPlayerScore();
     }
     public void LevelCompleted()
     {
         gameObject.SetActive(true);
+        GameManager.Instance.isGamePaused = true;
     }
 
     // Reload the current active level/scene
@@ -54,6 +56,7 @@ public class GameOverController : MonoBehaviour
     }
     public void NextLevel()
     {
+       
         SoundManager.Instance.Play(Sounds.ButtonClickUnlocked);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }

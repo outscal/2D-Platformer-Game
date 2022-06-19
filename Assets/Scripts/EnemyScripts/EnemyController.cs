@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerController>() != null && collision.gameObject.GetComponent<PlayerController>().isAlive)
+        if(collision.gameObject.GetComponent<PlayerController>() != null && collision.gameObject.GetComponent<PlayerController>().isAlive && !GameManager.Instance.isGamePaused)
         {
             
             isTouchingPlayer = true;
@@ -76,7 +76,7 @@ public class EnemyController : MonoBehaviour
             
             isTouchingPlayer = false;
             anim.SetBool("IsTouchingPlayer", isTouchingPlayer);
-            collision.gameObject.GetComponent<PlayerController>().DecreaseHealth(damage);
+            //collision.gameObject.GetComponent<PlayerController>().DecreaseHealth(damage);
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {   
-                if(collision.gameObject.GetComponent<PlayerController>().isAlive)
+                if(collision.gameObject.GetComponent<PlayerController>().isAlive && !GameManager.Instance.isGamePaused)
                 {
                     collision.gameObject.GetComponent<PlayerController>().DecreaseHealth(damage);
                     SoundManager.Instance.Play(Sounds.EnemyAttack);

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public ParticleSystem particleEffect;
     public Transform spawnPoint;
     public BoxCollider2D collider2d;
     public ScoreController scoreController;
@@ -18,7 +19,8 @@ public class PlayerController : MonoBehaviour
     private bool isWalking;
     public bool isAlive  = true;
     private float health;
-   
+    public float stepRate = 0.5f;
+    public float stepCoolDown;
 
     void Awake()
     {
@@ -67,7 +69,12 @@ public class PlayerController : MonoBehaviour
         // is player Walking or Running?
         _move.x = (isWalking) ? (_move.x + horizontal * walkSpeed * Time.deltaTime) : (_move.x + horizontal * runSpeed * Time.deltaTime) ;
         transform.position = _move; // update player position
-
+        if(horizontal!=0 && stepCoolDown < 0f)
+        {
+            SoundManager.Instance.Play(Sounds.Walk);
+            stepCoolDown = stepRate;
+        }
+        stepCoolDown -= Time.deltaTime;
         /*In Contrast to the video, this implementation actually work because the player has an RB
          and hence it falls back down to the earth.
         _move.y += vertical * jumpForce * Time.deltaTime;
@@ -172,10 +179,13 @@ public class PlayerController : MonoBehaviour
     {   
         // basic player stats initialization
         transform.position = spawnPoint.position;
+        Debug.Log("Respawned");
+        particleEffect.Play();
         health = 50;
         walkSpeed = 3;
         runSpeed = 5;
         isWalking = true;
         isAlive = true;
+        GameManager.Instance.isGamePaused = false;
     }
 }

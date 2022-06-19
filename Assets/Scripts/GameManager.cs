@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     
     private static GameManager instance;
     private int score = 0;
+    public bool isGamePaused = false;
 
     public static GameManager Instance { get { return instance; } }
 
