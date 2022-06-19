@@ -7,9 +7,10 @@ public class SoundManager : MonoBehaviour
     private static SoundManager _instance;
 
     public static SoundManager Instance { get { return _instance; } }
-    public SoundType[] ListOfSounds;
+    
     public AudioSource MusicFX;
     public AudioSource SoundFX;
+    public SoundType[] ListOfSounds;
     private void Awake()
     {
         if(_instance == null)
@@ -25,22 +26,31 @@ public class SoundManager : MonoBehaviour
     public void Play(Sounds sound)
     {
         AudioClip clip = getSoundClip(sound);
-        if(clip!=null)
+        if(clip!=null && sound!=Sounds.BackgroundMusic)
         {
             SoundFX.PlayOneShot(clip);
+            Debug.Log(clip.name);
+        }
+        if(clip != null && sound == Sounds.BackgroundMusic)
+        {
+            MusicFX.Play();
         }
     }
 
     private AudioClip getSoundClip(Sounds sound)
     {
-        Debug.Log("Finding Sound");
         return Array.Find(ListOfSounds, item => item.name == sound).clipName;
     }
 }
 public enum Sounds
 {
-    ButtonClickUnlocked,
-    ButtonClickLocked
+    ButtonClickUnlocked, //done
+    ButtonClickLocked, // done
+    BackgroundMusic, // done
+    EnemyAttack, // done
+    Jump, // done
+    LevelFail, // done
+    ItemPickup
 }
 [Serializable]
 public class SoundType

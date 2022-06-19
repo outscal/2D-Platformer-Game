@@ -44,8 +44,7 @@ public class EnemyController : MonoBehaviour
         transform.Translate(directionTranslation);
         float x = Vector2.Distance(transform.position, patrolPointEnd.position);
         float y = Vector2.Distance(transform.position, patrolPointBegin.position);
-        Debug.Log("X:" + x);
-        Debug.Log("Y:" + y);
+        
         if (x<0.05) //you are at the end
         {
             bIsGoingLeft = !((patrolPointBegin.transform.position.x - patrolPointEnd.transform.position.x) > 0);
@@ -60,11 +59,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerController>() != null)
+        if(collision.gameObject.GetComponent<PlayerController>() != null && collision.gameObject.GetComponent<PlayerController>().isAlive)
         {
             
             isTouchingPlayer = true;
             anim.SetBool("IsTouchingPlayer", isTouchingPlayer);
+            SoundManager.Instance.Play(Sounds.EnemyAttack);
         }
 
         
@@ -76,6 +76,7 @@ public class EnemyController : MonoBehaviour
             
             isTouchingPlayer = false;
             anim.SetBool("IsTouchingPlayer", isTouchingPlayer);
+            collision.gameObject.GetComponent<PlayerController>().DecreaseHealth(damage);
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -87,9 +88,14 @@ public class EnemyController : MonoBehaviour
                 currentAttackTime += Time.deltaTime;
             }
             else
-            {
-                collision.gameObject.GetComponent<PlayerController>().DecreaseHealth(damage);
-                currentAttackTime = 0;
+            {   
+                if(collision.gameObject.GetComponent<PlayerController>().isAlive)
+                {
+                    collision.gameObject.GetComponent<PlayerController>().DecreaseHealth(damage);
+                    SoundManager.Instance.Play(Sounds.EnemyAttack);
+                    currentAttackTime = 0;
+                }
+                
             }
             
         }

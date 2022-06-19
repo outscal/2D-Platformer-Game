@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool isWalking;
+    public bool isAlive  = true;
     private float health;
    
 
@@ -32,18 +33,22 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Respawn();
-        
+         
     }
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         bool spacePressed = Input.GetKeyDown(KeyCode.Space);
-        MoveAnimation(horizontal);
-        MoveCharacter(horizontal, spacePressed);
-        CheckForCrouch();
-        CheckForJump(spacePressed);
+
         IsPlayerAlive();
-        
+        if(isAlive)
+        {
+            MoveAnimation(horizontal);
+            MoveCharacter(horizontal, spacePressed);
+            CheckForCrouch();
+            CheckForJump(spacePressed);
+        }
+       
 
     }
 
@@ -69,6 +74,7 @@ public class PlayerController : MonoBehaviour
          Just for consistency, using the implementation in the tutorial.*/
         if (spacePressed && isGrounded)
         {
+            SoundManager.Instance.Play(Sounds.Jump);
             rb.AddForce(new Vector2(0,jumpForce), ForceMode2D.Impulse);
         }
         if(Input.GetKey(KeyCode.LeftShift)) // if Shift Pressed, Player is RUNNING.
@@ -112,7 +118,9 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Dead", true);
         //activate the game over menu
         gameOverController.PlayerDied();
-        this.enabled = false;
+        isAlive = false;
+        
+
     }
 
     private void CheckForJump(bool spacePressed)
@@ -168,5 +176,6 @@ public class PlayerController : MonoBehaviour
         walkSpeed = 3;
         runSpeed = 5;
         isWalking = true;
+        isAlive = true;
     }
 }

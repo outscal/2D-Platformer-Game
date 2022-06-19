@@ -16,7 +16,8 @@ public class LobbyController : MonoBehaviour
 
     private void QuitGame()
     {
-    #if UNITY_EDITOR
+        
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
     #endif
         Application.Quit();
@@ -24,6 +25,7 @@ public class LobbyController : MonoBehaviour
 
     private void PlayGame()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickUnlocked);
         levelSelectionMenu.SetActive(true);
     }
 

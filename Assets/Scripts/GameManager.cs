@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        SoundManager.Instance.Play(Sounds.BackgroundMusic);
+    }
     // Start is called before the first frame update
     public int getPlayerScore()
     {
