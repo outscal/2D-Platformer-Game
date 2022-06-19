@@ -11,8 +11,11 @@ public class SoundManager : MonoBehaviour
     public AudioSource MusicFX;
     public AudioSource SoundFX;
     public SoundType[] ListOfSounds;
+    public bool isMute = false;
+    public float volume = 1f;
+
     private void Awake()
-    {
+    {   
         if(_instance == null)
         {
             _instance = this;
@@ -22,14 +25,18 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+        
+}
     public void Play(Sounds sound)
     {
+        if (isMute)
+            return;
         AudioClip clip = getSoundClip(sound);
-        if(clip!=null && sound!=Sounds.BackgroundMusic)
+        Debug.Log(clip.name);
+        if (clip!=null && sound!=Sounds.BackgroundMusic)
         {
             SoundFX.PlayOneShot(clip);
-            Debug.Log(clip.name);
+           
         }
         if(clip != null && sound == Sounds.BackgroundMusic)
         {
@@ -41,6 +48,18 @@ public class SoundManager : MonoBehaviour
     {
         return Array.Find(ListOfSounds, item => item.name == sound).clipName;
     }
+    public void Mute(bool _status)
+    {
+        isMute = _status;
+        MusicFX.mute = _status;
+    }
+    public void setVolume (float _volume)
+    {
+        volume = _volume;
+        SoundFX.volume = volume;
+        MusicFX.volume = 0.8f*volume;
+
+    }
 }
 public enum Sounds
 {
@@ -50,7 +69,7 @@ public enum Sounds
     EnemyAttack, // done
     Jump, // done
     LevelFail, // done
-    ItemPickup
+    ItemPickup // done
 }
 [Serializable]
 public class SoundType
