@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public new BoxCollider2D collider;
     public Vector2 originalColliderOffset;
     public Vector2 originalColliderSize;
+    public float speed;
 
     private void Awake()
     {
@@ -17,36 +18,27 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // input mapping
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-
-
         bool keyDownCtrl = Input.GetKey(KeyCode.LeftControl);
         bool keyUpCtrl = Input.GetKeyUp(KeyCode.LeftControl);
 
         PlayCrouchAnimation(keyDownCtrl, keyUpCtrl);
 
-        if (vertical > 0)
-            animator.SetBool("isJumpPressed", true);
-
-        if (vertical <= 0)
-        {
-            animator.SetBool("isJumpPressed", false);
-        }
-
-        PlayMovementAnimation(horizontal);
+        MoveCharacter(horizontal);
+        PlayMovementAnimation(horizontal, vertical);
     }
-
-    private void PlayCrouchAnimation(bool keyDownCtrl, bool keyUpCtrl)
+    private void PlayCrouchAnimation(bool isKeyDownCrouch, bool isKeyUpCrouch)
     {
-        if (keyDownCtrl && isCrouched)
+        if (isKeyDownCrouch && isCrouched)
         {
             animator.SetBool("isCrouchStillPressed", true);
             collider.offset = new Vector2(0f, 0.53f);
             collider.size = new Vector2(0.6f, 1.05f);
         }
 
-        if (keyDownCtrl && !isCrouched)
+        if (isKeyDownCrouch && !isCrouched)
         {
             isCrouched = true;
             animator.SetBool("isCrouchPressed", true);
@@ -54,7 +46,7 @@ public class PlayerController : MonoBehaviour
             collider.size = new Vector2(0.6f, 1.05f);
         }
 
-        if (keyUpCtrl && isCrouched)
+        if (isKeyUpCrouch && isCrouched)
         {
             isCrouched = false;
             animator.SetBool("isCrouchStillPressed", false);
@@ -62,7 +54,7 @@ public class PlayerController : MonoBehaviour
             collider.size = originalColliderSize;
         }
 
-        if (keyUpCtrl && !isCrouched)
+        if (isKeyUpCrouch && !isCrouched)
         {
             animator.SetBool("isCrouchPressed", false);
             collider.offset = originalColliderOffset;
@@ -70,8 +62,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayMovementAnimation(float horizontal)
+    private void PlayMovementAnimation(float horizontal, float vertical)
     {
+
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         Vector3 scale = transform.localScale;
@@ -85,5 +78,25 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+
+
+        if (vertical > 0)
+            animator.SetBool("isJumpPressed", true);
+
+        if (vertical <= 0)
+        {
+            animator.SetBool("isJumpPressed", false);
+        }
+    }
+
+    private void MoveCharacter(float horizontal)
+    {
+        //move character horizontally
+        Vector2 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+
+        //move character vertically
+
     }
 }
