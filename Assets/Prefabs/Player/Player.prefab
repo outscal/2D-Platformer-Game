@@ -114,15 +114,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!61 &216393206
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -162,7 +162,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4901166258766368933}
-  isCrouched: 0
   collider: {fileID: 216393206}
   originalColliderOffset: {x: 0, y: 0}
   originalColliderSize: {x: 0, y: 0}
+  isCrouched: 0
+  speed: 5
+  jumpAmount: 5

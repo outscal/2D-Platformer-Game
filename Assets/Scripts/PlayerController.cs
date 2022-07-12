@@ -3,17 +3,22 @@
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public bool isCrouched;
     public new BoxCollider2D collider;
+    private Rigidbody2D rb;
     public Vector2 originalColliderOffset;
     public Vector2 originalColliderSize;
+    public bool isCrouched;
     public float speed;
+    public float jumpAmount;
+    private bool isGrounded = true;
+
 
     private void Awake()
     {
         Debug.Log("Player Controller: awake");
         originalColliderOffset = collider.offset;
         originalColliderSize = collider.size;
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -26,8 +31,9 @@ public class PlayerController : MonoBehaviour
 
         PlayCrouchAnimation(keyDownCtrl, keyUpCtrl);
 
-        MoveCharacter(horizontal);
+        MoveCharacter(horizontal, vertical);
         PlayMovementAnimation(horizontal, vertical);
+
     }
     private void PlayCrouchAnimation(bool isKeyDownCrouch, bool isKeyUpCrouch)
     {
@@ -64,7 +70,8 @@ public class PlayerController : MonoBehaviour
 
     private void PlayMovementAnimation(float horizontal, float vertical)
     {
-
+        Debug.Log("Velocity Y: " + rb.velocity.y);
+        //move animation horizontal
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         Vector3 scale = transform.localScale;
@@ -79,24 +86,50 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-
-        if (vertical > 0)
-            animator.SetBool("isJumpPressed", true);
-
-        if (vertical <= 0)
+        //move animation vertical or jump
+        if (rb.velocity.y == 0)
         {
             animator.SetBool("isJumpPressed", false);
+            animator.SetBool("isFalling", false);
         }
+        if (rb.velocity.y > 0)
+        {
+            animator.SetBool("isJumpPressed", true);
+        }
+        if (rb.velocity.y < 0f)
+        {
+            animator.SetBool("isJumpPressed", false);
+            animator.SetBool("isFalling", true);
+        }
+
     }
 
-    private void MoveCharacter(float horizontal)
+    private void MoveCharacter(float horizontal, float vertical)
     {
         //move character horizontally
         Vector2 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
 
-        //move character vertically
+        //move character vertically 
+        if (vertical > 0 && isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpAmount);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }
