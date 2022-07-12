@@ -13,6 +13,7 @@ public class PlayerController2 : MonoBehaviour
     private float dirX;
     private bool facingRight = true;
     private Vector3 localScale;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -60,6 +61,7 @@ public class PlayerController2 : MonoBehaviour
             facingRight = true;
         else if (dirX < 0)
             facingRight = false;
+
 
         if ((facingRight && localScale.x < 0) || (!facingRight && localScale.x > 0))
             localScale.x *= -1;
