@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
     }
 
+
+
     private void Update()
     {
         // input mapping
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
         if (horizontal < 0)
         {
-            //change direction player is facing
+            //change direction player is facing on x-axis
             scale.x = -1f * Mathf.Abs(scale.x);
         }
         else if (horizontal > 0)
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
         //move animation vertical or jump
         //alone velocity is slightly unpredictive if using with moving colliders
+        //can use separate collider which is static only for ground detection
         if (playerRigidBody.velocity.y == 0 || isGrounded)
         {
             playerAnimator.SetBool("isJumpPressed", false);
@@ -97,7 +100,7 @@ public class PlayerController : MonoBehaviour
     private void MoveCharacter(float horizontal, float vertical)
     {
         //move character horizontally
-        Vector2 position = transform.position;
+        Vector3 position = transform.position;
         position.x += horizontal * playerSpeed * Time.deltaTime;
         transform.position = position;
 
