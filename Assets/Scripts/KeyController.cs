@@ -18,7 +18,7 @@ public class KeyController : MonoBehaviour
             keyAnimator.SetBool("isCollected", true);
             PlayerController playerController = (PlayerController)collider.gameObject.GetComponent<PlayerController>();
             playerController.PickUpKey();
-            Destroy(gameObject);
+            Destroy(gameObject, 1);
         }
     }
 }
