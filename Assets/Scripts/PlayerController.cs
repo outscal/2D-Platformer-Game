@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator playerAnimator;
+    private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
-    public bool isCrouched;
+    public ScoreController scoreController;
+    private bool isCrouched;
     public float playerSpeed;
     public float jumpAmount;
     private bool isGrounded = true;
@@ -14,10 +16,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        playerAnimator = gameObject.GetComponent<Animator>();
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
     }
 
-
+    public void PickUpKey()
+    {
+        scoreController.IncrementScore(10);
+    }
 
     private void Update()
     {
