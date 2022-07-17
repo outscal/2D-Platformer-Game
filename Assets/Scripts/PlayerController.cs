@@ -12,14 +12,12 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
     private float horizontal, vertical;
     private bool keyDownCtrl, keyUpCtrl;
-    private float normalSpeed;
-    public float crouchedSpeed;
+
 
     private void Awake()
     {
         playerAnimator = gameObject.GetComponent<Animator>();
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
-        normalSpeed = playerSpeed;
     }
 
     public void PickUpKey()
@@ -68,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayMovementAnimation(float horizontal, float vertical)
     {
-
+        
         //move animation horizontal
         playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
         
@@ -107,21 +105,13 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharacter(float horizontal, float vertical)
     {
-        if(isCrouched)
-        {
-            playerSpeed = crouchedSpeed;
-        } else
-        {
-            playerSpeed = normalSpeed;
-        }
-
         //move character horizontally
         Vector3 position = transform.position;
         position.x += horizontal * playerSpeed * Time.deltaTime;
         transform.position = position;
 
-        //move character vertically
-        if (vertical > 0 && isGrounded && !isCrouched)
+        //move character vertically 
+        if (vertical > 0 && isGrounded)
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpAmount);
         }
