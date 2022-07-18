@@ -11,10 +11,17 @@ public class PlayerController : MonoBehaviour
     public float jumpAmount;
     private bool isGrounded = true;
     private float horizontal, vertical;
-    private bool keyDownCtrl, keyUpCtrl;
+    private bool crouchPressed;
     private float normalSpeed;
     public float crouchedSpeed;
 
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed.");
+        // playerAnimator.Play("Base Layer.Player_Death", -1, 0.2f);
+        playerAnimator.SetBool("isPlayerDead", true);
+
+    }
 
     private void Awake()
     {
@@ -22,46 +29,30 @@ public class PlayerController : MonoBehaviour
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
         normalSpeed = playerSpeed;
     }
-    public void PickUpKey()
-    {
-        scoreController.IncrementScore(10);
-    }
 
     private void Update()
     {
         // input mapping
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        keyDownCtrl = Input.GetKey(KeyCode.LeftControl);
-        keyUpCtrl = Input.GetKeyUp(KeyCode.LeftControl);
+        crouchPressed = Input.GetKey(KeyCode.LeftControl);
 
-        PlayCrouchAnimation(keyDownCtrl, keyUpCtrl);
+        PlayCrouchAnimation(crouchPressed);
 
         MoveCharacter(horizontal, vertical);
         PlayMovementAnimation(horizontal, vertical);
 
     }
-    private void PlayCrouchAnimation(bool isKeyDownCrouch, bool isKeyUpCrouch)
+    private void PlayCrouchAnimation(bool isKeyDownCrouch)
     {
-        if (isKeyDownCrouch && isCrouched)
-        {
-            playerAnimator.SetBool("isCrouchStillPressed", true);
-        }
-
-        if (isKeyDownCrouch && !isCrouched)
+        if (isKeyDownCrouch)
         {
             isCrouched = true;
             playerAnimator.SetBool("isCrouchPressed", true);
         }
-
-        if (isKeyUpCrouch && isCrouched)
+        else
         {
             isCrouched = false;
-            playerAnimator.SetBool("isCrouchStillPressed", false);
-        }
-
-        if (isKeyUpCrouch && !isCrouched)
-        {
             playerAnimator.SetBool("isCrouchPressed", false);
         }
     }
@@ -141,5 +132,11 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    //Executes public member function of scoreController 
+    public void PickUpKey()
+    {
+        scoreController.IncrementScore(10);
     }
 }
