@@ -22,10 +22,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Touch");
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-           // playerController.KillPlayer();
-            playerController.DamagePlayer();
+            collision.gameObject.GetComponent<PlayerController>().DamagePlayer();
         }
     }
 
@@ -36,6 +33,7 @@ public class EnemyController : MonoBehaviour
         transform.localScale = scale;
     }
 
+    //moves on x axis at a constant rate
     private void MoveEnemy()
     {
         PlayMovementAnimations();

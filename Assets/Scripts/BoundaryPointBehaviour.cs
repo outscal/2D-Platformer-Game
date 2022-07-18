@@ -6,9 +6,8 @@ public class BoundaryPointBehaviour : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<EnemyController>() != null)
         {
-            //object instance created
-            EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
-            enemyController.TurnEnemy();
+            //change enemy scale.x by -1
+            collision.gameObject.GetComponent<EnemyController>().TurnEnemy();
         }
     }
 }
