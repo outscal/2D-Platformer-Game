@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public float enemySpeedX = 1.25f;
+    private Animator enemyAnimator;
+
+    private void Start()
+    {
+        enemyAnimator = gameObject.GetComponent<Animator>();
+    }
+
     private void Update()
     {
         MoveEnemy();
@@ -14,8 +22,10 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
+            Debug.Log("Touch");
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer();
+           // playerController.KillPlayer();
+            playerController.DamagePlayer();
         }
     }
 
@@ -28,9 +38,18 @@ public class EnemyController : MonoBehaviour
 
     private void MoveEnemy()
     {
+        PlayMovementAnimations();
         Vector3 position = transform.position;
         // transform.localScale.x will give us either positive or negative value.
-        position.x += 2 * transform.localScale.x * Time.deltaTime;
+        position.x += enemySpeedX * transform.localScale.x * Time.deltaTime;
         transform.position = position;
+    }
+
+    private void PlayMovementAnimations()
+    {
+        if (enemySpeedX > 0)
+            enemyAnimator.SetBool("isEnemyMoving", true);
+        else
+            enemyAnimator.SetBool("isEnemyMoving", false);
     }
 }

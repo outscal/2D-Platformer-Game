@@ -6,7 +6,6 @@ public class BoundaryPointBehaviour : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<EnemyController>() != null)
         {
-            Debug.Log("Touched");
             //object instance created
             EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
             enemyController.TurnEnemy();
