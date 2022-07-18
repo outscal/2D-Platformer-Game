@@ -248,59 +248,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &103684584
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 103684585}
-  - component: {fileID: 103684586}
-  m_Layer: 5
-  m_Name: HealthController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &103684585
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103684584}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1967661000}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &103684586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103684584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aebef5132f0c11a4c8f41083600e2adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health:
-  - {fileID: 286041397}
-  - {fileID: 1778569148}
-  - {fileID: 941376600}
-  playerHealth: 3
 --- !u!4 &119329832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
@@ -2660,7 +2607,6 @@ RectTransform:
   - {fileID: 286041399}
   - {fileID: 1778569150}
   - {fileID: 941376602}
-  - {fileID: 103684585}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2712,7 +2658,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.22658698}
+  m_Offset: {x: 0, y: -0.25979275}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2723,7 +2669,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.546826}
+  m_Size: {x: 1, y: 0.48041454}
   m_EdgeRadius: 0
 --- !u!4 &2091622667
 Transform:
@@ -2820,9 +2766,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1958299505}
     - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
-      propertyPath: healthController
+      propertyPath: healthImageArray.Array.data[0]
       value: 
-      objectReference: {fileID: 103684586}
+      objectReference: {fileID: 286041397}
+    - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: healthImageArray.Array.data[1]
+      value: 
+      objectReference: {fileID: 1778569148}
+    - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: healthImageArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 941376600}
     - target: {fileID: 1494926571590090870, guid: 93573c0d915543a4a9f281e8cda434f1,
         type: 3}
       propertyPath: m_LocalPosition.x

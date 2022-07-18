@@ -1,21 +1,22 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
     public ScoreController scoreController;
-    public HealthController healthController;
-    private bool isCrouched;
+    private bool isCrouched = false;
     public float playerSpeed;
     public float jumpAmount;
     private bool isGrounded = true;
     private float horizontal, vertical;
-    private bool crouchPressed;
     private float normalSpeed;
     public float crouchedSpeed;
+    public int playerHealth = 3;
+    [SerializeField] private Image[] healthImageArray;
 
     private void Awake()
     {
@@ -29,13 +30,12 @@ public class PlayerController : MonoBehaviour
         // input mapping
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        crouchPressed = Input.GetKey(KeyCode.LeftControl);
+        isCrouched = Input.GetKey(KeyCode.LeftControl);
 
-        PlayCrouchAnimation(crouchPressed);
-
+        // add something meaningful like player movement and animation loop
+        PlayCrouchAnimation(isCrouched);
         MoveCharacter(horizontal, vertical);
-        PlayMovementAnimation(horizontal, vertical);
-
+        PlayMovementAnimation(horizontal);
     }
 
     private void PlayCrouchAnimation(bool isKeyDownCrouch)
@@ -52,55 +52,53 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayMovementAnimation(float horizontal, float vertical)
+    private void PlayMovementAnimation(float horizontal)
     {
-        
-        //move animation horizontal
+        //move animation Horizontally
         playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
-        
+
+        SwitchHorizontalDirection(horizontal);
+
+        //move animation Vertically
+        VerticalJumpAnimation();
+    }
+
+    private void SwitchHorizontalDirection(float directionX)
+    {
         Vector3 scale = transform.localScale;
 
-        if (horizontal < 0)
+        if (directionX < 0)
         {
-            //change direction player is facing on x-axis
+            //changes direction player is facing on x-axis
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (horizontal > 0)
+        else if (directionX > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+    }
 
-        //move animation vertical or jump
-        //alone velocity is slightly unpredictive if using with moving colliders
-        //can use separate collider which is static only for ground detection
-        if (playerRigidBody.velocity.y == 0 || isGrounded)
-        {
-            playerAnimator.SetBool("isJumpPressed", false);
-            playerAnimator.SetBool("isFalling", false);
-        }
-        if (vertical > 0)
-        {
+    private void VerticalJumpAnimation()
+    {
+        if (vertical > 0 && isGrounded)
             playerAnimator.SetBool("isJumpPressed", true);
-        }
+
         if (playerRigidBody.velocity.y < 0 && !isGrounded)
         {
             playerAnimator.SetBool("isJumpPressed", false);
             playerAnimator.SetBool("isFalling", true);
         }
-
+        if (playerRigidBody.velocity.y == 0 || isGrounded)
+        {
+            playerAnimator.SetBool("isJumpPressed", false);
+            playerAnimator.SetBool("isFalling", false);
+        }
     }
 
     private void MoveCharacter(float horizontal, float vertical)
     {
-        if (isCrouched)
-        {
-            playerSpeed = crouchedSpeed;
-        }
-        else
-        {
-            playerSpeed = normalSpeed;
-        }
+        SpeedModifier();
 
         //move character horizontally
         Vector3 position = transform.position;
@@ -113,6 +111,12 @@ public class PlayerController : MonoBehaviour
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpAmount);
         }
     }
+
+    private void SpeedModifier()
+    {
+        _ = isCrouched ? playerSpeed = crouchedSpeed : playerSpeed = normalSpeed;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -131,31 +135,26 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log("Game Over.\n You have died.");
-        // playerAnimator.Play("Base Layer.Player_Death", -1, 0.2f);
         playerAnimator.SetBool("isPlayerDead", true);
-        //get animation time
-        float waitTime = playerAnimator.GetCurrentAnimatorStateInfo(0).length;
-        Invoke("ReloadLevel", waitTime);
+        //get animation time and invoke ReloadLevel after that time * 2
+        Invoke("ReloadLevel", playerAnimator.GetCurrentAnimatorStateInfo(0).length * 2);
     }
 
     public void DamagePlayer()
     {
-        //play hurt animation
+        //play hurt animation 
+        // if health = 0, hurt animation will play and then death animation?
         //playerAnimator.SetBool("Change value to play hurt animation", true);
 
-        if(healthController.playerHealth <= 0)
-        {
+        playerHealth--;
+        UpdateHealthUI();
+
+        if (playerHealth <= 0)
             KillPlayer();
-        } else
-        {
-            healthController.playerHealth--;
-            healthController.UpdateHealth();
-        }
     }
 
     private void ReloadLevel()
     {
-        Debug.Log("Restarting!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -163,5 +162,15 @@ public class PlayerController : MonoBehaviour
     public void PickUpKey()
     {
         scoreController.IncrementScore(10);
+    }
+    private void UpdateHealthUI()
+    {
+        for (int i = 0; i < healthImageArray.Length; i++)
+        {
+            if (i < playerHealth)
+                healthImageArray[i].color = Color.red;
+            else
+                healthImageArray[i].color = Color.clear;
+        }
     }
 }
