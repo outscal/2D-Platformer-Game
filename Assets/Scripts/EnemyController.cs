@@ -22,8 +22,10 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
+            Debug.Log("Touch");
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer();
+           // playerController.KillPlayer();
+            playerController.DamagePlayer();
         }
     }
 

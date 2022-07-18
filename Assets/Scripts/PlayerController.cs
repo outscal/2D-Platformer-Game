@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
     public ScoreController scoreController;
+    public HealthController healthController;
     private bool isCrouched;
     public float playerSpeed;
     public float jumpAmount;
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
         PlayMovementAnimation(horizontal, vertical);
 
     }
+
     private void PlayCrouchAnimation(bool isKeyDownCrouch)
     {
         if (isKeyDownCrouch)
@@ -127,10 +130,33 @@ public class PlayerController : MonoBehaviour
     }
     public void KillPlayer()
     {
-        Debug.Log("Player killed.");
+        Debug.Log("Game Over.\n You have died.");
         // playerAnimator.Play("Base Layer.Player_Death", -1, 0.2f);
         playerAnimator.SetBool("isPlayerDead", true);
+        //get animation time
+        float waitTime = playerAnimator.GetCurrentAnimatorStateInfo(0).length;
+        Invoke("ReloadLevel", waitTime);
+    }
 
+    public void DamagePlayer()
+    {
+        //play hurt animation
+        //playerAnimator.SetBool("Change value to play hurt animation", true);
+
+        if(healthController.playerHealth <= 0)
+        {
+            KillPlayer();
+        } else
+        {
+            healthController.playerHealth--;
+            healthController.UpdateHealth();
+        }
+    }
+
+    private void ReloadLevel()
+    {
+        Debug.Log("Restarting!");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //Executes public member function of scoreController 

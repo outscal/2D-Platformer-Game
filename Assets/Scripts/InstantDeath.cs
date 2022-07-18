@@ -7,10 +7,9 @@ public class InstantDeath : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Game Over.\n You have died.");
             //Restart level
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            Debug.Log("Respawning...");
+            PlayerController playerController = (PlayerController)collision.gameObject.GetComponent<PlayerController>();
+            playerController.KillPlayer();
         }
     }
 }
