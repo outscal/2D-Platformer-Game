@@ -29,10 +29,6 @@ public class PlayerController : MonoBehaviour
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
         normalSpeed = playerSpeed;
     }
-    public void PickUpKey()
-    {
-        scoreController.IncrementScore(10);
-    }
 
     private void Update()
     {
@@ -136,5 +132,11 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    //Executes public member function of scoreController 
+    public void PickUpKey()
+    {
+        scoreController.IncrementScore(10);
     }
 }
