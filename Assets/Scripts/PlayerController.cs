@@ -15,14 +15,6 @@ public class PlayerController : MonoBehaviour
     private float normalSpeed;
     public float crouchedSpeed;
 
-    public void KillPlayer()
-    {
-        Debug.Log("Player killed.");
-        // playerAnimator.Play("Base Layer.Player_Death", -1, 0.2f);
-        playerAnimator.SetBool("isPlayerDead", true);
-
-    }
-
     private void Awake()
     {
         playerAnimator = gameObject.GetComponent<Animator>();
@@ -132,6 +124,13 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed.");
+        // playerAnimator.Play("Base Layer.Player_Death", -1, 0.2f);
+        playerAnimator.SetBool("isPlayerDead", true);
+
     }
 
     //Executes public member function of scoreController 
