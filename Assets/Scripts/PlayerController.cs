@@ -1,22 +1,24 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
+    public GameOverController gameOverController;
+
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
-    public ScoreController scoreController;
+
+    [SerializeField] private Image[] healthImageArray;
     private bool isCrouched = false;
-    public float playerSpeed;
-    public float jumpAmount;
     private bool isGrounded = true;
     private float horizontal, vertical;
     private float normalSpeed;
+
+    public float playerSpeed;
+    public float jumpAmount;
     public float crouchedSpeed;
     public int playerHealth = 3;
-    [SerializeField] private Image[] healthImageArray;
 
     private void Awake()
     {
@@ -81,7 +83,12 @@ public class PlayerController : MonoBehaviour
 
     private void VerticalJumpAnimation()
     {
-        if (vertical > 0 && isGrounded)
+        if (playerRigidBody.velocity.y == 0 || isGrounded)
+        {
+            playerAnimator.SetBool("isJumpPressed", false);
+            playerAnimator.SetBool("isFalling", false);
+        }
+        if (vertical > 0)
             playerAnimator.SetBool("isJumpPressed", true);
 
         if (playerRigidBody.velocity.y < 0 && !isGrounded)
@@ -89,11 +96,7 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("isJumpPressed", false);
             playerAnimator.SetBool("isFalling", true);
         }
-        if (playerRigidBody.velocity.y == 0 || isGrounded)
-        {
-            playerAnimator.SetBool("isJumpPressed", false);
-            playerAnimator.SetBool("isFalling", false);
-        }
+  
     }
 
     private void MoveCharacter(float horizontal, float vertical)
@@ -134,10 +137,15 @@ public class PlayerController : MonoBehaviour
     }
     public void KillPlayer()
     {
-        Debug.Log("Game Over.\n You have died.");
         playerAnimator.SetBool("isPlayerDead", true);
-        //get animation time and invoke ReloadLevel after that time * 2
-        Invoke("ReloadLevel", playerAnimator.GetCurrentAnimatorStateInfo(0).length * 2);
+        //get animation time and invoke ReloadLevel after that time
+        Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
+        this.enabled = false;
+    }
+
+    private void InvokeGameOverMethod()
+    {
+        gameOverController.LoadGameOverUI();
     }
 
     public void DamagePlayer()
@@ -153,16 +161,12 @@ public class PlayerController : MonoBehaviour
             KillPlayer();
     }
 
-    private void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     //Executes public member function of scoreController 
     public void PickUpKey()
     {
         scoreController.IncrementScore(10);
     }
+
     private void UpdateHealthUI()
     {
         for (int i = 0; i < healthImageArray.Length; i++)
