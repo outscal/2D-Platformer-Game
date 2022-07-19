@@ -70,14 +70,11 @@ public class PlayerController : MonoBehaviour
         Vector3 scale = transform.localScale;
 
         if (directionX < 0)
-        {
             //changes direction player is facing on x-axis
             scale.x = -1f * Mathf.Abs(scale.x);
-        }
         else if (directionX > 0)
-        {
             scale.x = Mathf.Abs(scale.x);
-        }
+
         transform.localScale = scale;
     }
 
@@ -95,13 +92,13 @@ public class PlayerController : MonoBehaviour
         {
             playerAnimator.SetBool("isJumpPressed", false);
             playerAnimator.SetBool("isFalling", true);
-        }
-  
+        }  
     }
 
     private void MoveCharacter(float horizontal, float vertical)
     {
-        SpeedModifier();
+        //speed Modifier
+        _ = isCrouched ? playerSpeed = crouchedSpeed : playerSpeed = normalSpeed;
 
         //move character horizontally
         Vector3 position = transform.position;
@@ -110,35 +107,23 @@ public class PlayerController : MonoBehaviour
 
         //move character vertically 
         if (vertical > 0 && isGrounded && !isCrouched)
-        {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpAmount);
-        }
-    }
-
-    private void SpeedModifier()
-    {
-        _ = isCrouched ? playerSpeed = crouchedSpeed : playerSpeed = normalSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
-        {
             isGrounded = true;
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
-        {
             isGrounded = false;
-        }
     }
     public void KillPlayer()
     {
         playerAnimator.SetBool("isPlayerDead", true);
-        //get animation time and invoke ReloadLevel after that time
         Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
         this.enabled = false;
     }
