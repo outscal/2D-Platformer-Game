@@ -8,8 +8,7 @@ public class InstantDeath : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             //Restart level
-            PlayerController playerController = (PlayerController)collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer();
+            collision.gameObject.GetComponent<PlayerController>().KillPlayer();
         }
     }
 }
