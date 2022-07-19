@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelOverController : MonoBehaviour
+public class LevelCompleteController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
