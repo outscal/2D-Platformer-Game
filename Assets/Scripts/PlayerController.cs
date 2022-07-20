@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,13 +19,15 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed;
     public float jumpAmount;
     public float crouchedSpeed;
-    public int playerHealth = 3;
+    public int playerHealth;
 
     private void Awake()
     {
         playerAnimator = gameObject.GetComponent<Animator>();
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
         normalSpeed = playerSpeed;
+        playerHealth = 3;
+        crouchedSpeed = normalSpeed / 2;
     }
 
     private void Update()
@@ -40,6 +43,8 @@ public class PlayerController : MonoBehaviour
         PlayMovementAnimation(horizontal);
     }
 
+    // Player animations control
+
     private void PlayCrouchAnimation(bool isKeyDownCrouch)
     {
         if (isKeyDownCrouch)
@@ -53,7 +58,6 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("isCrouchPressed", false);
         }
     }
-
     private void PlayMovementAnimation(float horizontal)
     {
         //move animation Horizontally
@@ -64,20 +68,6 @@ public class PlayerController : MonoBehaviour
         //move animation Vertically
         VerticalJumpAnimation();
     }
-
-    private void SwitchHorizontalDirection(float directionX)
-    {
-        Vector3 scale = transform.localScale;
-
-        if (directionX < 0)
-            //changes direction player is facing on x-axis
-            scale.x = -1f * Mathf.Abs(scale.x);
-        else if (directionX > 0)
-            scale.x = Mathf.Abs(scale.x);
-
-        transform.localScale = scale;
-    }
-
     private void VerticalJumpAnimation()
     {
         if (playerRigidBody.velocity.y == 0 || isGrounded)
@@ -92,8 +82,25 @@ public class PlayerController : MonoBehaviour
         {
             playerAnimator.SetBool("isJumpPressed", false);
             playerAnimator.SetBool("isFalling", true);
-        }  
+        }
     }
+
+    //Player movement and animation control
+
+    private void SwitchHorizontalDirection(float directionX)
+    {
+        Vector3 scale = transform.localScale;
+
+        if (directionX < 0)
+            //changes direction player is facing on x-axis
+            scale.x = -1f * Mathf.Abs(scale.x);
+        else if (directionX > 0)
+            scale.x = Mathf.Abs(scale.x);
+
+        transform.localScale = scale;
+    }
+
+    // Player movement control
 
     private void MoveCharacter(float horizontal, float vertical)
     {
@@ -110,10 +117,14 @@ public class PlayerController : MonoBehaviour
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpAmount);
     }
 
+    // Physics Collision based controller functions
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
             isGrounded = true;
+        if (collision.gameObject.CompareTag("InstantDeath"))
+            KillPlayer();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -121,17 +132,14 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
             isGrounded = false;
     }
-    public void KillPlayer()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        playerAnimator.SetBool("isPlayerDead", true);
-        Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
-        this.enabled = false;
+        if (collision.gameObject.CompareTag("LevelComplete"))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private void InvokeGameOverMethod()
-    {
-        gameOverController.LoadGameOverUI();
-    }
+    // game logic
 
     public void DamagePlayer()
     {
@@ -145,8 +153,20 @@ public class PlayerController : MonoBehaviour
         if (playerHealth <= 0)
             KillPlayer();
     }
+    public void KillPlayer()
+    {
+        playerAnimator.SetBool("isPlayerDead", true);
+        Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length * 10);
+        enabled = false;
+    }
 
-    //Executes public member function of scoreController 
+    // UI related methods
+
+    private void InvokeGameOverMethod()
+    {
+        gameOverController.LoadGameOverUI();
+    }
+
     public void PickUpKey()
     {
         scoreController.IncrementScore(10);
