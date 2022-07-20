@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 
 public class GameOverController : MonoBehaviour
 {
@@ -24,6 +23,9 @@ public class GameOverController : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+
+    // load level won UI panel
+
     private void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

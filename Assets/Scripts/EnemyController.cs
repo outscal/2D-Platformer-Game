@@ -21,9 +21,10 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
-        {
             collision.gameObject.GetComponent<PlayerController>().DamagePlayer();
-        }
+
+        if(collision.gameObject.tag == "BoundaryLine")
+            TurnEnemy();
     }
 
     public void TurnEnemy()
@@ -37,8 +38,8 @@ public class EnemyController : MonoBehaviour
     private void MoveEnemy()
     {
         PlayMovementAnimations();
+
         Vector3 position = transform.position;
-        // transform.localScale.x will give us either positive or negative value.
         position.x += enemySpeedX * transform.localScale.x * Time.deltaTime;
         transform.position = position;
     }
