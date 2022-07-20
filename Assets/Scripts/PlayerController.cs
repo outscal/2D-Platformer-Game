@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,16 +30,6 @@ public class PlayerController : MonoBehaviour
         crouchedSpeed = normalSpeed / 2;
     }
 
-    private void Start()
-    {
-        
-        for (int i = 0; i < EditorBuildSettings.scenes.Length; i++) 
-        { 
-            Debug.Log(string.Format("scene {0} enabled: {1}", EditorBuildSettings.scenes[i].path, EditorBuildSettings.scenes[i].enabled));
-        }
-
-        }
-
     private void Update()
     {
         // input mapping
@@ -48,7 +37,7 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
         isCrouched = Input.GetKey(KeyCode.LeftControl);
 
-        // add something meaningful like player movement and animation loop
+        //player movement and animation
         PlayCrouchAnimation(isCrouched);
         MoveCharacter(horizontal, vertical);
         PlayMovementAnimation(horizontal);
@@ -168,7 +157,7 @@ public class PlayerController : MonoBehaviour
     {
         playerAnimator.SetBool("isPlayerDead", true);
         Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
-        this.enabled = false;
+        enabled = false;
     }
 
     // UI related methods
