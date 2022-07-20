@@ -1,28 +1,36 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
     public Button playButton;
     public Button quitButton;
+    public Button resumeGameButton;
+
+    public GameObject levelSelection;
 
     private void Awake()
     {
+        resumeGameButton.onClick.AddListener(ResumeGame);
         playButton.onClick.AddListener(PlayGame);
         quitButton.onClick.AddListener(QuitGame);
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
-       // Application.Quit will not work inside unity editor
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
     private void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        levelSelection.SetActive(true);
+    }
+
+    private void ResumeGame()
+    {
+        //lazy implementation. Load gameOverController script and then use Getter method from gameOverController instance.
+        SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
     }
 }
