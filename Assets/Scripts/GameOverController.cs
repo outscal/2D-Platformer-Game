@@ -12,7 +12,7 @@ public class GameOverController : MonoBehaviour
         restartButton.onClick.AddListener(ReloadLevel);
         quitButton.onClick.AddListener(QuitGame);
     }
-    private void QuitGame()
+    public void QuitGame()
     {
         // Application.Quit will not work inside unity editor
         UnityEditor.EditorApplication.isPlaying = false;
@@ -26,6 +26,7 @@ public class GameOverController : MonoBehaviour
 
     // load level won UI panel
 
+    //reloadlevel should also be ui function
     private void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

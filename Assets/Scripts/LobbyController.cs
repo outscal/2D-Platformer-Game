@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
@@ -8,21 +6,23 @@ public class LobbyController : MonoBehaviour
     public Button playButton;
     public Button quitButton;
 
+    public GameObject levelSelection;
+
     private void Awake()
     {
         playButton.onClick.AddListener(PlayGame);
         quitButton.onClick.AddListener(QuitGame);
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
-       // Application.Quit will not work inside unity editor
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
     private void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        levelSelection.SetActive(true);
     }
 }

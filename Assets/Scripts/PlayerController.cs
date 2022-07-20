@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
 
-    [SerializeField] private Image[] healthImageArray;
+    public Image[] healthImageArray;
     private bool isCrouched = false;
     private bool isGrounded = true;
     private float horizontal, vertical;
@@ -29,6 +30,16 @@ public class PlayerController : MonoBehaviour
         playerHealth = 3;
         crouchedSpeed = normalSpeed / 2;
     }
+
+    private void Start()
+    {
+        
+        for (int i = 0; i < EditorBuildSettings.scenes.Length; i++) 
+        { 
+            Debug.Log(string.Format("scene {0} enabled: {1}", EditorBuildSettings.scenes[i].path, EditorBuildSettings.scenes[i].enabled));
+        }
+
+        }
 
     private void Update()
     {
@@ -156,8 +167,8 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         playerAnimator.SetBool("isPlayerDead", true);
-        Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length * 10);
-        enabled = false;
+        Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
+        this.enabled = false;
     }
 
     // UI related methods
