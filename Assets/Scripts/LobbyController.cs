@@ -7,6 +7,7 @@ public class LobbyController : MonoBehaviour
     public Button playButton;
     public Button quitButton;
     public Button resumeGameButton;
+    public Button resetGameButton;
 
     public GameObject levelSelection;
 
@@ -15,6 +16,7 @@ public class LobbyController : MonoBehaviour
         resumeGameButton.onClick.AddListener(ResumeGame);
         playButton.onClick.AddListener(PlayGame);
         quitButton.onClick.AddListener(QuitGame);
+        resetGameButton.onClick.AddListener(ResetGame);
     }
 
     public void QuitGame()
@@ -31,5 +33,10 @@ public class LobbyController : MonoBehaviour
     private void ResumeGame()
     {
         SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
+    }
+
+    private void ResetGame()
+    {
+        LevelManager.Instance.ResetGameValues();
     }
 }

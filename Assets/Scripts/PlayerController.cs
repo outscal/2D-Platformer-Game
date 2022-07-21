@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        Debug.Log("Application ending after " + Time.time + " seconds");
         PlayerPrefs.SetInt("currentLevel", SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -141,7 +140,10 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("LevelComplete"))
+        {
+            LevelManager.Instance.MarkCurrentLevelComplete();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     // game logic
