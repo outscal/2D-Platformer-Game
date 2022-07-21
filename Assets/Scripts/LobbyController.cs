@@ -30,7 +30,6 @@ public class LobbyController : MonoBehaviour
 
     private void ResumeGame()
     {
-        //lazy implementation. Load gameOverController script and then use Getter method from gameOverController instance.
         SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
     }
 }
