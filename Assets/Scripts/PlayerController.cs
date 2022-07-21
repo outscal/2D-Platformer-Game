@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);
         PlayMovementAnimation(horizontal);
     }
+    void OnApplicationQuit()
+    {
+        Debug.Log("Application ending after " + Time.time + " seconds");
+        PlayerPrefs.SetInt("currentLevel", SceneManager.GetActiveScene().buildIndex);
+    }
 
     // Player animations control
 
