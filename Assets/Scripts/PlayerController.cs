@@ -6,12 +6,38 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float speed;
+    public float jump;
+    public Rigidbody2D rd2d;
+    private bool midJump= false;
+    void Start()
+    {
+        rd2d= transform.GetComponent<Rigidbody2D>();
+        animator= transform.GetComponent<Animator>();
+    }
     void Update()
     {
-        float speed= Input.GetAxisRaw("Horizontal");
-        float jump= Input.GetAxisRaw("Vertical");
-        Debug.Log(speed);
-        animator.SetFloat("Speed",Math.Abs(speed));
+        float horizontal= Input.GetAxisRaw("Horizontal");
+        float vertical= Input.GetAxisRaw("Vertical");
+        MovementAnimation(horizontal, vertical);
+        Movement(horizontal, vertical);
+    }
+    void Movement(float horizontal, float vertical)
+    {
+        if(!animator.GetBool("Crouch"))
+        {
+            transform.position= transform.position + new Vector3(horizontal* speed * Time.deltaTime, 0, 0);
+        }
+
+        if(!midJump && vertical>0.5)
+        {
+            rd2d.AddForce(new Vector2(0, jump), ForceMode2D.Force);
+            midJump= true;
+        }
+    }
+    void MovementAnimation(float horizontal, float vertical)
+    {
+        animator.SetFloat("Speed",Math.Abs(horizontal));
         Vector3 scale=transform.localScale;
         if(Input.GetAxis("Horizontal")<0)
         {
@@ -30,13 +56,17 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Crouch",false);
         }
-        if(jump>0)
+        if(midJump)
         {
-            animator.SetFloat("Jump",jump);
+            animator.SetBool("Jump",true);
         }
         else
         {
-            animator.SetFloat("Jump",0);
+            animator.SetBool("Jump",false);
         }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        midJump= false;
     }
 }
