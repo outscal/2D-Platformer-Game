@@ -32,7 +32,7 @@ public class PlayerController2 : MonoBehaviour
         dirX = Input.GetAxisRaw("Horizontal") * moveSpeed;
 
         if (Input.GetButtonDown("Jump") && rb.velocity.y == 0)
-            rb.AddForce(Vector2.up * 700f);
+            rb.AddForce(Vector2.up * 1800f);
 
         if (Mathf.Abs(dirX) > 0 && rb.velocity.y == 0)
             anim.SetFloat("Speed", Mathf.Abs(dirX));
@@ -57,7 +57,7 @@ public class PlayerController2 : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(dirX, rb.velocity.y);
+        rb.velocity = new Vector2(dirX, rb.velocity.y);        
     }
 
     private void LateUpdate()
@@ -72,5 +72,5 @@ public class PlayerController2 : MonoBehaviour
             localScale.x *= -1;
 
         transform.localScale = localScale;
-    }
+     }
 }

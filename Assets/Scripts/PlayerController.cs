@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        PlayerPrefs.SetInt("currentLevel", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.SetInt("currentLevelBeforeExiting", SceneManager.GetActiveScene().buildIndex);
     }
 
     // Player animations control
@@ -150,8 +150,7 @@ public class PlayerController : MonoBehaviour
 
     public void DamagePlayer()
     {
-        //play hurt animation 
-        // if health = 0, hurt animation will play and then death animation?
+        //play hurt animation
         //playerAnimator.SetBool("Change value to play hurt animation", true);
 
         playerHealth--;

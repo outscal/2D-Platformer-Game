@@ -48,6 +48,24 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void LoadAnyLevel(string LevelName)
+    {
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+
+        switch (levelStatus)
+        {
+            case LevelStatus.Locked:
+                Debug.Log("Level is locked");
+                break;
+            case LevelStatus.Unlocked:
+                SceneManager.LoadScene(LevelName);
+                break;
+            case LevelStatus.Completed:
+                SceneManager.LoadScene(LevelName);
+                break;
+        }
+    }
+
     public LevelStatus GetLevelStatus(string level)
     {
         LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level, 0);   

@@ -32,7 +32,7 @@ public class LobbyController : MonoBehaviour
 
     private void ResumeGame()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
+        SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevelBeforeExiting"));
     }
 
     private void ResetGame()
