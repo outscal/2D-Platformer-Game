@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
     public GameOverController gameOverController;
+    public GameWonController gameWonController;
 
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
@@ -141,12 +142,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("LevelComplete"))
         {
-            LevelManager.Instance.MarkCurrentLevelComplete();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            GameWon();
         }
     }
 
     // game logic
+
+    private void GameWon()
+    {
+        gameWonController.LoadGameWonUI();
+        LevelManager.Instance.MarkCurrentLevelComplete();
+    }
 
     public void DamagePlayer()
     {
