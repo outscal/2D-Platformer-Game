@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jump;
     public Rigidbody2D rd2d;
     private bool midJump= false;
+    private bool falling= false;
     void Start()
     {
         rd2d= transform.GetComponent<Rigidbody2D>();
@@ -64,9 +65,25 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump",false);
         }
+        if(falling&&!(Input.GetKey("left ctrl")||Input.GetKey("right ctrl")))
+        {
+            animator.SetBool("Fall",true);
+        }
+        else
+        {
+            animator.SetBool("Fall",false);
+        }
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
         midJump= false;
+        falling= false;
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if(midJump!= true)
+        {
+            falling= true;
+        }
     }
 }
