@@ -5,16 +5,21 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
+    private Rigidbody2D rd2d;
+    private GameObject levelStart;
     public float speed;
     public float jump;
-    public Rigidbody2D rd2d;
+    public float lowerDeadPoint;
     private bool midJump= false;
     private bool falling= false;
+
     void Start()
     {
         rd2d= transform.GetComponent<Rigidbody2D>();
         animator= transform.GetComponent<Animator>();
+        levelStart= GameObject.Find("LevelStart");
+
     }
     void Update()
     {
@@ -22,6 +27,11 @@ public class PlayerController : MonoBehaviour
         float vertical= Input.GetAxisRaw("Vertical");
         MovementAnimation(horizontal, vertical);
         Movement(horizontal, vertical);
+        
+        if(transform.position.y<lowerDeadPoint)
+        {
+            transform.position= levelStart.transform.position;
+        }
     }
     void Movement(float horizontal, float vertical)
     {
