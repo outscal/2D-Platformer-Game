@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
     private static LevelManager instance;
     public static LevelManager Instance { get { return instance; } }
 
+    public LevelSelectionTextController levelSelectionTextController;
+
     public string Level1;
     public string Lobby;
 
@@ -55,8 +57,10 @@ public class LevelManager : MonoBehaviour
         switch (levelStatus)
         {
             case LevelStatus.Locked:
-                Debug.Log("Level is locked");
+            {
+                levelSelectionTextController.DisplayLockedText();
                 break;
+            }
             case LevelStatus.Unlocked:
                 SceneManager.LoadScene(LevelName);
                 break;
