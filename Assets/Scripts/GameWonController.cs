@@ -1,16 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameWonController : MonoBehaviour
 {
     public Button playButton;
     public Button quitButton;
 
+    public TextMeshProUGUI scoreText;
+
     private void Awake()
     {
         playButton.onClick.AddListener(PlayNextLevel);
         quitButton.onClick.AddListener(QuitGame);
+
+        //scoreText = GetComponent<TextMeshProUGUI>();
     }
 
     public void QuitGame()
@@ -24,8 +29,9 @@ public class GameWonController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void LoadGameWonUI()
+    public void LoadGameWonUI(int score)
     {
         gameObject.SetActive(true);
+        scoreText.text = "Score: " + score;
     }
 }

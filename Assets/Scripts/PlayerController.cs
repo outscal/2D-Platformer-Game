@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float jumpAmount;
     public float crouchedSpeed;
     public int playerHealth;
+    private int levelScore;
 
     private void Awake()
     {
@@ -142,15 +143,16 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("LevelComplete"))
         {
-            GameWon();
+            levelScore = scoreController.GetScore();
+            LevelCompleted();
         }
     }
 
     // game logic
 
-    private void GameWon()
+    private void LevelCompleted()
     {
-        gameWonController.LoadGameWonUI();
+        gameWonController.LoadGameWonUI(levelScore);
         LevelManager.Instance.MarkCurrentLevelComplete();
     }
 

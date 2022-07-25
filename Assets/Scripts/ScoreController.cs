@@ -20,12 +20,16 @@ public class ScoreController : MonoBehaviour
     public void IncrementScore(int increment)
     {
         score += increment;
-        PlayerPrefs.SetInt("score", score);
         RefreshUI();
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
     private void RefreshUI()
     {
-        scoreText.text = "Score: " + PlayerPrefs.GetInt("score");
+        scoreText.text = "Score: " + score;
     }
 }

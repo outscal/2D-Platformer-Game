@@ -52,6 +52,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadAnyLevel(string LevelName)
     {
+        if(LevelName == "Lobby")
+            LevelManager.Instance.SetLevelStatus(LevelName, LevelStatus.Unlocked);
         LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
 
         switch (levelStatus)
