@@ -28,6 +28,8 @@ public class LobbyController : MonoBehaviour
     private void PlayGame()
     {
         levelSelection.SetActive(true);
+        //Reset TotalScore
+        PlayerPrefs.SetInt("totalScore", 0);
     }
 
     private void ResumeGame()

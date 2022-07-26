@@ -8,10 +8,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get { return instance; } }
 
     public LevelSelectionTextController levelSelectionTextController;
-
-    public string Level1;
-    public string Lobby;
-
+    
     public string[] Levels;
 
     private void Awake()
@@ -29,7 +26,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        SetLevelStatus(Lobby, LevelStatus.Unlocked);
+        SetLevelStatus("Lobby", LevelStatus.Unlocked);
         if (GetLevelStatus(Levels[0]) == LevelStatus.Locked)
             SetLevelStatus(Levels[0], LevelStatus.Unlocked);
     }
@@ -52,9 +49,16 @@ public class LevelManager : MonoBehaviour
 
     public void LoadAnyLevel(string LevelName)
     {
+        LevelStatus levelStatus;
         if(LevelName == "Lobby")
+        {
             LevelManager.Instance.SetLevelStatus(LevelName, LevelStatus.Unlocked);
-        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+            levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+        }
+        else
+        {
+            levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+        }
 
         switch (levelStatus)
         {
@@ -85,6 +89,6 @@ public class LevelManager : MonoBehaviour
     public void ResetGameValues()
     {
         PlayerPrefs.DeleteAll();
-        LevelManager.Instance.SetLevelStatus(Level1, LevelStatus.Unlocked);
+        LevelManager.Instance.SetLevelStatus("Level1", LevelStatus.Unlocked);
     }
 }
