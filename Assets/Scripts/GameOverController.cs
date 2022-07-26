@@ -29,6 +29,6 @@ public class GameOverController : MonoBehaviour
     //reloadlevel should also be ui function
     private void ReloadLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.ReloadLevel();
     }
 }

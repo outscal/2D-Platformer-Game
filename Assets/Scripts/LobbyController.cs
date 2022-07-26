@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
@@ -28,13 +27,14 @@ public class LobbyController : MonoBehaviour
     private void PlayGame()
     {
         levelSelection.SetActive(true);
-        //Reset TotalScore
+        //Resets TotalScore
         PlayerPrefs.SetInt("totalScore", 0);
     }
 
     private void ResumeGame()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevelBeforeExiting"));
+        string cLevel = "currentLevelBeforeExiting";
+        LevelManager.Instance.ResumeLastLevelPlayed(cLevel);
     }
 
     private void ResetGame()

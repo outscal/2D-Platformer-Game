@@ -86,6 +86,29 @@ public class LevelManager : MonoBehaviour
         PlayerPrefs.SetInt(level, (int)levelStatus);
         Debug.Log("level name:" + level + "\nStatus: " + levelStatus);
     }
+
+    public void PlayNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    //call this when quiting game
+    public void SetResumeGameLevel(string keyName)
+    {
+        PlayerPrefs.SetInt(keyName, SceneManager.GetActiveScene().buildIndex);
+    }
+
+    //call this for resume game button
+    public void ResumeLastLevelPlayed(string lastLevelPlayedByBuildIndex)
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetInt(lastLevelPlayedByBuildIndex));
+    }
+
     public void ResetGameValues()
     {
         PlayerPrefs.DeleteAll();

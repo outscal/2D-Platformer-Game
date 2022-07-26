@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -46,7 +45,8 @@ public class PlayerController : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        PlayerPrefs.SetInt("currentLevelBeforeExiting", SceneManager.GetActiveScene().buildIndex);
+        string cLevel = "currentLevelBeforeExiting";
+        LevelManager.Instance.SetResumeGameLevel(cLevel);
     }
 
     // Player animations control

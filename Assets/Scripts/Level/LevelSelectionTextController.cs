@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using TMPro;
-using System;
 
 public class LevelSelectionTextController : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class LevelSelectionTextController : MonoBehaviour
     public void DisplayLockedText()
     {
         levelSelectionText.text = "Level is Locked. Complete Previous Level to unlock.";
-        Invoke("ClearDisplayedText", 2);
+        Invoke("ClearDisplayedText", 0.8f);
     }
 
     private void ClearDisplayedText()

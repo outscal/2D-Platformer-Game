@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -38,21 +37,21 @@ public class GameWonController : MonoBehaviour
 
     public void PlayNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        LevelManager.Instance.PlayNextLevel();
     }
 
-    public void LoadGameWonUI(int score)
+    public void LoadGameWonUI(int levelScore)
     {
         gameObject.SetActive(true);
-        scoreText.text = "Level Score: " + score;
-        ModifyTotalScore(score);
+        scoreText.text = "Level Score: " + levelScore;
+        ModifyTotalScore(levelScore);
     }
 
     //Reset total score in LobbyController: line 32 
-    private void ModifyTotalScore(int score)
+    private void ModifyTotalScore(int levelScore)
     {
         totalScore = PlayerPrefs.GetInt("totalScore", 0);
-        totalScore += score;
+        totalScore += levelScore;
         PlayerPrefs.SetInt("totalScore", totalScore);
         totalScoreText.text = "Total Score: " + totalScore;
     }
