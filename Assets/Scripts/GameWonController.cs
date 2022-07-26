@@ -17,13 +17,11 @@ public class GameWonController : MonoBehaviour
     {
         playButton.onClick.AddListener(PlayNextLevel);
         quitButton.onClick.AddListener(QuitGame);
+
         CloneTotalScoreTextUI();
-
     }
 
-    private void Start()
-    {
-    }
+    // running CloneTotalScoretextUI function in start gives null reference exception
 
     private void CloneTotalScoreTextUI()
     {
