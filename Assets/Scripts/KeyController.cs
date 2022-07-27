@@ -20,7 +20,7 @@ public class KeyController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         pc= collision.gameObject.GetComponent<PlayerController>();
-        if(pc!=null)
+        if(pc!=null&&animater.GetBool("Taken")==false)
         {
             pc.GetPoints();
             animater.SetBool("Taken",true);
