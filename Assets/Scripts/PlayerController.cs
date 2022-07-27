@@ -13,13 +13,14 @@ public class PlayerController : MonoBehaviour
     public float lowerDeadPoint;
     private bool midJump= false;
     private bool falling= false;
+    private ScoreController scoreController;
 
     void Start()
     {
         rd2d= transform.GetComponent<Rigidbody2D>();
         animator= transform.GetComponent<Animator>();
+        scoreController= GameObject.FindWithTag("Score").GetComponent<ScoreController>();
         levelStart= GameObject.Find("LevelStart");
-
     }
     void Update()
     {
@@ -27,13 +28,21 @@ public class PlayerController : MonoBehaviour
         float vertical= Input.GetAxisRaw("Vertical");
         MovementAnimation(horizontal, vertical);
         Movement(horizontal, vertical);
+        CheckForFallDeath();
         
+    }
+    public void GetPoints()
+    {
+        scoreController.IncrementScore();
+    }
+    private void CheckForFallDeath()
+    {
         if(transform.position.y<lowerDeadPoint)
         {
             transform.position= levelStart.transform.position;
         }
     }
-    void Movement(float horizontal, float vertical)
+    private void Movement(float horizontal, float vertical)
     {
         if(!animator.GetBool("Crouch"))
         {
@@ -46,7 +55,7 @@ public class PlayerController : MonoBehaviour
             midJump= true;
         }
     }
-    void MovementAnimation(float horizontal, float vertical)
+    private void MovementAnimation(float horizontal, float vertical)
     {
         animator.SetFloat("Speed",Math.Abs(horizontal));
         Vector3 scale=transform.localScale;
@@ -84,12 +93,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Fall",false);
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         midJump= false;
         falling= false;
     }
-    void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if(midJump!= true)
         {
