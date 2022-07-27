@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Animator animator;
@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
     private bool midJump= false;
     private bool falling= false;
     private ScoreController scoreController;
+    private HealthController healthController;
 
     void Start()
     {
         rd2d= transform.GetComponent<Rigidbody2D>();
         animator= transform.GetComponent<Animator>();
-        scoreController= GameObject.FindWithTag("Score").GetComponent<ScoreController>();
+        scoreController= GameObject.Find("Score").GetComponent<ScoreController>();
+        healthController= GameObject.Find("Health").GetComponent<HealthController>();
         levelStart= GameObject.Find("LevelStart");
     }
     void Update()
@@ -31,10 +33,17 @@ public class PlayerController : MonoBehaviour
         CheckForFallDeath();
         
     }
+    public void TakeDamage()
+    {
+        healthController.TakeDamage();
+        transform.position= levelStart.transform.position;
+    }
     public void KillPlayer()
     {
-        Debug.Log("Player Killed!");
+        Debug.Log("Restart");
+        SceneManager.LoadScene(0);
     }
+
     public void GetPoints()
     {
         scoreController.IncrementScore();
