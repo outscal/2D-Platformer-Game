@@ -13,18 +13,25 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        CreateLevelManager();
+    }
+    private void Start()
+    {
+        UnlockInitialGameScenes();
+    }
+    private void CreateLevelManager()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
-
-    private void Start()
+    private void UnlockInitialGameScenes()
     {
         SetLevelStatus("Lobby", LevelStatus.Unlocked);
         if (GetLevelStatus(Levels[0]) == LevelStatus.Locked)
