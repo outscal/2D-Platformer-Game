@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
     {
         gameWonController.LoadGameWonUI(levelScore);
         LevelManager.Instance.MarkCurrentLevelComplete();
+        enabled = false;
     }
 
     public void DamagePlayer()
