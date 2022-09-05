@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private float _verticalInput;
 
     Vector3 scale;
+    bool isCrouching;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -24,31 +25,45 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
-        _verticalInput = Input.GetAxisRaw("Vertical");
+        _verticalInput = Input.GetAxis("Vertical");
         _animator.SetFloat("Speed", Mathf.Abs(_horizontalInput));
-        _animator.SetFloat("JumpSpeed", _verticalInput);
+        //Debug.Log("Vertical Input :" + _verticalInput);
+
+        PlayerLookAt(_horizontalInput);
+        if (_verticalInput > 0 && !isCrouching)
+        {
+           // Debug.Log("Jump Again");
+            _animator.SetTrigger("Jump");
+        }
+        if (Input.GetButtonDown("Crouch"))
+        {
+            isCrouching = true;
+            CrouchAnimationm(isCrouching);
+        }
+        else if (Input.GetButtonUp("Crouch"))
+        {
+            isCrouching = false;
+            CrouchAnimationm(isCrouching);
+        }
+
+    }
+    void CrouchAnimationm(bool _isCrouching)
+    {
+        _animator.SetBool("isCrouching", isCrouching);
+        standingCollider.enabled = !isCrouching;
+        crouchingCollider.enabled = isCrouching;
+    }
+    void PlayerLookAt(float _horizontalInput)
+    {
         scale = transform.localScale;
-        if(_horizontalInput < 0)
+        if (_horizontalInput < 0)
         {
             scale.x = -1 * Mathf.Abs(scale.x);
         }
-        else if(_horizontalInput > 0)
+        else if (_horizontalInput > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-        if (Input.GetButtonDown("Crouch"))
-        {
-            _animator.SetBool("isCrouching", true);
-            standingCollider.enabled = false;
-            crouchingCollider.enabled = true;
-        }
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            _animator.SetBool("isCrouching", false);
-            standingCollider.enabled = true;
-            crouchingCollider.enabled = false;
-        }
-
     }
 }
