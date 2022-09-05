@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
-        _verticalInput = Input.GetAxis("Vertical");
+        _verticalInput = Input.GetAxisRaw("Jump");
+        Debug.Log("Jump : " + _verticalInput);
         _animator.SetFloat("Speed", Mathf.Abs(_horizontalInput));
         //Debug.Log("Vertical Input :" + _verticalInput);
 
@@ -33,7 +34,11 @@ public class PlayerController : MonoBehaviour
         if (_verticalInput > 0 && !isCrouching)
         {
            // Debug.Log("Jump Again");
-            _animator.SetTrigger("Jump");
+            _animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            _animator.SetBool("isJumping", false);
         }
         if (Input.GetButtonDown("Crouch"))
         {
