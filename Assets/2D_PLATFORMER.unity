@@ -130,6 +130,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768579702547101797, guid: 83eb8097c234952418c7310bc88b8b02,
         type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768579702547101797, guid: 83eb8097c234952418c7310bc88b8b02,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768579702547101797, guid: 83eb8097c234952418c7310bc88b8b02,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -198,6 +208,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2743912538230189033, guid: 83eb8097c234952418c7310bc88b8b02,
+        type: 3}
+      propertyPath: m_AutoTiling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743912538230189033, guid: 83eb8097c234952418c7310bc88b8b02,
+        type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7363512843403518122, guid: 83eb8097c234952418c7310bc88b8b02,
         type: 3}
       propertyPath: m_Name
@@ -208,11 +228,32 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7905404700902946757, guid: 83eb8097c234952418c7310bc88b8b02,
+        type: 3}
+      propertyPath: m_Mass
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905404700902946757, guid: 83eb8097c234952418c7310bc88b8b02,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905404700902946757, guid: 83eb8097c234952418c7310bc88b8b02,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83eb8097c234952418c7310bc88b8b02, type: 3}
 --- !u!1 &1626061963 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7363512843403518122, guid: 83eb8097c234952418c7310bc88b8b02,
+    type: 3}
+  m_PrefabInstance: {fileID: 1145079711}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1626061964 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2743912538230189033, guid: 83eb8097c234952418c7310bc88b8b02,
     type: 3}
   m_PrefabInstance: {fileID: 1145079711}
   m_PrefabAsset: {fileID: 0}
@@ -235,6 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   In_Anim: {fileID: 1626061966}
+  playerCol: {fileID: 1626061964}
 --- !u!1 &1684841922
 GameObject:
   m_ObjectHideFlags: 0
