@@ -1,20 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 
     
 {
     public Animator In_Anim;
-    public BoxCollider2D playerCol;
+    public BoxCollider2D playerCollider;
     
    
    
     // Start is called before the first frame update
     void Start()
     {
-        playerCol =playerCol.GetComponent<BoxCollider2D>();
+        playerCollider =gameObject.GetComponent<BoxCollider2D>();
         Debug.Log("Starting Player");
         
     }
@@ -35,16 +33,26 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        //understand dif between GetAxis and GetAxisRaw..
+        bool pressCtrl = Input.GetKeyDown(KeyCode.LeftControl);
+        bool releaseCtrl = Input.GetKeyUp(KeyCode.LeftControl);
+        Vector2 position = transform.localPosition;
+        float displace = 5.0f;
         float speed = Input.GetAxisRaw("Horizontal");
         In_Anim.SetFloat("speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
-        if (speed < 0)
+        if (speed < 0 )
         {
+            
             scale.x = -1f * Mathf.Abs(scale.x);
+            position.x += speed * displace * Time.deltaTime;
+            transform.position = position;
         }
-        else if (speed>0)
+        else if (speed>0 && pressCtrl == false)
         {
             scale.x = Mathf.Abs(scale.x);
+            position.x += speed * displace * Time.deltaTime;
+            transform.position = position;
         }
         transform.localScale = scale;
 
@@ -60,23 +68,23 @@ public class PlayerController : MonoBehaviour
         
 
         
-        bool pressCtrl = Input.GetKeyDown(KeyCode.LeftControl);
-        bool releaseCtrl = Input.GetKeyUp(KeyCode.LeftControl);
-        Vector2 size = playerCol.size;
-        Vector2 offse = playerCol.offset;
+        
+        Vector2 size = playerCollider.size;
+        Vector2 offset = playerCollider.offset;
+        
         if (pressCtrl) {
             
             In_Anim.SetBool("crouch", true);
             /*Debug.Log(oldsize);*/
-            playerCol.size = new Vector2(size.x,0.6f*size.y) ;
-            playerCol.offset = new Vector2(offse.x, 0.6f * offse.y);
+            playerCollider.size = new Vector2(size.x,0.6f*size.y) ;
+            playerCollider.offset = new Vector2(offset.x, 0.6f * offset.y);
         }
         else if(releaseCtrl)
         {
             In_Anim.SetBool("crouch", false);
             /*Debug.Log(oldsize);*/
-            playerCol.size = new Vector2(size.x, 2.085643f);
-            playerCol.offset = new Vector2(offse.x, 0.9831027f);
+            playerCollider.size = new Vector2(size.x, 2.1f);
+            playerCollider.offset = new Vector2(offset.x, 0.98f);
         }
         
 
