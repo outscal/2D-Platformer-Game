@@ -543,6 +543,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1529887939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1529887941}
+  - component: {fileID: 1529887940}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1529887940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529887939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff367c1aacb0c9d49bc5fc0ebcdf3052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1529887941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529887939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.28145686, y: -0.029980235, z: -9.858116}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1660476335
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +803,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1788033018221445446, guid: d71a71b3eaded77498061d420ee70ff0,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4d7d6470acd7bf45971042161c6e018,
+        type: 3}
     - target: {fileID: 6066663805712928193, guid: d71a71b3eaded77498061d420ee70ff0,
         type: 3}
       propertyPath: m_RootOrder
@@ -840,6 +890,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7457850856174251040}
+  boxCollider: {fileID: 7457850856174251043}
+  standingColliderOffset: {x: 0.02, y: 1}
+  standingColliderSize: {x: 0.7, y: 2.1}
+  crouchColliderOffset: {x: -0.1, y: 0.6}
+  crouchColliderSize: {x: 1, y: 1.3}
 --- !u!50 &7457850856174251039
 Rigidbody2D:
   serializedVersion: 4
@@ -880,7 +935,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.028435811, y: 0.98308814}
+  m_Offset: {x: 0.02, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.42, y: 0.1}
@@ -891,5 +946,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.66290355, y: 2.1114914}
+  m_Size: {x: 0.7, y: 2.1}
   m_EdgeRadius: 0
