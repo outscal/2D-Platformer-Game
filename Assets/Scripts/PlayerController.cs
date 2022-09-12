@@ -6,29 +6,29 @@ public class PlayerController : MonoBehaviour
 {
     public Animator In_Anim;
     public BoxCollider2D playerCollider;
-    
-   
-   
+    public float displace = 5.0f;
+    public float jumpForce;
+    public bool collisionDetected=false;
+    public Vector2 force = new Vector2(0f, 500f);
+    Rigidbody2D playerRb;
+ 
     // Start is called before the first frame update
     void Start()
     {
         playerCollider =gameObject.GetComponent<BoxCollider2D>();
+        playerRb = gameObject.GetComponent<Rigidbody2D>();
         Debug.Log("Starting Player");
-        
     }
     private void Awake()
-    {
-       
+    { 
         Debug.Log("Player Awake");
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player hits " + collision.gameObject.name);
+        collisionDetected = true;
     }
-
-    
 
     // Update is called once per frame
     public void Update()
@@ -37,43 +37,40 @@ public class PlayerController : MonoBehaviour
         bool pressCtrl = Input.GetKeyDown(KeyCode.LeftControl);
         bool releaseCtrl = Input.GetKeyUp(KeyCode.LeftControl);
         Vector2 position = transform.localPosition;
-        float displace = 5.0f;
+        
         float speed = Input.GetAxisRaw("Horizontal");
         In_Anim.SetFloat("speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
+        Vector2 size = playerCollider.size;
+        Vector2 offset = playerCollider.offset;
         if (speed < 0 )
         {
-            
             scale.x = -1f * Mathf.Abs(scale.x);
             position.x += speed * displace * Time.deltaTime;
-            transform.position = position;
         }
-        else if (speed>0 && pressCtrl == false)
+        else if (speed>0)
         {
             scale.x = Mathf.Abs(scale.x);
             position.x += speed * displace * Time.deltaTime;
-            transform.position = position;
         }
+        transform.position = position;
         transform.localScale = scale;
-
+        
         float up = Input.GetAxisRaw("Vertical");
         bool jump = false;
-        if (up > 0)
+        if (collisionDetected)
         {
-            jump = true;
+            if (up > 0)
+            {
+                jump = true;
+                playerRb.AddForce(force, ForceMode2D.Impulse);
+                collisionDetected = false;
+            }
+            In_Anim.SetBool("jump", jump);
         }
-        In_Anim.SetBool("jump", jump);
-
-        
         
 
-        
-        
-        Vector2 size = playerCollider.size;
-        Vector2 offset = playerCollider.offset;
-        
         if (pressCtrl) {
-            
             In_Anim.SetBool("crouch", true);
             /*Debug.Log(oldsize);*/
             playerCollider.size = new Vector2(size.x,0.6f*size.y) ;
@@ -87,6 +84,5 @@ public class PlayerController : MonoBehaviour
             playerCollider.offset = new Vector2(offset.x, 0.98f);
         }
         
-
     }
 }

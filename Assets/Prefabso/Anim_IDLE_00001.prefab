@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 4664874661343997047}
   - component: {fileID: 7905404700902946757}
   - component: {fileID: 2743912538230189033}
-  m_Layer: 0
+  - component: {fileID: 1626061969}
+  m_Layer: 8
   m_Name: Anim_IDLE_00001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7363512843403518122}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -115,15 +116,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 1
+  m_GravityScale: 1.2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &2743912538230189033
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,7 +147,25 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
   m_Size: {x: 0.40071964, y: 2.085643}
   m_EdgeRadius: 0
+--- !u!114 &1626061969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7363512843403518122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3939829d2c9950046ad191d6b2e17526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  In_Anim: {fileID: 4664874661343997047}
+  playerCollider: {fileID: 0}
+  displace: 8
+  jumpForce: 500
+  collisionDetected: 0
+  force: {x: 0, y: 150}
