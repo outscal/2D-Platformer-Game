@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rb2D;
-    bool canJump;
-    bool IsGrounded;
-    bool canDoubleJump;
+    Animator player_animator;
+    BoxCollider2D player_boxCollider;
+    Rigidbody2D player_rb2D;
 
-    [Header("References")]
-    [SerializeField]private Animator animator;
-    [SerializeField]private BoxCollider2D boxCollider;
+    public bool isCrouch;
+    public bool canJump;
+    public int jumpsRemaining;
 
     [Header("Hitbox")]
     public Vector2 standingColliderOffset;
@@ -22,10 +19,18 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     public float speed;
     public float jumpForce;
+    public int maxJumps;
+
+    private void Awake()
+    {
+        player_rb2D = GetComponent<Rigidbody2D>();
+        player_boxCollider = GetComponent<BoxCollider2D>();
+        player_animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        jumpsRemaining = maxJumps;
     }
 
 
@@ -33,18 +38,18 @@ public class PlayerController : MonoBehaviour
     {
         float moveValue = Input.GetAxisRaw("Horizontal");
 
-        if(IsGrounded) canDoubleJump = true;
-
-        if (Input.GetButtonDown("Jump") && IsGrounded)
+        if (Input.GetButtonUp("Jump") && !isCrouch)
         {
-            canJump = true;
+            if(jumpsRemaining > 0)
+            {
+                --jumpsRemaining;
+                canJump = true;
+            }
+            else
+            {
+                canJump = false;
+            }
         }
-        else if(Input.GetButtonDown("Jump") && canDoubleJump)
-        {
-            canJump = true;
-            canDoubleJump = false;
-        }
-
 
         PlayMovementAnimation(moveValue);
         MovePlayer(moveValue);
@@ -54,7 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canJump)
         {
-            rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
+            player_rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
             canJump = false;
         }
     }
@@ -66,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayMovementAnimation(float xAxis)
     {
-        animator.SetFloat("Speed", Mathf.Abs(xAxis));
+        player_animator.SetFloat("Speed", Mathf.Abs(xAxis));
 
         Vector3 scale = transform.localScale;
 
@@ -82,16 +87,18 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
 
-        animator.SetBool("Jump", canJump);
+        player_animator.SetBool("Jump", canJump);
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            animator.SetBool("Crouch", true);
+            isCrouch = true;
+            player_animator.SetBool("Crouch", true);
             CrouchHitBox(true);
         }
         else
         {
-            animator.SetBool("Crouch", false);
+            isCrouch = false;
+            player_animator.SetBool("Crouch", false);
             CrouchHitBox(false);
         }
     }
@@ -100,29 +107,21 @@ public class PlayerController : MonoBehaviour
     {
         if(crouch)
         {
-            boxCollider.offset = crouchColliderOffset;
-            boxCollider.size = crouchColliderSize;
+            player_boxCollider.offset = crouchColliderOffset;
+            player_boxCollider.size = crouchColliderSize;
         }
         else
         {
-            boxCollider.offset = standingColliderOffset;
-            boxCollider.size = standingColliderSize;
+            player_boxCollider.offset = standingColliderOffset;
+            player_boxCollider.size = standingColliderSize;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.GetComponent<CollisionEnums>().colliderTag == ColliderTags.GROUND)
         {
-            IsGrounded= true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            IsGrounded = false;
+            jumpsRemaining = maxJumps;
         }
     }
 }
