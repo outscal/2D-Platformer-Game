@@ -119,9 +119,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<CollisionEnums>().colliderTag == ColliderTags.GROUND)
+        if(collision.gameObject.TryGetComponent<CollisionEnums>(out CollisionEnums collisionEnum))
         {
-            jumpsRemaining = maxJumps;
+            if(collisionEnum.colliderTag == ColliderTags.GROUND)
+                jumpsRemaining = maxJumps;
         }
     }
 }
