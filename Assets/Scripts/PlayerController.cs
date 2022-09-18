@@ -6,9 +6,12 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D player_boxCollider;
     Rigidbody2D player_rb2D;
 
-    public bool isCrouch;
-    public bool canJump;
-    public int jumpsRemaining;
+    bool isCrouch;
+    bool canJump;
+    int jumpsRemaining;
+
+    [Header("Score Ref")]
+    [SerializeField] private ScoreController scoreController;
 
     [Header("Hitbox")]
     public Vector2 standingColliderOffset;
@@ -124,5 +127,10 @@ public class PlayerController : MonoBehaviour
             if(collisionEnum.colliderTag == ColliderTags.GROUND)
                 jumpsRemaining = maxJumps;
         }
+    }
+
+    public void PickUpKey()
+    {
+        scoreController.UpdateScore(10);
     }
 }
