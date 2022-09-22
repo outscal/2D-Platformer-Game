@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 force = new Vector2(0f, 500f);
     public static int score=0;
     Rigidbody2D playerRb;
+    public UI_text uiText;
  
     // Start is called before the first frame update
     void Start()
@@ -24,8 +25,9 @@ public class PlayerController : MonoBehaviour
 
     public void updateScore()
     {
-        score++;
+        score+=20;
         Debug.Log("Score is: "+score);
+        uiText.scoreUI.text = "score: "+ score;
     }
 
     private void Awake()
