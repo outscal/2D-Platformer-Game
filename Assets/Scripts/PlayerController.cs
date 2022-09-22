@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public bool collisionDetected=false;
     public Vector2 force = new Vector2(0f, 500f);
+    public static int score=0;
     Rigidbody2D playerRb;
  
     // Start is called before the first frame update
@@ -19,6 +21,13 @@ public class PlayerController : MonoBehaviour
         playerRb = gameObject.GetComponent<Rigidbody2D>();
         Debug.Log("Starting Player");
     }
+
+    public void updateScore()
+    {
+        score++;
+        Debug.Log("Score is: "+score);
+    }
+
     private void Awake()
     { 
         Debug.Log("Player Awake");
