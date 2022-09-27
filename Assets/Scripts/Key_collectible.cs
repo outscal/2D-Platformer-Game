@@ -1,29 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Key_collectible : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.gameObject.GetComponent<PlayerController>()!= null)
+        if (collider.gameObject.TryGetComponent(out PlayerController playercollision))
         {
-            PlayerController playercollsion;
-            playercollsion = collision.gameObject.GetComponent<PlayerController>();
-            playercollsion.updateScore();
+            playercollision.updateScore();
             Destroy(gameObject);
-            Debug.Log(playercollsion.gameObject.name + "collected");
+            Debug.Log(playercollision.gameObject.name + "collected");
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
