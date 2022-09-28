@@ -10,7 +10,18 @@ public class Player_Controller : MonoBehaviour
     private void Update()
     {
         float Speed =  Input.GetAxis("Horizontal");
-        animator.SetFloat("speed", Speed);
+        animator.SetFloat("speed", Mathf.Abs(Speed));
+
+        Vector3 scale = transform.localScale;
+        if (Speed < 0)
+        { 
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+        else if (Speed > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
     }
 
 }
