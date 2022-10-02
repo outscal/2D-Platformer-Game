@@ -39,7 +39,7 @@ public class Player_Controller : MonoBehaviour
        
         if (vertical > 0 && _isGrounded)
         {
-            animator.SetBool("jump", true);
+            animator.SetTrigger("jump");
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
     }
