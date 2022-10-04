@@ -1,31 +1,49 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    public Animator animator;
-    
-    public float jump;
-    private bool _isGrounded;
+    private Animator _animator;
+
     [SerializeField]
-    private float _playerSpeed;
+    private float _playerSpeed = 5.5f;
+    [SerializeField]
+    private float _jump;
+
+    public bool isGrounded;
+    public float _groundRadius;
+    public LayerMask whatIsGround;
+    public Transform groundPoint;
+    
 
 
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        _animator = gameObject.GetComponent<Animator>();
     }
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float jump = Input.GetAxisRaw("Jump");
         
         MoveCharecter(horizontal);
-        MovementAnimation(horizontal);
-        MoveVertically(vertical);
+        MovementAnimation(horizontal, jump);
+        
         Crouch();
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+          
+         
+       
+        }
+    }
+
+    void PlayerStatus()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundPoint.position, _groundRadius, whatIsGround);
     }
     void MoveCharecter(float horizontal)
     {
@@ -34,58 +52,38 @@ public class Player_Controller : MonoBehaviour
         transform.position = position;
     }
 
-    private void MoveVertically(float vertical)
-    {
-       
-        if (vertical > 0 && _isGrounded)
-        {
-            animator.SetTrigger("jump");
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
-        }
-    }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void MovementAnimation(float horizontal, float vertical)
     {
-        if (other.transform.tag == "platform")
+        HorizontalAnimation(horizontal);
+      
+    }
+        public void HorizontalAnimation(float horizontal)
         {
-            _isGrounded = true;
-        }
+            _animator.SetFloat("speed", Mathf.Abs(horizontal));
         
-    }
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if(other.transform.tag == "platform")
-        {
-            _isGrounded = false;
+            Vector2 scale = transform.localScale;
+            if (horizontal < 0)
+            {
+                scale.x = -1f * Mathf.Abs(scale.x);
+            }
+            else if (horizontal > 0)
+            {
+                scale.x = Mathf.Abs(scale.x);
+            }
+            transform.localScale = scale;
         }
-    }
-    private void MovementAnimation(float horizontal)
-    {
-        animator.SetFloat("speed", Mathf.Abs(horizontal));
-        
-        //move and flip
-        Vector3 scale = transform.localScale;
-        if (horizontal < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
-    }
 
     void Crouch()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            animator.SetBool("crouch", true);
+            _animator.SetBool("crouch", true);
 
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        else
         {
-            animator.SetBool("crouch", false);
+            _animator.SetBool("crouch", false);
         }
     }
 }
