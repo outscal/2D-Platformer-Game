@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -14,14 +15,22 @@ public class Player_Controller : MonoBehaviour
     public float _groundRadius;
     public LayerMask whatIsGround;
     public Transform groundPoint;
-    
 
+    public ScoreController _scoreController;
 
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
+      
     }
+
+    public void PickUpKeys()
+    {
+        Debug.Log("Key Collected");
+        _scoreController.AddScore(10);
+    }
+
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
