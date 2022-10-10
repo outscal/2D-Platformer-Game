@@ -1,58 +1,78 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Player_Controller : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private Animator _animator;
+    public GameObject player;
+    public ScoreController _scoreController;
 
     [SerializeField]
     private float _playerSpeed = 5.5f;
+
+    //Jump
     [SerializeField]
-    private float _jump;
+    private float _jumpSpeed;
+    public Transform groundCheck;
+    public float groundCheckRaduius;
+    public LayerMask groundLayer;
+    public bool isTouchingGround;
 
-    public bool isGrounded;
-    public float _groundRadius;
-    public LayerMask whatIsGround;
-    public Transform groundPoint;
 
-    public ScoreController _scoreController;
+    public void KillPlayer()
+    {
+     
+      //Destroy(gameObject);
+      // _animator.SetBool("player_Death", true);
+        //ReloadLevel();
+    }
+
+    private void ReloadLevel(int health)
+    {
+       if (health == 0)
+        {
+          _animator.SetBool("player_Death", true);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+            RestartMenu();
+        }
+    }
+        
+    private void RestartMenu()
+    {
+        
+    }
 
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
-      
     }
 
     public void PickUpKeys()
     {
-        Debug.Log("Key Collected");
         _scoreController.AddScore(10);
     }
 
-    private void Update()
+    public void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float jump = Input.GetAxisRaw("Jump");
-        
+
         MoveCharecter(horizontal);
-        MovementAnimation(horizontal, jump);
-        
         Crouch();
+        HorizontalAnimation(horizontal);
 
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
-          
-         
-       
+            rb2d.velocity = new Vector2(rb2d.velocity.x, _jumpSpeed);
         }
-    }
-
-    void PlayerStatus()
-    {
-        isGrounded = Physics2D.OverlapCircle(groundPoint.position, _groundRadius, whatIsGround);
     }
     void MoveCharecter(float horizontal)
     {
@@ -61,13 +81,7 @@ public class Player_Controller : MonoBehaviour
         transform.position = position;
     }
 
-
-    private void MovementAnimation(float horizontal, float vertical)
-    {
-        HorizontalAnimation(horizontal);
-      
-    }
-        public void HorizontalAnimation(float horizontal)
+    public void HorizontalAnimation(float horizontal)
         {
             _animator.SetFloat("speed", Mathf.Abs(horizontal));
         
@@ -88,11 +102,19 @@ public class Player_Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             _animator.SetBool("crouch", true);
-
         }
         else
         {
             _animator.SetBool("crouch", false);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
+
+        if(other.gameObject.CompareTag("MovingPlatform"))
+        {
+            player.transform.parent = other.gameObject.transform;
         }
     }
 }
