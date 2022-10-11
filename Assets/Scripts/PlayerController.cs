@@ -16,13 +16,25 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed",Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
         if(speed <0)
-        {
+        { 
+            // bool jump = Input.GetButton("Vertical");
+            // animator.SetBool("Jump",jump);
+
             scale.x = -1f * Mathf.Abs(scale.x);
         }
         else if (speed > 0)
         {
-         scale.x = Mathf.Abs(scale.x);   
+            //  bool jump = Input.GetButton("Vertical");
+            // animator.SetBool("Jump",jump);
+            scale.x = Mathf.Abs(scale.x);   
         }
         transform.localScale =scale;
+        
+       bool jump = Input.GetButton("Vertical");
+            animator.SetBool("Jump",jump);
+
+        bool crouch = Input.GetKey(KeyCode.LeftControl);
+        animator.SetBool("Crouch",crouch);
+        
     }
 }
