@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     private BoxCollider2D boxCollider2D;
+    public float xspeed;
     float offsetX;
     float offsetY;
     float sizeX;
@@ -23,7 +24,31 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed",Mathf.Abs(speed));
+        PlayerMovement(speed);
+        PlayerMoveAnimation(speed);
+       
+
+
+        float jumpinput = Input.GetAxis("Vertical");
+        jumpAnim(jumpinput);
+
+        if(Input.GetKey(KeyCode.LeftControl))
+        {
+            CrouchAnim(true);
+        }
+        else{
+            CrouchAnim(false);
+        }
+    }
+    private void PlayerMovement(float speed)
+    {
+        Vector3 position = transform.position;
+        position.x += speed * xspeed * Time.deltaTime;
+        transform.position = position;
+    }
+    private void PlayerMoveAnimation(float speed)
+    {
+         animator.SetFloat("Speed",Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
         if(speed <0)
         { 
@@ -37,18 +62,6 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);   
         }
         transform.localScale =scale; 
-
-
-        float jumpinput = Input.GetAxis("Vertical");
-        jumpAnim(jumpinput);
-
-        if(Input.GetKey(KeyCode.LeftControl))
-        {
-            CrouchAnim(true);
-        }
-        else{
-            CrouchAnim(false);
-        }
     }
     private void jumpAnim(float input)
     {
