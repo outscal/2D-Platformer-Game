@@ -1,12 +1,13 @@
-﻿using JetBrains.Annotations;
+﻿
 using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class Player_Controller : MonoBehaviour
 {
+
     private Rigidbody2D rb2d;
     private Animator _animator;
     public GameObject player;
@@ -21,46 +22,14 @@ public class Player_Controller : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRaduius;
     public LayerMask groundLayer;
-    public bool isTouchingGround;
-
-
-    public void KillPlayer()
-    {
-     
-      //Destroy(gameObject);
-      // _animator.SetBool("player_Death", true);
-        //ReloadLevel();
-    }
-
-    private void ReloadLevel(int health)
-    {
-       if (health == 0)
-        {
-          _animator.SetBool("player_Death", true);
-        }
-        else
-        {
-            SceneManager.LoadScene(0);
-            RestartMenu();
-        }
-    }
-        
-    private void RestartMenu()
-    {
-        
-    }
+  
 
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-        _animator = gameObject.GetComponent<Animator>();
+       _animator = gameObject.GetComponent<Animator>();
     }
-
-    public void PickUpKeys()
-    {
-        _scoreController.AddScore(10);
-    }
-
+  
     public void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -97,6 +66,22 @@ public class Player_Controller : MonoBehaviour
             transform.localScale = scale;
         }
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("MovingPlatform"))
+        {
+           // player.transform.parent = other.gameObject.transform;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.transform.tag == "Enemy")
+        {
+           // GameOverController.SetActive(true);
+           // Debug.Log("GameOver");
+        }
+    }
     void Crouch()
     {
         if (Input.GetKey(KeyCode.LeftControl))
@@ -108,13 +93,9 @@ public class Player_Controller : MonoBehaviour
             _animator.SetBool("crouch", false);
         }
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    public void PickUpKeys()
     {
-
-
-        if(other.gameObject.CompareTag("MovingPlatform"))
-        {
-            player.transform.parent = other.gameObject.transform;
-        }
+        _scoreController.AddScore(10);
     }
+  
 }

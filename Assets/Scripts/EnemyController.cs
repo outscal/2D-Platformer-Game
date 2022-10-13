@@ -17,11 +17,13 @@ public class EnemyController : MonoBehaviour
     Rigidbody2D rb2d;
     Animator _animator;
     Player_Controller playerController;
-
+    HealthSystem healthSystem;
+    
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         playerController = gameObject.GetComponent<Player_Controller>();
+        healthSystem = gameObject.GetComponent <HealthSystem>();
         mustPatrol = true;
     }
     void Update()
@@ -38,8 +40,15 @@ public class EnemyController : MonoBehaviour
             mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, 0.1f, groundLayer);
         }
     }
- 
-
+   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Player_Controller>() != null)
+        {
+            // healthSystem.TakeDamage(10);
+            Debug.Log("OnCollision");
+        }
+    }
     private void Patrol()
     {
         if (mustTurn)
@@ -54,22 +63,6 @@ public class EnemyController : MonoBehaviour
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
         walkSpeed *= -1;
         mustPatrol = true; 
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            _animator.SetBool("Attack", true);
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<Player_Controller>() != null)
-        {
-            Player_Controller player_controller = collision.gameObject.GetComponent<Player_Controller>(); 
-            player_controller.KillPlayer();
-          
-        }
     }
  
 }
