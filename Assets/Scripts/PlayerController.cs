@@ -5,8 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    private Rigidbody2D rgbd2d;
+
     private BoxCollider2D boxCollider2D;
     public float xspeed;
+    public float jumpVal;
+
     float offsetX;
     float offsetY;
     float sizeX;
@@ -19,19 +23,19 @@ public class PlayerController : MonoBehaviour
     private void Start ()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
+        rgbd2d = gameObject.GetComponent<Rigidbody2D>();
     }
    
     private void Update()
-    {
+    {   //movement animation and Player move left or right direction.
         float speed = Input.GetAxisRaw("Horizontal");
-        PlayerMovement(speed);
-        PlayerMoveAnimation(speed);
-       
+        //Jump
+        float jumpinput = Input.GetAxisRaw("Jump");
 
-
-        float jumpinput = Input.GetAxis("Vertical");
-        jumpAnim(jumpinput);
-
+        PlayerMovement(speed,jumpinput);
+        PlayerMoveAnimation(speed,jumpinput);
+        
+        //crouch
         if(Input.GetKey(KeyCode.LeftControl))
         {
             CrouchAnim(true);
@@ -40,13 +44,22 @@ public class PlayerController : MonoBehaviour
             CrouchAnim(false);
         }
     }
-    private void PlayerMovement(float speed)
-    {
+    //Player Move left and right 
+    private void PlayerMovement(float speed, float jumpinput)
+    {   //move Player Horizontally
         Vector3 position = transform.position;
         position.x += speed * xspeed * Time.deltaTime;
         transform.position = position;
+        
+        // move player vertically
+        if(jumpinput > 0)
+        {
+            rgbd2d.AddForce(new Vector2(0f,jumpVal),ForceMode2D.Force);
+        }
+    
     }
-    private void PlayerMoveAnimation(float speed)
+    //player flipped left or right animation 
+    private void PlayerMoveAnimation(float speed,float jumpinput)
     {
          animator.SetFloat("Speed",Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
@@ -62,10 +75,9 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);   
         }
         transform.localScale =scale; 
-    }
-    private void jumpAnim(float input)
-    {
-        if(input > 0 )
+
+        //Jump animation
+        if(jumpinput > 0 )
         {
             animator.SetBool("Jump", true);
         }
@@ -73,24 +85,27 @@ public class PlayerController : MonoBehaviour
              animator.SetBool("Jump", false);
         }
     }
+    
+    
+    //Player Crouch
     private void CrouchAnim(bool Crouch)
     {
          if (Crouch == true)
-        {
+        {       //Change the box collider size When player is crouch
             offsetX = -0.08742696f;
-            offsetY = 0.6050405f;          //Offset Y
+            offsetY = 0.6050405f;          
 
-            sizeX = 0.6085089f;               //Size X
-            sizeY = 1.180404f;               //Size Y
+            sizeX = 0.6085089f;               
+            sizeY = 1.180404f;               
         }
 
         else
-        {
+        {   //when Player not crouching Collider automatically resize
             offsetX = -0.002331734f;
-            offsetY = 0.9794595f;           //Offset Y
+            offsetY = 0.9794595f;           
 
-            sizeX =  0.4383185f;             //Size X
-            sizeY = 1.929242f;              //Size Y
+            sizeX =  0.4383185f;             
+            sizeY = 1.929242f;              
         }
         animator.SetBool("Crouch", Crouch);
 
