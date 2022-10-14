@@ -2,31 +2,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
-    public static event Action OnPlayerDeath;
-    public int maxHealth = 3;
-    public int currentHealth;
-    GameOverController gameOverController;
-
-    Animator anim;
+    [SerializeField]
+    public int playerHealth;
+    [SerializeField]
+    private Image[] _hearts;
     private void Start()
     {
-        anim = gameObject.GetComponent<Animator>();
-        currentHealth = maxHealth;
-        gameOverController = gameObject.GetComponent<GameOverController>();
+        UpdateHealth();
     }
 
-
-    public void TakeDamage(int amount)
+    public void UpdateHealth()
     {
-        currentHealth -= amount;
-
-        if (currentHealth <= 0)
-        {
-            anim.SetBool("isDead", true);
-            OnPlayerDeath?.Invoke();
-        }
+      for (int i = 0; i < _hearts.Length; i++)
+            {
+         if (i < playerHealth)
+         {
+            _hearts[i].color = Color.red;
+         }
+         else
+         {
+          _hearts[i].color = Color.black;
+         }
+      }
     }
 }

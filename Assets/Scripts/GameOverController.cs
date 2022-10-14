@@ -1,22 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverController : MonoBehaviour
 {
     
-    public GameObject gameOverMenu;
-
-    private void OnEnable()
+  
+    private void Start()
     {
-        HealthSystem.OnPlayerDeath += EnableGameOverMenu;
+    
     }
-    private void OnDisable()
-    {
-        HealthSystem.OnPlayerDeath -= EnableGameOverMenu;
-    }
-    public void EnableGameOverMenu() 
-    {
-        gameOverMenu.SetActive(true);
-    }
+ 
 }

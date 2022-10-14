@@ -6,7 +6,7 @@ using UnityEngine.PlayerLoop;
 public class EnemyController : MonoBehaviour
 {
 
-    //new implementation
+   //Patrolling
     private bool mustPatrol;
     private bool mustTurn;
     [SerializeField]
@@ -15,16 +15,21 @@ public class EnemyController : MonoBehaviour
     public LayerMask groundLayer;
 
     Rigidbody2D rb2d;
+    [SerializeField]
     Animator _animator;
-    Player_Controller playerController;
-    HealthSystem healthSystem;
+    [SerializeField]
+    private HealthSystem _healthSystem;
+
+    //Heartsystem
+    public  int _enemyDamage;
+    [SerializeField]
     
+
+
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        playerController = gameObject.GetComponent<Player_Controller>();
-        healthSystem = gameObject.GetComponent <HealthSystem>();
-        mustPatrol = true;
+         mustPatrol = true;
     }
     void Update()
     {
@@ -41,14 +46,6 @@ public class EnemyController : MonoBehaviour
         }
     }
    
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<Player_Controller>() != null)
-        {
-            // healthSystem.TakeDamage(10);
-            Debug.Log("OnCollision");
-        }
-    }
     private void Patrol()
     {
         if (mustTurn)
@@ -64,5 +61,19 @@ public class EnemyController : MonoBehaviour
         walkSpeed *= -1;
         mustPatrol = true; 
     }
- 
+
+     void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag =="Player")
+        {
+           _animator.SetBool("Attack", true);
+            Damage();
+        }
+    }
+
+    private void Damage()
+    {
+        _healthSystem.playerHealth -= _enemyDamage;
+        _healthSystem.UpdateHealth();
+    }
 }

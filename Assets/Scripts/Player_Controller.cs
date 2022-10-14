@@ -12,6 +12,8 @@ public class Player_Controller : MonoBehaviour
     private Animator _animator;
     public GameObject player;
     public ScoreController _scoreController;
+    
+    
 
     [SerializeField]
     private float _playerSpeed = 5.5f;
@@ -78,8 +80,8 @@ public class Player_Controller : MonoBehaviour
     {
         if(collision.transform.tag == "Enemy")
         {
-           // GameOverController.SetActive(true);
-           // Debug.Log("GameOver");
+            
+          //  gameOverMenu.SetActive(true);
         }
     }
     void Crouch()
