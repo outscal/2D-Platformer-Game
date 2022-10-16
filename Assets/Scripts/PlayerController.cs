@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     public float xspeed;
     public float jumpVal;
+    bool isGrounded;
 
     float offsetX;
     float offsetY;
@@ -19,11 +20,12 @@ public class PlayerController : MonoBehaviour
     private void Awake ()
     {
         Debug.Log("awake");
+        rgbd2d = gameObject.GetComponent<Rigidbody2D>();
     }
     private void Start ()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
-        rgbd2d = gameObject.GetComponent<Rigidbody2D>();
+        
     }
    
     private void Update()
@@ -52,9 +54,9 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
         
         // move player vertically
-        if(jumpinput > 0)
+        if(jumpinput > 0 && isGrounded == true)
         {
-            rgbd2d.AddForce(new Vector2(0f,jumpVal),ForceMode2D.Force);
+            rgbd2d.AddForce(new Vector2(0f,jumpVal),ForceMode2D.Impulse);
         }
     
     }
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale =scale; 
 
         //Jump animation
-        if(jumpinput > 0 )
+        if(jumpinput > 0)
         {
             animator.SetBool("Jump", true);
         }
@@ -111,6 +113,20 @@ public class PlayerController : MonoBehaviour
 
         boxCollider2D.size = new Vector3(sizeX, sizeY);     //Setting the size of collider
         boxCollider2D.offset = new Vector3(offsetX, offsetY); 
+    }
+    private void OnColliderStay2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "Platform")
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnColliderExit2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "Platform")
+        {
+            isGrounded = false;
+        }
     }
     
 }
