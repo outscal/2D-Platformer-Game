@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1096899961}
   - component: {fileID: 1096899960}
   - component: {fileID: 1096899959}
+  - component: {fileID: 1096899962}
   m_Layer: 0
   m_Name: LevelComplete
   m_TagString: Untagged
@@ -234,6 +235,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1096899962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096899958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ca2959403728340bb9ca5a68dd878f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1146550623
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +393,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1105483848, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 1105483849, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: xspeed
@@ -388,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1105483849, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: jumpVal
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1616246514, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: m_Enabled

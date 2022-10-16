@@ -20,11 +20,12 @@ public class PlayerController : MonoBehaviour
     private void Awake ()
     {
         Debug.Log("awake");
-        rgbd2d = gameObject.GetComponent<Rigidbody2D>();
+        
     }
     private void Start ()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
+        rgbd2d = gameObject.GetComponent<Rigidbody2D>();
         
     }
    
@@ -38,13 +39,7 @@ public class PlayerController : MonoBehaviour
         PlayerMoveAnimation(speed,jumpinput);
         
         //crouch
-        if(Input.GetKey(KeyCode.LeftControl))
-        {
-            CrouchAnim(true);
-        }
-        else{
-            CrouchAnim(false);
-        }
+       
     }
     //Player Move left and right 
     private void PlayerMovement(float speed, float jumpinput)
@@ -54,9 +49,9 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
         
         // move player vertically
-        if(jumpinput > 0 && isGrounded == true)
+        if(jumpinput > 0 )
         {
-            rgbd2d.AddForce(new Vector2(0f,jumpVal),ForceMode2D.Impulse);
+            rgbd2d.AddForce(new Vector2(0f,jumpVal),ForceMode2D.Force);
         }
     
     }
@@ -86,6 +81,14 @@ public class PlayerController : MonoBehaviour
         else{
              animator.SetBool("Jump", false);
         }
+        //Player Crouching Animations
+         if(Input.GetKey(KeyCode.LeftControl))
+        {
+            CrouchAnim(true);
+        }
+        else{
+            CrouchAnim(false);
+        }
     }
     
     
@@ -114,19 +117,19 @@ public class PlayerController : MonoBehaviour
         boxCollider2D.size = new Vector3(sizeX, sizeY);     //Setting the size of collider
         boxCollider2D.offset = new Vector3(offsetX, offsetY); 
     }
-    private void OnColliderStay2D(Collider2D col)
-    {
-        if(col.gameObject.tag == "Platform")
-        {
-            isGrounded = true;
-        }
-    }
-    private void OnColliderExit2D(Collider2D col)
-    {
-        if(col.gameObject.tag == "Platform")
-        {
-            isGrounded = false;
-        }
-    }
+    // private void OnColliderStay2D(Collider2D col)
+    // {
+    //     if(col.gameObject.tag == "Platform")
+    //     {
+    //         isGrounded = true;
+    //     }
+    // }
+    // private void OnColliderExit2D(Collider2D col)
+    // {
+    //     if(col.gameObject.tag == "Platform")
+    //     {
+    //          isGrounded = false;
+    //     }
+    // }
     
 }
