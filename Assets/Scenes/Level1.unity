@@ -239,7 +239,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1096899962
 MonoBehaviour:
@@ -399,7 +399,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1105483848, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: m_Mass
-      value: 5.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105483848, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
+      propertyPath: m_GravityScale
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1105483849, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: xspeed
@@ -407,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1105483849, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: jumpVal
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1616246514, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: m_Enabled
@@ -447,13 +451,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3158433524667972216, guid: da695b74a4abbc74e93bc8ec6e3b1617,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3158433524667972216, guid: da695b74a4abbc74e93bc8ec6e3b1617,
+        type: 3}
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3158433524667972217, guid: da695b74a4abbc74e93bc8ec6e3b1617,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3158433524667972217, guid: da695b74a4abbc74e93bc8ec6e3b1617,
         type: 3}
@@ -3548,7 +3557,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1740242510
 MonoBehaviour:
@@ -3606,7 +3615,7 @@ Transform:
   - {fileID: 1382318544}
   - {fileID: 1812018707}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1812018706
 GameObject:
