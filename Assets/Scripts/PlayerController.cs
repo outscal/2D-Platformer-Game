@@ -5,19 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    
+    public ScoreController scoreController;
     public Animator animator;
     private Rigidbody2D rgbd2d;
 
     private BoxCollider2D boxCollider2D;
-    public float xspeed;
-    public float jumpVal;
+     [SerializeField] float xspeed;
+    [SerializeField] float jumpVal;
     bool isGrounded;
 
     float offsetX;
     float offsetY;
     float sizeX;
     float sizeY;
+    float speed;
+    float jumpinput;
 
     private void Awake ()
     {
@@ -33,18 +35,18 @@ public class PlayerController : MonoBehaviour
    
     private void Update()
     {   //movement animation and Player move left or right direction.
-        float speed = Input.GetAxisRaw("Horizontal");
+        speed = Input.GetAxisRaw("Horizontal");
         //Jump
-        float jumpinput = Input.GetAxisRaw("Jump");
+        jumpinput = Input.GetAxisRaw("Jump");
 
-        PlayerMovement(speed,jumpinput);
-        PlayerMoveAnimation(speed,jumpinput);
+        PlayerMovement();
+        PlayerMoveAnimation();
         
         //crouch
        
     }
     //Player Move left and right 
-    private void PlayerMovement(float speed, float jumpinput)
+    private void PlayerMovement()
     {   //move Player Horizontally
         Vector3 position = transform.position;
         position.x += speed * xspeed * Time.deltaTime;
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
     
     }
     //player flipped left or right animation 
-    private void PlayerMoveAnimation(float speed,float jumpinput)
+    private void PlayerMoveAnimation()
     {
          animator.SetFloat("Speed",Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
@@ -132,6 +134,12 @@ public class PlayerController : MonoBehaviour
         {
              isGrounded = false;
         }
+    }
+    public void PickupKey()
+    {
+        Debug.Log("Key Collect By the Player");
+        scoreController.IncreaseScore(10);
+
     }
    
 
