@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    
     public Animator animator;
     private Rigidbody2D rgbd2d;
 
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
         // move player vertically
         if(jumpinput > 0 )
         {
-            rgbd2d.AddForce(new Vector2(0f,jumpVal),ForceMode2D.Force);
+            rgbd2d.velocity = new Vector2(0,jumpVal);
         }
     
     }
@@ -117,19 +119,20 @@ public class PlayerController : MonoBehaviour
         boxCollider2D.size = new Vector3(sizeX, sizeY);     //Setting the size of collider
         boxCollider2D.offset = new Vector3(offsetX, offsetY); 
     }
-    // private void OnColliderStay2D(Collider2D col)
-    // {
-    //     if(col.gameObject.tag == "Platform")
-    //     {
-    //         isGrounded = true;
-    //     }
-    // }
-    // private void OnColliderExit2D(Collider2D col)
-    // {
-    //     if(col.gameObject.tag == "Platform")
-    //     {
-    //          isGrounded = false;
-    //     }
-    // }
-    
+    private void OnCollisionStay2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "Platform")
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "Platform")
+        {
+             isGrounded = false;
+        }
+    }
+   
+
 }
