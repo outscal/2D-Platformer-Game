@@ -21,9 +21,9 @@ public class Player_Controller : MonoBehaviour
     //Jump
     [SerializeField]
     private float _jumpSpeed;
-    public Transform groundCheck;
-    public float groundCheckRaduius;
-    public LayerMask groundLayer;
+    
+    
+   
   
 
     private void Awake()
@@ -42,6 +42,7 @@ public class Player_Controller : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+          //  _animator.SetBool("Jump", true);
             rb2d.velocity = new Vector2(rb2d.velocity.x, _jumpSpeed);
         }
     }
@@ -78,10 +79,9 @@ public class Player_Controller : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.tag == "Enemy")
+        if (collision.transform.tag == "Enemy")
         {
-            
-          //  gameOverMenu.SetActive(true);
+
         }
     }
     void Crouch()

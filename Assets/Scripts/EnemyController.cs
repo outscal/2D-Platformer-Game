@@ -7,14 +7,13 @@ public class EnemyController : MonoBehaviour
 {
 
    //Patrolling
-    private bool mustPatrol;
-    private bool mustTurn;
+ 
     [SerializeField]
     private float walkSpeed;
-    public Transform groundCheckPos;
-    public LayerMask groundLayer;
+    public Transform groundDetect;
+    public float rayDist;
+    private bool movingRight;
 
-    Rigidbody2D rb2d;
     [SerializeField]
     Animator _animator;
     [SerializeField]
@@ -23,43 +22,27 @@ public class EnemyController : MonoBehaviour
     //Heartsystem
     public  int _enemyDamage;
     [SerializeField]
-    
 
 
-    private void Start()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-         mustPatrol = true;
-    }
+
     void Update()
     {
-        if (mustPatrol)
+        transform.Translate(Vector2.right * walkSpeed * Time.deltaTime);
+        RaycastHit2D groundcheck = Physics2D.Raycast(groundDetect.position, Vector2.down, rayDist);
+
+        if(groundcheck.collider == false)
         {
-            Patrol();
+            if (movingRight)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                movingRight = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                movingRight = true;
+            }
         }
-    }
-    void FixedUpdate()
-    {
-        if (mustPatrol)
-        {
-            mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, 0.1f, groundLayer);
-        }
-    }
-   
-    private void Patrol()
-    {
-        if (mustTurn)
-        {
-            Flip();
-        }
-        rb2d.velocity = new Vector2(walkSpeed * Time.fixedDeltaTime, rb2d.velocity.y);
-    }
-    void Flip()
-    {
-        mustPatrol = false;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-        walkSpeed *= -1;
-        mustPatrol = true; 
     }
 
      void OnCollisionEnter2D(Collision2D collision)
@@ -70,7 +53,6 @@ public class EnemyController : MonoBehaviour
             Damage();
         }
     }
-
     private void Damage()
     {
         _healthSystem.playerHealth -= _enemyDamage;

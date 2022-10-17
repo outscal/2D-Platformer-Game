@@ -10,6 +10,8 @@ public class HealthSystem : MonoBehaviour
     public int playerHealth;
     [SerializeField]
     private Image[] _hearts;
+    public GameObject gameOverMenu;
+
     private void Start()
     {
         UpdateHealth();
@@ -17,16 +19,27 @@ public class HealthSystem : MonoBehaviour
 
     public void UpdateHealth()
     {
-      for (int i = 0; i < _hearts.Length; i++)
+     
+        if(playerHealth <= 0)
+        {
+            gameOverMenu.SetActive(true);
+        }
+        else
+        {
+           
+            for (int i = 0; i < _hearts.Length; i++)
             {
-         if (i < playerHealth)
-         {
-            _hearts[i].color = Color.red;
-         }
-         else
-         {
-          _hearts[i].color = Color.black;
-         }
-      }
+                if (i < playerHealth)
+                {
+                    _hearts[i].color = Color.red;
+                }
+                else if(i >= playerHealth)
+                {
+                    _hearts[i].color = Color.black;
+                }
+                
+            }
+        }
+       
     }
 }
