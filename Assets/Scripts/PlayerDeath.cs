@@ -16,20 +16,13 @@ public class PlayerDeath : MonoBehaviour
     }
  private void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.CompareTag("FallingDown"))
+        if(col.gameObject.GetComponent<PlayerController>()!= null)
         {
-            PlayerDie();
+            PlayerController playerController = col.gameObject.GetComponent<PlayerController>();
+
+           playerController.PlayerDie();
         }
     }
-    private void PlayerDie()
-    {
-        rgbd2d.bodyType = RigidbodyType2D.Static;
-        animator.SetTrigger("Death");
-        
-    }
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+   
     
 }
