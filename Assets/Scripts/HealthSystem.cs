@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
@@ -10,19 +7,20 @@ public class HealthSystem : MonoBehaviour
     public int playerHealth;
     [SerializeField]
     private Image[] _hearts;
-    public GameObject gameOverMenu;
-
+    public Animator anim;
+    public GameOverController gameOverController;
     private void Start()
     {
+
         UpdateHealth();
     }
-
     public void UpdateHealth()
     {
      
         if(playerHealth <= 0)
         {
-            gameOverMenu.SetActive(true);
+            anim.SetTrigger("isDead");
+            gameOverController.PlayerDied();
         }
         else
         {

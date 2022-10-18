@@ -1,9 +1,5 @@
-﻿
-using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-//using UnityEngine.UIElements;
+﻿using UnityEngine;
+
 
 public class Player_Controller : MonoBehaviour
 {
@@ -12,20 +8,19 @@ public class Player_Controller : MonoBehaviour
     private Animator _animator;
     public GameObject player;
     public ScoreController _scoreController;
+    public GameOverController gameOverController;
     
     
-
     [SerializeField]
     private float _playerSpeed = 5.5f;
 
     //Jump
     [SerializeField]
     private float _jumpSpeed;
+    public Transform GroundCheck;
+    public LayerMask groundLayer;
+    private bool doubleJump;
     
-    
-   
-  
-
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -40,11 +35,33 @@ public class Player_Controller : MonoBehaviour
         Crouch();
         HorizontalAnimation(horizontal);
 
+        JumpAnimation();
+    }
+
+    private void JumpAnimation()
+    {
+        if (IsGrounded() && !Input.GetButton("Jump"))
+        {
+            doubleJump = false;
+        }
         if (Input.GetButtonDown("Jump"))
         {
-          //  _animator.SetBool("Jump", true);
-            rb2d.velocity = new Vector2(rb2d.velocity.x, _jumpSpeed);
+            if (IsGrounded() || doubleJump)
+            {
+                // _animator.SetTrigger("Jump");
+                rb2d.velocity = new Vector2(rb2d.velocity.x, _jumpSpeed);
+                doubleJump = !doubleJump;
+            }
         }
+        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0f)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
+        }
+    }
+
+    public bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, groundLayer);
     }
     void MoveCharecter(float horizontal)
     {
@@ -74,15 +91,20 @@ public class Player_Controller : MonoBehaviour
     {
         if(other.gameObject.CompareTag("MovingPlatform"))
         {
-           // player.transform.parent = other.gameObject.transform;
+            player.transform.parent = other.gameObject.transform;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Enemy")
         {
-
+           
         }
+    }
+    public void KillPlayer()
+    {
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
     void Crouch()
     {

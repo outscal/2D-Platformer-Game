@@ -1,7 +1,6 @@
-﻿using System;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
+﻿using UnityEngine;
+
+
 
 public class EnemyController : MonoBehaviour
 {
@@ -49,8 +48,16 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.tag =="Player")
         {
-           _animator.SetBool("Attack", true);
+           _animator.SetTrigger("Attack");
             Damage();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            _animator.SetTrigger("EnemyDied");
+            Destroy(this.gameObject);
         }
     }
     private void Damage()
