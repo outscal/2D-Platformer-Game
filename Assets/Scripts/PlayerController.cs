@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
+    public PlayerDeath playerDeath;
     public Animator animator;
     private Rigidbody2D rgbd2d;
 
@@ -140,6 +141,23 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Key Collect By the Player");
         scoreController.IncreaseScore(10);
 
+    }
+    // public void EnemyKills()
+    // {
+    //     Debug.Log("Player Collide with Enemy");
+    //     animator.SetTrigger("Death");
+    //     RestartLevel();
+
+    // }
+     public void PlayerDie()
+    {
+        rgbd2d.bodyType = RigidbodyType2D.Static;
+        animator.SetTrigger("Death");
+        
+    }
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
    
 
