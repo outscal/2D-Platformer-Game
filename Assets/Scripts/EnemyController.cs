@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
         if(col.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController playerController = col.gameObject.GetComponent<PlayerController>();
-            playerController.PlayerDie();
+            playerController.HealthSystem();
             
         }
     }

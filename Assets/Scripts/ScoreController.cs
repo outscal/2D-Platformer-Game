@@ -6,7 +6,11 @@ using TMPro;
 public class ScoreController : MonoBehaviour
 {
     private TextMeshProUGUI scoreText;
+    [SerializeField]private TextMeshProUGUI keyText;
+
     int score;
+    int key;
+    public int KeyToCompleteLevel;
 
     
   private void Awake()
@@ -14,7 +18,7 @@ public class ScoreController : MonoBehaviour
         scoreText = gameObject.GetComponent<TextMeshProUGUI>();
         
     }
-    private void Start()
+    private void Update()
     {
         RefreshUI();
     }
@@ -26,6 +30,18 @@ public void IncreaseScore(int scoreIncrement)
 private void RefreshUI()
 {
     scoreText.text = "Score: " + score;
+    keyText.text = key + "/" + KeyToCompleteLevel;
 }
+public void IncreamentKey(int Keyval)
+{
+    key += Keyval;
+    if(key >= KeyToCompleteLevel)
+    {
+        keyText.color = Color.green;
+    }
+    RefreshUI();
+
+}
+
    
 }
