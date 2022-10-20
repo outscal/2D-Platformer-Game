@@ -186,9 +186,8 @@ public class PlayerController : MonoBehaviour
     {
         // mainCamera.transform.parent = null;
         // deathUIPanel.gameObject.SetActive(true);
-        rgbd2d.constraints = RigidbodyConstraints2D.FreezePosition;
-       
         animator.SetTrigger("Death");
+       this.enabled = false;
 
         
     }
