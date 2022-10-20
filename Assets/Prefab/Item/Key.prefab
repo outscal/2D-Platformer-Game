@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 804873742675467193}
   - component: {fileID: 804873742675467198}
   - component: {fileID: 473254870}
+  - component: {fileID: 1110303580}
   m_Layer: 0
   m_Name: Key
   m_TagString: Key
@@ -145,3 +146,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38939a3048b18b4479466f763286943b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 180
+  Duration: 0.8
+  spriteRenderer: {fileID: 804873742675467192}
+  Foodcollider2D: {fileID: 804873742675467198}
+--- !u!50 &1110303580
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804873742675467194}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
