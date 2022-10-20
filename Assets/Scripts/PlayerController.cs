@@ -6,14 +6,18 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
-    public PlayerDeath playerDeath;
+    
+    [SerializeField] private GameManager gameManager;
+     [SerializeField]private PlayerDeath playerDeath;
     public Animator animator;
     private Rigidbody2D rgbd2d;
 
     private BoxCollider2D boxCollider2D;
-     [SerializeField] float xspeed;
+    [SerializeField] float xspeed;
     [SerializeField] float jumpVal;
+    
     bool isGrounded;
+    [SerializeField]int playerHealth;
 
     float offsetX;
     float offsetY;
@@ -139,7 +143,10 @@ public class PlayerController : MonoBehaviour
     public void PickupKey()
     {
         Debug.Log("Key Collect By the Player");
+        //collectItem.IncreaseItem(1);
         scoreController.IncreaseScore(10);
+      
+
 
     }
     // public void EnemyKills()
@@ -149,16 +156,66 @@ public class PlayerController : MonoBehaviour
     //     RestartLevel();
 
     // }
+    public void HealthSystem()
+    {
+        playerHealth -= 1;
+        gameManager.HealthHearts(playerHealth);
+        if(playerHealth > 0)
+        {
+            animator.SetTrigger("Hurt");
+        }
+        CheckHealth();
+    }
+    public void FallingDown()
+    {
+        playerHealth -= 10;
+        gameManager.HealthHearts(playerHealth);
+        CheckHealth();
+    }
+    public void CheckHealth()
+    {
+        
+       
+        if(playerHealth <= 0)
+        {
+            PlayerDie();
+                        
+        }
+    }
      public void PlayerDie()
     {
-        rgbd2d.bodyType = RigidbodyType2D.Static;
+        // mainCamera.transform.parent = null;
+        // deathUIPanel.gameObject.SetActive(true);
+        rgbd2d.constraints = RigidbodyConstraints2D.FreezePosition;
+       
         animator.SetTrigger("Death");
+
         
     }
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-   
 
+    private void OnCollisionEnter2D(Collision2D collision2D)
+    {   
+        if(collision2D.gameObject.tag == "Enemy")
+        {
+            playerHealth -= 1;
+        gameManager.HealthHearts(playerHealth);
+        if(playerHealth > 0)
+        {
+            animator.SetTrigger("Hurt");
+        }
+        CheckHealth();
+        }
+        if(collision2D.gameObject.tag == "Key")
+        {
+            scoreController.IncreaseScore(10);
+            scoreController.IncreamentKey(1);
+        }
+
+    }
+
+   
 }
