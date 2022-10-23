@@ -133,26 +133,13 @@ GameObject:
   m_Component:
   - component: {fileID: 168200666}
   - component: {fileID: 168200665}
-  - component: {fileID: 168200664}
   m_Layer: 0
   m_Name: GameObject (1)
-  m_TagString: Untagged
+  m_TagString: death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &168200664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168200663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe0353e346853d4f84746ad9ebcd9fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &168200665
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,7 +150,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -207,6 +194,7 @@ GameObject:
   - component: {fileID: 532655851}
   - component: {fileID: 532655850}
   - component: {fileID: 532655855}
+  - component: {fileID: 532655856}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -232,10 +220,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  death: {fileID: 168200663}
   speed: 2
   jumpPower: 5
   totalJumps: 2
   isGrounded: 1
+  deathcol: {fileID: 0}
 --- !u!70 &532655851
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -359,6 +349,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &532655856
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532655849}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.30027902, y: 1.1330233}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.42, y: 0.1}
+    oldSize: {x: 3.7534883, y: 2.8325582}
+    newSize: {x: 3.7534883, y: 2.8325582}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.7534883, y: 2.8325582}
+  m_EdgeRadius: 0
 --- !u!1 &619691564
 GameObject:
   m_ObjectHideFlags: 0
