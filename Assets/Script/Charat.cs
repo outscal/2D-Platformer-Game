@@ -10,6 +10,7 @@ public class Charat : MonoBehaviour
     [SerializeField] Transform groundCheckCollider;
     [SerializeField] Transform overheadCheckCollider;
     [SerializeField] LayerMask groundLayer;
+    public GameObject death;
 
     const float groundCheckRadius = 0.2f;
     const float overheadCheckRadius = 0.2f;
@@ -27,6 +28,8 @@ public class Charat : MonoBehaviour
     bool crouchPressed;
     bool multipleJump;
     bool coyoteJump;
+
+    public Collider2D deathcol;
 
     void Awake()
     {
@@ -188,4 +191,13 @@ public class Charat : MonoBehaviour
         animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
         #endregion
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("death"))
+        {
+            animator.SetBool("death", true);
+            Destroy(gameObject);
+        }
+    }
+
 }
