@@ -688,6 +688,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &235263030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 235263031}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &235263031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235263030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.868, y: 1.209, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 112980453}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &238705226
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,6 +2156,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1105483847, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4383185
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105483847, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0023317337
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105483847, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.7534883
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105483847, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.8325582
+      objectReference: {fileID: 0}
     - target: {fileID: 1105483849, guid: da695b74a4abbc74e93bc8ec6e3b1617, type: 3}
       propertyPath: gameManager
       value: 
@@ -5163,6 +5210,37 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &1393398637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3158433524667972219, guid: da695b74a4abbc74e93bc8ec6e3b1617,
+    type: 3}
+  m_PrefabInstance: {fileID: 1305921750}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1393398640 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1105483844, guid: da695b74a4abbc74e93bc8ec6e3b1617,
+    type: 3}
+  m_PrefabInstance: {fileID: 1305921750}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1393398644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393398637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304e0ecd50826f84abd4f4233f44d957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1393398640}
+  attakPoint: {fileID: 235263031}
+  attakRange: 3.17
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  AttackPower: 40
 --- !u!1 &1418269313
 GameObject:
   m_ObjectHideFlags: 0
