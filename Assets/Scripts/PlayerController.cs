@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
         else{
             CrouchAnim(false);
         }
+       
     }
     
     

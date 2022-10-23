@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] Animator animator;
     [SerializeField] float speed;
     [SerializeField]  float distance;
     private bool movingRight = true;
     [SerializeField] Transform groundDetection;
+    [SerializeField] int maxHealth = 100;
+     private GameObject bloodSplash;
+     
+    
     
 
     // Update is called once per frame
@@ -29,5 +34,21 @@ public class EnemyMovement : MonoBehaviour
             }
         }
         
+    }
+    public void TakeDamage(int damage)
+    {
+        maxHealth -= damage;
+        if(maxHealth <= 0)
+        {
+            EnemyDie();
+            Destroy(gameObject,0.2f); 
+        }
+    }
+
+    void EnemyDie()
+    {
+         Instantiate(bloodSplash, transform.position, Quaternion.identity);
+        animator.SetTrigger("Dead");
+
     }
 }

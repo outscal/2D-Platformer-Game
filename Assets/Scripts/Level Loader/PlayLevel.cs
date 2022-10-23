@@ -19,4 +19,11 @@ public class PlayLevel : MonoBehaviour
     {
         LevelSlectionPanel.SetActive(true);
     }
+
+    public void Exit()
+    {
+        Debug.Log("Game is Exit");
+        Application.Quit();
+
+    }
 }
