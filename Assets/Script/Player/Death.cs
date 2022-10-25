@@ -21,12 +21,12 @@ public class Death : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     private void FixedUpdate()
     {
-        if (rb.velocity.y < -5f)
+        if (transform.position.y < -5f)
         {
 
             rb.gravityScale = Gravity;

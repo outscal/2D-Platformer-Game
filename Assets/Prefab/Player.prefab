@@ -13,11 +13,13 @@ GameObject:
   - component: {fileID: 9207155331771267488}
   - component: {fileID: 9207155331771267491}
   - component: {fileID: 9207155331771267500}
-  - component: {fileID: 9207155331771267503}
   - component: {fileID: 9207155331771267501}
+  - component: {fileID: 4861260355057150427}
+  - component: {fileID: 8470296273878384338}
+  - component: {fileID: 1477518105651024281}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,9 +32,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9207155331771267490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23, y: -2.12, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -6.550771, y: -1.8637989, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 0.73333335}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1587274645
-  m_SortingLayer: 2
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c4d7d6470acd7bf45971042161c6e018, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -139,7 +141,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 9207155331771267490}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c325d97ce27776645bad5015a39d864d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -156,26 +158,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.60062814, y: 2.0951352}
   m_EdgeRadius: 0
---- !u!114 &9207155331771267503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9207155331771267490}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45464d24d19dcc04c8303f74014ab58f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  Jump_force: 5
-  Jump_distance: 5
-  walk_speed: 5
-  collider2D: {fileID: 9207155331771267500}
-  ground:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &9207155331771267501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,3 +177,51 @@ MonoBehaviour:
   speed: 2
   RunningSpeed: 2
   Jump_force: 2
+--- !u!114 &4861260355057150427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207155331771267490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38478d15f216e44ca70a3d6b33a9630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 9207155331771267491}
+  jumpForce: 3
+  collider2D: {fileID: 9207155331771267500}
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
+  jumpingPower: 5
+--- !u!114 &8470296273878384338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207155331771267490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cb6f7f73602b848bc0e0d12e40272d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gravity: 15
+  mass: 10
+--- !u!114 &1477518105651024281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207155331771267490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0dbea749c96a974daec1fa350466ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyText: {fileID: 0}
+  ScoreText: {fileID: 0}
+  collectionSoundEffect: {fileID: 0}
