@@ -21,7 +21,7 @@ SpriteAtlas:
       crunchedCompression: 0
       sRGB: 1
     platformSettings:
-    - serializedVersion: 2
+    - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
       m_MaxTextureSize: 8192
       m_ResizeAlgorithm: 0
@@ -32,6 +32,7 @@ SpriteAtlas:
       m_AllowsAlphaSplitting: 0
       m_Overridden: 0
       m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 1
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -39,11 +40,14 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 7b200a58dfffd8d45b54454b1cb82151, type: 3}
-    totalSpriteSurfaceArea: 98929035
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: e4381a10685b28d4f906cc686ecbc2c7, type: 3}
@@ -115,6 +119,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 46fc6025308929d4b878bfb4b81ead12, type: 3}
   - {fileID: 21300000, guid: 05df8025a12814d46b434681a6989133, type: 3}
   - {fileID: 21300000, guid: 92f985257d4b81740b246818800efccd, type: 3}
+  - {fileID: 21300000, guid: 9ad043353e571b2498f5c11f3f7613ae, type: 3}
   - {fileID: 21300000, guid: 57585d65d25175a4b82cdcd9092545ca, type: 3}
   - {fileID: 21300000, guid: bce1db75cf9f0c7448eb419ad2e38c8a, type: 3}
   - {fileID: 21300000, guid: 0adb3b85a77225b42823314ce0caedd3, type: 3}
@@ -208,6 +213,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0a78267c907b61449a0367178cabe70c, type: 3}
   - {fileID: 21300000, guid: c39af18c1c6c80841b32ec80316d1e87, type: 3}
   - {fileID: 21300000, guid: cd65a99c817869946969cd216cab2115, type: 3}
+  - {fileID: 21300000, guid: 2c8c813df4b7f7746a811d6deedc943b, type: 3}
   - {fileID: 21300000, guid: 79d7163dfd26ad748bf88cdc6b98d2f5, type: 3}
   - {fileID: 21300000, guid: 8f8e5b3d53a0deb4d88a6a25a3db5ac4, type: 3}
   - {fileID: 21300000, guid: 049cab3d3a32a3a45856ca44f223ced1, type: 3}
@@ -316,6 +322,7 @@ SpriteAtlas:
   - Ellen_WALK_GUNOUT_019
   - ELLEN_RUN_NoGun_10
   - Anim_StaffAttack_Type1_00005
+  - Heart
   - Anim_RUN_WithGun_00001
   - Anim_JUMPwithGUN_19
   - Anim_HURT_00009
@@ -409,6 +416,7 @@ SpriteAtlas:
   - Anim_IDLE_WITHGUN_00029
   - Ellen_WALK_GUNOUT_021
   - Anim_IDLE_00021
+  - HealthBar
   - ELLEN_RUN_NoGun_16
   - Anim_IDLE_WITHGUN_00011
   - Anim_JUMPwithGUN_17
@@ -447,5 +455,6 @@ SpriteAtlas:
   - Anim_CROUCH_00007
   - ELLEN_RUN_NoGun_19
   - Anim_DEATH_00017
+  m_RenderDataMap: {}
   m_Tag: EllenAtlas
   m_IsVariant: 0
