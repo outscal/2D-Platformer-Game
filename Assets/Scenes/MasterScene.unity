@@ -134,7 +134,6 @@ GameObject:
   m_Component:
   - component: {fileID: 226976672}
   - component: {fileID: 226976671}
-  - component: {fileID: 226976673}
   - component: {fileID: 226976674}
   m_Layer: 0
   m_Name: Base_Floor
@@ -210,27 +209,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &226976673
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226976670}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &226976674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -361,7 +339,7 @@ PrefabInstance:
     - target: {fileID: 7313005895825613486, guid: 5518cd549c91f3c4eb346562ebd161d7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.14
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 7313005895825613486, guid: 5518cd549c91f3c4eb346562ebd161d7,
         type: 3}
@@ -472,7 +450,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.013810992, y: 0.98663485}
+  m_Offset: {x: 0.013810992, y: 0.9843037}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.42, y: 0.1}
@@ -483,5 +461,26 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6171508, y: 2.129926}
+  m_Size: {x: 0.6171508, y: 2.1345882}
   m_EdgeRadius: 0
+--- !u!50 &1118514571
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118514563}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0.5
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
