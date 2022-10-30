@@ -9,34 +9,29 @@ public class Player_Script : MonoBehaviour
     public float speed;
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        Player_Anime(horizontal);
-        Player_Move(horizontal);
+        float Horizontal = Input.GetAxisRaw("Horizontal");
+        bool Crouch = Input.GetKey(KeyCode.LeftControl);
+
+        Player_Horizontal(Horizontal);
+        Player_Crouch(Crouch);
     }
 
-    private void Player_Move(float horizontal)
-    {
-        Vector3 position = transform.position;
-        position.x = position.x + horizontal * speed * Time.deltaTime;
-        transform.position = position;
-    }
-
-    private void Player_Anime(float horizontal)
+    private void Player_Horizontal(float horizontal)
     {
         animator.SetFloat("SPEED", Mathf.Abs(horizontal));
-
         Vector3 scale = transform.localScale;
         if (horizontal < 0)
             scale.x = -1f * Mathf.Abs(scale.x);
         else if (horizontal > 0)
             scale.x = Mathf.Abs(scale.x);
-
         transform.localScale = scale;
+    }
 
-        bool vertical = Input.GetKey(KeyCode.Space);
-        animator.SetBool("JUMP", vertical);
-
-        bool Crounch = Input.GetKey(KeyCode.LeftControl);
-        animator.SetBool("CROUNCH", Crounch);
+    private void Player_Crouch(bool Crnch)
+    {
+        if (Crnch == true)
+          animator.SetBool("CROUNCH", true);
+        else
+          animator.SetBool("CROUNCH", false);
     }
 }
