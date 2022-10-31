@@ -9,11 +9,19 @@ public class Health : MonoBehaviour
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
-    private bool dead;
+    [SerializeField] GameObject Game_Over_screen;
+    [SerializeField] GameObject UI;
+
+
+
+
+
     private void Awake()
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
+        Game_Over_screen.SetActive(false);
+        UI.SetActive(true);
     }
     public void TakeDamage(float _damage)
     {
@@ -27,24 +35,27 @@ public class Health : MonoBehaviour
            
             //iframes
         }
-
+        
         else
         {
-         
-            if (!dead)
+            GetComponent<MoveMent_blend>().enabled = false;
+            if (currentHealth <=0)
             {
+                
                 anim.SetTrigger("die");
-                GetComponent<MoveMent_blend>().enabled = false;
-                dead = true;
+                UI.SetActive(false);
+                
+                Invoke("Game_over", 2f);
+              
 
-                Invoke("RestartLevel", 3f);
-                ;
+
             }
         }
     }
-    private void RestartLevel()
+    void Game_over()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+       Game_Over_screen.SetActive(true);
     }
     public void AddHealth(float _value)
     {

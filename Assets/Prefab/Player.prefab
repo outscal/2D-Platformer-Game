@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8470296273878384338}
   - component: {fileID: 1477518105651024281}
   - component: {fileID: 1911453625}
+  - component: {fileID: 1419305168}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -211,6 +212,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gravity: 15
   mass: 10
+  Game_Over_screen: {fileID: 0}
+  UI: {fileID: 0}
 --- !u!114 &1477518105651024281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,3 +242,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+  Game_Over_screen: {fileID: 0}
+  UI: {fileID: 0}
+--- !u!114 &1419305168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207155331771267490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38478d15f216e44ca70a3d6b33a9630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 9207155331771267491}
+  jumpForce: 3
+  collider2D: {fileID: 9207155331771267500}
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
+  jumpingPower: 5

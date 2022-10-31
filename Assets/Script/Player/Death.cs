@@ -9,6 +9,9 @@ public class Death : MonoBehaviour
     Animator anim;
     [SerializeField] float Gravity;
     [SerializeField] float mass;
+    [SerializeField] GameObject Game_Over_screen;
+    [SerializeField] GameObject UI;
+ 
 
 
     // Start is called before the first frame update
@@ -16,13 +19,12 @@ public class Death : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        Game_Over_screen.SetActive(false);
+        UI.SetActive(true);
        
     }
+
 
     private void FixedUpdate()
     {
@@ -32,26 +34,15 @@ public class Death : MonoBehaviour
             rb.gravityScale = Gravity;
             rb.mass = mass;
             anim.Play("Falling_Death");
+            UI.SetActive(false);
 
-            Invoke("RestartLevel", 2f);
+            Invoke("Game_over", 2f);
+           
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Game_over()
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-
-        }
-    }
-    private IEnumerator Scene_delay(float time)
-    {
-       
-        yield return new WaitForSeconds(time);
-      
-    }
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Game_Over_screen.SetActive(true);
     }
 }

@@ -14,8 +14,7 @@ public class Level : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            SceneManager.LoadScene(Index);
-            SceneManager.LoadScene(name);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
