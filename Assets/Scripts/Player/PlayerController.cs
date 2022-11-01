@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
+
     
     [SerializeField] private GameManager gameManager;
      [SerializeField]private PlayerDeath playerDeath;

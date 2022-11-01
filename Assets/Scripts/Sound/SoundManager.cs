@@ -99,6 +99,6 @@ public enum Sounds
     StartBtn,
     PlayerHurt,
     EnemyAttack,
-    footStep,
-    jumpsound,
+    MovingPlatform,
+    
 }
