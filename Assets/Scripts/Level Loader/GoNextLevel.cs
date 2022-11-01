@@ -7,18 +7,30 @@ using UnityEngine.SceneManagement;
 public class GoNextLevel : MonoBehaviour
 { 
     private Button button;
-    public string NextScene;
+    
     // Start is called before the first frame update
     void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(OnButtonClick);
+        
     }
 
     // Update is called once per frame
-    private void OnButtonClick()
+    public void MainMenu()
     {
-        Debug.Log("Button Clicked");
-        SceneManager.LoadScene(NextScene);
+        SoundManager.Instance.Play(Sounds.ButtonClick);
+        SceneManager.LoadScene("MainMenu");
+       
+    }
+    public void RestartLevel()
+    {
+       SoundManager.Instance.Play(Sounds.ButtonClick);
+       Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
+    }
+    public void NextLevel()
+    {
+         SoundManager.Instance.Play(Sounds.ButtonClick);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

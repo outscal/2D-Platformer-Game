@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7375121504133782333}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: GroundDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7375121504318715303}
   - component: {fileID: 7375121504318715322}
   - component: {fileID: 7375121504318715323}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: EnemyPatrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc612c16af33ebf41ac02fca0bdbc73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 7375121504318715322}
 --- !u!95 &7375121504318715322
 Animator:
   serializedVersion: 4
@@ -191,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7375121504318715322}
-  speed: 1
+  speed: 1.5
   distance: 0.3
   groundDetection: {fileID: 7375121504133782333}
   maxHealth: 100

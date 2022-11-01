@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     private static LevelManager instance;
-    [SerializeField] static LevelManager Instacne{get{return instance;}}
+     public static LevelManager Instacne{get{return instance;}}
     [SerializeField] string[] Levels;
 
     private void Awake()
@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     {
         if(GetLevelStatus(Levels[0]) == LevelStatus.Locked)
         {
-            SetLevelStatus(Levels[0], LevelStatus.unlocked);
+            SetLevelStatus(Levels[0], LevelStatus.Unlocked);
         }
     }
     public void MarkCurrentLevelComplete()
@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
         int nextSceneIndex = currentIndexScene + 1;
         if(nextSceneIndex < Levels.Length)
         {
-            SetLevelStatus(Levels[nextSceneIndex],LevelStatus.unlocked);
+            SetLevelStatus(Levels[nextSceneIndex],LevelStatus.Unlocked);
         }   
     }
 
