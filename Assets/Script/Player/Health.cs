@@ -39,6 +39,7 @@ public class Health : MonoBehaviour
         else
         {
             GetComponent<MoveMent_blend>().enabled = false;
+            GetComponent<Jump_Crouch>().enabled = false;
             if (currentHealth <=0)
             {
                 

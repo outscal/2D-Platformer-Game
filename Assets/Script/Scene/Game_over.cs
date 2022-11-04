@@ -5,10 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Game_over : MonoBehaviour
-{
-   public void Main_menu()
+{ private int CurrentBuildIndex;
+   public void menu()
     {
-        SceneManager.LoadScene("Start_menu");
+        CurrentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        PlayerPrefs.SetInt("SavedScene", CurrentBuildIndex);
+        SceneManager.LoadScene(1);
     }
 
     public void Try_again()
