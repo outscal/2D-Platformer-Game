@@ -10,7 +10,7 @@ public class EnemyMovement : MonoBehaviour
     private bool movingRight = true;
     [SerializeField] Transform groundDetection;
     [SerializeField] int maxHealth = 100;
-    // private GameObject bloodSplash;
+    [SerializeField]private GameObject bloodSplash;
      
     
     
@@ -49,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
 
     void EnemyDie()
     {
-         //Instantiate(bloodSplash, transform.position, Quaternion.identity);
+        Instantiate(bloodSplash, transform.position, Quaternion.identity);
         SoundManager.Instance.Play(Sounds.EnemyDeath);
         animator.SetTrigger("Dead");
         

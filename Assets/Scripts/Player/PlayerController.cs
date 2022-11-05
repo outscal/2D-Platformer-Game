@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     
     bool isGrounded;
     [SerializeField]int playerHealth;
+    [SerializeField] private GameObject DustCloud;
 
     float offsetX;
     float offsetY;
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
         // move player vertically
         if(jumpinput > 0)
         {
+             
             rgbd2d.velocity = new Vector2(0,jumpVal);
         }
     
@@ -88,6 +90,7 @@ public class PlayerController : MonoBehaviour
         //Jump animation
         if(jumpinput > 0)
         {
+            Instantiate(DustCloud, transform.position, Quaternion.identity);
             animator.SetBool("Jump", true);
         }
         else{
