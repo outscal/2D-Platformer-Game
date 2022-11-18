@@ -5,16 +5,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    LayerMask platformLayerMask;
+
     public Animator animator;
-    public BoxCollider2D boxcollider;
+    BoxCollider2D boxcollider2d;
+    Rigidbody2D rigidbody2d;
     public float speed;
     public float jump;
     Vector2 size;
     Vector2 offset;
     private void Awake()
     {
-        size = boxcollider.size;
-        offset = boxcollider.offset;
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        boxcollider2d = GetComponent<BoxCollider2D>();
+        
+        size = boxcollider2d.size;
+        offset = boxcollider2d.offset;
     }
 
 
@@ -30,8 +37,23 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(float speedX, float speedY)
     {
         PlayerHorizontalMovement(speedX);
-        PlayerJump(speedY);
-        PlayerCrouch();
+        PlayerVerticalMovement(speedY);
+    }
+
+    private void PlayerVerticalMovement(float speedY)
+    {
+        if(speedY > 0 && IsGrounded())
+        {
+            rigidbody2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxcollider2d.bounds.center, boxcollider2d.bounds.size, 0f, Vector2.down, 0.06f, platformLayerMask);
+        Debug.Log(raycastHit2d.collider);
+        return raycastHit2d.collider != null;
+       
     }
 
     private void PlayerHorizontalMovement(float speedX)
@@ -42,6 +64,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private void PlayerMovementAnimation(float speedX, float speedY)
+    {
+        RunAnimation(speedX);
+        JumpAnimation(speedY);
+        CrouchAnimation();
+    }
+
+    private void RunAnimation(float speedX)
     {
         animator.SetFloat("Speed", Mathf.Abs(speedX));
         Vector3 scale = transform.localScale;
@@ -57,9 +86,9 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
-    private void PlayerJump(float speedY)
+    private void JumpAnimation(float speedY)
     {
-        if(speedY > 0)
+        if(speedY > 0 && IsGrounded())
         {
             animator.SetBool("Jump", true);
         }
@@ -67,22 +96,20 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump", false);
         }
-        
-        
     }
 
-    private void PlayerCrouch()
+    private void CrouchAnimation()
     {
         if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
-            boxcollider.size = new Vector2(size.x, size.y / 2);
-            boxcollider.offset = new Vector2(offset.x, offset.y - offset.y / 2);
+            boxcollider2d.size = new Vector2(size.x, size.y / 2);
+            boxcollider2d.offset = new Vector2(offset.x, offset.y - offset.y / 2);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            boxcollider.size = size;
-            boxcollider.offset = offset;
+            boxcollider2d.size = size;
+            boxcollider2d.offset = offset;
             animator.SetBool("Crouch", false);
         }
     }
