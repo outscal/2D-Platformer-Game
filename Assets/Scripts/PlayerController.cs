@@ -7,12 +7,15 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     LayerMask platformLayerMask;
+    [SerializeField]
+    Transform deadPos;
 
     public Animator animator;
-    BoxCollider2D boxcollider2d;
-    Rigidbody2D rigidbody2d;
     public float speed;
     public float jumpForce;
+
+    BoxCollider2D boxcollider2d;
+    Rigidbody2D rigidbody2d;
     Vector2 size;
     Vector2 offset;
     private void Awake()
@@ -28,10 +31,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speedX = Input.GetAxisRaw("Horizontal");
-        float speedY = Input.GetAxisRaw("Vertical");
-        PlayerMovement(speedX, speedY);
-        PlayerMovementAnimation(speedX, speedY);
+        if(!Dead())
+        {
+            float speedX = Input.GetAxisRaw("Horizontal");
+            float speedY = Input.GetAxisRaw("Vertical");
+            PlayerMovement(speedX, speedY);
+            PlayerMovementAnimation(speedX, speedY);
+        }
+    }
+
+    private bool Dead()
+    {
+        if (transform.position.y < deadPos.position.y)
+        {
+            Debug.Log("Player Dead"); 
+            return true;
+        }
+        else return false;
     }
 
     private void PlayerMovement(float speedX, float speedY)
@@ -124,7 +140,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
-};
-
+}
 
