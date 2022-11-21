@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    LayerMask platformLayerMask;
-    [SerializeField]
-    Transform deadPos;
+    [SerializeField] LayerMask platformLayerMask;
+    [SerializeField] Transform deadPos;
 
     public Animator animator;
     public float speed;
@@ -27,8 +25,6 @@ public class PlayerController : MonoBehaviour
         offset = boxcollider2d.offset;
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if(!Dead())
@@ -79,7 +75,6 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-
 
     private bool IsGrounded()
     {
@@ -138,6 +133,11 @@ public class PlayerController : MonoBehaviour
             boxcollider2d.offset = offset;
             animator.SetBool("Crouch", false);
         }
+    }
+
+    internal void PickupKey()
+    {
+        Debug.Log("Key Picked up");
     }
 
 }
