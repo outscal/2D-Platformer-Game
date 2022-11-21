@@ -5,9 +5,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float speed;
+    public float jump;
+    private Rigidbody2D rb2d;
+    private BoxCollider2D boxCol;
     private void Awake()
     {
         Debug.Log("Player controller awake");
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        boxCol = this.GetComponent<BoxCollider2D>();
     }
     
     // private void OnCollisionEnter2D(Collision2D collision)
@@ -17,54 +23,77 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+        //for running animation
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Jump");
+
+        MoveCharacter(horizontalInput, verticalInput);
+        PlayMovementAnimation(horizontalInput, verticalInput);
+        if(Input.GetKey(KeyCode.LeftControl))
+        {
+            Crouch(true);
+        }
+        else
+        {
+            Crouch(false);
+        }
+    }
+
+    private void MoveCharacter(float horizontalInput, float verticalInput)
+    {
+        //move character horizontally 
+        Vector3 position = transform.position;
+        position.x += horizontalInput * speed * Time.deltaTime;
+        transform.position = position;
+
+        //move chararcter vertically
+        if (verticalInput > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        }
+    }
+
+    private void PlayMovementAnimation(float horizontalInput, float verticalInput)
+    {
+        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
         Vector3 scale = transform.localScale;
-        if(speed < 0)
+        if(horizontalInput < 0)
         {
             scale.x = -1 * Mathf.Abs(scale.x);
         }
-        else if(speed > 0)
+        else if(horizontalInput > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
 
-    //     for jump animation 
-    //    if(Input.GetButtonDown("Jump"))
-    //    {
-    //         float verticalSpeed = Input.GetAxisRaw("Vertical");
-    //         animator.SetBool("Jump", true);
-
-    //         Vector3 verticalPos = transform.position;
-    //         if(verticalSpeed > 0)
-    //         {
-    //             verticalPos.y = Mathf.Abs(verticalPos.y);
-    //         }
-    //         transform.position = verticalPos;
-    //    }
-    //    else if (Input.GetButtonUp("Jump"))
-    //    {
-    //         animator.SetBool("Jump", false);
-    //    }
-    
-
-    //another way for jump 
-        float verticalSpeed = Input.GetAxisRaw("Vertical");
-
-        Vector3 verticalPos = transform.position;
-        if(verticalSpeed > 0)
+        //Jump
+        if(verticalInput > 0)
         {
-            animator.SetBool("Jump", true);
-            verticalPos.y = Mathf.Abs(verticalPos.y);
-        }  
-        else if (verticalSpeed < 0 )
+            animator.SetBool("Jump", true); 
+        }
+        else
         {
             animator.SetBool("Jump", false);
-            animator.SetBool("Crouch", true);
         }
-        transform.position = verticalPos;
-        //animator.SetBool("Crouch", false);
     }
+
+    private void Crouch(bool crouch)
+    {
+        if (crouch == true)
+        {
+            animator.SetBool("Crouch", crouch);
+            boxCol.size = new Vector3(0.521844f, 1.242456f);
+            boxCol.offset = new Vector3(-0.004164129f, 0.566561f);
+        }
+        else
+        {
+            animator.SetBool("Crouch", false);
+            boxCol.size = new Vector3(0.521844f, 2.026481f);
+            boxCol.offset = new Vector3(-0.004164129f, 0.9585738f);
+        }
+    }
+
+   
 }
