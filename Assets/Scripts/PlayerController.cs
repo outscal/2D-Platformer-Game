@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     public float speed;
+
+
     public float jumpForce;
 
     BoxCollider2D boxcollider2d;
@@ -104,7 +107,6 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = Mathf.Abs(scale.x);
         }
-
         transform.localScale = scale;
     }
 
@@ -142,5 +144,15 @@ public class PlayerController : MonoBehaviour
         scoreController.IncreaseScore(10);
     }
 
+    internal void KillPlayer()
+    {
+        Debug.Log("Player Died");
+        ReloadLevel();
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
 
