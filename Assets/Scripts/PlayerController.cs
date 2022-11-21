@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] LayerMask platformLayerMask;
     [SerializeField] Transform deadPos;
+    [SerializeField] ScoreController scoreController;
 
     public Animator animator;
     public float speed;
@@ -138,6 +139,7 @@ public class PlayerController : MonoBehaviour
     internal void PickupKey()
     {
         Debug.Log("Key Picked up");
+        scoreController.IncreaseScore(10);
     }
 
 }
