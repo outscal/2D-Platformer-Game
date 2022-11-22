@@ -6,13 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float speed;
-    public float jump;
-    private Rigidbody2D rb2d;
+    public float jumpForce;
+    private bool isGrounded = true;
+    private bool isCrouching = false;
+    private Rigidbody2D rigidbody2d;
     private BoxCollider2D boxCol;
+
     private void Awake()
     {
         Debug.Log("Player controller awake");
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
         boxCol = this.GetComponent<BoxCollider2D>();
     }
     
@@ -24,32 +27,26 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //for running animation
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Jump");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");       //0 //1
+        float verticalInput = Input.GetAxisRaw("jump");               //0, 1
 
         MoveCharacter(horizontalInput, verticalInput);
         PlayMovementAnimation(horizontalInput, verticalInput);
-        if(Input.GetKey(KeyCode.LeftControl))
-        {
-            Crouch(true);
-        }
-        else
-        {
-            Crouch(false);
-        }
+        Crouch(isCrouching);
     }
 
     private void MoveCharacter(float horizontalInput, float verticalInput)
     {
         //move character horizontally 
         Vector3 position = transform.position;
-        position.x += horizontalInput * speed * Time.deltaTime;
+        position.x += horizontalInput * speed * Time.deltaTime;  //learn
         transform.position = position;
 
         //move chararcter vertically
-        if (verticalInput > 0)
+        if (verticalInput > 0 && isGrounded)
         {
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            rigidbody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
+            //isGrounded = false;
         }
     }
 
@@ -69,7 +66,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         //Jump
-        if(verticalInput > 0)
+        if(verticalInput > 0)                         
         {
             animator.SetBool("Jump", true); 
         }
@@ -81,19 +78,30 @@ public class PlayerController : MonoBehaviour
 
     private void Crouch(bool crouch)
     {
-        if (crouch == true)
+        crouch = isCrouching;
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            animator.SetBool("Crouch", crouch);
-            boxCol.size = new Vector3(0.521844f, 1.242456f);
-            boxCol.offset = new Vector3(-0.004164129f, 0.566561f);
+            isCrouching = true;
+            animator.SetBool("Crouch", isCrouching);
+            boxCol.size = new Vector3(0.52f, 1.24f);
+            boxCol.offset = new Vector3(-0.0041f, 0.5665f);
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            animator.SetBool("Crouch", false);
-            boxCol.size = new Vector3(0.521844f, 2.026481f);
-            boxCol.offset = new Vector3(-0.004164129f, 0.9585738f);
+            isCrouching = false;
+            animator.SetBool("Crouch", isCrouching);
+            boxCol.size = new Vector3(0.52f, 2.02f);
+            boxCol.offset = new Vector3(-0.0041f, 0.9585f);
         }
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isGrounded = true;  
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isGrounded = false;
+    }
+    
 }
