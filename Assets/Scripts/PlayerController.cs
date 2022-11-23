@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         if (verticalInput > 0 && isGrounded)
         {
             rigidbody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
-            //isGrounded = false;
+            isGrounded = false;
         }
     }
 
@@ -97,11 +97,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isGrounded = true;  
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        isGrounded = false;
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true; 
+        } 
     }
     
 }
