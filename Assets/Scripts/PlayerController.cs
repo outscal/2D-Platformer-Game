@@ -95,9 +95,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground")
         {
             isGrounded = true; 
         } 
