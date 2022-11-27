@@ -20,12 +20,24 @@ public class EnemyController : MonoBehaviour
 
     private void Patrol()
     {
-        rigiBody2D.velocity = new Vector2(moveSpeed, 0f);
+        if(IsFacingRight())
+        {
+            rigiBody2D.velocity = new Vector2(moveSpeed, 0f);
+        }
+        else
+        {
+            rigiBody2D.velocity = new Vector2(-moveSpeed, 0f);
+
+        }
+    }
+
+    bool IsFacingRight()
+    {
+        return transform.localScale.x > Mathf.Epsilon;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        moveSpeed = -moveSpeed;
         FlipEnemy();
     }
 
