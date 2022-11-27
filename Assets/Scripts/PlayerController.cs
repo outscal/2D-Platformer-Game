@@ -164,12 +164,12 @@ public class PlayerController : MonoBehaviour
         {
             alive = false;
             DeadAnimation();
+            ReloadLevel();
         }
-
-        void HurtAnimation()
-        {
-            animator.SetTrigger("Hurt");
-        }
+    }
+    void HurtAnimation()
+    {
+        animator.SetTrigger("Hurt");
     }
 
     private void DeadAnimation()
