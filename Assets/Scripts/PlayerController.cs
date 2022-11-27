@@ -1,91 +1,53 @@
+//using System;
+//using System.Collections;
+//using System.Collections.Generic;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] LayerMask platformLayerMask;
-    [SerializeField] Transform deadPos;
+    [SerializeField] Vector2 deadPos;
     [SerializeField] ScoreController scoreController;
-
-    public Animator animator;
-    public float speed;
-
-
-    public float jumpForce;
+    [SerializeField] float moveSpeed;
+    [SerializeField] float jumpSpeed;
 
     BoxCollider2D boxcollider2d;
     Rigidbody2D rigidbody2d;
-    Vector2 size;
-    Vector2 offset;
+    Animator animator;
+
+    Vector2 boxCollidersize;
+    Vector2 boxCollideroffset;
+
+    bool alive = true;
+    int hearts = 3;
+
     private void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         boxcollider2d = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
         
-        size = boxcollider2d.size;
-        offset = boxcollider2d.offset;
+        boxCollidersize = boxcollider2d.size;
+        boxCollideroffset = boxcollider2d.offset;
     }
 
     void Update()
     {
-        if(!Dead())
-        {
-            float speedX = Input.GetAxisRaw("Horizontal");
-            float speedY = Input.GetAxisRaw("Vertical");
-            PlayerMovement(speedX, speedY);
-            PlayerMovementAnimation(speedX, speedY);
-        }
-    }
+        if (!alive) return;
 
-    private bool Dead()
-    {
-        if (transform.position.y < deadPos.position.y)
-        {
-            Debug.Log("Player Dead"); 
-            return true;
-        }
-        else return false;
+        float speedX = Input.GetAxisRaw("Horizontal");
+        float speedY = Input.GetAxisRaw("Vertical");
+        PlayerMovement(speedX, speedY);
+        PlayerMovementAnimation(speedX, speedY);
+        IsPlayerOnPlatform();
     }
 
     private void PlayerMovement(float speedX, float speedY)
     {
         PlayerHorizontalMovement(speedX);
         PlayerVerticalMovement(speedY);
-    }
-
-    private void PlayerVerticalMovement(float speedY)
-    {
-        if(speedY > 0 && IsGrounded())
-        {
-            rigidbody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-        }
-    }
-    private void PlayerHorizontalMovement(float speedX)
-    {
-        if(IsGrounded())
-        {
-            Vector3 position = transform.position;
-            position.x = transform.position.x + speedX * speed * Time.deltaTime;
-            transform.position = position;
-        }
-        else
-        {
-            Vector3 position = transform.position;
-            position.x = transform.position.x + speedX * speed/5 *Time.deltaTime;
-            transform.position = position;
-        }
-        
-    }
-
-    private bool IsGrounded()
-    {
-        RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxcollider2d.bounds.center, boxcollider2d.bounds.size, 0f, Vector2.down, 0.6f, platformLayerMask);
-        Debug.Log(raycastHit2d.collider);   
-        return raycastHit2d.collider != null;
-       
     }
 
     private void PlayerMovementAnimation(float speedX, float speedY)
@@ -95,6 +57,44 @@ public class PlayerController : MonoBehaviour
         CrouchAnimation();
     }
 
+    private void IsPlayerOnPlatform()
+    {
+        if (transform.position.y < deadPos.y)
+        {
+            alive = false;
+        }
+    }
+    private void PlayerHorizontalMovement(float speedX)
+    {
+        if (IsGrounded())
+        {
+            Vector3 position = transform.position;
+            position.x = transform.position.x + speedX * moveSpeed * Time.deltaTime;
+            transform.position = position;
+        }
+        else  // in the air slow movement in x direction
+        {
+            Vector3 position = transform.position;
+            position.x = transform.position.x + speedX * moveSpeed / 3 * Time.deltaTime;
+            transform.position = position;
+        }
+    }
+    private void PlayerVerticalMovement(float speedY)
+    {
+        if(speedY > 0 && IsGrounded())
+        {
+            rigidbody2d.AddForce(new Vector2(0f, jumpSpeed), ForceMode2D.Impulse);
+        }
+    }
+   
+    private bool IsGrounded()
+    {
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxcollider2d.bounds.center, boxcollider2d.bounds.size, 0f, Vector2.down, 0.6f, platformLayerMask);
+        Debug.Log(raycastHit2d.collider);   
+        return raycastHit2d.collider != null; 
+    }
+
+    
     private void RunAnimation(float speedX)
     {
         animator.SetFloat("Speed", Mathf.Abs(speedX));
@@ -127,13 +127,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
-            boxcollider2d.size = new Vector2(size.x, size.y / 2);
-            boxcollider2d.offset = new Vector2(offset.x, offset.y - offset.y / 2);
+            boxcollider2d.size = new Vector2(boxCollidersize.x, boxCollidersize.y / 2);
+            boxcollider2d.offset = new Vector2(boxCollideroffset.x, boxCollideroffset.y - boxCollideroffset.y / 2);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            boxcollider2d.size = size;
-            boxcollider2d.offset = offset;
+            boxcollider2d.size = boxCollidersize;
+            boxcollider2d.offset = boxCollideroffset;
             animator.SetBool("Crouch", false);
         }
     }
@@ -144,12 +144,38 @@ public class PlayerController : MonoBehaviour
         scoreController.IncreaseScore(10);
     }
 
-    internal void KillPlayer()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Player Died");
-        ReloadLevel();
+        if(collision.gameObject.GetComponent<EnemyController>()!=null)
+        {
+            DealDamage();
+        }
+    }
+     void DealDamage()
+    {
+        if (!alive) return;
+
+        hearts -= 1;
+        Debug.Log("hearts: " + hearts);
+
+        HurtAnimation();
+
+        if (hearts < 1)
+        {
+            alive = false;
+            DeadAnimation();
+        }
+
+        void HurtAnimation()
+        {
+            animator.SetTrigger("Hurt");
+        }
     }
 
+    private void DeadAnimation()
+    {
+        animator.SetTrigger("Dead");
+    }
     private void ReloadLevel()
     {
         SceneManager.LoadScene(0);
