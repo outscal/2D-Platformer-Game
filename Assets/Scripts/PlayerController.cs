@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] ScoreController scoreController;
+    [SerializeField] GameOverController gameOverController;
     [SerializeField] LayerMask platformLayerMask;
     [SerializeField] Vector2 deadPos;
-    [SerializeField] ScoreController scoreController;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
 
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
             rigidbody2d.AddForce(new Vector2(0f, jumpSpeed), ForceMode2D.Impulse);
         }
     }
-   
+
     private bool IsGrounded()
     {
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxcollider2d.bounds.center, boxcollider2d.bounds.size, 0f, Vector2.down, 0.6f, platformLayerMask);
@@ -94,7 +95,6 @@ public class PlayerController : MonoBehaviour
         return raycastHit2d.collider != null; 
     }
 
-    
     private void RunAnimation(float speedX)
     {
         animator.SetFloat("Speed", Mathf.Abs(speedX));
@@ -162,23 +162,23 @@ public class PlayerController : MonoBehaviour
 
         if (hearts < 1)
         {
-            alive = false;
-            DeadAnimation();
-            ReloadLevel();
+            PlayerDead();
         }
     }
     void HurtAnimation()
     {
         animator.SetTrigger("Hurt");
     }
-
+    private void PlayerDead()
+    {
+        alive = false;
+        DeadAnimation();
+        gameOverController.ActivateGameOverPanel();
+        this.enabled = false;
+    }
     private void DeadAnimation()
     {
         animator.SetTrigger("Dead");
-    }
-    private void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
 
