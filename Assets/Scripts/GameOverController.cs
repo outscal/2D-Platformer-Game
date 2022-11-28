@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class GameOverController : MonoBehaviour
 {
     [SerializeField] Button restartButton;
-    [SerializeField] Button quitButton;
+   // [SerializeField] Button quitButton;
     private void Awake()
     {
         restartButton.onClick.AddListener(ReloadLevel);
-        quitButton.onClick.AddListener(ReloadLobbyScene);
+       // quitButton.onClick.AddListener(ReloadLobbyScene);
     }
     public void ActivateGameOverPanel()
     {
@@ -22,8 +22,8 @@ public class GameOverController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void ReloadLobbyScene()
-    {
-        SceneManager.LoadScene(0);
-    }
+    //private void ReloadLobbyScene()
+    //{
+    //    SceneManager.LoadScene(0);
+    //}
 }
