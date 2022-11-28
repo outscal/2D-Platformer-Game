@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         //move chararcter vertically
         if (verticalInput > 0 && isGrounded)
         {
-            rigidbody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
+            rigidbody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
         }
     }
