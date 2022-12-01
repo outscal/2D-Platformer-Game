@@ -11,12 +11,19 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching = false;
     private Rigidbody2D rigidbody2d;
     private BoxCollider2D boxCol;
+    private float colliderSizeInX = 0.52f;
+    private float colliderSizeInY = 1.24f;
+    private float colliderOffsetInX = -0.0041f;
+    private float colliderOffsetInY = 0.5665f;
+    private Vector3 respawnPoint;
+    public GameObject fallDetector;
 
     private void Awake()
     {
         Debug.Log("Player controller awake");
         rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
         boxCol = this.GetComponent<BoxCollider2D>();
+        respawnPoint = transform.position;
     }
     
     // private void OnCollisionEnter2D(Collision2D collision)
@@ -27,12 +34,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //for running animation
-        float horizontalInput = Input.GetAxisRaw("Horizontal");       //0 //1
-        float verticalInput = Input.GetAxisRaw("jump");               //0, 1
+        float horizontalInput = Input.GetAxisRaw("Horizontal");       
+        float verticalInput = Input.GetAxisRaw("jump");               
 
         MoveCharacter(horizontalInput, verticalInput);
         PlayMovementAnimation(horizontalInput, verticalInput);
         Crouch(isCrouching);
+        fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y);
     }
 
     private void MoveCharacter(float horizontalInput, float verticalInput)
@@ -69,6 +77,7 @@ public class PlayerController : MonoBehaviour
         if(verticalInput > 0)                         
         {
             animator.SetBool("Jump", true); 
+            animator.SetFloat("Speed", 0);
         }
         else
         {
@@ -79,19 +88,17 @@ public class PlayerController : MonoBehaviour
     private void Crouch(bool crouch)
     {
         crouch = isCrouching;
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             isCrouching = true;
             animator.SetBool("Crouch", isCrouching);
-            boxCol.size = new Vector3(0.52f, 1.24f);
-            boxCol.offset = new Vector3(-0.0041f, 0.5665f);
+            boxCol.size = new Vector3(colliderSizeInX, colliderSizeInY);
+            boxCol.offset = new Vector3(colliderOffsetInX, colliderOffsetInY);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        else 
         {
             isCrouching = false;
             animator.SetBool("Crouch", isCrouching);
-            boxCol.size = new Vector3(0.52f, 2.02f);
-            boxCol.offset = new Vector3(-0.0041f, 0.9585f);
         }
     }
 
@@ -103,4 +110,12 @@ public class PlayerController : MonoBehaviour
         } 
     }
     
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "FallDetector")
+        {
+            //animator.SetTrigger("Death");
+            transform.position = respawnPoint;
+        }
+    }
 }
