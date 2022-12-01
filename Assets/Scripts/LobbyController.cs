@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
 {
-    [SerializeField] Button buttonStart;
-    [SerializeField] Button quitButton;
-    [SerializeField] GameObject LevelSelection;
+    public Button buttonStart;
+    public Button quitButton;
+    public GameObject LevelSelection;
     private void Awake()
     {
        buttonStart.onClick.AddListener(PlayGame);

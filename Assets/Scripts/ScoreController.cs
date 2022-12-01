@@ -7,7 +7,7 @@ public class ScoreController : MonoBehaviour
 {
     TextMeshProUGUI scoreText;
     int score = 0;
-    int hearts = 3;
+    int heartCount = 3;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class ScoreController : MonoBehaviour
 
     public void DecreaseHeartCount()
     {
-        hearts -= 1;
+        heartCount -= 1;
     }
     private void RefreshUI()
     {

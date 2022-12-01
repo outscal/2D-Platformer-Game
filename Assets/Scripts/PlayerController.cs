@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ScoreController scoreController;
     [SerializeField] GameOverController gameOverController;
     [SerializeField] LayerMask platformLayerMask;
-    [SerializeField] Vector2 deadPos;
+    [SerializeField] Vector2 playerDeadIfBelowPos;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
 
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         float speedY = Input.GetAxisRaw("Vertical");
         PlayerMovement(speedX, speedY);
         PlayerMovementAnimation(speedX, speedY);
-        IsPlayerOnPlatform();
+        DidPlayerJumpOff();
     }
 
     private void PlayerMovement(float speedX, float speedY)
@@ -58,9 +58,9 @@ public class PlayerController : MonoBehaviour
         CrouchAnimation();
     }
 
-    private void IsPlayerOnPlatform()
+    private void DidPlayerJumpOff()
     {
-        if (transform.position.y < deadPos.y)
+        if (transform.position.y < playerDeadIfBelowPos.y)
         {
             alive = false;
         }

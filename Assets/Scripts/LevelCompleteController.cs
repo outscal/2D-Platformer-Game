@@ -10,7 +10,8 @@ public class LevelCompleteController : MonoBehaviour
         if(collision.gameObject.GetComponent<PlayerController>() !=null)
         {
             Debug.Log("Level Complete");
-            SceneManager.LoadScene("Scene2");
+            LevelManager.Instance.MarkCurrentLevelComplete();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
         }
         else
         {
