@@ -15,15 +15,12 @@ public class PlayerController : MonoBehaviour
     private float colliderSizeInY = 1.24f;
     private float colliderOffsetInX = -0.0041f;
     private float colliderOffsetInY = 0.5665f;
-    private Vector3 respawnPoint;
-    public GameObject fallDetector;
 
     private void Awake()
     {
         Debug.Log("Player controller awake");
         rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
         boxCol = this.GetComponent<BoxCollider2D>();
-        respawnPoint = transform.position;
     }
     
     // private void OnCollisionEnter2D(Collision2D collision)
@@ -40,7 +37,6 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontalInput, verticalInput);
         PlayMovementAnimation(horizontalInput, verticalInput);
         Crouch(isCrouching);
-        fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y);
     }
 
     private void MoveCharacter(float horizontalInput, float verticalInput)
@@ -110,12 +106,4 @@ public class PlayerController : MonoBehaviour
         } 
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "FallDetector")
-        {
-            //animator.SetTrigger("Death");
-            transform.position = respawnPoint;
-        }
-    }
 }
