@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     public Animator animator;
     public float speed;
     public float jumpForce;
@@ -106,4 +107,9 @@ public class PlayerController : MonoBehaviour
         } 
     }
     
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked up the key");
+        scoreController.IncreaseScore(10);
+    }
 }
