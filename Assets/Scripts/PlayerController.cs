@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -111,5 +112,12 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player picked up the key");
         scoreController.IncreaseScore(10);
+    }
+
+    public void KillPlayer()
+    {
+       Debug.Log("Player killed by enemy");
+       //Destroy(gameObject);
+       //Play the death animation
     }
 }
