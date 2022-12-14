@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -119,5 +120,14 @@ public class PlayerController : MonoBehaviour
        Debug.Log("Player killed by enemy");
        //Destroy(gameObject);
        //Play the death animation
+       animator.SetTrigger("Death");
+       //reset the entire level
+       ReloadLevel();
+    }
+
+    private void ReloadLevel()
+    {
+        Debug.Log("Reloading Scene 0");
+        SceneManager.LoadScene(0);
     }
 }
