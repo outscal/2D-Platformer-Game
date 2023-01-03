@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer();
+            //playerController.KillPlayer();
         }
     }
 

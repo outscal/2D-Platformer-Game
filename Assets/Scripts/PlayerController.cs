@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float colliderSizeInY = 1.24f;
     private float colliderOffsetInX = -0.0041f;
     private float colliderOffsetInY = 0.5665f;
+    public PlayerHealthController playerHealthController;
 
     private void Awake()
     {
