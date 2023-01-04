@@ -41,13 +41,14 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontalInput, verticalInput);
         PlayMovementAnimation(horizontalInput, verticalInput);
         Crouch(isCrouching);
+        //playerHealthController.TakeDamage(amount);
     }
 
     private void MoveCharacter(float horizontalInput, float verticalInput)
     {
         //move character horizontally 
         Vector3 position = transform.position;
-        position.x += horizontalInput * speed * Time.deltaTime;  //learn
+        position.x += horizontalInput * speed * Time.deltaTime;  
         transform.position = position;
 
         //move chararcter vertically
@@ -126,7 +127,7 @@ public class PlayerController : MonoBehaviour
        ReloadLevel();
     }
 
-    private void ReloadLevel()
+    public void ReloadLevel()
     {
         Debug.Log("Reloading Scene 0");
         SceneManager.LoadScene(0);

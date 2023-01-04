@@ -11,12 +11,7 @@ public class PlayerHealthDisplayController : MonoBehaviour
     public Sprite fullHeart;
     public Image[] hearts;
     public PlayerHealthController playerHealthController;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         //making sure that player health and maxHealth values matches playerHealthController script

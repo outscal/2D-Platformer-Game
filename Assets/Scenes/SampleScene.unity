@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealthController: {fileID: 915992454}
+  animator: {fileID: 915992449}
   damage: 1
 --- !u!1 &82687005
 GameObject:
@@ -1482,6 +1483,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4162a7148b139454d99ada0a28792915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &915992449 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8713809016349490119, guid: 2a406518540af824385d20abf8ca0577,
+    type: 3}
+  m_PrefabInstance: {fileID: 270128620017855999}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &915992452 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2633435935390380572, guid: 2a406518540af824385d20abf8ca0577,
@@ -1502,8 +1509,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: 0
   maxHealth: 3
-  spriteRenderer: {fileID: 915992452}
   playerController: {fileID: 915992448}
+  animator: {fileID: 915992449}
+  spriteRenderer: {fileID: 915992452}
 --- !u!114 &915992455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1863,6 +1871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealthController: {fileID: 915992454}
+  animator: {fileID: 915992449}
   damage: 1
 --- !u!1 &1587779937
 GameObject:

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyDamageController : MonoBehaviour
 {
     public PlayerHealthController playerHealthController;
+    //public Animator animator;
     public int damage;
     void Start()
     {
