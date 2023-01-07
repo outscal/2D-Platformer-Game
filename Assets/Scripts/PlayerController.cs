@@ -119,17 +119,17 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer()
     {
-       Debug.Log("Player killed by enemy");
-       //Destroy(gameObject);
-       //Play the death animation
-       animator.SetTrigger("Death");
-       //reset the entire level
-       ReloadLevel();
+        Debug.Log("Player killed by enemy");
+        //Destroy(gameObject);
+        //Play the death animation
+        animator.SetTrigger("Death");
+        //reset the entire level
+        ReloadLevel();
     }
 
-    public void ReloadLevel()
+    private void ReloadLevel()
     {
         Debug.Log("Reloading Scene 0");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);      //Can also do with SceneManager.LoadScene(0);
     }
 }

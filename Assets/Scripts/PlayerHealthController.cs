@@ -21,11 +21,11 @@ public class PlayerHealthController : MonoBehaviour
         playerHealth -= amount;
         if(playerHealth <= 0)                          // if the damage takes the player down to zero or 
         {    
-            //animator.SetTrigger("Death");
+            animator.SetTrigger("Death");
             spriteRenderer.enabled = false;            // below, then player will be destroyed
             playerController.enabled = false;
             
-            // Destroy(gameObject, 1f);               //Commented destroy function bcoz destroying player
+            //Destroy(gameObject, 1f);               //Commented destroy function bcoz destroying player
                                                       //gameobject is not a good practice.
             playerController.KillPlayer();
         }
