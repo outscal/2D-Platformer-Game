@@ -5,62 +5,27 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float enemySpeed;
-    public Transform leftEdge;
-    public Transform rightEdge;
-    public Transform enemy;
-    private bool movingLeft;
-    private Vector3 initialScale;
-
-    private void Awake()
-    {
-        initialScale = transform.localScale;
-    }
+    public int movingRight = 1;
+    public GameObject groundDetector;
+    public float rayDistance;
+    public Animator enemyAnimator;
 
     private void Update()
     {
-        if(movingLeft)
-        {
-            if(enemy.position.x >= leftEdge.position.x)
-            {
-                MoveInDirection(-1);
-            }
-            else 
-            {
-                DirectionChange();
-            }   
-        }
-        else
-        {
-            if(enemy.position.x <= rightEdge.position.x)
-            {
-                MoveInDirection(1);
-            }
-            else
-            {
-                //change direction
-                DirectionChange();
-            }
-        }
+        PatrolEnemy();
     }
 
-    //To change the direction of enemy
-    private void DirectionChange()
+    private void PatrolEnemy()
     {
-        movingLeft = !movingLeft;
-    }
+        enemyAnimator.SetBool("IsPatrol", true);
+        transform.Translate(movingRight * Vector2.right * enemySpeed * Time.deltaTime);
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.GetComponent<PlayerController>() != null)
+        RaycastHit2D hit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, rayDistance);
+
+        if(!hit)
         {
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            //playerController.KillPlayer();
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            movingRight = movingRight * -1;
         }
-    }
-
-    private void MoveInDirection(int direction)
-    {
-        enemy.position = new Vector3(enemy.position.x + enemySpeed * direction * Time.deltaTime, enemy.position.y, enemy.position.z);
-        enemy.localScale = new Vector3(Mathf.Abs(initialScale.x) * direction, initialScale.y, initialScale.z);
     }
 }
