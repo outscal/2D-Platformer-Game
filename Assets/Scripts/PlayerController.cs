@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float jumpForce;
     private Rigidbody2D _rb;
+    private bool _isGrounded;
 
     // Start is called before the first frame update
     void Start()
     {
+        _isGrounded = true;
         player2d = GetComponent<BoxCollider2D>();
 
         _playerSprite = GetComponent<SpriteRenderer>();
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         MovementAnimation();
     }
-
+  
     void MovementAnimation()
     {
 
@@ -103,15 +105,23 @@ public class PlayerController : MonoBehaviour
             player2d.size = new Vector2(0.6518943f, 2.068996f);
         }
     }
-
+   
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Platform")
+        {
+            _isGrounded = true;
+        }
+    }
     void Jump()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
+            _isGrounded = false;
             anim.SetTrigger("Jump");
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    
+
 }
