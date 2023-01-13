@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndTrigger : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EndTrigger : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Level Complete");
+            SceneManager.LoadScene(0);
         }
     }
 }
