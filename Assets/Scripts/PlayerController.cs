@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     private float _fallLimit = -7f;
 
     [SerializeField] private int _lives;
+    private bool isDied;
+
+    private Score score;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,8 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Rigidbody missing");
         }
 
+        score = GameObject.Find("Canvas").GetComponent<Score>();
+
         m_scalex = 0.8645924f;
         m_scaley = 1.320639f;
     }
@@ -49,16 +54,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y < _fallLimit)
+        if (transform.position.y < _fallLimit )
         {
             Debug.Log("Player Died");
             SceneManager.LoadScene(0);
         }
         else
         {
-            Jump();
-            MovementAnimation();
+            if (!isDied)
+            {
+                Jump();
+                MovementAnimation();
+            }
         }
+
 
 
     }
@@ -140,12 +149,13 @@ public class PlayerController : MonoBehaviour
     public void Damage()
     {
         _lives--;
-
         if (_lives < 1)
         {
             Debug.Log("Player Died");
-            SceneManager.LoadScene(0);
+            isDied = true;
+            UIManager._instance.GameOver();
         }
+        score.UpdateLivesUi(_lives);
     }
 
 }
