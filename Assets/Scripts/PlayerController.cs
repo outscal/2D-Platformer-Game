@@ -1,21 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     private BoxCollider2D boxCollider2D;
+    private Rigidbody2D rb;
     public float speed;
+    public float jumpForce;
+    public LayerMask groundLayer;
+    public bool onGround = false;
+    public float distance;
     void Awake()
     {
         animator = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
+
+        onGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), distance, groundLayer);
 
         PlayerMovement(horizontal, vertical);
         PlayerAnimation(horizontal, vertical);
@@ -26,6 +32,14 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
+
+        if (vertical > 0 && onGround)
+            Jump();
+    }
+    private void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(new Vector2(0, 1) * jumpForce, ForceMode2D.Impulse);
     }
     private void PlayerCrouch()
     {
