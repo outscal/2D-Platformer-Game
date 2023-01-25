@@ -21,8 +21,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
+        bool Jump = false;
+        float jumpinput = Input.GetAxisRaw("Vertical");
         animator.SetFloat("Speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
+        if(jumpinput != 0)
+        {
+            Jump = true;
+        }
+        else
+        {
+            Jump = false;
+        }
+        animator.SetBool("Jump", Jump);
         if (speed < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
@@ -32,5 +43,9 @@ public class PlayerController : MonoBehaviour
           scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+        if(jumpinput > 0)
+        {
+            
+        }
     }
 }
