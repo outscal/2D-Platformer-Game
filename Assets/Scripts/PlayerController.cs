@@ -19,7 +19,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        float vertical = 0;
+        if (Input.GetKeyDown(KeyCode.Space))
+            vertical = Input.GetAxisRaw("Jump");
+
+        Debug.Log(vertical);
 
         onGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), distance, groundLayer);
 
@@ -64,6 +68,9 @@ public class PlayerController : MonoBehaviour
     }
     private void PlayerAnimation(float horizontal, float vertical)
     {
+        if (onGround)
+            animator.ResetTrigger("jump");
+
         Vector3 scale = transform.localScale;
         if (horizontal < 0)
             scale.x = -1 * Mathf.Abs(scale.x);
@@ -72,7 +79,8 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("speed", Mathf.Abs(horizontal));
         transform.localScale = scale;
 
-        animator.SetBool("jump", (vertical > 0));
+        if (vertical > 0)
+            animator.SetTrigger("jump");
         animator.SetBool("crouch", Input.GetKey(KeyCode.LeftControl));
     }
 }
