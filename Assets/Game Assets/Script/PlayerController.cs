@@ -11,6 +11,32 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
 
+        // jump code
+        if (Input.GetButtonDown("Jump")) {
+            animator.SetTrigger("jump");
+        }
+
+        // crouch code
+        animator.SetBool("crouch", Input.GetButton("Crouch"));
+
+        // managing collisions when crouch
+        collider_stand.enabled = !Input.GetButton("Crouch");
+        collider_crouch.enabled = Input.GetButton("Crouch");
+
+        // walk and run code
+        float speed = Input.GetAxisRaw("Horizontal");
+
+        // you can walk by slightly pushing the L-Stick
+        animator.SetFloat("speed", Mathf.Abs(speed * 10));
+
+        // flipping the sprite
+        if (speed > 0) {
+            spriteRenderer.flipX = false;
+        } else if (speed < 0) {
+            spriteRenderer.flipX = true;
+        }
+
+        /*
         // if crouch
         if (Input.GetButton("Crouch")) {
             animator.SetBool("crouch", true);
@@ -43,6 +69,7 @@ public class PlayerController : MonoBehaviour {
                 }
             }
         }
+        */
 
 
     }
