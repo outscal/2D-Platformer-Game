@@ -22,7 +22,11 @@ public class PlayerController : MonoBehaviour
         PlayerMovementAnimation(horizontal,vertical);
         MoveCharacter(horizontal,vertical);
 
-        
+        if(gameObject.transform.position.y < -8f)
+        {
+            Debug.Log("Player Died!!!");
+            Destroy(gameObject);
+        }
         
         
         
