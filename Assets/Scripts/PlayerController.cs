@@ -6,40 +6,52 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float speed;
+    private Rigidbody2D rigidbody;
+    public float jumpForce;
+    public bool isGrounded;
 
-
+    private void Awake()
+    {
+       rigidbody= gameObject.GetComponent<Rigidbody2D>();
+    }
     // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        PlayerMovementAnimation(horizontal);
-        MoveCharacter(horizontal);
+        float vertical = Input.GetAxisRaw("Vertical");
+        PlayerMovementAnimation(horizontal,vertical);
+        MoveCharacter(horizontal,vertical);
 
         
-        float verticalInput = Input.GetAxis("Vertical");
-        Jump(verticalInput);
+        
+        
         
 
-        if(Input.GetKey(KeyCode.LeftControl))
-        {
-            Crouch(true);
-        }
-        else
-        {
-            Crouch(false);
-        }
+        //if(Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    Crouch(true);
+        //}
+        //else
+        //{
+        //    Crouch(false);
+        //}
 
 
     }
 
-    void MoveCharacter(float horizontal)
+    void MoveCharacter(float horizontal, float vertical)
     {
         Vector3 position = transform.position;
         position.x = position.x + horizontal * speed * Time.deltaTime;
         transform.position = position;
+
+        if(vertical > 0)
+        {
+            rigidbody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Force);
+        }
     }
 
-    void PlayerMovementAnimation(float horizontal)
+    void PlayerMovementAnimation(float horizontal, float vertical)
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
@@ -49,23 +61,44 @@ public class PlayerController : MonoBehaviour
             scale.x = -1f;
         }
         else if (horizontal > 0)
-        {
+    {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
 
+        //Jump
+        if (vertical > 0 && isGrounded)
+        {
+            animator.SetBool("Jump", true);
+           // rigidbody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
+
     }
 
-    public void Crouch(bool crouch)
-    {
-        animator.SetBool("Crouch", crouch);
-    }    
+   
 
-    public void Jump(float verticalInput)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if(verticalInput > 0)
+        if(collision.transform.CompareTag("Platform"))
         {
-            animator.SetTrigger("Jump");
+            isGrounded= true;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Platform"))
+        {
+            isGrounded = false;
+        }
+    }
+
+
+
+
 }
+
