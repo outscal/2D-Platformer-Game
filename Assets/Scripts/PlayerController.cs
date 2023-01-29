@@ -21,17 +21,26 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
+        Collider2D boxCollider2D;
         bool Jump = false;
         float jumpinput = Input.GetAxisRaw("Vertical");
+        bool crouch = false;
         animator.SetFloat("Speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
-        if(jumpinput != 0)
+        if(jumpinput > 0)
         {
             Jump = true;
+            crouch = false;
         }
-        else
+        else if(jumpinput == 0)
         {
             Jump = false;
+            crouch = false;
+        }
+        else if(jumpinput < 0)
+        {
+            Jump = false;
+            crouch = true;
         }
         animator.SetBool("Jump", Jump);
         if (speed < 0)
@@ -43,9 +52,7 @@ public class PlayerController : MonoBehaviour
           scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-        if(jumpinput > 0)
-        {
-            
-        }
+
+        animator.SetBool("Crouch", crouch);
     }
 }
