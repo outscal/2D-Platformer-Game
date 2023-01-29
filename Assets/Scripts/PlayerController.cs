@@ -5,11 +5,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
-{   
+{
+    public float jump;
     public Animator animator;
+    private Rigidbody2D Rigid2D;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision " + collision.gameObject.name);
+        Rigid2D = gameObject.GetComponent<Rigidbody2D>();
     }
     // Start is called before the first frame update
     void Start()
@@ -21,23 +24,39 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
-        Collider2D boxCollider2D;
+        float vertical = Input.GetAxisRaw("Vertical");
+        AnimationMade(speed, vertical);
+        Movement(speed, vertical);
+    }
+    void Movement(float speed, float vertical)
+    {
+        Vector3 position = transform.position;
+        position.x = position.x + speed * Time.deltaTime;
+        transform.position = position;
+        if (vertical > 0)
+        {
+            Rigid2D.AddForce(new Vector2(0f,jump), ForceMode2D.Force);
+        }
+
+    }
+    void AnimationMade(float speed, float jumpinput)
+    {
         bool Jump = false;
-        float jumpinput = Input.GetAxisRaw("Vertical");
+        //float jumpinput = Input.GetAxisRaw("Vertical");
         bool crouch = false;
         animator.SetFloat("Speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
-        if(jumpinput > 0)
+        if (jumpinput > 0)
         {
             Jump = true;
             crouch = false;
         }
-        else if(jumpinput == 0)
+        else if (jumpinput == 0)
         {
             Jump = false;
             crouch = false;
         }
-        else if(jumpinput < 0)
+        else if (jumpinput < 0)
         {
             Jump = false;
             crouch = true;
@@ -49,7 +68,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (speed > 0)
         {
-          scale.x = Mathf.Abs(scale.x);
+            scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
 
