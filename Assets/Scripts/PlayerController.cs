@@ -6,13 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float jump;
+    private float jump = 1.5f;
     public Animator animator;
     private Rigidbody2D Rigid2D;
+    private Collision2D collision;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision " + collision.gameObject.name);
         Rigid2D = gameObject.GetComponent<Rigidbody2D>();
+    }
+    private void OnCollisionExit2D()
+    {
+            Debug.Log("Jump parameter zeroed");
     }
     // Start is called before the first frame update
     void Start()
@@ -23,17 +28,39 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //OnCollisionEnter2D(collision);
+        //jumpcheck(collision);
         float speed = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         AnimationMade(speed, vertical);
         Movement(speed, vertical);
     }
+    void jumpcheck(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platform")
+        {
+            Debug.Log("Object is colliding");
+        }
+
+        /*if (collision.gameObject.tag == "Platform")
+        {
+            jump = 1.5f;
+            Debug.Log("Jump parameter set");
+        }
+        else if (collision.gameObject.tag != "Platform")
+        {
+            jump = 0;
+            Debug.Log("Jump parameter zeroed");
+        }*/
+
+    }
     void Movement(float speed, float vertical)
     {
+         
         Vector3 position = transform.position;
         position.x = position.x + speed * Time.deltaTime;
         transform.position = position;
-        if (vertical > 0)
+        if (vertical > 0 )
         {
             Rigid2D.AddForce(new Vector2(0f,jump), ForceMode2D.Force);
         }
