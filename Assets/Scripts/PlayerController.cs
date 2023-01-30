@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     private Rigidbody2D Rigid2D;
     private Collision2D collision;
+    public ScoreController scoreController;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         jump = 2.0f;
@@ -102,5 +104,11 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         animator.SetBool("Crouch", crouch);
+    }
+
+    internal void PickUpCollectibe()
+    {
+        Debug.Log("Player Picked up key");
+        scoreController.Scoreup(10);
     }
 }
