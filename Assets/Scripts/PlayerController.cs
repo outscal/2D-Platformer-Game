@@ -6,18 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private float jump = 1.5f;
+    private float jump = 3.0f;
     public Animator animator;
     private Rigidbody2D Rigid2D;
     private Collision2D collision;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision " + collision.gameObject.name);
+        jump = 3.0f;
+        Debug.Log("Collision " + collision.gameObject.name+" "+jump);
         Rigid2D = gameObject.GetComponent<Rigidbody2D>();
     }
     private void OnCollisionExit2D()
     {
-            Debug.Log("Jump parameter zeroed");
+        jump = 0f;
+            Debug.Log("Jump parameter zeroed " + jump);
     }
     // Start is called before the first frame update
     void Start()
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
         if (vertical > 0 )
         {
-            Rigid2D.AddForce(new Vector2(0f,jump), ForceMode2D.Force);
+            Rigid2D.AddForce(new Vector2(0f,jump), ForceMode2D.Impulse);
         }
 
     }
