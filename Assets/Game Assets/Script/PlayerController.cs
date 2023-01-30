@@ -5,15 +5,26 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    SpriteRenderer spriteRenderer;
     public Collider2D collider_stand;
     public Collider2D collider_crouch;
+    Rigidbody2D rigidBody;
+
+    public float vMax = 8;
+    public float jumpThrust = 200;
+
+    private void Awake() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        rigidBody = GetComponent<Rigidbody2D>();
+    }
 
     private void Update() {
 
         // jump code
         if (Input.GetButtonDown("Jump")) {
             animator.SetTrigger("jump");
+
+            rigidBody.AddForce(new Vector2(0, jumpThrust));
         }
 
         // crouch code
@@ -24,54 +35,26 @@ public class PlayerController : MonoBehaviour {
         collider_crouch.enabled = Input.GetButton("Crouch");
 
         // walk and run code
-        float speed = Input.GetAxisRaw("Horizontal");
+        float vX = Input.GetAxisRaw("Horizontal");
 
         // you can walk by slightly pushing the L-Stick
-        animator.SetFloat("speed", Mathf.Abs(speed * 10));
+        animator.SetFloat("speed", Mathf.Abs(vX * 10));
 
         // flipping the sprite
-        if (speed > 0) {
+        if (vX > 0) {
             spriteRenderer.flipX = false;
-        } else if (speed < 0) {
+        } else if (vX < 0) {
             spriteRenderer.flipX = true;
         }
 
-        /*
-        // if crouch
-        if (Input.GetButton("Crouch")) {
-            animator.SetBool("crouch", true);
+        // actually moving the player around
+        Vector3 p = transform.position;
+        p.x += vX * vMax * Time.deltaTime;
+        transform.position = p;
 
-            collider_stand.enabled = false;
-            collider_stand.enabled = true;
+    }
 
-        } else {
-            animator.SetBool("crouch", false);
-            collider_stand.enabled = true;
-            collider_stand.enabled = false;
-
-            // if jump - works for joystick?
-            if (Input.GetButton("Jump")) {
-                animator.SetBool("jump", true);
-
-            } else {
-                animator.SetBool("jump", false);
-
-                float speed = Input.GetAxisRaw("Horizontal");
-
-                // joystick works amazingly now
-                animator.SetFloat("speed", Mathf.Abs(speed * 10));
-
-                // flipping the sprite
-                if (speed > 0) {
-                    spriteRenderer.flipX = false;
-                } else if (speed < 0) {
-                    spriteRenderer.flipX = true;
-                }
-            }
-        }
-        */
-
-
+    private void OnCollisionEnter2D(Collision2D collision) {
     }
 
 }
