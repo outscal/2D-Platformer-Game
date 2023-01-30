@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private float jump = 3.0f;
+    private float jump = 2.0f;
     public Animator animator;
     private Rigidbody2D Rigid2D;
     private Collision2D collision;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        jump = 3.0f;
+        jump = 2.0f;
         Debug.Log("Collision " + collision.gameObject.name+" "+jump);
         Rigid2D = gameObject.GetComponent<Rigidbody2D>();
     }
