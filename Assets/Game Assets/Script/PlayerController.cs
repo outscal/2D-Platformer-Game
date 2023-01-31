@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour {
     public float vMax = 8;
     public float jumpThrust = 200;
 
+    private bool inAir = false;
+    private bool isCrouching = false;
+
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
@@ -20,19 +23,26 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
 
-        // jump code
-        if (Input.GetButtonDown("Jump")) {
-            animator.SetTrigger("jump");
+        if (!inAir) {
+            if (!isCrouching) {
 
-            rigidBody.AddForce(new Vector2(0, jumpThrust));
+                // jump code
+                if (Input.GetButtonDown("Jump")) {
+                    animator.SetTrigger("jump");
+
+                    rigidBody.AddForce(new Vector2(0, jumpThrust));
+                }
+            }
+
+            isCrouching = Input.GetButton("Crouch");
+
+            // crouch code
+            animator.SetBool("crouch", isCrouching);
+
+            // managing collisions when crouch
+            collider_stand.enabled = !isCrouching;
+            collider_crouch.enabled = isCrouching;
         }
-
-        // crouch code
-        animator.SetBool("crouch", Input.GetButton("Crouch"));
-
-        // managing collisions when crouch
-        collider_stand.enabled = !Input.GetButton("Crouch");
-        collider_crouch.enabled = Input.GetButton("Crouch");
 
         // walk and run code
         float vX = Input.GetAxisRaw("Horizontal");
@@ -55,6 +65,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.collider.tag == "ground") {
+            inAir = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision) {
+        if (collision.collider.tag == "ground") {
+            inAir = true;
+        }
     }
 
 }
