@@ -13,11 +13,11 @@ public class EnemyController : MonoBehaviour
     Rigidbody2D rb2d;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       if( collision.gameObject.GetComponent<PlayerController>() != null)
+       /*if( collision.gameObject.GetComponent<PlayerController>() != null)
         {
             SceneManager.LoadScene(0);
         }
-        right *= -1;
+        right *= -1;*/
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
          }*/
         //transform.position = new Vector3(Position.x,0,0);
         transform.localScale = new Vector3(right, 1, 1f);
-        rb2d.velocity = new Vector2(speed*right, 0f);
+        rb2d.velocity = new Vector2((int)(speed*right*1.5), 0f);
     }
 
     private bool isRight()

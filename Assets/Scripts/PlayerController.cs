@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D Rigid2D;
     private Collision2D collision;
     public ScoreController scoreController;
+    private int Health;
+    public HealthController healthController;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -21,7 +24,16 @@ public class PlayerController : MonoBehaviour
         Rigid2D = gameObject.GetComponent<Rigidbody2D>();
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            animator.SetBool("Death", true);
+            Rigid2D.AddForce(new Vector2(-2f, 2f), ForceMode2D.Impulse);
+            healthController.TakeDamage();
+            animator.SetBool("Hurt", true);
+            //Health = healthController.HealthCheck();
+            if (healthController.HealthCheck() <= 0)
+            {
+                animator.SetBool("Death", true);
+                SceneManager.LoadScene(0);
+            }
+            
             Debug.Log("Active");
             //animator.SetBool("Death", false);
             //animator.SetBool("PermaDeath", true);
@@ -32,11 +44,26 @@ public class PlayerController : MonoBehaviour
     {
         jump = 0f;
         Debug.Log("Jump parameter zeroed " + jump);
+        if(healthController.HealthCheck() > 0)
+        {
+            StartCoroutine(DoSomething(2));
+        }
+        else
+        {
+
+        }
+        animator.SetBool("Hurt", false);
     }
+
+    IEnumerator DoSomething(int duration)
+    {
+       yield return new WaitForSecondsRealtime(duration);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        //Health = healthController.HealthCheck();
     }
 
     // Update is called once per frame
