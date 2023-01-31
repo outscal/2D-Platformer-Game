@@ -12,21 +12,31 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D Rigid2D;
     private Collision2D collision;
     public ScoreController scoreController;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         jump = 2.0f;
-        Debug.Log("Collision " + collision.gameObject.name+" "+jump);
+        Debug.Log("Collision " + collision.gameObject.name + " " + jump);
         Rigid2D = gameObject.GetComponent<Rigidbody2D>();
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            animator.SetBool("Death", true);
+            Debug.Log("Active");
+            //animator.SetBool("Death", false);
+            //animator.SetBool("PermaDeath", true);
+        }
+        //DamageCheck();
     }
     private void OnCollisionExit2D()
     {
         jump = 0f;
-            Debug.Log("Jump parameter zeroed " + jump);
+        Debug.Log("Jump parameter zeroed " + jump);
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -38,6 +48,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         AnimationMade(speed, vertical);
         Movement(speed, vertical);
+        
     }
     void jumpcheck(Collision2D collision)
     {
@@ -60,13 +71,13 @@ public class PlayerController : MonoBehaviour
     }
     void Movement(float speed, float vertical)
     {
-         
+
         Vector3 position = transform.position;
         position.x = position.x + speed * Time.deltaTime;
         transform.position = position;
-        if (vertical > 0 )
+        if (vertical > 0)
         {
-            Rigid2D.AddForce(new Vector2(0f,jump), ForceMode2D.Impulse);
+            Rigid2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
 
     }
@@ -110,5 +121,13 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player Picked up key");
         scoreController.Scoreup(10);
+    }
+
+    void DamageCheck()
+    {
+        if (collision.gameObject.GetComponent<EnemyController>() != null)
+        {
+            animator.SetBool("Death", true);
+        }
     }
 }
