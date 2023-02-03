@@ -24,7 +24,7 @@ public class KinamaticPlayerController : MonoBehaviour {
         _vel.x = x * vMax;
 
         if (_controller.isGrounded) {
-            Debug.DrawLine(transform.position + new Vector3(-1, 1, 0), transform.position + new Vector3(1, 1, 0), Color.green, 0.0f, false);
+            //Debug.DrawLine(transform.position + new Vector3(-1, 1, 0), transform.position + new Vector3(1, 1, 0), Color.green, 0.0f, false);
             if (Input.GetButtonDown("Jump")) {
                 _vel.y = vJump;
             }
@@ -48,7 +48,7 @@ public class KinamaticPlayerController : MonoBehaviour {
             //sprite.transform.rotation = Quaternion.Euler(0, 0, angle);
 
             // smooths the rotation
-            sprite.transform.rotation = Quaternion.Lerp(sprite.transform.rotation, Quaternion.Euler(0, 0, angle), 0.1f);
+            sprite.transform.rotation = Quaternion.Lerp(sprite.transform.rotation, Quaternion.Euler(0, 0, angle), 0.05f);
         }
     }
 }
