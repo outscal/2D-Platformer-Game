@@ -98,7 +98,8 @@ public class PlayerController : MonoBehaviour {
         animator.Play("Player_dead");
 
         yield return new WaitForSecondsRealtime(animator.GetCurrentAnimatorStateInfo(0).length);
-        SceneManager.LoadScene(currentScene);
+        SceneTransitionManager.levelToReload = currentScene;
+        SceneManager.LoadScene("Assets/Scenes/GameOverScene.unity");
     }
 
 }
