@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 public class LobbyManager : MonoBehaviour {
 
     public void OnStartButtonClick() {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneTransitionManager.levelToReload);
+    }
+
+    public void OnLvlSelButtonClick() {
+        SceneManager.LoadScene(4);
     }
 
     public void OnQuitButtonClick() {

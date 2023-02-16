@@ -10,6 +10,6 @@ public class GameOverManager : MonoBehaviour {
     }
 
     public void OnQuitButtonClick() {
-        Application.Quit();
+        SceneManager.LoadScene(0);
     }
 }
