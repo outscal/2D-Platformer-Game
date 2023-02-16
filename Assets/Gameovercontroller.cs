@@ -11,7 +11,7 @@ public class Gameovercontroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
+        int Health = HealthController.HealthCheck();
     }
 
     // Update is called once per frame
@@ -20,11 +20,11 @@ public class Gameovercontroller : MonoBehaviour
         Debug.Log("Health is " + HealthController.HealthCheck());
         if (HealthController.HealthCheck() <= 0)
         {
-            gameObject.SetActive(true);
+            transform.gameObject.SetActive(true);
         }
         RestartButton.onClick.AddListener(Restart);
     }
-    void Restart()
+    public void Restart()
     {
         SceneManager.LoadScene(0);
     }
