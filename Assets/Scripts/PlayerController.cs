@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
             if (healthController.HealthCheck() <= 0)
             {
                 animator.SetBool("Death", true);
-                SceneManager.LoadScene(0);
+                //SceneManager.LoadScene(0);
             }
             
             Debug.Log("Active");
