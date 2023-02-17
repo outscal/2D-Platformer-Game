@@ -6,6 +6,8 @@ public class PlayerControler : MonoBehaviour
 {
     [SerializeField]
     private Animator playerAnimator;
+    [SerializeField]
+    private BoxCollider2D playerBoxCollider;
     // Update is called once per frame
     void Update()
     {
@@ -19,6 +21,36 @@ public class PlayerControler : MonoBehaviour
         {
             scale.x = Mathf.Abs(scale.x);
         }
+
         transform.localScale = scale;
+        float upforce = Input.GetAxisRaw("Vertical");
+        if(upforce > 0)
+        {
+            playerAnimator.SetBool("Jump", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Jump", false);
+
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+        {
+            bool isCourching = playerAnimator.GetBool("Crouch");
+            playerAnimator.SetBool("Crouch", !isCourching);
+            isCourching = playerAnimator.GetBool("Crouch");
+            Vector2 size = playerBoxCollider.size;
+            Vector2 offset = playerBoxCollider.offset;
+            if (isCourching)
+            {
+                size.y /= 2f;
+                offset.y /= 2f;
+            }else
+            {
+                size.y *= 2f;
+                offset.y *= 2f;
+            }
+            playerBoxCollider.size = size;
+            playerBoxCollider.offset = offset;
+        }
     }
 }
