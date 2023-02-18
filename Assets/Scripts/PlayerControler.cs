@@ -5,34 +5,49 @@ using UnityEngine;
 public class PlayerControler : MonoBehaviour
 {
     [SerializeField]
+    private float speed;
+
+    [SerializeField]
+    private float jumpForce;
+    [SerializeField]
     private Animator playerAnimator;
     [SerializeField]
     private BoxCollider2D playerBoxCollider;
-    // Update is called once per frame
+    private Rigidbody2D playerRigidBody;
+    private SpriteRenderer playerSpriteRenderer;
+    private void Awake()
+    {
+        playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        playerAnimator.SetFloat("Speed", Mathf.Abs(speed));
-        Vector3 scale = transform.localScale;
-        if(speed < 0){
-            scale.x = -1f * (Mathf.Abs(scale.x));
-        }
-        else if (speed > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Jump");
+        PlayerAnimation(horizontalInput, verticalInput);
+        PlayerMovement(horizontalInput, verticalInput);
+    }
 
-        transform.localScale = scale;
-        float upforce = Input.GetAxisRaw("Vertical");
-        if(upforce > 0)
+    private void PlayerMovement(float horizontalInput, float verticalInput)
+    {
+        Vector3 playerPosition = transform.position;
+        playerPosition.x += (speed * horizontalInput * Time.deltaTime);
+        transform.position = playerPosition;
+        if (verticalInput > 0)
         {
-            playerAnimator.SetBool("Jump", true);
+            playerRigidBody.AddForce(Vector2.up * jumpForce,ForceMode2D.Force);
         }
-        else
-        {
-            playerAnimator.SetBool("Jump", false);
+    }
 
-        }
+    private void PlayerAnimation(float horizontalInput, float verticalInput)
+    {
+        PlayerHorizontalMovementAnimation(horizontalInput);
+        PlayerJumpAnimation(verticalInput);
+        PlayerCrouchAnimation();
+    }
+
+    private void PlayerCrouchAnimation()
+    {
         if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
         {
             bool isCourching = playerAnimator.GetBool("Crouch");
@@ -44,13 +59,40 @@ public class PlayerControler : MonoBehaviour
             {
                 size.y /= 2f;
                 offset.y /= 2f;
-            }else
+            }
+            else
             {
                 size.y *= 2f;
                 offset.y *= 2f;
             }
             playerBoxCollider.size = size;
             playerBoxCollider.offset = offset;
+        }
+    }
+
+    private void PlayerJumpAnimation(float verticalInput)
+    {
+        if (verticalInput > 0)
+        {
+            playerAnimator.SetBool("Jump", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Jump", false);
+
+        }
+    }
+
+    private void PlayerHorizontalMovementAnimation(float horizontalInput)
+    {
+        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontalInput));
+        if (horizontalInput < 0)
+        {
+            playerSpriteRenderer.flipX = true;
+        }
+        else if (horizontalInput > 0)
+        {
+            playerSpriteRenderer.flipX = false;
         }
     }
 }
