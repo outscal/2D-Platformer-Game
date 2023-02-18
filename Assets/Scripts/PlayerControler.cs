@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
+    public bool onGround;
+
+
     [SerializeField]
     private float speed;
     [SerializeField]
     private float jumpForce;
-    [SerializeField]
-    private bool onGround;
     [SerializeField]
     private Animator playerAnimator;
     [SerializeField]
@@ -98,20 +99,5 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Platform"))
-        {
-            onGround = true;
-            playerAnimator.SetBool("onGround", true);
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Platform"))
-        {
-            onGround = false;
-            playerAnimator.SetBool("onGround", false);
-        }
-    }
+    
 }
