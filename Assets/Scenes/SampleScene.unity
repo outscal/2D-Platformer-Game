@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb71c78f9da04ae4292a38b24dc65fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
+  jumpForce: 10
   playerAnimator: {fileID: 292148133}
   playerBoxCollider: {fileID: 292148136}
 --- !u!1 &519420028
@@ -253,7 +255,7 @@ GameObject:
   - component: {fileID: 1782427709}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,7 +273,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.10293728}
+  m_Offset: {x: 0, y: -0.030301496}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -282,7 +284,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.79412544}
+  m_Size: {x: 1, y: 0.939397}
   m_EdgeRadius: 0
 --- !u!212 &1782427710
 SpriteRenderer:
@@ -358,9 +360,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2144096423837115735, guid: 944c32871911126458e5a145596ddca3,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3987622072809776010, guid: 944c32871911126458e5a145596ddca3,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3987622072809776010, guid: 944c32871911126458e5a145596ddca3,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7761410537532868873, guid: 944c32871911126458e5a145596ddca3,
@@ -417,6 +429,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103845167641270473, guid: 944c32871911126458e5a145596ddca3,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 944c32871911126458e5a145596ddca3, type: 3}

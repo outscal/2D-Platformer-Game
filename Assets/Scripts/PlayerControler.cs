@@ -6,9 +6,10 @@ public class PlayerControler : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-
     [SerializeField]
     private float jumpForce;
+    [SerializeField]
+    private bool onGround;
     [SerializeField]
     private Animator playerAnimator;
     [SerializeField]
@@ -23,26 +24,27 @@ public class PlayerControler : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Jump");
-        PlayerAnimation(horizontalInput, verticalInput);
-        PlayerMovement(horizontalInput, verticalInput);
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float jumpInput = Input.GetAxisRaw("Jump");
+        PlayerAnimation(horizontalInput, verticalInput, jumpInput);
+        PlayerMovement(horizontalInput, verticalInput, jumpInput);
     }
 
-    private void PlayerMovement(float horizontalInput, float verticalInput)
+    private void PlayerMovement(float horizontalInput, float verticalInput, float jumpInput)
     {
         Vector3 playerPosition = transform.position;
         playerPosition.x += (speed * horizontalInput * Time.deltaTime);
         transform.position = playerPosition;
-        if (verticalInput > 0)
+        if (((verticalInput > 0) || (jumpInput > 0) ) && onGround)
         {
-            playerRigidBody.AddForce(Vector2.up * jumpForce,ForceMode2D.Force);
+            playerRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
         }
     }
 
-    private void PlayerAnimation(float horizontalInput, float verticalInput)
+    private void PlayerAnimation(float horizontalInput, float verticalInput, float jumpInput)
     {
         PlayerHorizontalMovementAnimation(horizontalInput);
-        PlayerJumpAnimation(verticalInput);
+        PlayerJumpAnimation(verticalInput, jumpInput);
         PlayerCrouchAnimation();
     }
 
@@ -70,9 +72,9 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    private void PlayerJumpAnimation(float verticalInput)
+    private void PlayerJumpAnimation(float verticalInput, float jumpInput)
     {
-        if (verticalInput > 0)
+        if (verticalInput > 0 || jumpInput>0)
         {
             playerAnimator.SetBool("Jump", true);
         }
@@ -93,6 +95,23 @@ public class PlayerControler : MonoBehaviour
         else if (horizontalInput > 0)
         {
             playerSpriteRenderer.flipX = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            onGround = true;
+            playerAnimator.SetBool("onGround", true);
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            onGround = false;
+            playerAnimator.SetBool("onGround", false);
         }
     }
 }
