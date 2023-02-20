@@ -6,11 +6,7 @@ using UnityEngine.SceneManagement;
 public class LobbyManager : MonoBehaviour {
 
     public void OnStartButtonClick() {
-        SceneManager.LoadScene(SceneTransitionManager.levelToReload);
-    }
-
-    public void OnLvlSelButtonClick() {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene("Assets/Scenes/LevelSelectionScene.unity");
     }
 
     public void OnQuitButtonClick() {

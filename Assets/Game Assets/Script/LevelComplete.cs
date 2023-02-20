@@ -9,7 +9,10 @@ public class LevelComplete : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
-            SceneManager.LoadScene(toScene);
+            Debug.Log("Dattebayo");
+            SceneTransitionManager.UnlockTillLevel(toScene);
+            SceneTransitionManager.nextLevelToLoad = toScene;
+            SceneManager.LoadScene("Assets/Scenes/LevelCompleteScene.unity");
         }
     }
 }
