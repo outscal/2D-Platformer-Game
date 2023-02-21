@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class OutOfBound : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class OutOfBound : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<PlayerControler>() != null)
         {
-            SceneManager.LoadScene(SceneManager .GetActiveScene().name);
+            collision.gameObject.GetComponent<PlayerControler>().ReloadScene();
         }
     }
 }

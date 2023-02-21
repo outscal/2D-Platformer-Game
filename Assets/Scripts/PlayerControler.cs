@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class PlayerControler : MonoBehaviour
     private float jumpForce;
     [SerializeField]
     private Animator playerAnimator;
+
+    
+
     [SerializeField]
     private BoxCollider2D playerBoxCollider;
     private int score = 0;
@@ -36,6 +40,12 @@ public class PlayerControler : MonoBehaviour
         bool jumpInput = Input.GetKey(KeyCode.Space);
         PlayerAnimation(horizontalInput, verticalInput, jumpInput);
         PlayerMovement(horizontalInput, verticalInput, jumpInput);
+    }
+
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void IncreaseScore(int additionScore)
