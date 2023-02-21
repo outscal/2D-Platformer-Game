@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class PlayerControler : MonoBehaviour
 {
     public bool onGround;
 
-
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -15,34 +18,49 @@ public class PlayerControler : MonoBehaviour
     private Animator playerAnimator;
     [SerializeField]
     private BoxCollider2D playerBoxCollider;
+    private int score = 0;
+    
+
     private Rigidbody2D playerRigidBody;
     private SpriteRenderer playerSpriteRenderer;
     private void Awake()
     {
         playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
+        PrintScore();
     }
     void Update()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
-        float jumpInput = Input.GetAxisRaw("Jump");
+        bool jumpInput = Input.GetKey(KeyCode.Space);
         PlayerAnimation(horizontalInput, verticalInput, jumpInput);
         PlayerMovement(horizontalInput, verticalInput, jumpInput);
     }
 
-    private void PlayerMovement(float horizontalInput, float verticalInput, float jumpInput)
+    public void IncreaseScore(int additionScore)
+    {
+        score += additionScore;
+        PrintScore();
+    }
+
+    private void PrintScore()
+    {
+        scoreText.text = "Score: " + score;
+    }
+
+    private void PlayerMovement(float horizontalInput, float verticalInput, bool jumpInput)
     {
         Vector3 playerPosition = transform.position;
         playerPosition.x += (speed * horizontalInput * Time.deltaTime);
         transform.position = playerPosition;
-        if (((verticalInput > 0) || (jumpInput > 0) ) && onGround)
+        if (((verticalInput > 0) || (jumpInput) ) && onGround)
         {
-            playerRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
+            playerRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    private void PlayerAnimation(float horizontalInput, float verticalInput, float jumpInput)
+    private void PlayerAnimation(float horizontalInput, float verticalInput, bool jumpInput)
     {
         PlayerHorizontalMovementAnimation(horizontalInput);
         PlayerJumpAnimation(verticalInput, jumpInput);
@@ -73,9 +91,9 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    private void PlayerJumpAnimation(float verticalInput, float jumpInput)
+    private void PlayerJumpAnimation(float verticalInput, bool jumpInput)
     {
-        if (verticalInput > 0 || jumpInput>0)
+        if (verticalInput > 0 || jumpInput)
         {
             playerAnimator.SetBool("Jump", true);
         }
