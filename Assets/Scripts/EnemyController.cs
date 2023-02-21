@@ -10,14 +10,12 @@ public class EnemyController : MonoBehaviour
     private float speed = 2f;
 
     private int currentWaypointIndex = 0;
-    private bool canMove = true;
 
     private void Update()
     {
-        if (canMove)
-        {
-            Patrol();
-        }
+
+        Patrol();
+
     }
 
     private void Patrol()
@@ -44,10 +42,10 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerControler>() != null)
+        if (collision.gameObject.GetComponent<PlayerControler>() != null)
         {
-            Debug.Log("Collided with player");
-            canMove = false;
+            collision.gameObject.GetComponent<PlayerControler>().DecreaseHealth();
+            Destroy(gameObject);
         }
     }
 }

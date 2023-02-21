@@ -12,19 +12,21 @@ public class PlayerControler : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI scoreText;
     [SerializeField]
+    private TextMeshProUGUI healthText;
+    [SerializeField]
     private float speed;
     [SerializeField]
     private float jumpForce;
     [SerializeField]
     private Animator playerAnimator;
 
-    
+
 
     [SerializeField]
     private BoxCollider2D playerBoxCollider;
     private int score = 0;
-    
 
+    private int health = 3;
     private Rigidbody2D playerRigidBody;
     private SpriteRenderer playerSpriteRenderer;
     private void Awake()
@@ -32,7 +34,25 @@ public class PlayerControler : MonoBehaviour
         playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         playerRigidBody = gameObject.GetComponent<Rigidbody2D>();
         PrintScore();
+        PrintHealth();
     }
+
+    public void DecreaseHealth()
+    {
+        if (health == 1)
+        {
+            ReloadScene();
+            return;
+        }
+        health -= 1;
+        PrintHealth();
+
+    }
+    private void PrintHealth()
+    {
+        healthText.text = "Health: " + health;
+    }
+
     void Update()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -64,7 +84,7 @@ public class PlayerControler : MonoBehaviour
         Vector3 playerPosition = transform.position;
         playerPosition.x += (speed * horizontalInput * Time.deltaTime);
         transform.position = playerPosition;
-        if (((verticalInput > 0) || (jumpInput) ) && onGround)
+        if (((verticalInput > 0) || (jumpInput)) && onGround)
         {
             playerRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
@@ -127,5 +147,5 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    
+
 }
