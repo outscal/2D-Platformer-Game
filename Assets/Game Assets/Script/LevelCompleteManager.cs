@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class LevelCompleteManager : MonoBehaviour {
 
     private void Awake() {
-        if (SceneTransitionManager.nextLevelToLoad > 5) {
+        if (SceneTransitionManager.GetInstance().nextLevelToLoad > 5) {
             transform.Find("NextLevelButton").GetComponent<Button>().interactable = false;
         }
     }
 
     public void OnNextLevelButtonClick() {
-        SceneManager.LoadScene(SceneTransitionManager.nextLevelToLoad);
+        SceneManager.LoadScene(SceneTransitionManager.GetInstance().nextLevelToLoad);
     }
 
     public void OnQuitButtonClick() {

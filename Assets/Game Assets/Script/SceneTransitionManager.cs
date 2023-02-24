@@ -1,12 +1,23 @@
-public static class SceneTransitionManager {
-    public static int levelToReload = 1;
-    public static int nextLevelToLoad = 1;
+public class SceneTransitionManager {
 
-    public static int lastLevelUnlocked = 1;
+    public int levelToReload = 1;
+    public int nextLevelToLoad = 1;
 
-    public static void UnlockTillLevel(int level) {
+    public int lastLevelUnlocked = 1;
+
+    public void UnlockTillLevel(int level) {
         if (level > lastLevelUnlocked) {
             lastLevelUnlocked = level;
         }
+    }
+
+    // Below code makes this class a SINGLETON
+    private static SceneTransitionManager _instance;
+
+    private SceneTransitionManager() { }
+
+    public static SceneTransitionManager GetInstance() {
+        if (_instance == null) { _instance = new SceneTransitionManager(); }
+        return _instance;
     }
 }

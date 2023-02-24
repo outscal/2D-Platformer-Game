@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LevelSelectManager : MonoBehaviour {
 
     private void Awake() {
-        int lockAfterLevel = SceneTransitionManager.lastLevelUnlocked;
+        int lockAfterLevel = SceneTransitionManager.GetInstance().lastLevelUnlocked;
 
         for (int i = lockAfterLevel + 1; i <= 5; i++) {
             transform.Find("Panel/L" + i + "Button").GetComponent<Button>().interactable = false;

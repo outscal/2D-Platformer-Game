@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameOverManager : MonoBehaviour {
 
     public void OnReplayButtonClick() {
-        SceneManager.LoadScene(SceneTransitionManager.levelToReload);
+        SceneManager.LoadScene(SceneTransitionManager.GetInstance().levelToReload);
     }
 
     public void OnQuitButtonClick() {
