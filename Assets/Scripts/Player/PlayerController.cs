@@ -6,11 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed; 
     [SerializeField] float jump;
-    [SerializeField] LayerMask groundLayerMask;
     BoxCollider2D bc2d;
     Animator animator;
     SpriteRenderer sr;
     Rigidbody2D rb2d;
+    public bool isPlayerGrounded = false;
 
     private void Awake() {
         animator = GetComponent<Animator>();
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void AnimateJump(float vertical) {
-        if (vertical > 0 && isPlayerGrounded()) {
+        if (vertical > 0 && isPlayerGrounded) {
             animator.SetBool("Jump", true);
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         } else {
@@ -71,16 +71,21 @@ public class PlayerController : MonoBehaviour
         AnimateCrouch();
     }
 
-    private bool isPlayerGrounded() {
-        float extraHeight = 0.5f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(bc2d.bounds.center, bc2d.bounds.size, 0f, Vector2.down, extraHeight, groundLayerMask);
-        return raycastHit.collider != null;
-    }
     private void Update() {
         // Change HorizontalDirection according to input.
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         AnimateHorizontalMovement(horizontal);
         AnimateVerticalMovement(vertical);   
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+        if (other.transform.tag == "Platform")
+            isPlayerGrounded = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        if (other.transform.tag == "Platform")
+            isPlayerGrounded = false;
     }
 }
