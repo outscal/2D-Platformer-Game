@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
 
     private void AnimateJump(float vertical) {
         if (vertical > 0 && isPlayerGrounded) {
-            animator.SetBool("Jump", true);
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+            animator.SetBool("Jump", true);
         } else {
             animator.SetBool("Jump", false);
         }
