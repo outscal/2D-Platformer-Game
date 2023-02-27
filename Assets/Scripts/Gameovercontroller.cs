@@ -21,7 +21,7 @@ public class Gameovercontroller : MonoBehaviour
         Debug.Log("Health is " + HealthController.HealthCheck());
         if (HealthController.HealthCheck() <= 0)
         {
-            this.enabled = true;
+           // this.enabled = true;
         }
         RestartButton.onClick.AddListener(Restart);
     }
