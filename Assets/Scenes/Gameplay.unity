@@ -205,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267374560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -292,10 +292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jump: 2.5
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
+  jump: 5
+  isPlayerGrounded: 0
 --- !u!1 &416209464
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,9 +305,9 @@ GameObject:
   - component: {fileID: 416209466}
   - component: {fileID: 416209465}
   - component: {fileID: 416209467}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
