@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Levels : MonoBehaviour
+using System;
+public static class Levels
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static string Level1 = "Scene 1";
+    public static string Level2 = "Scene 2";
+    public static string Level3 = "Scene 3";
 }
