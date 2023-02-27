@@ -23,7 +23,7 @@ public class HealthController : MonoBehaviour
 
 
          }*/
-        Debug.Log("Destroyed " + HealthCheck());
+        //Debug.Log("Destroyed " + HealthCheck());
         if(HealthCheck()>0)
         Destroy(transform.GetChild(HealthCheck()-1).gameObject);
 

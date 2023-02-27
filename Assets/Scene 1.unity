@@ -403,9 +403,8 @@ RectTransform:
   - {fileID: 562307397}
   - {fileID: 1746873869}
   - {fileID: 346443763}
-  - {fileID: 242167301}
-  m_Father: {fileID: 130889917}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -492,7 +491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &242167301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -500,18 +499,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242167300}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.0004997, y: 2.8571427, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1298622342}
-  m_Father: {fileID: 150648356}
-  m_RootOrder: 3
+  m_Father: {fileID: 346443763}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.7, y: -162.5}
+  m_AnchoredPosition: {x: -18.501894, y: -464.2857}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242167302
@@ -809,7 +808,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &342631660
 GameObject:
@@ -917,7 +916,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.19998, y: 0.35, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 242167301}
   m_Father: {fileID: 150648356}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -977,7 +977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthController: {fileID: 1746873871}
-  RestartButton: {fileID: 0}
+  RestartButton: {fileID: 242167303}
 --- !u!1 &494993078
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,7 +3021,7 @@ Transform:
   - {fileID: 1095124441}
   - {fileID: 265923791}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &483256223276818984
 PrefabInstance:
@@ -3135,6 +3135,11 @@ PrefabInstance:
       propertyPath: healthController
       value: 
       objectReference: {fileID: 1746873871}
+    - target: {fileID: 1424589087083749269, guid: 7c052b687f5cdea42b2ca892d576a047,
+        type: 3}
+      propertyPath: gameovercontroller
+      value: 
+      objectReference: {fileID: 346443766}
     - target: {fileID: 1432851391630355532, guid: 7c052b687f5cdea42b2ca892d576a047,
         type: 3}
       propertyPath: m_Name

@@ -12,6 +12,7 @@ public class Gameovercontroller : MonoBehaviour
     void Start()
     {
         int Health = HealthController.HealthCheck();
+        Debug.Log("Health is " + HealthController.HealthCheck());
     }
 
     // Update is called once per frame
@@ -20,12 +21,16 @@ public class Gameovercontroller : MonoBehaviour
         Debug.Log("Health is " + HealthController.HealthCheck());
         if (HealthController.HealthCheck() <= 0)
         {
-            transform.gameObject.SetActive(true);
+            this.enabled = true;
         }
         RestartButton.onClick.AddListener(Restart);
     }
     public void Restart()
     {
         SceneManager.LoadScene(0);
+    }
+    public void PlayerDead()
+    {
+        gameObject.SetActive(true);
     }
 }

@@ -15,12 +15,13 @@ public class PlayerController : MonoBehaviour
     public ScoreController scoreController;
     private int Health;
     public HealthController healthController;
+    public Gameovercontroller gameovercontroller;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
         jump = 2.0f;
-        Debug.Log("Collision " + collision.gameObject.name + " " + jump);
+        //Debug.Log("Collision " + collision.gameObject.name + " " + jump);
         Rigid2D = gameObject.GetComponent<Rigidbody2D>();
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -30,11 +31,13 @@ public class PlayerController : MonoBehaviour
             //Health = healthController.HealthCheck();
             if (healthController.HealthCheck() <= 0)
             {
+                gameovercontroller.PlayerDead();
                 animator.SetBool("Death", true);
+                this.enabled = false;
                 //SceneManager.LoadScene(0);
             }
             
-            Debug.Log("Active");
+            //Debug.Log("Active");
             //animator.SetBool("Death", false);
             //animator.SetBool("PermaDeath", true);
         }
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D()
     {
         jump = 0f;
-        Debug.Log("Jump parameter zeroed " + jump);
+        //Debug.Log("Jump parameter zeroed " + jump);
         if(healthController.HealthCheck() > 0)
         {
             StartCoroutine(DoSomething(2));
@@ -81,7 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform")
         {
-            Debug.Log("Object is colliding");
+            //Debug.Log("Object is colliding");
         }
 
         /*if (collision.gameObject.tag == "Platform")
@@ -146,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     internal void PickUpCollectibe()
     {
-        Debug.Log("Player Picked up key");
+        //Debug.Log("Player Picked up key");
         scoreController.Scoreup(10);
     }
 
@@ -155,6 +158,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.GetComponent<EnemyController>() != null)
         {
             animator.SetBool("Death", true);
+
         }
     }
 }
