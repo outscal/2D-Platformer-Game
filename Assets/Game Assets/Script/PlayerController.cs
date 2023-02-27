@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour {
 
     public int currentScene = 0;
 
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource deathSound;
+
     private bool inAir = false;
     private bool isCrouching = false;
 
@@ -37,6 +40,8 @@ public class PlayerController : MonoBehaviour {
                     animator.SetTrigger("jump");
 
                     rigidBody.AddForce(new Vector2(0, jumpThrust));
+
+                    jumpSound.Play();
                 }
             }
 
@@ -96,6 +101,9 @@ public class PlayerController : MonoBehaviour {
 
     public IEnumerator Die() {
         animator.Play("Player_dead");
+
+        deathSound.Play();
+        transform.GetChild(0).GetComponent<ParticleSystem>().Play();
 
         yield return new WaitForSecondsRealtime(animator.GetCurrentAnimatorStateInfo(0).length);
         SceneTransitionManager.GetInstance().levelToReload = currentScene;

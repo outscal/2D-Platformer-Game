@@ -14,9 +14,13 @@ public class LevelCompleteManager : MonoBehaviour {
 
     public void OnNextLevelButtonClick() {
         SceneManager.LoadScene(SceneTransitionManager.GetInstance().nextLevelToLoad);
+
+        BGMPlayer.GetInstance().ButtonSound();
     }
 
     public void OnQuitButtonClick() {
         SceneManager.LoadScene(0);
+
+        BGMPlayer.GetInstance().ButtonSound();
     }
 }

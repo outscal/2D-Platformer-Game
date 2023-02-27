@@ -7,9 +7,13 @@ public class GameOverManager : MonoBehaviour {
 
     public void OnReplayButtonClick() {
         SceneManager.LoadScene(SceneTransitionManager.GetInstance().levelToReload);
+
+        BGMPlayer.GetInstance().ButtonSound();
     }
 
     public void OnQuitButtonClick() {
         SceneManager.LoadScene(0);
+
+        BGMPlayer.GetInstance().ButtonSound();
     }
 }

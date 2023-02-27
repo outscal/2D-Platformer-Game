@@ -10,11 +10,13 @@ public class LevelSelectManager : MonoBehaviour {
         int lockAfterLevel = SceneTransitionManager.GetInstance().lastLevelUnlocked;
 
         for (int i = lockAfterLevel + 1; i <= 5; i++) {
-            transform.Find("Panel/L" + i + "Button").GetComponent<Button>().interactable = false;
+            transform.GetChild(2).GetChild(i - 1).GetComponent<Button>().interactable = false;
         }
     }
 
     public void OnLevelClick(int i) {
         SceneManager.LoadScene(i);
+
+        BGMPlayer.GetInstance().ButtonSound();
     }
 }
