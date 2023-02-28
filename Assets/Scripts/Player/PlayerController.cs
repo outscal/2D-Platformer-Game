@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed; 
     [SerializeField] float jump;
+    [SerializeField] LevelController levelController;
     BoxCollider2D bc2d;
     Animator animator;
     SpriteRenderer sr;
