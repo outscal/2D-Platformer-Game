@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             sr.flipX = (horizontal > 0) ? false : true;
         }
 
-        // Player Movement
+        // Player Movement using Transform.Position
         Vector3 currPos = transform.position;
         currPos.x += horizontal * speed * Time.deltaTime;
         transform.position = currPos;
