@@ -2,30 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Player;
 
-public class LevelController : MonoBehaviour
-{
-    int maxLevels = 1;
-    private void OnTriggerEnter2D(Collider2D other) {
-        // Check if Player is Colliding
-        if (other.gameObject.GetComponent<PlayerController>() != null) {
-            if (this.transform.name == "LevelComplete") {
-                // Load Next Level
-                Debug.Log("Load Next Level. Level Complete.");
-                LoadNextLevel();
-            } else if (this.transform.name == "LowerBound") {
-                // Load Current Level
-                Debug.Log("Load Current Level.");
-                ReloadLevel();
+namespace Level {
+    public class LevelController : MonoBehaviour
+    {
+        int maxLevels = 1;
+        private void OnTriggerEnter2D(Collider2D other) {
+            // Check if Player is Colliding
+            if (other.gameObject.GetComponent<PlayerController>() != null) {
+                if (this.transform.name == "LevelComplete") {
+                    // Load Next Level
+                    Debug.Log("Load Next Level. Level Complete.");
+                    LoadNextLevel();
+                } else if (this.transform.name == "LowerBound") {
+                    // Load Current Level
+                    Debug.Log("Load Current Level.");
+                    ReloadLevel();
+                }
             }
+        }
+
+        private void LoadNextLevel() {
+            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % maxLevels);
+        }
+
+        private void ReloadLevel() {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
-    private void LoadNextLevel() {
-        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % maxLevels);
-    }
-
-    private void ReloadLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 }
+
