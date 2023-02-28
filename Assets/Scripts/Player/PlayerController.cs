@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed; 
     [SerializeField] float jump;
+    [SerializeField] LevelController levelController;
     BoxCollider2D bc2d;
     Animator animator;
     SpriteRenderer sr;
@@ -21,8 +22,8 @@ public class PlayerController : MonoBehaviour
 
     private void AnimateJump(float vertical) {
         if (vertical > 0 && isPlayerGrounded) {
-            animator.SetBool("Jump", true);
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+            animator.SetBool("Jump", true);
         } else {
             animator.SetBool("Jump", false);
         }
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
             sr.flipX = (horizontal > 0) ? false : true;
         }
 
-        // Player Movement
+        // Player Movement using Transform.Position
         Vector3 currPos = transform.position;
         currPos.x += horizontal * speed * Time.deltaTime;
         transform.position = currPos;
