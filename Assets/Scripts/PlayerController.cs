@@ -97,6 +97,11 @@ namespace Player {
             scoreController.IncrementScore();
             Debug.Log("Key Found. Score Increased.");
         }
+
+        public void TakeEnemyDamage() {
+            // Reload Level
+            Debug.Log("Enemy Successful Hit !!");
+        }
     }
 }
 
