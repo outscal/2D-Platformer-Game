@@ -101,7 +101,7 @@ namespace Player {
             Debug.Log("Key Found. Score Increased.");
         }
 
-        public void TakeEnemyDamage() {
+        public void TakeDamage() {
             int currentHealth = healthController.healthLivesLeft;
             currentHealth -= 1;
             if (currentHealth > 0) {

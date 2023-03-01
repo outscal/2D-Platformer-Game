@@ -6,7 +6,7 @@ using Player;
 namespace Enemy {
     public class EnemyController : MonoBehaviour
     {
-        bool isWalkingLeft = false;
+        [SerializeField] bool isWalkingLeft = false;
         [SerializeField] float speed;
         [SerializeField] LayerMask platformLayerMask;
         Animator animator;
@@ -26,7 +26,7 @@ namespace Enemy {
                 PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
                 float playerXPosition = other.gameObject.transform.position.x;
                 EnemyAttack(playerXPosition);
-                playerController.TakeEnemyDamage();
+                playerController.TakeDamage();
             }
         }
         
