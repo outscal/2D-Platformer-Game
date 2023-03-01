@@ -23,11 +23,11 @@ namespace Level {
             }
         }
 
-        private void LoadNextLevel() {
+        public void LoadNextLevel() {
             SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % maxLevels);
         }
 
-        private void ReloadLevel() {
+        public void ReloadLevel() {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
