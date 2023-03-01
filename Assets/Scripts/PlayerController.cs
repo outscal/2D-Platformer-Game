@@ -9,6 +9,8 @@ namespace Player {
         [SerializeField] float speed; 
         [SerializeField] float jump;
         [SerializeField] ScoreController scoreController;
+        [SerializeField] LevelController levelController;
+        HealthController healthController;
         BoxCollider2D bc2d;
         Animator animator;
         SpriteRenderer sr;
@@ -20,6 +22,7 @@ namespace Player {
             sr = GetComponent<SpriteRenderer>();
             bc2d = GetComponent<BoxCollider2D>();
             rb2d = GetComponent<Rigidbody2D>();
+            healthController = GetComponent<HealthController>();
         }
 
         private void AnimateJump(float vertical) {
@@ -96,6 +99,18 @@ namespace Player {
             // Increment The Score
             scoreController.IncrementScore();
             Debug.Log("Key Found. Score Increased.");
+        }
+
+        public void TakeDamage() {
+            int currentHealth = healthController.healthLivesLeft;
+            currentHealth -= 1;
+            if (currentHealth > 0) {
+                healthController.healthLivesLeft = currentHealth;
+            } else {
+                // GAME OVER. RELOAD SCENE.
+                levelController.ReloadLevel();
+            }
+            Debug.Log("Enemy Successful Hit !!");
         }
     }
 }
