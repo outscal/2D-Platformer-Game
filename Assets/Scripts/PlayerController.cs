@@ -10,6 +10,7 @@ namespace Player {
         [SerializeField] float jump;
         [SerializeField] ScoreController scoreController;
         [SerializeField] LevelController levelController;
+        [SerializeField] public GameObject GameOverMenu;
         HealthController healthController;
         BoxCollider2D bc2d;
         Animator animator;
@@ -107,8 +108,8 @@ namespace Player {
             if (currentHealth > 0) {
                 healthController.healthLivesLeft = currentHealth;
             } else {
-                // GAME OVER. RELOAD SCENE.
-                levelController.ReloadLevel();
+                this.enabled = false;
+                GameOverMenu.SetActive(true);
             }
             Debug.Log("Enemy Successful Hit !!");
         }
