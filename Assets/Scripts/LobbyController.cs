@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 namespace Menu {
     public class LobbyController : MonoBehaviour
     {
-        int LEVEL_ONE_BUILD_INDEX = 1;
         [SerializeField] Button PlayButton;
         [SerializeField] Button QuitButton;
+        [SerializeField] GameObject LevelSelect;
 
         void PlayGame() {
-            SceneManager.LoadScene(LEVEL_ONE_BUILD_INDEX);
+            LevelSelect.SetActive(true);
         }
 
         void QuitApplication() {

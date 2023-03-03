@@ -9,7 +9,7 @@ namespace Level {
     public class LevelController : MonoBehaviour
     {
         int MAIN_MENU_BUILD_INDEX = 0;
-        int maxScenes = 2;
+        int maxScenes = 6;
         [SerializeField] Button RestartButton;
         [SerializeField] Button MainMenuButton;
         private void OnTriggerEnter2D(Collider2D other) {
