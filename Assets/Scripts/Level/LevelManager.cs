@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 {
     private static LevelManager instance;
     public string Level1;
+    public string[] Levels;
     public static LevelManager Instance
     {
         get { return instance; }
@@ -29,9 +30,9 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-        if(GetLevelStatus("Level1") == LevelStatus.Locked)
+        if (GetLevelStatus(Levels[0]) == LevelStatus.Locked)
         {
-            setLevelStatus(Level1, LevelStatus.Unlocked);
+            setLevelStatus(Levels[0], LevelStatus.Unlocked);
         }
     }
 
@@ -47,6 +48,8 @@ public class LevelManager : MonoBehaviour
         int nextSceneIndex = scene.buildIndex + 1;
         Scene nextScene = SceneManager.GetSceneByBuildIndex(nextSceneIndex);
         setLevelStatus(nextScene.name, LevelStatus.Unlocked);
+        int currentSceneIndex = Array.FindIndex(Levels, Level => Level == currentScene.name);
+        //int nextSceneIndex = currentSceneIndex + 1;
     }
     public LevelStatus GetLevelStatus(string level)
     {
