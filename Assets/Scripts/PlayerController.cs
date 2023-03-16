@@ -19,25 +19,55 @@ public Animator animator;
 
     private void Update()
    {
-    float Speed= Input.GetAxisRaw("Horizontal");
-    animator.SetFloat("Speed", Mathf.Abs(Speed));
+
+   //Run
+    float horizontal= Input.GetAxisRaw("Horizontal");
+    animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
 
+//Run
     Vector3 scale= transform.localScale;
-    if (Speed < 0)
+    if (horizontal < 0)
     {
         scale.x= -1f * Mathf.Abs(scale.x);
     }
 
-else if (Speed > 0)
+else if (horizontal > 0)
  {
-        scale.x= Mathf.Abs(scale.x);
+       scale.x= Mathf.Abs(scale.x);
+   
 }
 
 transform.localScale = scale;
 
-   }
+//Jump
+float vertical= Input.GetAxisRaw("Jump");
+
+if (Input.GetButtonDown("Jump"))
+{
+animator.SetBool("Jump", true);
+}
+else if (Input.GetButtonUp("Jump"))
+{
+animator.SetBool("Jump", false);
+}  
+ 
+
+//Crouch
+bool crouch= Input.GetKeyDown(KeyCode.LeftControl);
+
+ if (Input.GetKeyDown(KeyCode.LeftControl))
+{
+animator.SetBool("Crouch", true);
+}
+else if (Input.GetKeyUp(KeyCode.LeftControl))
+{
+animator.SetBool("Crouch", false);
+} 
+
+
 
 
 }
-     
+
+}
