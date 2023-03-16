@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerMove();
         Debug.Log(playerSpeed);
+        Crouch();
     }
 
 
@@ -44,5 +45,26 @@ public class PlayerController : MonoBehaviour
         }
 
         this.transform.localScale = temp;
+
+
     }
+
+
+
+
+
+
+    public void Crouch()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))  // are all the key enum parameters in unity ??
+        {
+
+            playerAnim.SetTrigger("Crouch");
+        }
+
+
+    }
+
+
+
 }
