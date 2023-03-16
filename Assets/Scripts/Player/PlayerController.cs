@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float playerSpeed;
+    float HorizontalInput;
 
      Animator playerAnim;
      Vector3 temp;
@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
      Collider2D playerCollider;
      Vector2 OriginalCollideSize = new Vector2(0.4f, 2f), OriginalOffset = new Vector2(-0.004f, 0.96f);
      Vector2 CrouchCollideSize = new Vector2(0.58f, 1.31f), CrouchOffset = new Vector2(-0.004f, 0.6f);//Vector2(-0.004f,0.6f)
-    float verticleSpeed;
+   
     private void Awake()
     {
         playerAnim = GetComponent<Animator>();
@@ -27,11 +27,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Vertcile Input..................
-        verticleSpeed = Input.GetAxis(HelperNames.VerticalAxis);
+        verticleInput = Input.GetAxis(HelperNames.VerticalAxis);
         PlayerMove();
       //  Debug.Log(playerSpeed);
         Crouch();
-        PlayerJump(verticleSpeed);
+        PlayerJump(verticleInput);
 
         
     }
@@ -39,18 +39,18 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerMove()
     {
-      
-        playerSpeed = Input.GetAxis(HelperNames.HorizontalAxis);
 
-        playerAnim.SetFloat("Speed", Mathf.Abs(playerSpeed));
+        HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
+
+        playerAnim.SetFloat("Speed", Mathf.Abs(HorizontalInput));
         // Flip Player Left Right.......
 
         temp = this.transform.localScale;
-        if (playerSpeed > 0)
+        if (HorizontalInput > 0)
         {
             temp.x = Mathf.Abs(temp.x);
         }
-        else if (playerSpeed < 0)
+        else if (HorizontalInput < 0)
         {
             temp.x = -1f * Mathf.Abs(temp.x);
         }
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
             SizeColl = OriginalCollideSize;
             Offset = OriginalOffset;
-           / /Debug.Log("Before_Sie>>" + SizeColl + "Before_Offset>>" + Offset);
+           //Debug.Log("Before_Sie>>" + SizeColl + "Before_Offset>>" + Offset);
             playerAnim.SetBool("Crouch", false);
         }
 
