@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float HorizontalInput;
+    private float HorizontalInput;
 
-     Animator playerAnim;
-     Vector3 temp;
-    float verticleInput; 
-     Collider2D playerCollider;
-     Vector2 OriginalCollideSize = new Vector2(0.4f, 2f), OriginalOffset = new Vector2(-0.004f, 0.96f);
-     Vector2 CrouchCollideSize = new Vector2(0.58f, 1.31f), CrouchOffset = new Vector2(-0.004f, 0.6f);//Vector2(-0.004f,0.6f)
-   
+    private Animator playerAnim;
+    private Vector3 temp;
+    private float verticleInput;
+    private Collider2D playerCollider;
+    private Vector2 OriginalCollideSize = new Vector2(0.4f, 2f), OriginalOffset = new Vector2(-0.004f, 0.96f);
+    private Vector2 CrouchCollideSize = new Vector2(0.58f, 1.31f), CrouchOffset = new Vector2(-0.004f, 0.6f);//Vector2(-0.004f,0.6f)
+    public float playerSpeed;
+
+    private Rigidbody2D playerRb;
     private void Awake()
     {
         playerAnim = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();// differnce in colider2D vs BoxColider 2D?
+        playerRb = GetComponent<Rigidbody2D>();
     }
     void Start()
     {
@@ -28,19 +31,33 @@ public class PlayerController : MonoBehaviour
     {
         // Vertcile Input..................
         verticleInput = Input.GetAxis(HelperNames.VerticalAxis);
-        PlayerMove();
-      //  Debug.Log(playerSpeed);
+        HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
+        PlayerMoveAnimations();
+      
         Crouch();
         PlayerJump(verticleInput);
+        PlayerMove(HorizontalInput);
 
-        
+
+
     }
 
 
-    public void PlayerMove()
+
+   public void PlayerMove(float inputHorizontal)
+    {
+       
+            float playerPos = this.transform.position.x;
+            playerPos+= HorizontalInput * playerSpeed * Time.deltaTime;
+            this.transform.position = new Vector3(playerPos,transform.position.y,transform.position.z);
+            // why it'as not possible>>>>>> float playerPos.x = this.transform.position.x;
+            //this.transform.position.x = playerPos;
+        
+    }
+    public void PlayerMoveAnimations()
     {
 
-        HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
+        
 
         playerAnim.SetFloat("Speed", Mathf.Abs(HorizontalInput));
         // Flip Player Left Right.......
@@ -75,7 +92,7 @@ public class PlayerController : MonoBehaviour
         Vector2 SizeColl = playerCollider.bounds.size;
        Vector2 Offset = playerCollider.bounds.size;
        
-        if (Input.GetKey(KeyCode.LeftControl))  // are all the key enum parameters in unity ??
+        if (Input.GetKeyDown(KeyCode.LeftControl))  // are all the key enum parameters in unity ??
         {
             SizeColl.x = CrouchCollideSize.x;
             SizeColl.y = CrouchCollideSize.y;
@@ -101,11 +118,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Run()
-    {
-
-        
-    }
  
     private void OnCollisionEnter2D(Collision2D collision)
     {
