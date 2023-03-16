@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed;
 
     private Rigidbody2D playerRb;
+
+    public float jumpForce;
+    private float jumpInput;
+    private bool isGrounded=true;
     private void Awake()
     {
         playerAnim = GetComponent<Animator>();
@@ -30,16 +34,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Vertcile Input..................
-        verticleInput = Input.GetAxis(HelperNames.VerticalAxis);
+        //verticleInput = Input.GetAxis(HelperNames.VerticalAxis);
         HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
+        //jumpInput= Input.GetAxis(HelperNames.JUmpAxis);
         PlayerMoveAnimations();
-      
+        //Debug.Log("isGrounded>>" + isGrounded);
         Crouch();
-        PlayerJump(verticleInput);
+        PlayerJump(isGrounded);
         PlayerMove(HorizontalInput);
 
+        Jump();
 
-
+        Debug.Log("playerRb.velocity.y>>" + playerRb.velocity.y);
     }
 
 
@@ -78,12 +84,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void PlayerJump(float VerticleSpeed)
+    public void PlayerJump(bool isGrounded)
     {
-        if(VerticleSpeed>0)
-        playerAnim.SetBool("Jump",true);
-        else{
-            playerAnim.SetBool("Jump", false);
+        if(isGrounded==true )
+        playerAnim.SetBool("Jump",false);
+        else if (isGrounded == false)
+        {
+            playerAnim.SetBool("Jump", true);
         }
     }
    
@@ -118,12 +125,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (playerRb.velocity.y <= 0&& isGrounded)
+            {
+                playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                isGrounded = false;
+            }
+           
+        }
  
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Ground")
         {
-            Debug.Log("Name Printing>>");
+            isGrounded = true;
+            Debug.Log("Grounded>>");
         }
     }
 

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3479664381634324182}
   - component: {fileID: 566954751}
   - component: {fileID: 566954749}
-  - component: {fileID: 566954752}
   - component: {fileID: 5669748094881409037}
+  - component: {fileID: 1544436066}
   m_Layer: 0
   m_Name: Player_Ellen
   m_TagString: Untagged
@@ -131,25 +131,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &566954752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204957798904373964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121e6a10a3b480244873686fcd534a72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAnim: {fileID: 0}
-  temp: {x: 0, y: 0, z: 0}
-  playerCollider: {fileID: 0}
-  OriginalCollideSize: {x: 0.4, y: 2}
-  OriginalOffset: {x: -0.004, y: 0.96}
-  CrouchCollideSize: {x: 0.58, y: 1.31}
-  CrouchOffset: {x: -0.004, y: 0.6}
 --- !u!50 &5669748094881409037
 Rigidbody2D:
   serializedVersion: 4
@@ -169,5 +150,20 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1544436066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204957798904373964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 121e6a10a3b480244873686fcd534a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 5
+  jumpForce: 100
+  isGrounded: 1
