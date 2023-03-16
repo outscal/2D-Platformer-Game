@@ -6,5 +6,5 @@ public class HelperNames : MonoBehaviour
 {
 
     public const string HorizontalAxis = "Horizontal";
-    public const string VerticalAxis = "Verticle";
+    public const string VerticalAxis = "Vertical";
 }
