@@ -33,19 +33,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Vertcile Input..................
-        //verticleInput = Input.GetAxis(HelperNames.VerticalAxis);
+       
         HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
-        //jumpInput= Input.GetAxis(HelperNames.JUmpAxis);
+      
         PlayerMoveAnimations();
-        //Debug.Log("isGrounded>>" + isGrounded);
+     
         Crouch();
         PlayerJump(isGrounded);
         PlayerMove(HorizontalInput);
 
         Jump();
-
-        Debug.Log("playerRb.velocity.y>>" + playerRb.velocity.y);
+        Debug.Log("IsGroudne>>" + isGrounded);
     }
 
 
@@ -56,8 +54,7 @@ public class PlayerController : MonoBehaviour
             float playerPos = this.transform.position.x;
             playerPos+= HorizontalInput * playerSpeed * Time.deltaTime;
             this.transform.position = new Vector3(playerPos,transform.position.y,transform.position.z);
-            // why it'as not possible>>>>>> float playerPos.x = this.transform.position.x;
-            //this.transform.position.x = playerPos;
+            
         
     }
     public void PlayerMoveAnimations()
@@ -86,40 +83,44 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerJump(bool isGrounded)
     {
-        if(isGrounded==true )
-        playerAnim.SetBool("Jump",false);
+        if(isGrounded==true)
+        {
+            playerAnim.SetBool("Jump",false);
+        }
+
+
         else if (isGrounded == false)
         {
-            playerAnim.SetBool("Jump", true);
-        }
+                   
+                     playerAnim.SetBool("Jump", true);
+                }
     }
    
     public void Crouch()
     {
         Vector2 SizeColl = playerCollider.bounds.size;
-       Vector2 Offset = playerCollider.bounds.size;
+       Vector2 Offset = playerCollider.offset;
        
-        if (Input.GetKeyDown(KeyCode.LeftControl))  // are all the key enum parameters in unity ??
+        if (Input.GetKeyDown(KeyCode.LeftControl)) 
         {
-            SizeColl.x = CrouchCollideSize.x;
-            SizeColl.y = CrouchCollideSize.y;
-            playerCollider.bounds.size.Set(SizeColl.x, SizeColl.y, 0);
-           
-            Offset = CrouchOffset;
-            playerCollider.offset.Set(Offset.x, Offset.y);
+            Debug.Log("Crouch Pressed key");
+            SizeColl = CrouchCollideSize;
+             Offset = CrouchOffset;
 
+            playerAnim.SetTrigger("Crouchh");
 
-          //  Debug.Log("After_Sie>>" + playerCollider.bounds.size + "After_Offset>>" + playerCollider.bounds.size);
+            //  Debug.Log("After_Sie>>" + playerCollider.bounds.size + "After_Offset>>" + playerCollider.bounds.size);
 
             playerAnim.SetBool("Crouch",true);
         }
         else
         {
-
+          
             SizeColl = OriginalCollideSize;
             Offset = OriginalOffset;
-           //Debug.Log("Before_Sie>>" + SizeColl + "Before_Offset>>" + Offset);
-            playerAnim.SetBool("Crouch", false);
+            //Debug.Log("Before_Sie>>" + SizeColl + "Before_Offset>>" + Offset);
+           
+            
         }
 
 
@@ -127,13 +128,13 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (playerRb.velocity.y <= 0&& isGrounded)
             {
                 playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 isGrounded = false;
-            }
+           }
            
         }
  
@@ -144,9 +145,29 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
-            Debug.Log("Grounded>>");
+        
         }
     }
 
+
+    public void CrouchAnim()
+    {
+        
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))  
+        {
+            Debug.Log("Crouch Pressed key");
+
+          
+            
+        }
+        else
+        {
+
+          
+        }
+
+
+    }
 
 }
