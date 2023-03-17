@@ -10,10 +10,8 @@ public class LevelCleared : MonoBehaviour
         {
             Debug.Log("Level cleared By Player");
         }
+
+       UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
 }
