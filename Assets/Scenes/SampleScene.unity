@@ -418,11 +418,11 @@ GameObject:
   - component: {fileID: 884952781}
   - component: {fileID: 884952780}
   - component: {fileID: 884952783}
-  - component: {fileID: 884952782}
   - component: {fileID: 884952784}
+  - component: {fileID: 884952782}
   m_Layer: 0
   m_Name: Ky_Collectable
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -467,7 +467,7 @@ SpriteRenderer:
   m_SortingLayerID: 794161427
   m_SortingLayer: 3
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300002, guid: 47b79e0414059df4c9e864efad6475b9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3abf1705bc9d76244ad760412db78a65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -486,31 +486,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884952779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3, y: -3.3, z: 0}
+  m_LocalPosition: {x: -0.3, y: -2.766, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &884952782
-Animator:
-  serializedVersion: 3
+--- !u!114 &884952782
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884952779}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1cd49f64c36fd0944988436b4a91902a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0e4bb53bc5df9b4b8121cfc44216d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeedy: 0
+  temp: {x: 0, y: 0}
 --- !u!61 &884952783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -524,18 +519,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.000000029802322, y: -0.018370152}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.41602176, y: 0.90414524}
   m_EdgeRadius: 0
 --- !u!114 &884952784
 MonoBehaviour:
@@ -549,6 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e633f19e231f6542bb0e4094c12f429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyAnim: {fileID: 0}
 --- !u!1 &899385138
 GameObject:
   m_ObjectHideFlags: 0
