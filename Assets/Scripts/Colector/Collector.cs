@@ -11,6 +11,7 @@ public class Collector : MonoBehaviour
             collision.gameObject.SetActive(false);
 
            
+           
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private float verticleInput;
     private Collider2D playerCollider;
     private Vector2 OriginalCollideSize = new Vector2(0.4f, 2f), OriginalOffset = new Vector2(-0.004f, 0.96f);
+
+   
+
     private Vector2 CrouchCollideSize = new Vector2(0.58f, 1.31f), CrouchOffset = new Vector2(-0.004f, 0.6f);//Vector2(-0.004f,0.6f)
     public float playerSpeed;
 
@@ -19,9 +23,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private float jumpInput;
     private bool isGrounded=true;
+
+    private ScoreUI scorevar;
+    private int scoreRaise=5;
     private void Awake()
     {
-        playerAnim = GetComponent<Animator>();
+        scorevar = GameObject.FindGameObjectWithTag("UiController").GetComponent<ScoreUI>();
+         playerAnim = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();// differnce in colider2D vs BoxColider 2D?
         playerRb = GetComponent<Rigidbody2D>();
     }
@@ -46,9 +54,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("IsGroudne>>" + isGrounded);
     }
 
+    public void KeyCollected()
+    {
+        scorevar.ScoreController(scoreRaise);
+    }
 
-
-   public void PlayerMove(float inputHorizontal)
+    public void PlayerMove(float inputHorizontal)
     {
        
             float playerPos = this.transform.position.x;
