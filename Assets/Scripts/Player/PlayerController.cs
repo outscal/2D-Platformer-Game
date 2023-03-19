@@ -9,13 +9,15 @@ public class PlayerController : MonoBehaviour
 
     private Animator playerAnim;
     private Vector3 temp;
-    private float verticleInput;
-    private Collider2D playerCollider;
+   
+    private BoxCollider2D playerCollider;
+
+    // Coliider sizes  Before and After Crouch.......................
     private Vector2 OriginalCollideSize = new Vector2(0.4f, 2f), OriginalOffset = new Vector2(-0.004f, 0.96f);
 
-   
+    private Vector2 CrouchCollideSize = new Vector2(0.58f, 1.31f), CrouchOffset = new Vector2(-0.004f, 0.6f);
+     // Coliider sizes  Before and After Crouch.......................
 
-    private Vector2 CrouchCollideSize = new Vector2(0.58f, 1.31f), CrouchOffset = new Vector2(-0.004f, 0.6f);//Vector2(-0.004f,0.6f)
     public float playerSpeed;
 
     private Rigidbody2D playerRb;
@@ -29,8 +31,9 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         scorevar = GameObject.FindGameObjectWithTag("UiController").GetComponent<ScoreUI>();
-         playerAnim = GetComponent<Animator>();
-        playerCollider = GetComponent<BoxCollider2D>();// differnce in colider2D vs BoxColider 2D?
+
+         playerAnim = gameObject.GetComponent<Animator>();
+        playerCollider = GetComponent<BoxCollider2D>();
         playerRb = GetComponent<Rigidbody2D>();
     }
     void Start()
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour
         PlayerMove(HorizontalInput);
 
         Jump();
-        Debug.Log("IsGroudne>>" + isGrounded);
+      //  Debug.Log("IsGroudne>>" + isGrounded);
     }
 
     public void KeyCollected()
@@ -109,27 +112,35 @@ public class PlayerController : MonoBehaviour
    
     public void Crouch()
     {
-        Vector2 SizeColl = playerCollider.bounds.size;
-       Vector2 Offset = playerCollider.offset;
+       // Vector2 SizeColl = playerCollider.size;
+      // Vector2 Offset = playerCollider.offset;
        
-        if (Input.GetKeyDown(KeyCode.LeftControl)) 
+        if (Input.GetKey(KeyCode.LeftControl)) 
         {
-            Debug.Log("Crouch Pressed key");
-            SizeColl = CrouchCollideSize;
-             Offset = CrouchOffset;
-
-            playerAnim.SetTrigger("Crouchh");
-
-            //  Debug.Log("After_Sie>>" + playerCollider.bounds.size + "After_Offset>>" + playerCollider.bounds.size);
+            
+            // SizeColl = CrouchCollideSize;
+            playerCollider.size = CrouchCollideSize;
+            playerCollider.offset = CrouchOffset;
+           // Offset = CrouchOffset;
+           // playerCollider.size = SizeColl;
+           //playerCollider.offset = Offset;
+            Debug.Log("After_Sie>>" + playerCollider.offset + "After_Offset>>" + playerCollider.offset);
 
             playerAnim.SetBool("Crouch",true);
+           // playerAnim.SetTrigger("Crouch0");
         }
         else
         {
-          
-            SizeColl = OriginalCollideSize;
-            Offset = OriginalOffset;
-            //Debug.Log("Before_Sie>>" + SizeColl + "Before_Offset>>" + Offset);
+            playerAnim.SetBool("Crouch", false);
+            // SizeColl = OriginalCollideSize;
+            playerCollider.size = OriginalCollideSize;
+            playerCollider.offset = OriginalOffset;
+            // Offset = OriginalOffset;
+            // playerCollider.size = SizeColl;
+            // playerCollider.offset = Offset;
+
+
+            Debug.Log("Before_Sie>>" + playerCollider.size + "Before_Offset>>" + playerCollider.offset);
            
             
         }
@@ -146,8 +157,9 @@ public class PlayerController : MonoBehaviour
                 playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 isGrounded = false;
            }
-           
+
         }
+        
  
     }
 
@@ -161,24 +173,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void CrouchAnim()
-    {
-        
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))  
-        {
-            Debug.Log("Crouch Pressed key");
-
-          
-            
-        }
-        else
-        {
-
-          
-        }
-
-
-    }
+   
 
 }

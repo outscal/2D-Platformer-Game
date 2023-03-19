@@ -468,7 +468,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 3abf1705bc9d76244ad760412db78a65, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.95686275}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -505,7 +505,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeedy: 0
-  temp: {x: 0, y: 0}
+  start: {x: 0, y: 0}
+  end: {x: 0, y: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  timeSmmoth: 4
+  fadeTime: 2
+  mat: {fileID: 0}
 --- !u!61 &884952783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -598,7 +603,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1544436066, guid: 817919bbe0369eb4f983d7a47e015a32, type: 3}
       propertyPath: jumpForce
-      value: 30
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 204957798904373964, guid: 817919bbe0369eb4f983d7a47e015a32,
         type: 3}
@@ -624,6 +629,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayerID
       value: 794161427
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669748094881409037, guid: 817919bbe0369eb4f983d7a47e015a32,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669748094881409037, guid: 817919bbe0369eb4f983d7a47e015a32,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669748094881409037, guid: 817919bbe0369eb4f983d7a47e015a32,
+        type: 3}
+      propertyPath: m_UseAutoMass
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7759559642145992259, guid: 817919bbe0369eb4f983d7a47e015a32,
         type: 3}

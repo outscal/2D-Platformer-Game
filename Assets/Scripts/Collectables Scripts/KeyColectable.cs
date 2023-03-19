@@ -6,22 +6,26 @@ public class KeyColectable : MonoBehaviour
 {
     public KeyAnimation keyAnim;
 
-    public Color color = Color.white;
+   
 
     private void Awake()
     {
-        keyAnim = GameObject.FindGameObjectWithTag("Key").GetComponent<KeyAnimation>();
+        
+       // keyAnim = GameObject.FindGameObjectWithTag("Key").GetComponent<KeyAnimation>();
+       
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            keyAnim.CollectAnim();
+            keyAnim.SetFlag(true);
            // this.gameObject.SetActive(false);
             collision.gameObject.GetComponent<PlayerController>().KeyCollected();
-
-           // WaitDestroy();
-            Destroy(gameObject,0.6f);
+           
+         
+            
+           // Destroy(gameObject,1);
+          //  UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             // what is better Destroy OR Setting Deactivate Why ? and wehen to use them ?
             // Deatcivate is only Useful when we need that object Agian in Our Scene  For Excample pooling Of Obstacles ,Enemy Etc. Right ?
             // Destroy when we don't need the object again  in Our scene . Right ?
@@ -30,12 +34,9 @@ public class KeyColectable : MonoBehaviour
         }
     }
 
-    IEnumerator WaitDestroy()
-    {
-        yield return new WaitForSeconds(1f);
-       
-
-    }
+   
+        
+   
 
 
     // why OIenurator don't working with destroy fucntion  , Why it's not destroying asftedr the time of Ienumeraot?
