@@ -8,7 +8,7 @@ public class GamePlayManager : MonoBehaviour
 {
 
     public Button RestartButton;
-
+    public Button quitButton;
     public GameObject GameOverPanel;
 
    
@@ -16,7 +16,7 @@ public class GamePlayManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         RestartButton.onClick.AddListener(RestartLevel);
-
+        quitButton.onClick.AddListener(QuitLevel);
     }
 
 
@@ -32,9 +32,16 @@ public class GamePlayManager : MonoBehaviour
         
         
     }
+    public void QuitLevel()
+    {
+
+        
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 
 
-   public void GameOverPanelMoveIn()
+    }
+
+    public void GameOverPanelMoveIn()
     {
         GameOverPanel.GetComponent<Animator>().Play("MoveIn");
         GameOverPanel.SetActive(true);
