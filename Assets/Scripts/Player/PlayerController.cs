@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private ScoreUI scorevar;
     private int scoreRaise=5;
+   
     private void Awake()
     {
         scorevar = GameObject.FindGameObjectWithTag("UiController").GetComponent<ScoreUI>();
@@ -170,6 +171,8 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         
         }
+
+        
     }
 
 
