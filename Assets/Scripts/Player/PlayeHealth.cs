@@ -11,6 +11,7 @@ public class PlayeHealth : MonoBehaviour
     private int healthCount;
 
     public bool isAlive = true;
+    public GamePlayManager gamePlayManager;
     void Start()
     {
         healthCount = initialHealthvalue;
@@ -26,6 +27,7 @@ public class PlayeHealth : MonoBehaviour
 
         if (healthCount <= 0)
         {
+            Debug.Log("Isndie isAlive>>");
             PlayerDied();
         }
         else
@@ -51,6 +53,9 @@ public class PlayeHealth : MonoBehaviour
     public void PlayerDied()
     {
         isAlive = false;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+       
+        gamePlayManager.GameOverPanelMoveIn();
+        
+
     }
 }

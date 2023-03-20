@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private ScoreUI scorevar;
     private int scoreRaise=5;
-   
+    public PlayeHealth playerHealth;
     private void Awake()
     {
         scorevar = GameObject.FindGameObjectWithTag("UiController").GetComponent<ScoreUI>();
@@ -45,16 +45,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
-      
-        PlayerMoveAnimations();
-     
-        Crouch();
-        PlayerJump(isGrounded);
-        PlayerMove(HorizontalInput);
 
-        Jump();
+       
+            HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
+
+            PlayerMoveAnimations();
+
+            Crouch();
+            PlayerJump(isGrounded);
+            PlayerMove(HorizontalInput);
+
+            Jump();
+       
+        
       //  Debug.Log("IsGroudne>>" + isGrounded);
     }
 
