@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
                     // Apply Dmage
                     Debug.Log("Dame By LeftHit >>");
                     myAnim.SetTrigger("Attack");
-                    Debug.Log("Atatcjkk Distance==" + Mathf.Abs(playerTraget.transform.position.x - this.transform.position.x));
+                  
                   
                     playerHealth.Playerdamage(-1);
                 }
