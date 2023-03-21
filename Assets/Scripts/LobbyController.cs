@@ -6,9 +6,16 @@ using UnityEngine.UI;
 public class LobbyController : MonoBehaviour
 {
     public Button PlayGameButton;
+    public GameObject levelSelectionPanel;
+    private void Awake()
+    {
+
+        levelSelectionPanel.SetActive(false);
+    }
     void Start()
     {
         PlayGameButton.onClick.AddListener(PlayeGame);
+        
     }
 
     // Update is called once per frame
@@ -17,7 +24,9 @@ public class LobbyController : MonoBehaviour
 
     private void PlayeGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        
+        levelSelectionPanel.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using  UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -28,14 +28,15 @@ public class GamePlayManager : MonoBehaviour
        
         StartCoroutine(WiatAnimTime());
         GameOverPanelMoveOut();
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-        
+     Scene  scene = SceneManager.GetActiveScene();
+
+        SceneManager.LoadScene(scene.buildIndex);
         
     }
     public void QuitLevel()
     {
 
-        
+      
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 
 
