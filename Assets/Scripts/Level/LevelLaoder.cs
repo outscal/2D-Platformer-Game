@@ -14,10 +14,31 @@ public class LevelLaoder : MonoBehaviour
         levelButton = GetComponent<Button>();
         levelButton.onClick.AddListener(OnClickLoad);
     }
-
+    
+   
     private void OnClickLoad()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(LevelName);
+        LevelStatus levelStatus = LevelManager.instance.GetLeveLStatus(LevelName);
+        Debug.Log("Level status ==" + levelStatus);
+
+        switch (levelStatus)
+        {
+            case LevelStatus.Locked:
+                print("Level is currently Unlcoked ");
+               
+
+                break;
+            case LevelStatus.Unclocked:
+                UnityEngine.SceneManagement.SceneManager.LoadScene(LevelName); print("This Level is    Now unlcoked ");
+
+                break;
+            case LevelStatus.Complete:
+                UnityEngine.SceneManagement.SceneManager.LoadScene(LevelName); 
+                print("This Level is    Now Complete ");
+                break;
+            default:
+                break;
+        }
     }
 
     void Start()

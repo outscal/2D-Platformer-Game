@@ -12,6 +12,7 @@ public class LevelCleared : MonoBehaviour
         }
 
        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        LevelManager.instance.MarklevelComplete();
     }
 
 }

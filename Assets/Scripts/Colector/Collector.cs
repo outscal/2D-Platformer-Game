@@ -9,7 +9,7 @@ public class Collector : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.SetActive(false);
-
+            LevelManager.instance.MarklevelComplete();
            
            
         }
