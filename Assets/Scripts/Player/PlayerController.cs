@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private ScoreUI scorevar;
     private int scoreRaise=5;
-    public PlayeHealth playerHealth;
+  //  public PlayeHealth playerHealth;
     private void Awake()
     {
         scorevar = GameObject.FindGameObjectWithTag("UiController").GetComponent<ScoreUI>();

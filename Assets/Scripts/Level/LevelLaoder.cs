@@ -19,12 +19,12 @@ public class LevelLaoder : MonoBehaviour
     private void OnClickLoad()
     {
         LevelStatus levelStatus = LevelManager.instance.GetLeveLStatus(LevelName);
-        Debug.Log("Level status ==" + levelStatus);
+        Debug.Log("Level status ==" + levelStatus+"--"+(int)levelStatus);
 
         switch (levelStatus)
         {
             case LevelStatus.Locked:
-                print("Level is currently Unlcoked ");
+                print("Level is currently Locked ");
                
 
                 break;
@@ -41,14 +41,5 @@ public class LevelLaoder : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

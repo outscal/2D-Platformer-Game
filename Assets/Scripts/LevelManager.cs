@@ -13,7 +13,8 @@ public class LevelManager : MonoBehaviour
     }
 
     public string Level1;
-    public string[] levelsNames;
+    string levelKeyname = "Level";
+   public string[] levelsNames;
     void CreateInstance()
     {
         if (instance == null)
@@ -32,19 +33,22 @@ public class LevelManager : MonoBehaviour
     {
         CreateInstance();
 
-
+        PlayerPrefs.DeleteAll();
         if (GetLeveLStatus(Level1) == LevelStatus.Locked)
         {
             SetLeveLStatus(Level1, LevelStatus.Unclocked);
         }
+
+
+        Debug.Log("Awake called from Level manager");
     }
 
 
 
-    public LevelStatus GetLeveLStatus(string level)
+    public LevelStatus GetLeveLStatus(string levelKeyname)
     {
 
-        LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level, 0);
+        LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(levelKeyname, 0);
         return levelStatus;
 
     }
@@ -63,9 +67,11 @@ public class LevelManager : MonoBehaviour
         Scene CurrentScene = SceneManager.GetActiveScene();
         SetLeveLStatus(CurrentScene.name, LevelStatus.Complete);
 
-       
 
-        int currentindex = Array.FindIndex(levelsNames, level => level == CurrentScene.name);
+
+        int currentindex = Array.FindIndex(levelsNames, level => (level == CurrentScene.name));
+
+        // How this fucntion array.Fimninex works ?
         int nextSceneIndex = currentindex + 1;
         if (nextSceneIndex < levelsNames.Length)
         {
