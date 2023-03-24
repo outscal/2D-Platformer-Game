@@ -40,10 +40,7 @@ public class LevelManager : MonoBehaviour
         }
 
 
-        Debug.Log("Awake called from Level manager");
     }
-
-
 
     public LevelStatus GetLeveLStatus(string levelKeyname)
     {
@@ -63,15 +60,13 @@ public class LevelManager : MonoBehaviour
 
     public void MarklevelComplete()
     {
-        // Mark elvel complete .........
+        // Mark Level complete .........
         Scene CurrentScene = SceneManager.GetActiveScene();
         SetLeveLStatus(CurrentScene.name, LevelStatus.Complete);
 
-
-
         int currentindex = Array.FindIndex(levelsNames, level => (level == CurrentScene.name));
 
-        // How this fucntion array.Fimninex works ?
+       
         int nextSceneIndex = currentindex + 1;
         if (nextSceneIndex < levelsNames.Length)
         {

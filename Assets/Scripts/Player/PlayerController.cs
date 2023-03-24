@@ -31,22 +31,17 @@ public class PlayerController : MonoBehaviour
   //  public PlayeHealth playerHealth;
     private void Awake()
     {
-        scorevar = GameObject.FindGameObjectWithTag("UiController").GetComponent<ScoreUI>();
+       scorevar = GameObject.FindGameObjectWithTag("UiController").GetComponent<ScoreUI>();
 
          playerAnim = gameObject.GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
         playerRb = GetComponent<Rigidbody2D>();
     }
-    void Start()
-    {
-
-    }
+ 
 
     // Update is called once per frame
     void Update()
-    {
-
-       
+    {      
             HorizontalInput = Input.GetAxis(HelperNames.HorizontalAxis);
 
             PlayerMoveAnimations();
@@ -56,9 +51,6 @@ public class PlayerController : MonoBehaviour
             PlayerMove(HorizontalInput);
 
             Jump();
-       
-        
-      //  Debug.Log("IsGroudne>>" + isGrounded);
     }
 
     public void KeyCollected()
@@ -116,35 +108,26 @@ public class PlayerController : MonoBehaviour
    
     public void Crouch()
     {
-       // Vector2 SizeColl = playerCollider.size;
-      // Vector2 Offset = playerCollider.offset;
+       
        
         if (Input.GetKey(KeyCode.LeftControl)) 
         {
             
-            // SizeColl = CrouchCollideSize;
+            
             playerCollider.size = CrouchCollideSize;
             playerCollider.offset = CrouchOffset;
-           // Offset = CrouchOffset;
-           // playerCollider.size = SizeColl;
-           //playerCollider.offset = Offset;
-           // Debug.Log("After_Sie>>" + playerCollider.offset + "After_Offset>>" + playerCollider.offset);
+          
 
             playerAnim.SetBool("Crouch",true);
-           // playerAnim.SetTrigger("Crouch0");
+          
         }
         else
         {
             playerAnim.SetBool("Crouch", false);
-            // SizeColl = OriginalCollideSize;
+        
             playerCollider.size = OriginalCollideSize;
             playerCollider.offset = OriginalOffset;
-            // Offset = OriginalOffset;
-            // playerCollider.size = SizeColl;
-            // playerCollider.offset = Offset;
-
-
-            //Debug.Log("Before_Sie>>" + playerCollider.size + "Before_Offset>>" + playerCollider.offset);
+           
            
             
         }
@@ -158,6 +141,7 @@ public class PlayerController : MonoBehaviour
         {
             if (playerRb.velocity.y <= 0&& isGrounded)
             {
+                SoundManager.Instance.PlaySounds(Sounds.Jump);
                 playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 isGrounded = false;
            }

@@ -12,7 +12,7 @@ public class LevelLaoder : MonoBehaviour
     private void Awake()
     {
         levelButton = GetComponent<Button>();
-        levelButton.onClick.AddListener(OnClickLoad);
+        levelButton.onClick.AddListener(OnClickLoad); // why the fucntion onClickLoad passed without Parantheses inside the AdListener ?
     }
     
    
@@ -29,10 +29,12 @@ public class LevelLaoder : MonoBehaviour
 
                 break;
             case LevelStatus.Unclocked:
+                SoundManager.Instance.PlaySounds(Sounds.ButtonClick);
                 UnityEngine.SceneManagement.SceneManager.LoadScene(LevelName); print("This Level is    Now unlcoked ");
 
                 break;
             case LevelStatus.Complete:
+                SoundManager.Instance.PlaySounds(Sounds.ButtonClick);
                 UnityEngine.SceneManagement.SceneManager.LoadScene(LevelName); 
                 print("This Level is    Now Complete ");
                 break;

@@ -28,7 +28,9 @@ public class PlayeHealth : MonoBehaviour
         if (healthCount <= 0)
         {
             Debug.Log("Isndie isAlive>>");
+            
             PlayerDied();
+            SoundManager.Instance.PlaySounds(Sounds.PlayerDeath);
         }
         else
         {

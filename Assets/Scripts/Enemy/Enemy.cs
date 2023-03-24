@@ -5,22 +5,22 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float moveSpeed=1f;
-    public Rigidbody2D myBody;
+    private float moveSpeed=1f;
+    private Rigidbody2D myBody;
     private Animator myAnim;
 
-    public bool moveright;
-    public Transform down_Collison;
-    public Transform playerTraget;
-    public Vector2 tempScale;
-    public bool flagEnter;
-   // public Transform EnemyPlatform;
-    public Transform left_Collision, top_Collision, right_Collision;
-    public Vector3 left_CollsionPositon, right_CollsionPositon;
-    public bool canMove;
+    private bool moveright;
+    private Transform down_Collison;
+    private Transform playerTraget;
+    private Vector2 tempScale;
+    private bool flagEnter;
+    // public Transform EnemyPlatform;
+    private Transform left_Collision, top_Collision, right_Collision;
+    private Vector3 left_CollsionPositon, right_CollsionPositon;
+    private bool canMove;
     public LayerMask playerLayer;
-    public bool dead;
-    public PlayeHealth playerHealth;
+    private bool dead;
+    private PlayeHealth playerHealth;
     private void Awake()
     {
         flagEnter = false;
@@ -54,28 +54,27 @@ public class Enemy : MonoBehaviour
             CheckCollisonGround();
             FlipEnemy();
 
-           // EnemyAnimation();
         }
 
-        Debug.DrawRay(right_CollsionPositon, new Vector3(0.2f, 0, 0), Color.red, Mathf.Infinity);
-        Debug.DrawRay(left_CollsionPositon, new Vector3(0.2f, 0, 0), Color.red, Mathf.Infinity);
+  
     }
 
     void CheckCollisonGround()
     {
 
         RaycastHit2D leftHit = Physics2D.Raycast(left_Collision.position, Vector2.left, 0.2f, playerLayer);
-        // what it will return? if bool then why leftHit Type is not bool?
+
         RaycastHit2D righttHit = Physics2D.Raycast(right_Collision.position, Vector2.right, 0.2f, playerLayer);
         Collider2D topHit = Physics2D.OverlapCircle(top_Collision.position, 0.2f);
          
        
-        // Overlap Circle vs OverlapCircleAll ?
+        
 
         if (topHit != null)
         {
-            if (topHit.gameObject.tag == "Player")
+            if (topHit.gameObject.GetComponent<PlayerController>())
             {
+                SoundManager.Instance.PlaySounds(Sounds.EnemyDeath);
                 topHit.gameObject.GetComponent<Rigidbody2D>().velocity =
                     new Vector2(topHit.gameObject.GetComponent<Rigidbody2D>().velocity.x,8f);
                 canMove = false;
@@ -87,12 +86,14 @@ public class Enemy : MonoBehaviour
 
         }
 
-        if (leftHit)
+        if (leftHit ==null)
         {
-            // Return value of Physics2D.Raycast is RaycastHit2D object then why letHit and RightHit is boolean?
+            // why leftHit==true & lefthit==false not showing errro But 
+            // why lefthit==null OR lefthit!=null ; showing an squiggly line with a warning == "The result of this expression is always false, since the value of type *bool* is never"
+            // equasl to *null* of type bool
             if (!dead)
             {
-                if (leftHit.collider.gameObject.tag == "Player")
+                if (leftHit.collider.gameObject.GetComponent<PlayerController>())  //  why compare tag is better than gameObject.tag  , i think both are doing string comparision?
                 {
                     // Apply Dmage
                     Debug.Log("Dame By LeftHit >>");
@@ -112,33 +113,32 @@ public class Enemy : MonoBehaviour
         }
         if (righttHit)
         {
-            if (righttHit.collider.gameObject.tag == "Player" && !dead)
+            if (righttHit.collider.gameObject.GetComponent<PlayerController>() && !dead)
             {
                 Debug.Log("Dame By RightHit >>");
                 // Apply Dmage
                 myAnim.SetTrigger("Attack");
-                Debug.Log("Atatcjkk Distance==" + Mathf.Abs(playerTraget.transform.position.x - this.transform.position.x));
+                
 
                 playerHealth.Playerdamage(-1);
             }
             else
             {
-                Debug.Log("Right Hit Detected >>" + dead);
+               
                 myBody.velocity = new Vector2(15f, myBody.velocity.y);
             }
 
         }
         if (!Physics2D.Raycast(down_Collison.position, Vector2.down, 0.1f))
         {
-          //  Debug.Log("ray is Not Casting to ground");
+         
             moveright = !moveright;
         }
 
         Debug.DrawRay(down_Collison.position, new Vector3(0,0.1f,0),Color.black,Mathf.Infinity);
 
-        //Color.black  // here color struct  have block,white all memeber are static ?
+      
 
-        // Does debug.dray ray tales High processing Power.
         
         }
     

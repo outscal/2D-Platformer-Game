@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class KeyAnimation : MonoBehaviour
 {
-    public int rotateSpeedy;
+    private int rotateSpeedy;
 
-    public Vector2 start;
-    public Vector2 end;
-    
-   // float downY=0;
-    public Color colorSimple ;
+    private Vector2 start;
+    private Vector2 end;
+
+    // float downY=0;
+    private Color colorSimple ;
     bool flag;
 
-   
-    public float timeSmmoth;
-  
+
+    private float timeSmmoth;
+
     private Vector3 temp ;
     private float fadePerSecond = 2.5f;
-   
+
 
     // Fade Efefct Parameters ..........
 
-    public float fadeTime = 2f; // duration of fade-out effect in seconds
+    private float fadeTime = 2f; // duration of fade-out effect in seconds
     private SpriteRenderer objRenderer; // renderer component of the game object
     private Color objColor;
-  
-    public Material mat;
+
+    private Material mat;
     void Start()
     {
         objRenderer = GetComponent<SpriteRenderer>();
@@ -59,11 +59,8 @@ public class KeyAnimation : MonoBehaviour
         {
             CollectAnim();
             ColorFade();
-           // Debug.Log("Isndie Flaf");
+
         }
-    
-
-
     }
 
 
@@ -85,22 +82,10 @@ public class KeyAnimation : MonoBehaviour
     }
     public void CollectAnim()
     {
-
-     
-
-        transform.position =  Vector3.Lerp(start, end, Time.time);
-    
-
+        transform.position =  Vector3.Lerp(start, end, Time.deltaTime);
 
     }
 
-    //   Doubt>>1
-    // when we are moving and object from one point to another using Vector3.Lerp,
-    // How we can  get ease in and ease out effect ?
-    //   Doubt>>2
-    // why always time.time is best fit  as Float t parameter in lerp Or SmoothStep etc.  Why other values Don't work here becuase when i am Using Time.time then
-    // object is reachind to the edn point exactly But other time values( the variables for time i am defining myself)  not working as expected becuase with those values either  Object don't reach to the destination , 
-    // and  stops in middle of Start Point and the end point  or go beyong the end point.
-    // But usimng time.time object always reaches to the end point with exact value ?
+   
 
 }
