@@ -9,14 +9,14 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D myBody;
     private Animator myAnim;
 
-    private bool moveright;
-    private Transform down_Collison;
-    private Transform playerTraget;
+    public bool moveright;
+    public Transform down_Collison;
+    public Transform playerTraget;
     private Vector2 tempScale;
     private bool flagEnter;
     // public Transform EnemyPlatform;
-    private Transform left_Collision, top_Collision, right_Collision;
-    private Vector3 left_CollsionPositon, right_CollsionPositon;
+    public Transform left_Collision, top_Collision, right_Collision;
+    public Vector3 left_CollsionPositon, right_CollsionPositon;
     private bool canMove;
     public LayerMask playerLayer;
     private bool dead;
@@ -72,8 +72,9 @@ public class Enemy : MonoBehaviour
 
         if (topHit != null)
         {
-            if (topHit.gameObject.GetComponent<PlayerController>())
+            if (topHit.gameObject.GetComponent<PlayerController>()==true)
             {
+                print("Inside the enemy Top Collison");
                 SoundManager.Instance.PlaySounds(Sounds.EnemyDeath);
                 topHit.gameObject.GetComponent<Rigidbody2D>().velocity =
                     new Vector2(topHit.gameObject.GetComponent<Rigidbody2D>().velocity.x,8f);
