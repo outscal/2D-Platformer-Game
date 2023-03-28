@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
 public Animator animator;
+public float speed;
   private void Awake() 
   {
     Debug.Log("Player controller is Awake");
@@ -20,9 +21,28 @@ public Animator animator;
     private void Update()
    {
 
-   //Run
     float horizontal= Input.GetAxisRaw("Horizontal");
-    animator.SetFloat("Speed", Mathf.Abs(horizontal));
+    MoveCharacter(horizontal);
+    PlayerMovementAnimation(horizontal);
+    
+   }
+
+
+//MOVEMENT
+   private void MoveCharacter(float horizontal)
+{
+
+Vector3 position = transform.position;
+position.x += horizontal * speed * Time.deltaTime;
+transform.position = position;
+
+  }
+
+
+//ANIMATION
+private void PlayerMovementAnimation(float horizontal)
+{
+   animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
 
 //Run
@@ -63,11 +83,12 @@ animator.SetBool("Crouch", true);
 else if (Input.GetKeyUp(KeyCode.LeftControl))
 {
 animator.SetBool("Crouch", false);
-} 
+}   
+  }
+
 
 
 
 
 }
 
-}
