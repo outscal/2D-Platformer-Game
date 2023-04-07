@@ -7,9 +7,13 @@ public class PlayerController : MonoBehaviour
 
 public Animator animator;
 public float speed;
+public float jump;
+private Rigidbody2D rb2d;
+private bool isGrounded;
   private void Awake() 
   {
     Debug.Log("Player controller is Awake");
+    rb2d= gameObject.GetComponent<Rigidbody2D>();
  }
 
 
@@ -22,25 +26,51 @@ public float speed;
    {
 
     float horizontal= Input.GetAxisRaw("Horizontal");
-    MoveCharacter(horizontal);
-    PlayerMovementAnimation(horizontal);
+    float vertical= Input.GetAxisRaw("Jump");
+    MoveCharacter(horizontal, vertical);
+    PlayerMovementAnimation(horizontal, vertical);
     
    }
 
 
 //MOVEMENT
-   private void MoveCharacter(float horizontal)
+   private void MoveCharacter(float horizontal, float vertical)
 {
 
+// Move Chracter Horizontally
 Vector3 position = transform.position;
 position.x += horizontal * speed * Time.deltaTime;
 transform.position = position;
 
-  }
+
+// Move Chracter Vertically
+if (vertical > 0)
+{
+ animator.SetTrigger("Jump");
+ rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse );
+ }
+}
+ 
+private void OnCollisionStay2D(Collision2D other)
+    {
+        if(other.transform.tag == "Platform")
+        {
+            isGrounded = true;
+        } 
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.transform.tag == "Platform")
+        {
+            isGrounded = false;
+        }
+ 
+    }
 
 
 //ANIMATION
-private void PlayerMovementAnimation(float horizontal)
+private void PlayerMovementAnimation(float horizontal, float vertical)
 {
    animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -60,18 +90,16 @@ else if (horizontal > 0)
 
 transform.localScale = scale;
 
-//Jump
-float vertical= Input.GetAxisRaw("Jump");
-
-if (Input.GetButtonDown("Jump"))
+//Jump 
+if  (vertical > 0)
 {
-animator.SetBool("Jump", true);
+ animator.SetBool("Jump",  true);
 }
-else if (Input.GetButtonUp("Jump"))
+else
 {
-animator.SetBool("Jump", false);
-}  
- 
+ animator.SetBool("Jump",  false);
+}
+
 
 //Crouch
 bool crouch= Input.GetKeyDown(KeyCode.LeftControl);
@@ -85,9 +113,6 @@ else if (Input.GetKeyUp(KeyCode.LeftControl))
 animator.SetBool("Crouch", false);
 }   
   }
-
-
-
 
 
 }
