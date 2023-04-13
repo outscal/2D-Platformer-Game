@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
+
 {
 
 public Animator animator;
@@ -10,10 +12,13 @@ public float speed;
 public float jump;
 private Rigidbody2D rb2d;
 private bool isGrounded;
+
+
   private void Awake() 
   {
     Debug.Log("Player controller is Awake");
     rb2d= gameObject.GetComponent<Rigidbody2D>();
+    animator = gameObject.GetComponent<Animator>();
  }
 
 
@@ -29,9 +34,20 @@ private bool isGrounded;
     float vertical= Input.GetAxisRaw("Jump");
     MoveCharacter(horizontal, vertical);
     PlayerMovementAnimation(horizontal, vertical);
-    
+
    }
 
+
+//DEATH
+/*
+private void OnTriggerEnter2D(Collider2D collision)
+    {
+          if (collision.gameObject.GetComponent<PlayerController>() != null)
+          {
+                  SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+          }
+     }
+*/
 
 //MOVEMENT
    private void MoveCharacter(float horizontal, float vertical)
@@ -59,7 +75,7 @@ private void OnCollisionStay2D(Collision2D other)
         } 
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    private void OnCollision(Collision2D other)
     {
         if (other.transform.tag == "Platform")
         {
@@ -114,6 +130,20 @@ animator.SetBool("Crouch", false);
 }   
   }
 
+//Death
+private void OnTriggerEnter2D(Collider2D other)
+ {
+    if (other.gameObject.CompareTag("Death"))
+    {
+        animator.SetTrigger("Death");
+    }
+}
+
+//Restart After Death
+public void Restartlevel()
+{
+  SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
+}
 
 }
 
