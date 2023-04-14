@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float speed;
     public Vector2 crouchedColliderScale = new Vector2(0.9171886f, 1.328003f);
     public Vector2 crouchedColliderOffset = new Vector2(-0.11f, 0.59f);
     private BoxCollider2D _collider;
@@ -22,10 +23,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         bool crouch = Input.GetKey(KeyCode.LeftControl);
 
+        PlayMovementAnimation(horizontal,vertical,crouch);        
+    }
+
+    private void PlayMovementAnimation(float horizontal, float vertical, bool crouch){
         if(crouch)
         {
             _collider.size = crouchedColliderScale;
@@ -38,16 +43,15 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetBool("Crouch", crouch);
-
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
         animator.SetFloat("Vertical", Mathf.Abs(vertical));
 
         Vector3 scale = transform.localScale;
 
-        if (speed < 0){
+        if (horizontal < 0){
             scale.x = -1 * Mathf.Abs(scale.x);
         }
-        else if(speed > 0){
+        else if(horizontal > 0){
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
@@ -61,5 +65,10 @@ public class PlayerController : MonoBehaviour
 
         if(_isJumping)
             _isJumping = !animator.GetCurrentAnimatorStateInfo(0).IsName("Player_Jump");
+    }
+
+    private void PlayerMovementFunction(float horizontal, float vertical, bool crouch){
+        // Horizontal Movement
+        // Jump Movement
     }
 }
