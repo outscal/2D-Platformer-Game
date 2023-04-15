@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
 {
 
+public ScoreController scoreController;
 public Animator animator;
 public float speed;
 public float jump;
@@ -37,17 +39,6 @@ private bool isGrounded;
 
    }
 
-
-//DEATH
-/*
-private void OnTriggerEnter2D(Collider2D collision)
-    {
-          if (collision.gameObject.GetComponent<PlayerController>() != null)
-          {
-                  SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-          }
-     }
-*/
 
 //MOVEMENT
    private void MoveCharacter(float horizontal, float vertical)
@@ -145,5 +136,11 @@ public void Restartlevel()
   SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
 }
 
+// Key Pickup
+    public void PickUpKey()
+    {
+        Debug.Log("Player pick up the key");
+        scoreController.IncreaseScore(10);
+    }
 }
 
