@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public Vector2 crouchedColliderScale = new Vector2(0.9171886f, 1.328003f);
     public Vector2 crouchedColliderOffset = new Vector2(-0.11f, 0.59f);
+    public GameObject levelStart;
     private BoxCollider2D _collider;
     private Vector2 _standingColliderScale, _standingColliderOffset;
     private bool _isJumping = false;
@@ -35,7 +36,12 @@ public class PlayerController : MonoBehaviour
         bool crouch = Input.GetKey(KeyCode.LeftControl);
 
         PlayMovementAnimation(horizontal,vertical,crouch);
-        PlayerMovementFunction(horizontal,vertical,crouch);        
+        PlayerMovementFunction(horizontal,vertical,crouch);
+
+        if(transform.position.y < -20f){
+            transform.position = levelStart.transform.position;
+            Debug.Log("Level Restarted!");
+        }        
     }
 
     private void PlayMovementAnimation(float horizontal, float vertical, bool crouch){
