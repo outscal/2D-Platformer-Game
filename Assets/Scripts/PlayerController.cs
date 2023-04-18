@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         // Jump Movement
         if (vertical > 0  && isGrounded)
         {
-            animator.SetTrigger("Jump");
+            //animator.SetTrigger("Jump");
             rigidbodyPlayer.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
     }
