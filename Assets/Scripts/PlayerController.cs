@@ -134,6 +134,7 @@ private void OnTriggerEnter2D(Collider2D other)
 public void Restartlevel()
 {
   SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
+  Debug.Log("Level restarted");
 }
 
 // Key Pickup
@@ -141,6 +142,12 @@ public void Restartlevel()
     {
         Debug.Log("Player pick up the key");
         scoreController.IncreaseScore(10);
+    }
+
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed by enemy");
+        Restartlevel();
     }
 }
 
