@@ -10,8 +10,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Vector2 boxColliderOffset;
     [SerializeField] Vector2 boxColliderSize;
+    [SerializeField] float jumpDuration = 0.5f;
 
     private Vector2 initialSize, initialOffset;
+
+    void JumpController()
+    {
+        animator.SetBool("Jump", false);
+
+    }
 
     private void Start()
     {
@@ -32,13 +39,14 @@ public class PlayerController : MonoBehaviour
             // If Left Control is Pressed, then player will crouch
             // Also need to resize the box collider
             animator.SetBool("Crouch", isCrouch);
-            gameObject.GetComponent<BoxCollider2D>().offset = boxColliderOffset;
-            gameObject.GetComponent<BoxCollider2D>().size = boxColliderSize;
-        } else
+            //gameObject.GetComponent<BoxCollider2D>().offset = boxColliderOffset;
+            //gameObject.GetComponent<BoxCollider2D>().size = boxColliderSize;
+        } 
+        else
         {
             animator.SetBool("Crouch", isCrouch);
-            gameObject.GetComponent<BoxCollider2D>().offset = initialOffset;
-            gameObject.GetComponent<BoxCollider2D>().size = initialSize;
+            //gameObject.GetComponent<BoxCollider2D>().offset = initialOffset;
+            //gameObject.GetComponent<BoxCollider2D>().size = initialSize;
         }
 
         animator.SetFloat("Speed", Mathf.Abs(speed));
@@ -46,18 +54,17 @@ public class PlayerController : MonoBehaviour
         if (speed < 0)
         {
             spriteRenderer.flipX = true;
-        } else if (speed > 0) 
+        } 
+        else if (speed > 0) 
         { 
             spriteRenderer.flipX= false;
         }
+
         // Player Jump
-        if(isJump)
+        if (isJump)
         {
-            animator.SetBool("Jump", isJump);
-            Debug.Log("Space was pressed\n");
-        } else
-        {
-            animator.SetBool("Jump", false);
+            animator.SetBool("Jump", true);
+            Invoke(nameof(JumpController), jumpDuration);
         }
     }
 }
