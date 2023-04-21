@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,6 +64,7 @@ private void OnCollisionStay2D(Collision2D other)
         if(other.transform.tag == "Platform")
         {
             isGrounded = true;
+            
         } 
     }
 
@@ -71,6 +73,7 @@ private void OnCollisionStay2D(Collision2D other)
         if (other.transform.tag == "Platform")
         {
             isGrounded = false;
+        
         }
  
     }
@@ -126,7 +129,7 @@ private void OnTriggerEnter2D(Collider2D other)
  {
     if (other.gameObject.CompareTag("Death"))
     {
-        animator.SetTrigger("Death");
+      animator.SetTrigger("Death");
     }
 }
 
@@ -137,7 +140,7 @@ public void Restartlevel()
   Debug.Log("Level restarted");
 }
 
-// Key Pickup
+//Key Pickup
     public void PickUpKey()
     {
         Debug.Log("Player pick up the key");
@@ -146,8 +149,11 @@ public void Restartlevel()
 
     public void KillPlayer()
     {
+        animator.SetTrigger("Death");
         Debug.Log("Player killed by enemy");
         Restartlevel();
     }
+
+
 }
 

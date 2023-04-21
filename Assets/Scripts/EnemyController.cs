@@ -75,8 +75,19 @@ private void OnDrawGizmos()
         if (collision.gameObject.GetComponent<PlayerController>() != null )
         {
                PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-               playerController.KillPlayer();
-              // Destroy (gameObject);
+       
+             PlayerHealth.health--;
+             if (PlayerHealth.health <= 0)
+           {
+            playerController.KillPlayer();
+            }
+            else
+            {
+
+            }
+               
+             //  playerController.KillPlayer();
+             // Destroy (gameObject);
         }
     }
 }
