@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float moveSpeed;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider2D;
 
-    [SerializeField] Vector2 boxColliderOffset;
-    [SerializeField] Vector2 boxColliderSize;
+    // [SerializeField] Vector2 boxColliderOffset;
+    // [SerializeField] Vector2 boxColliderSize;
     [SerializeField] float jumpDuration = 0.5f;
 
     private Vector2 initialSize, initialOffset;
@@ -29,15 +30,45 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        MovePlayer(horizontal);
+        PlayerMovementAnimation(horizontal);
+        
         bool isCrouch = Input.GetKey(KeyCode.LeftControl);
-        bool isJump = Input.GetKeyDown(KeyCode.Space);
+        PlayerCrouchAnimation(isCrouch);
 
+        bool isJump = Input.GetKeyDown(KeyCode.Space);
+        PlayerJumpAnimation(isJump);
+    }
+
+    private void MovePlayer(float horizontal) 
+    {   
+        Vector3 position = transform.position;
+        position.x += horizontal * moveSpeed * Time.deltaTime;
+        transform.position = position; 
+    }
+
+    private void PlayerMovementAnimation(float horizontal) 
+    {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        if (horizontal < 0)
+        {
+            spriteRenderer.flipX = true;
+        } 
+        else if (horizontal > 0) 
+        { 
+            spriteRenderer.flipX= false;
+        }
+    }
+
+    private void PlayerCrouchAnimation(bool isCrouch) 
+    {
         // Player Crouch Animation trigger
         if (isCrouch)
         {
             // If Left Control is Pressed, then player will crouch
-            // Also need to resize the box collider
+            // Also need to resize the box collider...
             animator.SetBool("Crouch", isCrouch);
             //gameObject.GetComponent<BoxCollider2D>().offset = boxColliderOffset;
             //gameObject.GetComponent<BoxCollider2D>().size = boxColliderSize;
@@ -48,18 +79,10 @@ public class PlayerController : MonoBehaviour
             //gameObject.GetComponent<BoxCollider2D>().offset = initialOffset;
             //gameObject.GetComponent<BoxCollider2D>().size = initialSize;
         }
+    }
 
-        animator.SetFloat("Speed", Mathf.Abs(speed));
-
-        if (speed < 0)
-        {
-            spriteRenderer.flipX = true;
-        } 
-        else if (speed > 0) 
-        { 
-            spriteRenderer.flipX= false;
-        }
-
+    private void PlayerJumpAnimation(bool isJump) 
+    {
         // Player Jump
         if (isJump)
         {
