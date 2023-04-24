@@ -1,44 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
     public float moveSpeed;
+    public float jumpDuration = 0.5f;
+    public float jumpForce;
+
+    [SerializeField] LayerMask platformLayer;
+
+    public Animator animator;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider2D;
+    public Rigidbody2D rb2D;
 
     // [SerializeField] Vector2 boxColliderOffset;
     // [SerializeField] Vector2 boxColliderSize;
-    [SerializeField] float jumpDuration = 0.5f;
+    
 
     private Vector2 initialSize, initialOffset;
 
     void JumpController()
     {
         animator.SetBool("Jump", false);
-
     }
 
     private void Start()
     {
+        rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer= GetComponent<SpriteRenderer>();
-        initialOffset = gameObject.GetComponent<BoxCollider2D>().offset;
-        initialSize = gameObject.GetComponent<BoxCollider2D>().size;
+        boxCollider2D= GetComponent<BoxCollider2D>();
+        //initialOffset = gameObject.GetComponent<BoxCollider2D>().offset;
+        //initialSize = gameObject.GetComponent<BoxCollider2D>().size;
+    }
+
+    private void FixedUpdate()
+    {
+        IsGrounded();
     }
 
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        MovePlayer(horizontal);
-        PlayerMovementAnimation(horizontal);
-        
+        bool vertical = Input.GetKeyDown(KeyCode.Space);
         bool isCrouch = Input.GetKey(KeyCode.LeftControl);
-        PlayerCrouchAnimation(isCrouch);
-
-        bool isJump = Input.GetKeyDown(KeyCode.Space);
-        PlayerJumpAnimation(isJump);
+        
+        if(!isCrouch)
+        {
+            // Now player can't move if he is in Crouch state
+            MovePlayer(horizontal);
+        }
+        PlayerMovementAnimation(horizontal, vertical, isCrouch);
     }
 
     private void MovePlayer(float horizontal) 
@@ -48,46 +62,53 @@ public class PlayerController : MonoBehaviour
         transform.position = position; 
     }
 
-    private void PlayerMovementAnimation(float horizontal) 
+    private void PlayerMovementAnimation(float horizontal, bool vertical, bool isCrouch) 
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
-
+        
         if (horizontal < 0)
         {
             spriteRenderer.flipX = true;
         } 
-        else if (horizontal > 0) 
+        else if (horizontal > 0)
         { 
             spriteRenderer.flipX= false;
         }
-    }
 
-    private void PlayerCrouchAnimation(bool isCrouch) 
-    {
+        // Player Jump
+        if (vertical && IsGrounded())
+        {
+            animator.SetBool("Jump", true);
+            Invoke(nameof(JumpController), jumpDuration);
+            rb2D.AddForce(transform.up * jumpForce);
+        }
+
         // Player Crouch Animation trigger
         if (isCrouch)
         {
             // If Left Control is Pressed, then player will crouch
-            // Also need to resize the box collider...
             animator.SetBool("Crouch", isCrouch);
-            //gameObject.GetComponent<BoxCollider2D>().offset = boxColliderOffset;
-            //gameObject.GetComponent<BoxCollider2D>().size = boxColliderSize;
-        } 
+        }
         else
         {
             animator.SetBool("Crouch", isCrouch);
-            //gameObject.GetComponent<BoxCollider2D>().offset = initialOffset;
-            //gameObject.GetComponent<BoxCollider2D>().size = initialSize;
         }
     }
 
-    private void PlayerJumpAnimation(bool isJump) 
+    private bool IsGrounded()
     {
-        // Player Jump
-        if (isJump)
+        float extraHeight = 0.1f;
+        RaycastHit2D raycastHit = Physics2D.Raycast(boxCollider2D.bounds.center, Vector2.down, boxCollider2D.bounds.extents.y + extraHeight, platformLayer);
+        Color rayColor;
+        if(raycastHit.collider != null)
         {
-            animator.SetBool("Jump", true);
-            Invoke(nameof(JumpController), jumpDuration);
+            rayColor = Color.green;
+        } else
+        {
+            rayColor = Color.red;
         }
+        Debug.DrawRay(boxCollider2D.bounds.center, Vector2.down * (boxCollider2D.bounds.extents.y + extraHeight), rayColor);
+        //Debug.Log("Player has hit: " + raycastHit.collider);
+        return raycastHit.collider != null;
     }
 }
