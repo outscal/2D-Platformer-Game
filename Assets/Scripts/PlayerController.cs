@@ -16,11 +16,7 @@ public class PlayerController : MonoBehaviour
     public BoxCollider2D boxCollider2D;
     public Rigidbody2D rb2D;
 
-    // [SerializeField] Vector2 boxColliderOffset;
-    // [SerializeField] Vector2 boxColliderSize;
-    
-
-    private Vector2 initialSize, initialOffset;
+        private Vector2 initialSize, initialOffset;
 
     void JumpController()
     {
@@ -32,8 +28,7 @@ public class PlayerController : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer= GetComponent<SpriteRenderer>();
         boxCollider2D= GetComponent<BoxCollider2D>();
-        //initialOffset = gameObject.GetComponent<BoxCollider2D>().offset;
-        //initialSize = gameObject.GetComponent<BoxCollider2D>().size;
+        Debug.Log("Box collider extents: " + boxCollider2D.bounds.extents);
     }
 
     private void FixedUpdate()
@@ -88,6 +83,8 @@ public class PlayerController : MonoBehaviour
         {
             // If Left Control is Pressed, then player will crouch
             animator.SetBool("Crouch", isCrouch);
+            Debug.Log("Box collider extents: " + boxCollider2D.bounds.extents);
+
         }
         else
         {
@@ -103,9 +100,11 @@ public class PlayerController : MonoBehaviour
         if(raycastHit.collider != null)
         {
             rayColor = Color.green;
+            animator.SetBool("IsGrounded", true);
         } else
         {
             rayColor = Color.red;
+            animator.SetBool("IsGrounded", false);
         }
         Debug.DrawRay(boxCollider2D.bounds.center, Vector2.down * (boxCollider2D.bounds.extents.y + extraHeight), rayColor);
         //Debug.Log("Player has hit: " + raycastHit.collider);
