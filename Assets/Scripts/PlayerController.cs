@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,10 +15,17 @@ public class PlayerController : MonoBehaviour
     public Vector2 crouchedColliderScale = new Vector2(0.9171886f, 1.328003f);
     public Vector2 crouchedColliderOffset = new Vector2(-0.11f, 0.59f);
     public GameObject levelStart;
+    public GameObject mainCamera;
+    public int health = 3;
+    public Image[] hearts;
+    public GameObject deathUIPanel;
     private BoxCollider2D _collider;
     private Vector2 _standingColliderScale, _standingColliderOffset;
     private bool _isJumping = false;
     private Rigidbody2D rigidbodyPlayer;
+    
+    private bool isdead;
+    
 
     private void Awake()
     {
@@ -115,5 +124,47 @@ public class PlayerController : MonoBehaviour
     public void GetKey()
     {
         scoreController.increaseScore(10);
+    }
+
+    public void DecreaseHealth()
+    {
+        health--;
+                HandleHealthUI();
+        if(health <= 0)
+            {
+                PlayDeathAnimation();
+                PlayerDeath();            
+            } 
+        else
+            {
+                transform.position = levelStart.transform.position;
+            }
+    }
+
+    public void PlayerDeath()
+    {
+        isdead = true;
+        mainCamera.transform.parent = null;
+        deathUIPanel.gameObject.SetActive(true);
+        rigidbodyPlayer.constraints = RigidbodyConstraints2D.FreezePosition;
+        ReloadLevel();				
+    }
+
+    public void PlayDeathAnimation()
+    {
+        animator.SetTrigger("Die");
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void HandleHealthUI()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+                hearts[i].color = i < health ? Color.red : Color.black;
+        }
     }
 }
