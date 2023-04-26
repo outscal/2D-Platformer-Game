@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject PlayerSpawn; // Empty game object created in Hierarchy at which player will respawn if he is dead (Level Reloads)
     public float moveSpeed;
     public float jumpDuration = 0.5f;
     public float jumpForce;
@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     public BoxCollider2D boxCollider2D;
     public Rigidbody2D rb2D;
 
-        private Vector2 initialSize, initialOffset;
-
     void JumpController()
     {
         animator.SetBool("Jump", false);
@@ -25,10 +23,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        transform.position= PlayerSpawn.transform.position;
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer= GetComponent<SpriteRenderer>();
         boxCollider2D= GetComponent<BoxCollider2D>();
-        Debug.Log("Box collider extents: " + boxCollider2D.bounds.extents);
+        //Debug.Log("Box collider extents: " + boxCollider2D.bounds.extents);
     }
 
     private void FixedUpdate()
