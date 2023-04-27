@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,11 +13,14 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
 
     [SerializeField] LayerMask platformLayer;
+    [SerializeField] TMP_Text scoreText;
 
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider2D;
     public Rigidbody2D rb2D;
+
+    private int score;
 
     void JumpController()
     {
@@ -23,11 +29,16 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        score = 0; // Initialize the score = 0 at start of the game
         transform.position= PlayerSpawn.transform.position;
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer= GetComponent<SpriteRenderer>();
         boxCollider2D= GetComponent<BoxCollider2D>();
         //Debug.Log("Box collider extents: " + boxCollider2D.bounds.extents);
+        if(scoreText == null)
+        {
+            Debug.LogError("Missing Score Text Component");
+        }
     }
 
     private void FixedUpdate()
@@ -108,5 +119,12 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(boxCollider2D.bounds.center, Vector2.down * (boxCollider2D.bounds.extents.y + extraHeight), rayColor);
         //Debug.Log("Player has hit: " + raycastHit.collider);
         return raycastHit.collider != null;
+    }
+
+    internal void CollectKey()
+    {
+        score++; // increase the score by 1
+        //Debug.Log("Player Collected the key!");
+        scoreText.text = "Score: " + score.ToString();
     }
 }
