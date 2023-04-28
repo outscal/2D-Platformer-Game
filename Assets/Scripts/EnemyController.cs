@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
         transform.Translate(movingRight * Vector2.right * speed * Time.deltaTime);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position + rayOffset, Vector2.right*movingRight, rayDistance, layers);
-        //Debug.DrawLine(transform.position + rayOffset, rayOffset + transform.position + Vector3.right*movingRight * rayDistance, Color.blue);
+        Debug.DrawLine(transform.position + rayOffset, rayOffset + transform.position + Vector3.right*movingRight * rayDistance, Color.blue);
 
         if(hit)
         {
