@@ -46,8 +46,10 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         bool crouch = Input.GetKey(KeyCode.LeftControl);
 
-        PlayMovementAnimation(horizontal,vertical,crouch);
-        PlayerMovementFunction(horizontal,vertical,crouch);
+        if(isdead == false){
+            PlayMovementAnimation(horizontal,vertical,crouch);
+            PlayerMovementFunction(horizontal,vertical,crouch);
+        }
 
         if(transform.position.y < -20f){
             transform.position = levelStart.transform.position;
@@ -147,7 +149,8 @@ public class PlayerController : MonoBehaviour
         mainCamera.transform.parent = null;
         deathUIPanel.gameObject.SetActive(true);
         rigidbodyPlayer.constraints = RigidbodyConstraints2D.FreezePosition;
-        ReloadLevel();				
+        rigidbodyPlayer.GetComponent<BoxCollider2D>().isTrigger = true; // Turning off the player collision when dead!
+        //ReloadLevel();				
     }
 
     public void PlayDeathAnimation()
@@ -155,10 +158,10 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Die");
     }
 
-    private void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    // private void ReloadLevel()
+    // {
+    //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    // }
 
     public void HandleHealthUI()
     {
