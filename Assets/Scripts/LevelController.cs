@@ -7,6 +7,8 @@ public class LevelController : MonoBehaviour
 {
     private const string scene1 = "Level1";
     private const string scene2 = "Level2";
+    private const string scene3 = "Level3";
+    private const string scene4 = "Level4";
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,16 @@ public class LevelController : MonoBehaviour
             }
         }
         else if(SceneManager.GetActiveScene().name == scene2){
+            if(other.gameObject.GetComponent<PlayerController>()){
+                SceneManager.LoadScene(scene3);
+            }
+        }
+        else if(SceneManager.GetActiveScene().name == scene3){
+            if(other.gameObject.GetComponent<PlayerController>()){
+                SceneManager.LoadScene(scene4);
+            }           
+        }
+        else if(SceneManager.GetActiveScene().name == scene4){
             Debug.Log("Great Job! You have finished the game!");
         }
         

@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public ScoreController scoreController;
     public float speed;
-    public float jumpForce;
+    private float jumpForce;
+    public float jumpHeight = 0.2f;
     public bool isGrounded;
     public Vector2 crouchedColliderScale = new Vector2(0.9171886f, 1.328003f);
     public Vector2 crouchedColliderOffset = new Vector2(-0.11f, 0.59f);
@@ -102,7 +103,7 @@ public class PlayerController : MonoBehaviour
         // Jump Movement
         if (vertical > 0  && isGrounded)
         {
-            //animator.SetTrigger("Jump");
+            jumpForce = Mathf.Sqrt(jumpHeight * -2 * (Physics2D.gravity.y * rigidbodyPlayer.gravityScale));
             rigidbodyPlayer.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
     }

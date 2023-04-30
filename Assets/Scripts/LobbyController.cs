@@ -8,9 +8,10 @@ public class LobbyController : MonoBehaviour
 {
     public Button playButton;
     public Button quitButton;
+    public GameObject levelSelectionPopUp;
     private const string scene1 = "Level1";
     private void Awake() {
-        playButton.onClick.AddListener(PlayGame);
+        playButton.onClick.AddListener(SelectLevel);
         quitButton.onClick.AddListener(QuitGame);
     }
     // Start is called before the first frame update
@@ -25,12 +26,16 @@ public class LobbyController : MonoBehaviour
         
     }
 
-    private void PlayGame(){
-        SceneManager.LoadScene(scene1);
+    private void SelectLevel(){
+        levelSelectionPopUp.SetActive(true);
     }
     
     private void QuitGame(){
         Application.Quit();
         Debug.Log("Quits the game!");
+    }
+
+    public void CloseButton(){
+        levelSelectionPopUp.SetActive(false);
     }
 }
