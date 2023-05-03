@@ -6,47 +6,69 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     public Animator anim;
-    private bool crouch = false;
-    private bool jump = false;
+    public float speed;
+    public float jump;
+    private Rigidbody2D playerRb;
+
+    private void Awake()
+    {
+        playerRb= GetComponent<Rigidbody2D>();
+    }
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Jump");
+        
+        PlayMovementAnimation(horizontal, vertical);
+        PlayerMovement(horizontal, vertical);
 
-        anim.SetFloat("Speed", Mathf.Abs(speed));
-
-        //Jump Logic
-        if(vertical > 0 )
+        
+    }
+    public void PlayMovementAnimation(float horizontal, float vertical)
+    {
+        //For jump
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (vertical > 0)
         {
-            jump= true;
+            anim.SetBool("Jump", true);
         }
         else
         {
-            jump= false;
+            anim.SetBool("Jump", false);
         }
-        anim.SetBool("Jump", jump);
-        //Crouch logic
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            crouch = true;
-        }
-        else
-        {
-            crouch = false;
-        }
-        anim.SetBool("Crouch", crouch);
 
-        //Running logic
+        //Turning Character
         Vector3 scale = transform.localScale;
-        if (speed < 0)
-        {   
-            scale.x = -1f * Mathf.Abs(speed);
-        }
-        else if(speed > 0)
+        if (horizontal < 0)
         {
-            scale.x = Mathf.Abs(speed);
+            scale.x = -1f * Mathf.Abs(horizontal);
+        }
+        else if (horizontal > 0)
+        {
+            scale.x = Mathf.Abs(horizontal);
         }
         transform.localScale = scale;
+
+        //For crouch
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            anim.SetBool("Crouch", true);
+        }
+        else
+        {
+            anim.SetBool("Crouch", false);
+        }
+    }
+
+    public void PlayerMovement(float horizontal, float vertical)
+    {
+        //Horizontal movement
+        Vector3 temp = transform.position;
+        temp.x += horizontal * speed * Time.deltaTime;
+        transform.position = temp;
+
+        //Vertical movement
+        playerRb.AddForce(Vector2.up * jump * vertical, ForceMode2D.Impulse);
     }
 }

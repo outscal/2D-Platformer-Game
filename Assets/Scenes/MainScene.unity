@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 309867441}
+  speed: 10
+  jump: 10
 --- !u!1 &828022878
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 828022878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.02, y: -0.48, z: 0.02700416}
-  m_LocalScale: {x: 4.5125, y: 1, z: 1}
+  m_LocalScale: {x: 18.444843, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -350,6 +352,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 309867444, guid: 1348759f250b05147a230a492ca2cdc0, type: 3}
+      propertyPath: m_Mass
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 332996116967065334, guid: 1348759f250b05147a230a492ca2cdc0,
         type: 3}
       propertyPath: m_Name
