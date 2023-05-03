@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     private Rigidbody2D playerRb;
+    private bool isGrounded;
 
     private void Awake()
     {
@@ -21,15 +22,13 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Jump");
         
         PlayMovementAnimation(horizontal, vertical);
-        PlayerMovement(horizontal, vertical);
-
-        
+        PlayerMovement(horizontal, vertical); 
     }
     public void PlayMovementAnimation(float horizontal, float vertical)
     {
         //For jump
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
-        if (vertical > 0)
+        if (vertical > 0 && isGrounded)
         {
             anim.SetBool("Jump", true);
         }
@@ -69,6 +68,25 @@ public class PlayerController : MonoBehaviour
         transform.position = temp;
 
         //Vertical movement
-        playerRb.AddForce(Vector2.up * jump * vertical, ForceMode2D.Impulse);
+        if(isGrounded)
+        {
+            playerRb.AddForce(Vector2.up * jump * vertical, ForceMode2D.Impulse);
+            //isGrounded = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
+        }
     }
 }

@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 309867441}
   speed: 10
-  jump: 10
+  jump: 50
 --- !u!1 &828022878
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 828022879}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,9 +356,26 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 309867444, guid: 1348759f250b05147a230a492ca2cdc0, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 309867444, guid: 1348759f250b05147a230a492ca2cdc0, type: 3}
+      propertyPath: m_GravityScale
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 309867444, guid: 1348759f250b05147a230a492ca2cdc0, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 332996116967065334, guid: 1348759f250b05147a230a492ca2cdc0,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 332996116967065334, guid: 1348759f250b05147a230a492ca2cdc0,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1021196765793361773, guid: 1348759f250b05147a230a492ca2cdc0,
