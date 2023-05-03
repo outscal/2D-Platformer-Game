@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
@@ -93,8 +94,7 @@ public class PlayerController : MonoBehaviour
         {
             // If Left Control is Pressed, then player will crouch
             animator.SetBool("Crouch", isCrouch);
-            Debug.Log("Box collider extents: " + boxCollider2D.bounds.extents);
-
+            //Debug.Log("Box collider extents: " + boxCollider2D.bounds.extents);
         }
         else
         {
@@ -121,10 +121,21 @@ public class PlayerController : MonoBehaviour
         return raycastHit.collider != null;
     }
 
-    internal void CollectKey()
+    public void CollectKey()
     {
         score++; // increase the score by 1
         //Debug.Log("Player Collected the key!");
         scoreText.text = "Score: " + score.ToString();
+    }
+
+    public void KillPlayer()
+    {
+        animator.SetBool("isDead", true);
+        Invoke(nameof(ReloadLevel), 2f);
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -12,7 +12,7 @@ public class KeyController : MonoBehaviour
         keyAnimator = GetComponent<Animator>();
         keyAnimator.SetBool("KeyCollected", false);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
