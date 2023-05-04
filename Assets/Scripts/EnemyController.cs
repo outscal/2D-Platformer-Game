@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             Debug.Log("Enemy has Killed the Player");
-            playerController.KillPlayer();
+            //playerController.KillPlayer();
         }
     }
 

@@ -43,7 +43,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 3286728927979496888}
   - component: {fileID: 4149289875277938251}
   - component: {fileID: 4860685410621635825}
+  - component: {fileID: 412090128}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -264,3 +265,22 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   boxCollider2D: {fileID: 0}
   rb2D: {fileID: 0}
+--- !u!114 &412090128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233623790345633311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e645d51e7481149b4b899eb9fd1119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 3
+  heart: {fileID: 21300010, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
