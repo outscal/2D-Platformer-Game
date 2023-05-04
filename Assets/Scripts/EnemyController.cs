@@ -22,15 +22,6 @@ public class EnemyController : MonoBehaviour
         baseScale = transform.localScale;   // base scale would be same as the scale at the start of game, later can to change it
         facingDirection = RIGHT;   // by default, enemy has move to the right
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            Debug.Log("Enemy has Killed the Player");
-            //playerController.KillPlayer();
-        }
-    }
 
     private void FixedUpdate()
     {
