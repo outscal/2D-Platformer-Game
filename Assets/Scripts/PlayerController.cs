@@ -7,7 +7,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-     public float speed;
+
+    public float speed;
+    public float jump;
+
+    private Rigidbody2D rb2d;
+
+    private void  Awake()
+    {
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+    } 
    
     
     
@@ -21,8 +31,8 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         Debug.Log("speed= " + horizontal);
 
-        MoveCharacter(horizontal);
-        PlayerMovementAnimation(horizontal);
+        MoveCharacter(horizontal,vertical);
+        PlayerMovementAnimation(horizontal,vertical);
        
 
 
@@ -31,19 +41,25 @@ public class PlayerController : MonoBehaviour
         }
 
     
-        if(Input.GetKeyDown(KeyCode.W)){
-            animator.SetBool("Jump",true);
-        }
+        
     }
     
-    private void MoveCharacter(float horizontal){
+    private void MoveCharacter(float horizontal,float vertical){
 
+        //move horizontally    
         Vector3 position=transform.position;
         position.x = position.x + horizontal * speed * Time.deltaTime;
         transform.position =  position;
+
+        //move vertically
+        if(vertical>0)
+        {
+            rb2d.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
+        }
+
     }
 
-    private void PlayerMovementAnimation(float horizontal){
+    private void PlayerMovementAnimation(float horizontal,float vertical){
 
        
        animator.SetInteger("Speed",(int)horizontal);
@@ -62,5 +78,16 @@ public class PlayerController : MonoBehaviour
         }
        
         transform.localScale = scale;
+
+
+        //Vertical Jump
+        if(vertical>0)
+        {
+            animator.SetBool("Jump",true);
+        }
+        else
+        {
+            animator.SetBool("Jump",false);
+        }
     }
 }

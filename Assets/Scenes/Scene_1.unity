@@ -170,12 +170,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &641837850 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 208009765588690635, guid: ecff5980bcfe75148a940bb4250bb90e,
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 641837850}
   speed: 5
+  jump: 2
 --- !u!1 &773651963
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +292,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007807328347124229, guid: ecff5980bcfe75148a940bb4250bb90e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3509305497943587404, guid: ecff5980bcfe75148a940bb4250bb90e,
         type: 3}
