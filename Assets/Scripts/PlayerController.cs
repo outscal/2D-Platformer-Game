@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jump;
     private Rigidbody2D playerRb;
     private bool isGrounded;
+    public float deathHeight;
 
     private void Awake()
     {
@@ -18,11 +19,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //For death after falling
+        if(!isGrounded && transform.position.y < deathHeight)
+        {
+            Die();
+        }
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         
         PlayMovementAnimation(horizontal, vertical);
         PlayerMovement(horizontal, vertical); 
+    }
+    void Die()
+    {
+        Debug.Log("Player has died...");
     }
     public void PlayMovementAnimation(float horizontal, float vertical)
     {
@@ -77,6 +87,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Grounded logic
         if (collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
