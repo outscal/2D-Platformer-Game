@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         float vertical = Input.GetAxisRaw("Jump");
         float horizontal = Input.GetAxisRaw("Horizontal");
-        Debug.Log("speed= " + horizontal);
+        //Debug.Log("speed= " + horizontal);
 
         MoveCharacter(horizontal,vertical);
         PlayerMovementAnimation(horizontal,vertical);
