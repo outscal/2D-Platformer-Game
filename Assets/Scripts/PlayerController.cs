@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     public float jump;
+    public bool isGrounded;
+
+
 
     private Rigidbody2D rb2d;
 
@@ -90,4 +93,20 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump",false);
         }
     }
+
+    private void OnCollisionStay2D(Collision2D other)
+{
+    if(other.transform.tag == "Platform")
+    {
+        isGrounded = true;
+    } 
+}
+
+private void OnCollisionExit2D(Collision2D other)
+{
+    if (other.transform.tag == "Platform")
+    {
+        isGrounded = false;
+    }
+}
 }
