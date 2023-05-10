@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,12 @@ public class PlayerController : MonoBehaviour
     public float jump;
     public bool isGrounded;
 
+    private Vector3 restartPoint;
+
+    public GameObject forDeathDetector;
+
+    public GameOverScreen gos;
+
 
 
     private Rigidbody2D rb2d;
@@ -22,6 +29,14 @@ public class PlayerController : MonoBehaviour
         SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
     } 
    
+   void /// <summary>
+   /// Start is called on the frame when a script is enabled just before
+   /// any of the Update methods is called the first time.
+   /// </summary>
+   Start()
+   {
+    restartPoint = transform.position;
+   }
     
     
    
@@ -43,7 +58,7 @@ public class PlayerController : MonoBehaviour
             GetComponent<Animator>().Play("Player_Crouch");
         }
 
-    
+        forDeathDetector.transform.position = new Vector2(transform.position.x,forDeathDetector.transform.position.y);
         
     }
     
@@ -59,6 +74,8 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
         }
+
+
 
     }
 
@@ -107,6 +124,14 @@ private void OnCollisionExit2D(Collision2D other)
     if (other.transform.tag == "Platform")
     {
         isGrounded = false;
+    }
+}
+
+private void OnTriggerEnter2D(Collider2D other)
+{
+    if(other.transform.tag == "FallDetector")
+    {
+     gos.Setup();
     }
 }
 }
