@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_controller : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class Player_controller : MonoBehaviour
     public int jump_distance;
     public bool has_jumped=true;
     public int last_direction = 1;
+    public enum playerstate {alive,dead};
+    public playerstate state = playerstate.alive;
+    public bool isdead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,6 +94,20 @@ public class Player_controller : MonoBehaviour
         if(collision.transform.tag=="Ground")
         {
             has_jumped = false;
+        }
+    }
+
+    public void ifdead()
+    {
+        if(state==playerstate.alive)
+        {
+            state =playerstate.dead;
+           // isdead = true;
+            animator.SetBool("Dead",true);
+            new WaitForSeconds(5.0f);
+            state = playerstate.alive;
+            animator.SetBool("Dead", false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
