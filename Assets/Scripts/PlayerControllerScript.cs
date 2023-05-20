@@ -6,20 +6,35 @@ public class PlayerControllerScript : MonoBehaviour
 {
     public Animator animator; 
 
+    public float speed;
+
     // Update is called once per frame
     void Update()
     {
        float  hrzntl = Input.GetAxisRaw("Horizontal");
        float  vrtcl = Input.GetAxisRaw("Vertical");
 
-       animator.SetFloat("Speed",Mathf.Abs(hrzntl));
+       PlayerAnimationBinding(hrzntl,vrtcl);
+       MoveCharacter(hrzntl);
+
+    }
+     private void MoveCharacter(float horizontal)
+     {
+       Vector3 position = transform.position;
+       position.x = position.x + horizontal * speed* Time.deltaTime;
+       transform.position = position;
+     }
+
+     private void PlayerAnimationBinding(float horizontal, float vertical)
+    {
+         animator.SetFloat("Speed",Mathf.Abs(horizontal));
 
        Vector3 resize = transform.localScale;
-       if(hrzntl < 0)
+       if(horizontal < 0)
        {
         resize.x = -1f * Mathf.Abs(resize.x);
        }
-       else if(hrzntl > 0)
+       else if(horizontal > 0)
        {
         resize.x = Mathf.Abs(resize.x);
        }
@@ -30,10 +45,11 @@ public class PlayerControllerScript : MonoBehaviour
        animator.SetBool("Crouch",crouch);
 
 //jump
-       if(vrtcl > 0)
+       if(vertical > 0)
        {
-        animator.SetFloat("Jump", Mathf.Abs(vrtcl));
+        animator.SetFloat("Jump", Mathf.Abs(vertical));
        }
    
     }
+    
 };    
