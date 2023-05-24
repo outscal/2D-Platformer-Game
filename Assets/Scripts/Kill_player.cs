@@ -14,6 +14,7 @@ public class Kill_player : MonoBehaviour
             Vector3 spawn_point = spawn.position;
             Destroy(collision.gameObject);
             Instantiate(player,spawn_point,Quaternion.identity);
+            lives_system.lives_decrease();
         }
     }
 }
