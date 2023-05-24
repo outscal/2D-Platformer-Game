@@ -7,13 +7,13 @@ public class EnemyController : MonoBehaviour
     const string LEFT = "left";
     const string RIGHT = "right";
 
-    Rigidbody2D rb2d;
-    Vector3 baseScale;
-    string facingDirection;
+    private Rigidbody2D rb2d;
+    private Vector3 baseScale;
+    private string facingDirection;
 
-    [SerializeField] Transform castPos;
-    public float castDist = 0.5f;
-    public float moveSpeed = 5f;
+    [SerializeField] private Transform castPos;
+    [SerializeField] private float castDist = 0.5f;
+    [SerializeField] private float moveSpeed = 5f;
     
 
     private void Start()
@@ -57,11 +57,13 @@ public class EnemyController : MonoBehaviour
 
         if (Physics2D.Linecast(castPos.position, targetPos, 1 << LayerMask.NameToLayer("Platform")))
         {
+            
             val = false;
         } 
         else
         {
             val = true;
+            Debug.Log("Near platform end");
         }
 
         return val;
@@ -85,6 +87,7 @@ public class EnemyController : MonoBehaviour
 
         if(Physics2D.Linecast(castPos.position, targetPos, 1 << LayerMask.NameToLayer("Platform")))
         {
+            Debug.Log("Hitting wall");
             val = true;
         }
         else

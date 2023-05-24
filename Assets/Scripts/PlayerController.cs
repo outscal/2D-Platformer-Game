@@ -8,18 +8,22 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject PlayerSpawn; // Empty game object created in Hierarchy at which player will respawn if he is dead (Level Reloads)
-    public float moveSpeed;
-    public float jumpDuration = 0.5f;
-    public float jumpForce;
+    [SerializeField] public GameOverController gameOverController;
+    [SerializeField] private GameObject PlayerSpawn; // Empty game object created in Hierarchy at which player will respawn if he is dead (Level Reloads)
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpDuration = 0.5f;
+    [SerializeField] private float jumpForce;
 
-    [SerializeField] LayerMask platformLayer;
-    [SerializeField] TMP_Text scoreText;
+    [SerializeField] private LayerMask platformLayer;
+    [SerializeField] private TMP_Text scoreText;
 
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
-    public BoxCollider2D boxCollider2D;
-    public Rigidbody2D rb2D;
+    [SerializeField] private Animator animator;
+    [HideInInspector]
+    private SpriteRenderer spriteRenderer;
+    [HideInInspector]
+    private BoxCollider2D boxCollider2D;
+    [HideInInspector]
+    private Rigidbody2D rb2D;
 
     private int score;
 
@@ -124,17 +128,20 @@ public class PlayerController : MonoBehaviour
     public void CollectKey()
     {
         score++; // increase the score by 1
-        //Debug.Log("Player Collected the key!");
         scoreText.text = "Score: " + score.ToString();
     }
 
     public void KillPlayer()
     {
         animator.SetBool("isDead", true);
-        Invoke(nameof(ReloadLevel), 2f);
+
+        // We will be calling reload level function from GameOverController script as it will allow player to click Restart Level button
+        //Invoke(nameof(ReloadLevel), 2f);
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
 
-    private void ReloadLevel()
+    public void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

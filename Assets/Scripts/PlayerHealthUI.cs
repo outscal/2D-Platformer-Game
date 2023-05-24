@@ -16,7 +16,7 @@ public class PlayerHealthUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = playerHealthController.health;
+        //health = playerHealthController.health;
     }
 
     // Update is called once per frame

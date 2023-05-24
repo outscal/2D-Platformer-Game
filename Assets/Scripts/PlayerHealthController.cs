@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class PlayerHealthController : MonoBehaviour
 {
-    public int health { get; private set; }
-    public int maxHealth;
+    [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
 
-    public Sprite heart;
-    public Image[] hearts;
+    [SerializeField] private Sprite heart;
+    [SerializeField] private Image[] hearts;
 
-    PlayerController playerController;
+    [SerializeField] private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
-        playerController= GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController>();
     }
 
     public void TakeDamage(int damage)
@@ -35,7 +35,7 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < hearts.Length; i++)
+        for (int i = 1; i < hearts.Length; i++)
         {
             // Condition to fill the heart as per the current health of player
             if (i < health)
