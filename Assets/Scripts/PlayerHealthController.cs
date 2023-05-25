@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerHealthController : MonoBehaviour
 {
+    [SerializeField] private PlayerController playerController;
+
+    [Header("Player Health Details ")]
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
 
-    [SerializeField] private Sprite heart;
+    [Header("Heart Sprites ")]
+    //[SerializeField] private Sprite heart;
     [SerializeField] private Image[] hearts;
-
-    [SerializeField] private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class PlayerHealthController : MonoBehaviour
         if (health > 0)
         {
             health -= damage;
+            UpdateHeartUI();
         }
         else
         {
@@ -35,7 +38,12 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 1; i < hearts.Length; i++)
+       
+    }
+
+    private void UpdateHeartUI()
+    {
+        for (int i = 0; i < hearts.Length; i++)
         {
             // Condition to fill the heart as per the current health of player
             if (i < health)
@@ -57,4 +65,5 @@ public class PlayerHealthController : MonoBehaviour
             }
         }
     }
+        
 }

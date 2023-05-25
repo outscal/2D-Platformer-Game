@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             val = true;
-            Debug.Log("Near platform end");
+            //Debug.Log("Near platform end");
         }
 
         return val;
@@ -87,13 +87,22 @@ public class EnemyController : MonoBehaviour
 
         if(Physics2D.Linecast(castPos.position, targetPos, 1 << LayerMask.NameToLayer("Platform")))
         {
-            Debug.Log("Hitting wall");
+            //Debug.Log("Hitting wall");
             val = true;
         }
         else
         {
             val = false;
         }
+
+        return val;
+    }
+
+    bool IsHittingPlayer()
+    {
+        // Function to change the enemy direction after it hits the player
+        bool val = false;
+        Vector2 targetPos = castPos.position;
 
         return val;
     }

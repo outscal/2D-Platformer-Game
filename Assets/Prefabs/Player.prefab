@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 4149289875277938251}
   - component: {fileID: 4860685410621635825}
   - component: {fileID: 412090128}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,9 +263,6 @@ MonoBehaviour:
     m_Bits: 64
   scoreText: {fileID: 0}
   animator: {fileID: 1304513622}
-  spriteRenderer: {fileID: 0}
-  boxCollider2D: {fileID: 0}
-  rb2D: {fileID: 0}
 --- !u!114 &412090128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,8 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e645d51e7481149b4b899eb9fd1119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  health: 0
   maxHealth: 3
-  heart: {fileID: 21300010, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
   hearts:
   - {fileID: 0}
   - {fileID: 0}

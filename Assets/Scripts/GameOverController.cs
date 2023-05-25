@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,23 @@ using UnityEngine.UI;
 
 public class GameOverController : MonoBehaviour
 {
-    public Button restartButton;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button quitButton;
+    [SerializeField] private Button mainMenuButton;
 
     private void Awake()
     {
         restartButton = GetComponentInChildren<Button>();
         gameObject.SetActive(false);
         restartButton.onClick.AddListener(ReloadLevel);
+        quitButton.onClick.AddListener(ExitGame);
+        mainMenuButton.onClick.AddListener(ReturnToMainMenu);
     }
 
-    private void Start()
+    private void ReturnToMainMenu()
     {
-        //restartButton.onClick.AddListener(ReloadLevel);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene(0);
     }
 
     public void PlayerDied()
@@ -28,6 +34,11 @@ public class GameOverController : MonoBehaviour
     public void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void ExitGame()
+    {
+        Application.Quit();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
