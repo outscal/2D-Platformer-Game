@@ -25,7 +25,7 @@ public class lives_system : MonoBehaviour
         //Debug.Log(lives_counter);
         if(lives_counter==1)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("Death_scene");
         }
         //lives_counter = 3;
         lives_counter = lives_counter > 1 ? --lives_counter : 0;

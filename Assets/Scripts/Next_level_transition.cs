@@ -22,7 +22,8 @@ public class Next_level_transition : MonoBehaviour
         if(collision.gameObject.GetComponent<Player_controller>() != null)
         {
             Debug.Log("Here");
-            SceneManager.LoadScene(1);
+            int current_level =SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(current_level+1);
         }
     }
 }
