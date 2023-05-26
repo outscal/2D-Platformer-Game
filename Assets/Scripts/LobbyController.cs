@@ -9,6 +9,7 @@ public class LobbyController : MonoBehaviour
 {
     [SerializeField] private Button playButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private GameObject levelSelection;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class LobbyController : MonoBehaviour
 
     private void StartGame()
     {
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        levelSelection.SetActive(true);
     }
 }

@@ -40,13 +40,4 @@ public class GameOverController : MonoBehaviour
     {
         Application.Quit();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            Debug.Log("Game Over... Try Again");
-            SceneManager.LoadScene("Level1");
-        }
-    }
 }

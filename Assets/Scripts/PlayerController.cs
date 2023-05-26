@@ -44,6 +44,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogError("Missing Score Text Component");
         }
+        if(gameOverController == null)
+        {
+            Debug.LogError("Missing Game Over Controller Script");
+        }
     }
 
     private void FixedUpdate()
@@ -144,5 +148,14 @@ public class PlayerController : MonoBehaviour
     public void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "DeathPlatform")
+        {
+            Debug.Log("Player fell down... Game Over!");
+            gameOverController.PlayerDied();
+        }
     }
 }
