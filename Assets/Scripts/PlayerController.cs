@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public BoxCollider2D playerCollider;
+    bool isCrouching = false;
+
     private void Awake()
     {
         Debug.Log("Player Controller Awake");
@@ -12,7 +13,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
+        float  jump = Input.GetAxisRaw("Vertical");
+       
         animator.SetFloat("Speed", Mathf.Abs(speed));
+        animator.SetFloat("Jump", jump);
+        animator.SetBool("Crouch", isCrouching);
 
         Vector3 scale = transform.localScale;
 
@@ -23,7 +28,16 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = Mathf.Abs(scale.x);
         }
+        if (jump < 0)
+        {
+            scale.y = Mathf.Abs(scale.y);
+        }
         transform.localScale = scale;
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+        {
+            isCrouching = true;
+        }
+
     }
 
 }
