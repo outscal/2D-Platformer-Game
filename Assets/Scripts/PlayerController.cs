@@ -5,10 +5,15 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public BoxCollider2D playerCollider;
     bool isCrouching = false;
+    Vector2 originalSize;
+    Vector2 crouchSize = new Vector2((float)0.5, 1);
 
-    private void Awake()
+    private void Start()
     {
-        Debug.Log("Player Controller Awake");
+        Debug.Log("Player Controller Start");
+        playerCollider = GetComponent<BoxCollider2D>();
+        originalSize = playerCollider.size;
+
     }
     private void Update()
     {
@@ -36,6 +41,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
         {
             isCrouching = true;
+            playerCollider.size = crouchSize;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
+        {
+            isCrouching = false;
+            playerCollider.size = originalSize;
         }
 
     }
