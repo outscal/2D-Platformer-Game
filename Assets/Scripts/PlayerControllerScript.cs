@@ -10,23 +10,32 @@ public class PlayerControllerScript : MonoBehaviour
 
     public float speed;
     public float jump;
-    
+    public bool IsGrounded ;
+    public bool IsJumping;
     private void Awake() 
-    {
-         rb2d =gameObject.GetComponent<Rigidbody2D>();  
+    {  
+       rb2d =gameObject.GetComponent<Rigidbody2D>(); 
     }
+    
+
 
     // Update is called once per frame
     void Update()
     {
        float  hrzntl = Input.GetAxisRaw("Horizontal");
-       float  vrtcl = Input.GetAxisRaw("Jump");
+       if( Input.GetButtonDown("Jump"))
+       {
+               IsJumping =true;
+               Jump();
+       }
+       
 
-       PlayerAnimationBinding(hrzntl,vrtcl);
-       MoveCharacter(hrzntl,vrtcl);
+       PlayerAnimationBinding(hrzntl);
+       MoveCharacter(hrzntl);
+       
 
     }
-     private void MoveCharacter(float horizontal,float vertical)
+     private void MoveCharacter(float horizontal)
      {
        //for Horizontal movement
        Vector3 position = transform.position;
@@ -34,13 +43,10 @@ public class PlayerControllerScript : MonoBehaviour
        transform.position = position;
 
        //for jump movement
-       if(vertical > 0)
-       {
-              rb2d.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
-       }
+      
      }
 
-     private void PlayerAnimationBinding(float horizontal, float vertical)
+     private void PlayerAnimationBinding(float horizontal)
     {
          animator.SetFloat("Speed",Mathf.Abs(horizontal));
 
@@ -64,18 +70,32 @@ public class PlayerControllerScript : MonoBehaviour
        {
               animator.SetBool("Crouch",false);
        }
-
-//jump
-       if(vertical > 0)
+       animator.SetBool("IsGrounded",IsGrounded);
+    }
+    private void OnCollisionStay2D(Collision2D other) 
+    {
+       if(other.transform.tag == "Platform")
        {
-        //animator.SetFloat("Jump", Mathf.Abs(vertical));
-        animator.SetBool("Jumpt",true);
+             IsGrounded  = true; 
        }
-       else
+    }
+    private void OnCollisionExit2D(Collision2D other) {
+       if(other.transform.tag=="Platform")
        {
-          animator.SetBool("Jumpt",false);    
+              IsGrounded = false;
        }
-   
     }
     
+    private void Jump()
+    {
+       rb2d.AddForce(new Vector2(0,jump),ForceMode2D.Impulse);
+       
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+       if(other.transform.tag=="Platform")
+       {
+              IsJumping=false;
+       }
+
+    }
 };    
