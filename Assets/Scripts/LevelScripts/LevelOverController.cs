@@ -12,6 +12,7 @@ public class LevelOverController : MonoBehaviour
         {
             Debug.Log("Level Complete... Congratulations");
             SceneManager.LoadScene(levelToLoad);
+            LevelManager.Instance.MarkCurrentLevelComplete();
         }
     }
 }
