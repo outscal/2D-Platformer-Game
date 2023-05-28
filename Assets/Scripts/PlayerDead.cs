@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
 
 public class PlayerDead : MonoBehaviour
 {
@@ -12,13 +16,18 @@ public class PlayerDead : MonoBehaviour
         {
             Debug.Log("Player Dead"); 
             animator.SetBool("Death", true);
+            ReloadScene();
         }
         else
         {
             animator.SetBool("Death", false);
         }
-
-    }    
+    }
+       
+    private void ReloadScene()
+    {
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+    }
 
 
 
