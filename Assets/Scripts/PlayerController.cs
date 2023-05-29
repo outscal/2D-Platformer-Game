@@ -2,6 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     public Animator animator;
     public float speed;
     public float jump;
@@ -24,6 +25,12 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<BoxCollider2D>();
         originalSize = playerCollider.size;
 
+    }
+
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked up the Key");
+        scoreController.IncreaseScore(10);
     }
     private void Update()
     {   // PlayerMovement
