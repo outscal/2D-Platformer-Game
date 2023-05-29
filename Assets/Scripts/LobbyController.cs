@@ -32,7 +32,6 @@ public class LobbyController : MonoBehaviour
 
     private void StartGame()
     {
-        //SceneManager.LoadScene(1);
         levelSelection.SetActive(true);
     }
 }

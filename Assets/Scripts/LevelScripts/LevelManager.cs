@@ -7,7 +7,11 @@ public class LevelManager : MonoBehaviour
     private static LevelManager instance; // this is the private instance of the LevelManager class
     public static LevelManager Instance { get { return instance; } }  // This is the Public Instance of the LevelManager class
 
-    [SerializeField] private string[] Levels;
+    [Tooltip("Enter level name (Level names are case sensitive!)")]
+    [SerializeField] public string[] Levels;
+
+    [HideInInspector]
+    public int nextSceneIndex;
 
     private void Awake()
     {
@@ -40,12 +44,12 @@ public class LevelManager : MonoBehaviour
 
         // Mark next level as unlocked
         int currentSceneIndex = Array.FindIndex(Levels, level => level == currentScene.name);
-        int nextSceneIndex = currentSceneIndex + 1;
-        if(nextSceneIndex< Levels.Length)
+        nextSceneIndex = currentSceneIndex + 1;
+        if(nextSceneIndex < Levels.Length)
         {
             SetLevelStatus(Levels[nextSceneIndex], LevelStatus.Unlocked);
             Debug.Log(Levels[nextSceneIndex] + " Unlocked");
-        } 
+        }
     }
 
     // There should be 2 methods to set and get the level status of each level in the

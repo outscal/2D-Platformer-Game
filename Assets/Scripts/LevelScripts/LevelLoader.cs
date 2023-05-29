@@ -15,7 +15,29 @@ public class LevelLoader : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(onClick);
+        if (SceneManager.GetActiveScene().name == "LevelComplete")
+        {
+            button.onClick.AddListener(LoadNextLevel);
+        }
+        else
+        {
+            button.onClick.AddListener(onClick);
+        }
+        
+    }
+
+    private void LoadNextLevel()
+    {
+        int currentSceneIndex = LevelManager.Instance.nextSceneIndex - 1;
+        if (currentSceneIndex < LevelManager.Instance.Levels.Length)
+        {
+            levelName = LevelManager.Instance.Levels[LevelManager.Instance.nextSceneIndex];
+            SceneManager.LoadScene(levelName);
+        }
+        //else
+        //{
+        //    SceneManager.LoadScene("GameComplete");
+        //}
     }
 
     private void onClick()
