@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,7 +27,18 @@ public class PlayerController : MonoBehaviour
         //Crouch related
         playerCollider = GetComponent<BoxCollider2D>();
         originalSize = playerCollider.size;
+    }
 
+    internal void KillPlayer()
+    {
+        Debug.Log("Player killed by the Enemy");
+        animator.SetBool("Death", true);
+        ReloadScene();
+    }
+
+    private void ReloadScene()
+    {
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
     }
 
     public void PickUpKey()
@@ -92,12 +106,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
         {
             isCrouching = true;
-            playerCollider.size = crouchSize;
+            //playerCollider.size = crouchSize;
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
         {
             isCrouching = false;
-            playerCollider.size = originalSize;
+           // playerCollider.size = originalSize;
         }
     }
 }
