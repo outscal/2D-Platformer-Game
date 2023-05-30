@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -18,7 +19,11 @@ public class PlayerController : MonoBehaviour
     private float colliderSizeInY = 1.24f;
     private float colliderOffsetInX = -0.0041f;
     private float colliderOffsetInY = 0.5665f;
+    public int playerHealth;
+    [SerializeField] private Image[] hearts;
+    public Transform startPosition;
     public PlayerHealthController playerHealthController;
+
 
     private void Awake()
     {
@@ -31,6 +36,12 @@ public class PlayerController : MonoBehaviour
     // {
     //     Debug.Log("Collision: " + collision.gameObject.name);
     // }
+
+    private void Start()
+    {
+        startPosition.position = transform.position;
+        UpdateHealthUI();
+    }
 
     private void Update()
     {
@@ -117,19 +128,53 @@ public class PlayerController : MonoBehaviour
         scoreController.IncreaseScore(10);
     }
 
+    public void DecreaseHealth()
+    {
+        playerHealth--;
+        UpdateHealthUI();
+        if (playerHealth <= 0)
+        {
+            PlayDeathAnimation();
+            //PlayerDeath();
+        }
+        else 
+        {
+            transform.position = startPosition.position;
+        }
+    }
+
+    public void UpdateHealthUI()
+    {
+        for(int i = 0; i < hearts.Length; i++)
+        {
+            if(i < playerHealth)
+            {
+                hearts[i].color = Color.red;
+            }
+            else
+            {
+                hearts[i].color = Color.black;
+            }
+        }
+    }
+
     public void KillPlayer()
     {
         Debug.Log("Player killed by enemy");
         //Destroy(gameObject);
         //Play the death animation
-        animator.SetTrigger("Death");
+        PlayDeathAnimation();
         //reset the entire level
-        ReloadLevel();
     }
 
-    private void ReloadLevel()
+    public void PlayDeathAnimation()
+    {
+        animator.SetTrigger("Death");
+    }
+
+    public void ReloadLevel()
     {
         Debug.Log("Reloading Scene 0");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);      //Can also do with SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);      //Can also do with SceneManager.LoadScene(0);
     }
 }
