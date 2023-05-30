@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 182543207}
   - component: {fileID: 182543208}
   - component: {fileID: 182543209}
+  - component: {fileID: 1176997848}
+  - component: {fileID: 1176997849}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -112,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 2527585259175834836}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 403259816}
   m_Father: {fileID: 0}
@@ -244,7 +246,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75324f8e26615a4ba60b60e7d996295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreController: {fileID: 0}
   animator: {fileID: 8310829885086702420}
   speed: 5
-  jump: 50
+  jump: 60
   playerCollider: {fileID: 0}
+--- !u!114 &1176997848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527585259175834836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fb005302e125e4c9fb49f6068ff0bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 3
+  playerController: {fileID: 182543209}
+--- !u!114 &1176997849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527585259175834836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b6b35469106314983836d27c770bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+  emptyHeart: {fileID: 21300000, guid: 7234d34ba5758774494138f3ef909acb, type: 3}
+  FullHeart: {fileID: 21300000, guid: 88a20cd2219658343a9a415218b9b35e, type: 3}
+  hearts: []
