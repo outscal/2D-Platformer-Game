@@ -21,17 +21,19 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Player Controller Awake");
-
         rb2D = gameObject.GetComponent<Rigidbody2D>();
 
         //Crouch related
         playerCollider = GetComponent<BoxCollider2D>();
         originalSize = playerCollider.size;
+
+        
     }
 
+    
     internal void KillPlayer()
     {
-        Debug.Log("Player killed by the Enemy");
+        Debug.Log("Player hit by the Enemy");
         animator.SetBool("Death", true);
         ReloadScene();
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public PlayerHealth playerHealth;
+
     public GameObject pointA;
     public GameObject pointB;
     private Rigidbody2D rb;
@@ -61,10 +63,9 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer();
+        if (collision.gameObject.GetComponent<PlayerHealth>() != null)
+        {            
+            playerHealth.TakeDamage(1);
         }
     }
 }
