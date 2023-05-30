@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,22 +19,18 @@ public class LevelLoader : MonoBehaviour
         else
         {
             button.onClick.AddListener(onClick);
-        }
-        
+        } 
     }
 
     private void LoadNextLevel()
     {
-        int currentSceneIndex = LevelManager.Instance.nextSceneIndex - 1;
-        if (currentSceneIndex < LevelManager.Instance.Levels.Length)
+        int nextSceneIndex = LevelManager.Instance.nextSceneIndex;
+        // nextSceneIndex would be according to the Levels array not as per the Unity Build Index
+        if (nextSceneIndex < LevelManager.Instance.Levels.Length)
         {
             levelName = LevelManager.Instance.Levels[LevelManager.Instance.nextSceneIndex];
             SceneManager.LoadScene(levelName);
         }
-        //else
-        //{
-        //    SceneManager.LoadScene("GameComplete");
-        //}
     }
 
     private void onClick()

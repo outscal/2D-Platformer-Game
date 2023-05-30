@@ -44,6 +44,9 @@ public class LevelManager : MonoBehaviour
 
         // Mark next level as unlocked
         int currentSceneIndex = Array.FindIndex(Levels, level => level == currentScene.name);
+        // For Level1 scene, even though in the Build settings its index is 1, but as per the array it is the first element so currentSceneIndex would be 0
+        // So nextSceneIndex would become = 1
+        // Levels[0] = Level1, Levels[1] = Level2, Levels[2] = Level3;
         nextSceneIndex = currentSceneIndex + 1;
         if(nextSceneIndex < Levels.Length)
         {
