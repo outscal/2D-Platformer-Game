@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class EnemyController : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class EnemyController : MonoBehaviour
         anim = GetComponent<Animator>();
         currentPoint = pointB.transform;
         anim.SetBool("IsWalk", true);
-
+      
     }
     void Update()
     {
@@ -43,22 +45,24 @@ public class EnemyController : MonoBehaviour
             flip();
             currentPoint = pointB.transform;
         }
-    }
 
-    private void flip()
-    {
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
-    }
+         void flip()
+        {
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1;
+            transform.localScale = localScale;
+        }
 
-    private void OnDrawGizmos()
+       
+    }
+    void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
         Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
         Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
 
     }
+
 
 
     private void OnCollisionEnter2D(Collision2D collision)
