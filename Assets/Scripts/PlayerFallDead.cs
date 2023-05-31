@@ -6,18 +6,19 @@ using UnityEngine.SceneManagement;
 
 
 
-public class PlayerDead : MonoBehaviour
+public class PlayerFallDead : MonoBehaviour
 {
+    public GameOverController gameoverController;
     public Animator animator;
     
     private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.GetComponent<PlayerController>() != null)
             {
-                Debug.Log("Player Dead");
+                Debug.Log("Player Fall Dead");
                 animator.SetBool("Death", true);
                 StartCoroutine(DelayDeathAnimation());
-                ReloadScene();
+                gameoverController.PlayeDied();
             }
             else
             {
@@ -29,7 +30,7 @@ public class PlayerDead : MonoBehaviour
 
     private void ReloadScene()
     {
-        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(1);
     }
      IEnumerator DelayDeathAnimation()
     {
