@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameOverController gameoverController;
     public ScoreController scoreController;
     public Animator animator;
     public float speed;
@@ -26,22 +27,16 @@ public class PlayerController : MonoBehaviour
         //Crouch related
         playerCollider = GetComponent<BoxCollider2D>();
         originalSize = playerCollider.size;
-
         
     }
 
-    
     internal void KillPlayer()
     {
         Debug.Log("Player hit by the Enemy");
         animator.SetBool("Death", true);
-        ReloadScene();
-    }
-
-    private void ReloadScene()
-    {
-        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
-    }
+        gameoverController.PlayeDied();
+        this.enabled = false;
+    }   
 
     public void PickUpKey()
     {
