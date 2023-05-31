@@ -24,11 +24,11 @@ public class LevelLoader : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        int nextSceneIndex = LevelManager.Instance.nextSceneIndex;
+        int nextSceneIndex = LevelManager.Instance.GetNextLevelIndex();
         // nextSceneIndex would be according to the Levels array not as per the Unity Build Index
-        if (nextSceneIndex < LevelManager.Instance.Levels.Length)
+        if (nextSceneIndex < LevelManager.Instance.GetLevelName().Length)
         {
-            levelName = LevelManager.Instance.Levels[LevelManager.Instance.nextSceneIndex];
+            levelName = LevelManager.Instance.GetLevelName()[LevelManager.Instance.GetNextLevelIndex()];
             SceneManager.LoadScene(levelName);
         }
     }

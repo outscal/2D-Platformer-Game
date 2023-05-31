@@ -8,10 +8,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get { return instance; } }  // This is the Public Instance of the LevelManager class
 
     [Tooltip("Enter level name (Level names are case sensitive!)")]
-    [SerializeField] public string[] Levels;
-
-    [HideInInspector]
-    public int nextSceneIndex;
+    [SerializeField] private string[] Levels;
+    private int nextSceneIndex;
 
     private void Awake()
     {
@@ -33,6 +31,18 @@ public class LevelManager : MonoBehaviour
         {
             SetLevelStatus(Levels[0], LevelStatus.Unlocked);
         }
+    }
+
+    public string[] GetLevelName()
+    {
+        // Getter function for the Levels[] array
+        return Levels;
+    }
+
+    public int GetNextLevelIndex()
+    {
+        // Getter function for the nextLevelIndex variable as it is not a good practice to define the public variable
+        return nextSceneIndex;
     }
 
     public void MarkCurrentLevelComplete()
