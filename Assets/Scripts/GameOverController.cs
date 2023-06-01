@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class GameOverController : MonoBehaviour
 {
     public Button restartButton;
+    public Button quiteButton;
 
     void Awake()
     {
-        restartButton.onClick.AddListener(ReloadScene);
+        restartButton.onClick.AddListener(ReloadStartScene);
+        quiteButton.onClick.AddListener(LoadLobbyScene);
     }
 
     public void PlayeDied()
@@ -18,9 +20,14 @@ public class GameOverController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void ReloadScene()
+    private void ReloadStartScene()
     {
         Scene scene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(1);
+    }
+    private void LoadLobbyScene()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(0);
     }
 }
