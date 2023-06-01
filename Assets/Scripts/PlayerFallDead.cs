@@ -25,13 +25,7 @@ public class PlayerFallDead : MonoBehaviour
                 animator.SetBool("Death", false);
             }
         }
-  
-    
 
-    private void ReloadScene()
-    {
-        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(1);
-    }
      IEnumerator DelayDeathAnimation()
     {
         // Delay before starting the death animation
