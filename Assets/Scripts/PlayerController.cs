@@ -70,7 +70,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void MovePlayer(float horizontal) 
-    {   
+    {
+        //if(horizontal != 0)
+        //{
+        //    SoundManager.Instance.Play(Sounds.PlayerMove);
+        //}
         Vector3 position = transform.position;
         position.x += horizontal * moveSpeed * Time.deltaTime;
         transform.position = position; 
@@ -131,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
     public void CollectKey()
     {
+        SoundManager.Instance.Play(Sounds.KeyCollect);
         score++; // increase the score by 1
         scoreText.text = "Score: " + score.ToString();
     }

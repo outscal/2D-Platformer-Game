@@ -47,6 +47,7 @@ public class LevelManager : MonoBehaviour
 
     public void MarkCurrentLevelComplete()
     {
+        SoundManager.Instance.Play(Sounds.LevelComplete);
         Scene currentScene = SceneManager.GetActiveScene();
 
         // Set current level as completed
