@@ -1,68 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 public class EnemyController : MonoBehaviour
 {
     public PlayerHealth playerHealth;
 
-    public GameObject pointA;
-    public GameObject pointB;
+    public GameObject startPoint;
+    public GameObject endPoint;
     private Rigidbody2D rb;
     private Animator anim;
-    private Transform currentPoint;
     public float speed;
+    private bool movingRight = true;
+
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        currentPoint = pointB.transform;
         anim.SetBool("IsWalk", true);
       
     }
     void Update()
     {
-        Vector2 point = currentPoint.position - transform.position;
-        if (currentPoint == pointB.transform)
+        if (movingRight)
         {
-            rb.velocity = new Vector2(speed, 0);
+            transform.Translate(Vector2.right * speed * Time.deltaTime);
         }
         else
         {
-            rb.velocity = new Vector2(-speed, 0);
+            transform.Translate(Vector2.left * speed * Time.deltaTime);
         }
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointB.transform)
+        if (movingRight && transform.localScale.x < 0 || !movingRight && transform.localScale.x > 0)
         {
-            flip();
-            currentPoint = pointA.transform;
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointA.transform)
-        {
-            flip();
-            currentPoint = pointB.transform;
-        }
-
-         void flip()
-        {
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1;
-            transform.localScale = localScale;
-        }
-
-       
     }
-    void OnDrawGizmos()
+
+   private void OnTriggerEnter2D(Collider2D collision)
     {
-        Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
-        Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
-
+        if (collision.gameObject == startPoint)
+        {
+            movingRight = true;
+        }
+        else if (collision.gameObject == endPoint)
+        {
+            movingRight = false;
+        }
     }
-
 
 
     private void OnCollisionEnter2D(Collision2D collision)
