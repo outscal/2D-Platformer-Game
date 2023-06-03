@@ -6,28 +6,45 @@ using UnityEngine.UI;
 
 public class GameOverController : MonoBehaviour
 {
-    public Button restartButton;
-    public Button quiteButton;
+    public Button buttonReplay;
+    public Button buttonExit;
+    public GameObject GameOvermenu;
+    public Animator animator;
+    PlayerController playerController;
+
 
     void Awake()
     {
-        restartButton.onClick.AddListener(ReloadStartScene);
-        quiteButton.onClick.AddListener(LoadLobbyScene);
+        buttonReplay.onClick.AddListener(ReplayLevel);
+        buttonExit.onClick.AddListener(ExitToLobby);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            Debug.Log("Player Fall Dead");
+            animator.SetBool("Death", true);
+            PlayeDied();           
+        }
+        else
+        {
+            animator.SetBool("Death", false);
+        }
     }
 
     public void PlayeDied()
     {
-        gameObject.SetActive(true);
+        GameOvermenu.SetActive(true);
     }
 
-    private void ReloadStartScene()
+    private void ReplayLevel()
     {
         Scene scene = SceneManager.GetActiveScene(); 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(scene.name);
     }
-    private void LoadLobbyScene()
+    private void ExitToLobby()
     {
-        Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(0);
     }
 }

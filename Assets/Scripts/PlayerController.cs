@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public GameOverController gameoverController;
-    public ScoreController scoreController;
+    public KeyScoreController keyscoreController;
     public Animator animator;
     public float speed;
     public float jump;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     public void PickUpKey()
     {
         Debug.Log("Player picked up the Key");
-        scoreController.IncreaseScore(10);
+        keyscoreController.IncreaseScore(10);
     }
     private void Update()
     {   // PlayerMovement

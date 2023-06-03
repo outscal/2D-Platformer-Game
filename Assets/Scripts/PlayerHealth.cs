@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-
     //Player Health
     public int health;
-    public int maxHealth = 3;
+    public int maxHealth = 5;
+    public Sprite emptyHeart;
+    public Sprite fullHeart;
+    public Image[] hearts;
     public PlayerController playerController;
 
     // Start is called before the first frame update
@@ -15,19 +16,41 @@ public class PlayerHealth : MonoBehaviour
     {
         //Player Health
         health = maxHealth;
-
     }
 
     // Update is called once per frame
-    public void TakeDamage(int amount)
+    void Update()
+    {
+
+        for (int i = 0; i < hearts.Length; i++)
         {
-        Debug.Log("player hit by the enemy");
-            health -= amount;
+            if (i < health)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+            if (i < maxHealth)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
+    }
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
             if (health <= 0)
             {
                 playerController.KillPlayer();
             }
-        }
+    }
 
 
  }
