@@ -61,7 +61,11 @@ public class SoundManager : MonoBehaviour
         if (item != null)
             return item.soundClip;
         return null;
-    }    
+    }
+    public void StopMusic()
+    {
+        soundMusic.Stop();
+    }
 
 }
 

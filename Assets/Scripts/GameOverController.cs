@@ -25,9 +25,11 @@ public class GameOverController : MonoBehaviour
         {
             Debug.Log("Player Fall Dead");
             animator.SetTrigger("Death");
-            PlayeDied();           
+            SoundManager.Instance.StopMusic();
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
+            PlayeDied();
         }
-        
+
     }
 
     public void PlayeDied()
