@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching;
 
 
-
     private void Awake()
     {
         Debug.Log("Player Controller Awake");
@@ -52,7 +51,7 @@ public class PlayerController : MonoBehaviour
         // RUN
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-        if ((Mathf.Abs(horizontal) > 0f) && isGrounded && !isJumping &&!isCrouching)
+        if ((Mathf.Abs(horizontal) > 1f) && isGrounded && !isJumping &&!isCrouching)
         {
             SoundManager.Instance.PlayMusic(Sounds.Footsteps);
         }
@@ -113,13 +112,14 @@ public class PlayerController : MonoBehaviour
      
     }
 
-    internal void KillPlayer()
+    public void KillPlayer()
     {
         Debug.Log("Player hit by the Enemy");
         animator.SetBool("Death", true);
         gameoverController.PlayeDied();
         this.enabled = false;
-    }   
+        this.gameObject.SetActive(false);
+    }
 
     public void PickUpKey()
     {
