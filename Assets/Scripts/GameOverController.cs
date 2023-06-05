@@ -24,13 +24,10 @@ public class GameOverController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             Debug.Log("Player Fall Dead");
-            animator.SetBool("Death", true);
+            animator.SetTrigger("Death");
             PlayeDied();           
         }
-        else
-        {
-            animator.SetBool("Death", false);
-        }
+        
     }
 
     public void PlayeDied()
@@ -40,11 +37,13 @@ public class GameOverController : MonoBehaviour
 
     private void ReplayLevel()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickStart);
         Scene scene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(scene.name);
     }
     private void ExitToLobby()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickBack);
         SceneManager.LoadScene(0);
     }
 }

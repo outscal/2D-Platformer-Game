@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
     public float speed;
     private bool movingRight = true;
-
+    public bool isFrozen = false;
 
 
     void Start()
@@ -39,7 +39,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-   private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == startPoint)
         {
@@ -59,5 +59,6 @@ public class EnemyController : MonoBehaviour
             playerHealth.TakeDamage(1);
         }
     }
+    
 }
 

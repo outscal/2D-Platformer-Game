@@ -18,7 +18,7 @@ public class LobbyController : MonoBehaviour
     void Awake()
     {
         buttonLevel.onClick.AddListener(levelSelection);
-        buttonPlay.onClick.AddListener(PlayLastLevel);
+        buttonPlay.onClick.AddListener(PlayFirstLevel);
         buttonSettings.onClick.AddListener(SettingsMenu);
         buttonResetLevels.onClick.AddListener(ResetLevels);
         Backbutton.onClick.AddListener(BeckButton);
@@ -26,33 +26,32 @@ public class LobbyController : MonoBehaviour
 
     private void BeckButton()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickBack);
         Settingsmenu.SetActive(false);
     }
 
     private void ResetLevels()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickConfirm);
         LevelManager.Instance.LevelsReset();
     }
 
     private void SettingsMenu()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         Settingsmenu.SetActive(true);
     }
 
     private void levelSelection()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         LevelSelection.SetActive(true);
     }
 
-    private void PlayLastLevel()
+    private void PlayFirstLevel()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickStart);
         SceneManager.LoadScene(1);
-
-    }
-   
-    
-
-    
-    
+    }    
 
 }

@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 403259816}
   - component: {fileID: 403259815}
-  - component: {fileID: 403259814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -26,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 403259813}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: -10}
+  m_LocalPosition: {x: 2.5, y: 2.5, z: -10}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 6145394029569546336}
@@ -42,7 +41,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.6987663, g: 0.7075472, b: 0.69753474, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -58,7 +57,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -74,14 +73,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &403259814
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 403259813}
-  m_Enabled: 1
 --- !u!1 &2527585259175834836
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,10 +88,9 @@ GameObject:
   - component: {fileID: 182543208}
   - component: {fileID: 182543209}
   - component: {fileID: 1176997848}
-  - component: {fileID: 1176997849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,7 +191,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 1
@@ -247,11 +237,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameoverController: {fileID: 0}
-  scoreController: {fileID: 0}
+  keyscoreController: {fileID: 0}
   animator: {fileID: 8310829885086702420}
-  speed: 5
-  jump: 10
-  playerCollider: {fileID: 0}
+  speed: 8
+  jumpForce: 8
 --- !u!114 &1176997848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,26 +254,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 3
-  playerController: {fileID: 182543209}
---- !u!114 &1176997849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2527585259175834836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3b6b35469106314983836d27c770bd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 3
+  maxHealth: 5
   emptyHeart: {fileID: 21300000, guid: 7234d34ba5758774494138f3ef909acb, type: 3}
   fullHeart: {fileID: 21300000, guid: 88a20cd2219658343a9a415218b9b35e, type: 3}
   hearts:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerHealth: {fileID: 1176997848}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerController: {fileID: 182543209}

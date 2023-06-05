@@ -33,16 +33,19 @@ public class LevelOverController : MonoBehaviour
     }
     public void UnlockNextLevel()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickStart);
         LevelManager.Instance.MarkCurrentLevelComplete();
     }
 
     private void ReplayLevel()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickConfirm);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
     private void ExitToLobby()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClickBack);
         SceneManager.LoadScene(0);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -9,25 +8,109 @@ public class PlayerController : MonoBehaviour
     public KeyScoreController keyscoreController;
     public Animator animator;
     public float speed;
-    public float jump;
     private Rigidbody2D rb2D;
+    public float jumpForce = 5f;
+    private bool isJumping = false;
+    private bool isGrounded; 
+    private bool isCrouching;
 
-    //Crouch related
-    public BoxCollider2D playerCollider;
-    bool isCrouching = false;
-    Vector2 originalSize;
-    Vector2 crouchSize = new Vector2((float)0.5, 1);
 
 
     private void Awake()
     {
         Debug.Log("Player Controller Awake");
-        rb2D = gameObject.GetComponent<Rigidbody2D>();
-
-        //Crouch related
-        playerCollider = GetComponent<BoxCollider2D>();
-        originalSize = playerCollider.size;
+        rb2D = GetComponent<Rigidbody2D>();
         
+    }
+
+    private void Update()
+    {   // PlayerMovement
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        MoveCharacter(horizontal);
+        PlayerMovementAnimation(horizontal);           
+           
+
+        //Player Jump
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Jump();
+        }
+        //Crouch
+        PlayerCrouchAnimation();
+    }
+
+    private void MoveCharacter(float horizontal)
+    {
+        //RunMove
+        Vector3 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+    }
+
+    private void PlayerMovementAnimation(float horizontal)
+    {
+        // RUN
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        if ((Mathf.Abs(horizontal) > 0f) && isGrounded && !isJumping &&!isCrouching)
+        {
+            SoundManager.Instance.PlayMusic(Sounds.Footsteps);
+        }
+
+        Vector3 scale = transform.localScale;
+        if (horizontal < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+        else if (horizontal > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
+    }
+
+    private void Jump()
+    {
+        // Jump
+        rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        animator.SetTrigger("Jump");
+        SoundManager.Instance.Play(Sounds.PlayerMoveJump);
+        isJumping = true;
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            if (isJumping)
+            {
+                SoundManager.Instance.Play(Sounds.PlayerMoveJumpLand);
+                isJumping = false;
+            }
+            isGrounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+    private void PlayerCrouchAnimation()
+    {
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            animator.SetTrigger("Crouch");
+            isCrouching = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+
+        {
+            isCrouching = false;
+        }
+     
     }
 
     internal void KillPlayer()
@@ -43,72 +126,5 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player picked up the Key");
         keyscoreController.IncreaseScore(10);
     }
-    private void Update()
-    {   // PlayerMovement
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        MoveCharacter(horizontal, vertical);
-        PlayerMovementAnimation(horizontal, vertical);
-
-
-        //Crouch
-        PlayerCrouchAnimation();
-    }
-
-    private void MoveCharacter(float horizontal, float vertical)
-    {   
-        //RunMove
-        Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position;
-
-        //JumpMove
-        if (vertical > 0)
-        {
-            rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-        }
-    }
-
-    private void PlayerMovementAnimation(float horizontal, float vertical)
-    {
-        // RUN
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
-
-        Vector3 scale = transform.localScale;
-        if (horizontal < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
-    
-        // Jump
-        if (vertical > 0)
-        {
-            animator.SetBool("Jump", true);
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
-        }
-    }
-    private void PlayerCrouchAnimation()
-    {
-        animator.SetBool("Crouch", isCrouching);
-
-        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
-        {
-            isCrouching = true;
-            //playerCollider.size = crouchSize;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
-        {
-            isCrouching = false;
-           // playerCollider.size = originalSize;
-        }
-    }
+       
 }
