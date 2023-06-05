@@ -26,7 +26,10 @@ public class PlayerControllerScript : MonoBehaviour
        if( Input.GetButtonDown("Jump"))
        {
                IsJumping =true;
-               Jump();
+               if(IsGrounded)
+               {
+                  Jump();
+               }
        }
        
 
@@ -42,7 +45,6 @@ public class PlayerControllerScript : MonoBehaviour
        position.x = position.x + horizontal * speed* Time.deltaTime;
        transform.position = position;
 
-       //for jump movement
       
      }
 
