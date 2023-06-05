@@ -12,6 +12,7 @@ public class PlayerControllerScript : MonoBehaviour
     public float jump;
     public bool IsGrounded ;
     public bool IsJumping;
+
     private void Awake() 
     {  
        rb2d =gameObject.GetComponent<Rigidbody2D>(); 
@@ -72,7 +73,9 @@ public class PlayerControllerScript : MonoBehaviour
        {
               animator.SetBool("Crouch",false);
        }
+//jump       
        animator.SetBool("IsGrounded",IsGrounded);
+//death       
     }
     private void OnCollisionStay2D(Collision2D other) 
     {
