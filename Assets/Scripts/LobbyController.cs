@@ -12,8 +12,12 @@ public class LobbyController : MonoBehaviour
     public Button buttonSettings;
     public Button buttonResetLevels;
     public Button Backbutton;
+    public Button Backbutton2;
+    public Button quiteGamebutton;
+
     public GameObject LevelSelection;
     public GameObject Settingsmenu;
+    public GameObject QuiteGame;
 
     void Awake()
     {
@@ -21,10 +25,26 @@ public class LobbyController : MonoBehaviour
         buttonPlay.onClick.AddListener(PlayFirstLevel);
         buttonSettings.onClick.AddListener(SettingsMenu);
         buttonResetLevels.onClick.AddListener(ResetLevels);
-        Backbutton.onClick.AddListener(BeckButton);
+        Backbutton.onClick.AddListener(BackButton);
+        quiteGamebutton.onClick.AddListener(QuiteGamePlay);
+        Backbutton2.onClick.AddListener(BackButtonPlay);
+
     }
 
-    private void BeckButton()
+    private void BackButtonPlay()
+    {
+        SoundManager.Instance.Play(Sounds.ButtonClickBack);
+        QuiteGame.SetActive(false);
+    }
+
+    private void QuiteGamePlay()
+    {
+        SoundManager.Instance.Play(Sounds.ButtonClickConfirm);
+        QuiteGame.SetActive(true);
+
+    }
+
+    private void BackButton()
     {
         SoundManager.Instance.Play(Sounds.ButtonClickBack);
         Settingsmenu.SetActive(false);

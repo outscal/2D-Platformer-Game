@@ -1714,9 +1714,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1176997848}
-  pointA: {fileID: 1161535407}
-  pointB: {fileID: 955232502}
+  startPoint: {fileID: 0}
+  endPoint: {fileID: 0}
   speed: 2
+  isFrozen: 0
 --- !u!50 &628997302
 Rigidbody2D:
   serializedVersion: 4
@@ -10020,9 +10021,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1176997848}
-  pointA: {fileID: 1161535407}
-  pointB: {fileID: 955232502}
+  startPoint: {fileID: 0}
+  endPoint: {fileID: 0}
   speed: 2
+  isFrozen: 0
 --- !u!95 &1719850894
 Animator:
   serializedVersion: 3
@@ -10912,7 +10914,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 182543207, guid: 31391a2dbfd76c244bdf9e7702f20520, type: 3}
       propertyPath: m_Mass
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 182543209, guid: 31391a2dbfd76c244bdf9e7702f20520, type: 3}
       propertyPath: gameoverController

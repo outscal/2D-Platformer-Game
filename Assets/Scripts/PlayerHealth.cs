@@ -46,9 +46,9 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         health -= amount;
-            if (health <= 0)
-            {
-                playerController.KillPlayer();
+        if (health == 0)
+        {
+            playerController.KillPlayer();
 
         }
     }

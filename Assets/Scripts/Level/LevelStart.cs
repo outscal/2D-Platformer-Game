@@ -9,6 +9,7 @@ public class LevelStart : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             Debug.Log("Level Started by the Player");
+            SoundManager.Instance.PlayMusic(Sounds.LevelStart);
         }
     }
 }

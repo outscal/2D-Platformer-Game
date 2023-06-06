@@ -10,7 +10,9 @@ public class GameOverController : MonoBehaviour
     public Button buttonExit;
     public GameObject GameOvermenu;
     public Animator animator;
-    PlayerController playerController;
+    public PlayerHealth playerHealth;
+    public ParticleSystem Particlesystem;
+    public float deathParticleMultiplier = 2f;
 
 
     void Awake()
@@ -23,16 +25,24 @@ public class GameOverController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
+            playerHealth.health = 0;
             Debug.Log("Player Fall Dead");
             animator.SetTrigger("Death");
-            SoundManager.Instance.StopMusic();
-            SoundManager.Instance.Play(Sounds.PlayerDeath);
-            PlayeDied();
-        }
+            SoundManager.Instance.PlayMusic(Sounds.LevelFailed);
 
+            ParticleSystem.MainModule mainModule = Particlesystem.main;
+            mainModule.startColor = Color.black;
+
+            Particlesystem.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+            ParticleSystem.EmissionModule emission = Particlesystem.emission;
+            emission.rateOverTimeMultiplier *= deathParticleMultiplier;
+
+            Invoke("PlayerDied", 4f);
+        }
     }
 
-    public void PlayeDied()
+    public void PlayerDied()
     {
         GameOvermenu.SetActive(true);
     }
