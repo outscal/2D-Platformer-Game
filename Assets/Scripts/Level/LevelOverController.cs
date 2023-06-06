@@ -11,6 +11,9 @@ public class LevelOverController : MonoBehaviour
     public Button buttonReplay;
     public Button nextLevel;
     public Button buttonExit;
+    public ParticleSystem particleSystem;
+    public float LevelCompleteParticleMultiplier = 4f;
+
 
     void Start()
     {
@@ -22,14 +25,24 @@ public class LevelOverController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            levelcompletemenu.SetActive(true);
+            SoundManager.Instance.PlayMusic(Sounds.LevelCompleted);
+
+            ParticleSystem.MainModule mainModule = particleSystem.main;
+            mainModule.startColor = Color.green;
+
+            particleSystem.transform.rotation = Quaternion.Euler(270f, 0f, 0f);
+
+            ParticleSystem.EmissionModule emission = particleSystem.emission;
+            emission.rateOverTimeMultiplier *= LevelCompleteParticleMultiplier;
+
+            Invoke("LevelCompleted", 5f);            
             Debug.Log("Level finished by the Player");
         }
     }
 
-    public void LevelFinished()
+    public void LevelCompleted()
     {
-        levelFinished.SetActive(true);
+        levelcompletemenu.SetActive(true);
     }
     public void UnlockNextLevel()
     {

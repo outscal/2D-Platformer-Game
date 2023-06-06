@@ -6,36 +6,43 @@ public class PlayerController : MonoBehaviour
 {
     public GameOverController gameoverController;
     public KeyScoreController keyscoreController;
+    public ParticleSystem Particlesystem;
+    public PlayerHealth playerHealth;
     public Animator animator;
     public float speed;
     private Rigidbody2D rb2D;
     public float jumpForce = 5f;
     private bool isJumping = false;
-    private bool isGrounded; 
-    private bool isCrouching;
+    private BoxCollider2D boxCollider;
+    public float deathParticleMultiplier = 2f;
 
 
     private void Awake()
     {
         Debug.Log("Player Controller Awake");
         rb2D = GetComponent<Rigidbody2D>();
-        
+        boxCollider = GetComponent<BoxCollider2D>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
-    {   // PlayerMovement
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        MoveCharacter(horizontal);
-        PlayerMovementAnimation(horizontal);           
-           
+    {
+        int currentHealth = playerHealth.health;
+        
+        if(currentHealth > 0)
+        {   // PlayerMovement
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            MoveCharacter(horizontal);
+            PlayerMovementAnimation(horizontal);
 
-        //Player Jump
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Jump();
-        }
-        //Crouch
-        PlayerCrouchAnimation();
+            //Player Jump
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Jump();
+            }
+            //Crouch
+            PlayerCrouchAnimation();
+        }        
     }
 
     private void MoveCharacter(float horizontal)
@@ -50,13 +57,8 @@ public class PlayerController : MonoBehaviour
     {
         // RUN
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
-
-        if ((Mathf.Abs(horizontal) > 1f) && isGrounded && !isJumping &&!isCrouching)
-        {
-            SoundManager.Instance.PlayMusic(Sounds.Footsteps);
-        }
-
         Vector3 scale = transform.localScale;
+
         if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = Mathf.Abs(scale.x);
         }
+
         transform.localScale = scale;
     }
 
@@ -85,40 +88,39 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.Play(Sounds.PlayerMoveJumpLand);
                 isJumping = false;
             }
-            isGrounded = true;
         }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
+    }    
 
     private void PlayerCrouchAnimation()
     {
-
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             animator.SetTrigger("Crouch");
-            isCrouching = true;
+            boxCollider.size = new Vector2(boxCollider.size.x, 1f);
+            boxCollider.offset = new Vector2(boxCollider.offset.x, 0.5f);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
-
         {
-            isCrouching = false;
-        }
-     
+            boxCollider.size = new Vector2(boxCollider.size.x, 2f);
+            boxCollider.offset = new Vector2(boxCollider.offset.x, 1f);
+        }     
     }
 
     public void KillPlayer()
     {
         Debug.Log("Player hit by the Enemy");
         animator.SetBool("Death", true);
-        gameoverController.PlayeDied();
-        this.enabled = false;
-        this.gameObject.SetActive(false);
+
+        ParticleSystem.MainModule mainModule = Particlesystem.main;
+        mainModule.startColor = Color.black;
+
+        Particlesystem.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+
+        ParticleSystem.EmissionModule emission = Particlesystem.emission;
+        emission.rateOverTimeMultiplier *= deathParticleMultiplier;
+
+        SoundManager.Instance.PlayMusic(Sounds.LevelFailed);
+        gameoverController.Invoke("PlayerDied", 4f);        
     }
 
     public void PickUpKey()
