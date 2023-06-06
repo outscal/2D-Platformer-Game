@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControllerScript : MonoBehaviour
 {
+   public ScoreController score;
     public Animator animator; 
 
     private Rigidbody2D rb2d;
@@ -103,4 +105,10 @@ public class PlayerControllerScript : MonoBehaviour
        }
 
     }
-};    
+//func for picking up key
+    public void PickKey()
+    {
+        Debug.Log("Player picked up the collectible");
+        score.ScoreIncrement(25);
+    }
+}
