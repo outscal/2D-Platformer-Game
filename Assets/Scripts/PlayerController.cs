@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
     private void Update ()
     {
         float speed = Input.GetAxisRaw("Horizontal");
+
         Animator.SetFloat("Speed", Mathf.Abs(speed));
 
         Vector3 scale = transform.localScale;
+
         if (speed < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
@@ -21,5 +23,16 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+
+        if (Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl"))
+        {
+            Animator.SetTrigger("someTrigger");
+            Animator.SetBool("Crouched", true);
+        }
+        else if (Input.GetKeyUp("left ctrl") || Input.GetKeyUp("right ctrl"))
+        {
+            Animator.SetTrigger("otherTrigger");
+            Animator.SetBool("Crouched", false);
+        }
     }
 }
