@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
     public float speed;
     private bool movingRight = true;
-    public bool isFrozen = false;
 
 
     void Start()

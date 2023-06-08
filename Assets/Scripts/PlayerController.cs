@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false;
     private BoxCollider2D boxCollider;
     public float deathParticleMultiplier = 2f;
+    private bool isGrounded;
 
 
     private void Awake()
@@ -31,17 +32,19 @@ public class PlayerController : MonoBehaviour
         
         if(currentHealth > 0)
         {   // PlayerMovement
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            MoveCharacter(horizontal);
-            PlayerMovementAnimation(horizontal);
-
-            //Player Jump
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+                float horizontal = Input.GetAxisRaw("Horizontal");
+                MoveCharacter(horizontal);
+                PlayerMovementAnimation(horizontal);
+            if (isGrounded)
             {
-                Jump();
+                //Player Jump
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    Jump();
+                }
+                //Crouch
+                PlayerCrouchAnimation();
             }
-            //Crouch
-            PlayerCrouchAnimation();
         }        
     }
 
@@ -88,8 +91,17 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.Play(Sounds.PlayerMoveJumpLand);
                 isJumping = false;
             }
+            isGrounded = true;
         }
-    }    
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
 
     private void PlayerCrouchAnimation()
     {
