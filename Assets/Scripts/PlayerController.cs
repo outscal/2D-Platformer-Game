@@ -3,12 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
 
+    public ScoreController scoreController;
     public float speed;
     public float jump;
     public bool isGrounded;
@@ -134,4 +135,10 @@ private void OnTriggerEnter2D(Collider2D other)
      gos.Setup();
     }
 }
+
+    public void PickUpKey()
+    {
+        Debug.Log("Key Picked Up");
+        scoreController.scoreIncrease(20);
+    }
 }
