@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     private void Update()
     {
         float speed = Input.GetAxis("Horizontal");
         animator.SetFloat("Speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            animator.SetBool("Crouch", true);
+        }
+       else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            animator.SetBool("Crouch", false);
+        }
         if (speed < 0)
         {
            
