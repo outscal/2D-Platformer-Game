@@ -5,31 +5,36 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator Animator;
+    // public RigidBody2D rigidbody2d;
+    public float velocity;
 
     private void Update ()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
 
-        Animations(speed, vertical);
+        Animations(horizontal, vertical);
+        Movement(horizontal);
     }
 
-    private void Movement () 
+    private void Movement (float horizontal) 
     {
-
+        Vector3 position = transform.position;
+        position.x += horizontal * velocity * Time.deltaTime;
+        transform.position = position;
     }
 
-    private void Animations (float speed, float vertical) 
+    private void Animations (float horizontal, float vertical) 
     {
-        Animator.SetFloat("Speed", Mathf.Abs(speed));
+        Animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         Vector3 scale = transform.localScale;
 
-        if (speed < 0)
+        if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (speed > 0)
+        else if (horizontal > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
