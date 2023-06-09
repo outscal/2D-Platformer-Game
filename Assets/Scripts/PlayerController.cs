@@ -11,6 +11,16 @@ public class PlayerController : MonoBehaviour
         float speed = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
 
+        Animations(speed, vertical);
+    }
+
+    private void Movement () 
+    {
+
+    }
+
+    private void Animations (float speed, float vertical) 
+    {
         Animator.SetFloat("Speed", Mathf.Abs(speed));
 
         Vector3 scale = transform.localScale;
@@ -26,11 +36,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
-            Animator.SetBool("Grounded", false);
+            Animator.SetBool("Jumped", true);
         }
         else
         {
-            Animator.SetBool("Grounded", true);
+            Animator.SetBool("Jumped", false);
         }
 
         transform.localScale = scale;
@@ -38,11 +48,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl"))
         {
             Animator.SetTrigger("someTrigger");
+            Animator.ResetTrigger("otherTrigger");
             Animator.SetBool("Crouched", true);
         }
         else if (Input.GetKeyUp("left ctrl") || Input.GetKeyUp("right ctrl"))
         {
             Animator.SetTrigger("otherTrigger");
+            Animator.ResetTrigger("someTrigger");
             Animator.SetBool("Crouched", false);
         }
     }
