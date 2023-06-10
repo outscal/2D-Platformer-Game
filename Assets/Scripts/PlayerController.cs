@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
     public int playerHealth;
     [SerializeField] private Image[] hearts;
     public Transform startPosition;
-    public PlayerHealthController playerHealthController;
+    //private bool isDead = false;
+    [SerializeField] private GameObject mainCamera; 
 
 
     private void Awake()
@@ -135,12 +136,21 @@ public class PlayerController : MonoBehaviour
         if (playerHealth <= 0)
         {
             PlayDeathAnimation();
-            //PlayerDeath();
+            PlayerDeath();
         }
         else 
         {
             transform.position = startPosition.position;
         }
+    }
+
+    public void PlayerDeath()
+    {
+        //isDead = true;
+        mainCamera.transform.parent = null;
+        // Setting death UI panel to active
+        rigidbody2d.constraints = RigidbodyConstraints2D.FreezePosition;
+        ReloadLevel();
     }
 
     public void UpdateHealthUI()

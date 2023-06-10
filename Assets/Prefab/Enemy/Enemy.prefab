@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1015024877
+--- !u!1 &3156859594136445710
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1015024878}
+  - component: {fileID: 3156859594136445705}
   m_Layer: 0
   m_Name: GroundDetector
   m_TagString: Untagged
@@ -16,21 +16,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1015024878
+--- !u!4 &3156859594136445705
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1015024877}
+  m_GameObject: {fileID: 3156859594136445710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.77, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7572791357291759579}
+  m_Father: {fileID: 3156859594164215285}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7572791357291759578
+--- !u!1 &3156859594164215054
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38,11 +38,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7572791357291759579}
-  - component: {fileID: 7572791357291759577}
-  - component: {fileID: 7572791357291759576}
-  - component: {fileID: 1879042138}
-  - component: {fileID: 353514083}
+  - component: {fileID: 3156859594164215285}
+  - component: {fileID: 3156859594164215050}
+  - component: {fileID: 3156859594164215051}
+  - component: {fileID: 3156859594164215048}
+  - component: {fileID: 3156859594164215049}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -50,28 +50,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7572791357291759579
+--- !u!4 &3156859594164215285
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7572791357291759578}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.72, y: -0.27, z: 0}
+  m_GameObject: {fileID: 3156859594164215054}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.3, y: -0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1015024878}
+  - {fileID: 3156859594136445705}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7572791357291759577
+--- !u!212 &3156859594164215050
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7572791357291759578}
+  m_GameObject: {fileID: 3156859594164215054}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -116,13 +116,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7572791357291759576
+--- !u!61 &3156859594164215051
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7572791357291759578}
+  m_GameObject: {fileID: 3156859594164215054}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -142,14 +142,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2979913, y: 0.6950333}
   m_EdgeRadius: 0
---- !u!95 &1879042138
+--- !u!95 &3156859594164215048
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7572791357291759578}
+  m_GameObject: {fileID: 3156859594164215054}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 03267b4654245b549af7feea74a1ee69, type: 2}
@@ -161,13 +161,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &353514083
+--- !u!114 &3156859594164215049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7572791357291759578}
+  m_GameObject: {fileID: 3156859594164215054}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a616b87d2d3102a47bf5bdbddaf818f6, type: 3}
@@ -175,6 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpeed: 2
   movingRight: 1
-  groundDetector: {fileID: 1015024877}
+  groundDetector: {fileID: 3156859594136445710}
   rayDistance: 1
-  enemyAnimator: {fileID: 1879042138}
+  enemyAnimator: {fileID: 3156859594164215048}
