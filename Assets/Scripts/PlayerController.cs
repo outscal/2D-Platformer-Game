@@ -5,26 +5,53 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator Animator;
-    // public RigidBody2D rigidbody2d;
+    public Rigidbody2D rigidbody2d;
     public float velocity;
+    public float jump;
+    public bool isGrounded;
+
+    private void Start () 
+    {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 8 && !isGrounded)
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 8 && isGrounded)
+        {
+            isGrounded = false;
+        }
+    }
 
     private void Update ()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
 
-        Animations(horizontal, vertical);
-        Movement(horizontal);
+        Animations(horizontal);
+        Movement(horizontal, jump);
     }
 
-    private void Movement (float horizontal) 
+    private void Movement (float horizontal, float jump) 
     {
         Vector3 position = transform.position;
         position.x += horizontal * velocity * Time.deltaTime;
         transform.position = position;
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rigidbody2d.AddForce(new Vector2(rigidbody2d.velocity.y, jump));
+        }
     }
 
-    private void Animations (float horizontal, float vertical) 
+    private void Animations (float horizontal) 
     {
         Animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -39,13 +66,9 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
 
-        if (Input.GetKeyDown("space"))
+        if (Input.GetButtonDown("Jump"))
         {
-            Animator.SetBool("Jumped", true);
-        }
-        else
-        {
-            Animator.SetBool("Jumped", false);
+            Animator.SetTrigger("Jumped");
         }
 
         transform.localScale = scale;
