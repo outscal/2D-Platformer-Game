@@ -1,15 +1,26 @@
+using System.IO.Compression;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
 
+    public ScoreController scoreController;
     public float speed;
     public float jump;
+    public bool isGrounded;
+
+    private Vector3 restartPoint;
+
+    public GameObject forDeathDetector;
+
+    public GameOverScreen gos;
+
+
 
     private Rigidbody2D rb2d;
 
@@ -19,6 +30,14 @@ public class PlayerController : MonoBehaviour
         SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
     } 
    
+   void /// <summary>
+   /// Start is called on the frame when a script is enabled just before
+   /// any of the Update methods is called the first time.
+   /// </summary>
+   Start()
+   {
+    restartPoint = transform.position;
+   }
     
     
    
@@ -29,7 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         float vertical = Input.GetAxisRaw("Jump");
         float horizontal = Input.GetAxisRaw("Horizontal");
-        Debug.Log("speed= " + horizontal);
+        //Debug.Log("speed= " + horizontal);
 
         MoveCharacter(horizontal,vertical);
         PlayerMovementAnimation(horizontal,vertical);
@@ -40,7 +59,7 @@ public class PlayerController : MonoBehaviour
             GetComponent<Animator>().Play("Player_Crouch");
         }
 
-    
+        forDeathDetector.transform.position = new Vector2(transform.position.x,forDeathDetector.transform.position.y);
         
     }
     
@@ -56,6 +75,8 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
         }
+
+
 
     }
 
@@ -89,5 +110,35 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump",false);
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+{
+    if(other.transform.tag == "Platform")
+    {
+        isGrounded = true;
+    } 
+}
+
+private void OnCollisionExit2D(Collision2D other)
+{
+    if (other.transform.tag == "Platform")
+    {
+        isGrounded = false;
+    }
+}
+
+private void OnTriggerEnter2D(Collider2D other)
+{
+    if(other.transform.tag == "FallDetector")
+    {
+     gos.Setup();
+    }
+}
+
+    public void PickUpKey()
+    {
+        Debug.Log("Key Picked Up");
+        scoreController.scoreIncrease(20);
     }
 }
