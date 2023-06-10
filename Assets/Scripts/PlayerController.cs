@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class PlayerController : MonoBehaviour
     public GameObject forDeathDetector;
 
     public GameOverScreen gos;
-
-
 
     private Rigidbody2D rb2d;
 
@@ -60,7 +59,7 @@ public class PlayerController : MonoBehaviour
         }
 
         forDeathDetector.transform.position = new Vector2(transform.position.x,forDeathDetector.transform.position.y);
-        
+   
     }
     
     private void MoveCharacter(float horizontal,float vertical){
@@ -140,5 +139,21 @@ private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Key Picked Up");
         scoreController.scoreIncrease(20);
+    }
+
+    public void Playerkill()
+    {
+        Debug.Log("Player killed by enemy !");
+        GetComponent<Animator>().Play("Player_Death");
+
+        //ReloadLevel();
+        
+    }
+
+    public void ReloadLevel()
+    {
+        
+        SceneManager.LoadScene(0);
+        Debug.Log(" Scene Reloaded");
     }
 }
