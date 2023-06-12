@@ -5,32 +5,54 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Animator animator;
+    public float Speed;
     private void Start()
     {
         animator = GetComponent<Animator>();
     }
     private void Update()
     {
-        float speed = Input.GetAxis("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(speed));
-        Vector3 scale = transform.localScale;
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        float horizontal = Input.GetAxis("Horizontal");
+        PlayerMvntAnimation(horizontal);
+        MoveCharacter(horizontal);
+        CrouchAnimation();
+
+    }
+
+    private void CrouchAnimation()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);
         }
-       else if (Input.GetKeyUp(KeyCode.LeftControl))
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", false);
         }
-        if (speed < 0)
+    }
+
+    private void PlayerMvntAnimation(float horizontal)
+    {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        Vector3 scale = transform.localScale;
+        if (horizontal < 0)
         {
-           
-            scale.x = -1f * Mathf.Abs(scale.x);
+           scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (speed > 0) {
+        else if (horizontal > 0)
+        {
             scale.x = Mathf.Abs(scale.x);
-                     
+
         }
         transform.localScale = scale;
+    }
+    private void MoveCharacter(float horizontal)
+    {
+
+        Vector3 position = transform.position;
+        position.x = position.x + horizontal * Speed * Time.deltaTime;
+        transform.position = position;
+
+
     }
 }
