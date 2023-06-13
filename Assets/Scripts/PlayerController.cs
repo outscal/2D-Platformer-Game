@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float velocity;
     public float jump;
     public bool isGrounded;
+    public int collected = 0;
 
     private void Start () 
     {
@@ -85,5 +86,10 @@ public class PlayerController : MonoBehaviour
             Animator.ResetTrigger("someTrigger");
             Animator.SetBool("Crouched", false);
         }
+    }
+
+    public void Pickup()
+    {
+        collected += 1;
     }
 }
