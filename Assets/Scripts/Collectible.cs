@@ -13,7 +13,7 @@ public class Collectible : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(0, 5f, 0, Space.World);
     }
 
 	void OnTriggerEnter2D(Collider2D other) {
