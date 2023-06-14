@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,10 +11,22 @@ public class PlayerController : MonoBehaviour
     public float jump;
     public bool isGrounded;
     public int collected = 0;
+    private int health = 3;
+    public GameObject canvas;
+    private HealthDisplay healthDisplay;
+    
 
     private void Start () 
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        if (canvas != null)
+        {
+            healthDisplay = canvas.GetComponent<HealthDisplay>();
+            if (healthDisplay != null)
+            {
+                healthDisplay.UpdateHealthDisplay();
+            }
+        }   
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -91,5 +104,24 @@ public class PlayerController : MonoBehaviour
     public void Pickup()
     {
         collected += 1;
+    }
+
+    public void Damage()
+    {
+        if (health <= 0)
+        {
+            SceneManager.LoadScene("First");
+        }
+
+        health -= 1;
+        if (healthDisplay != null)
+        {
+            healthDisplay.UpdateHealthDisplay();
+        }
+    }
+
+    public int GetHealth()
+    {
+        return health;
     }
 }
