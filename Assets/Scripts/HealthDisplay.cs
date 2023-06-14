@@ -22,7 +22,10 @@ public class HealthDisplay : MonoBehaviour
 
     public void UpdateHealthDisplay()
     {
-        currentHealth = playerController.GetHealth();
+        if (playerController != null)
+        {
+            currentHealth = playerController.GetHealth();
+        }
         foreach (Transform child in heartsContainer)
         {
             Destroy(child.gameObject);
