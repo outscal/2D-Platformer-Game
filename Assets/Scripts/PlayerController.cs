@@ -1,24 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     public float Speed;
+    public float jump;
+    private Rigidbody2D rb2d;
+    private void Awake()
+    {
+        Debug.Log("Player Awake");
+       rb2d = gameObject.GetComponent<Rigidbody2D>();
+    }
     private void Start()
     {
         animator = GetComponent<Animator>();
     }
     private void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        PlayerMvntAnimation(horizontal);
-        MoveCharacter(horizontal);
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Jump");
+        PlayerMoveAnimation(horizontal,vertical);
+        MoveCharacter(horizontal,vertical);
         CrouchAnimation();
 
     }
+    private void MoveCharacter(float horizontal, float vertical)
+    {
+        Vector3 position = transform.position;
+        position.x = position.x + horizontal * Speed * Time.deltaTime;
+        transform.position = position;
 
+        if(vertical>0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force);
+
+        }
+    }
     private void CrouchAnimation()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -31,7 +49,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerMvntAnimation(float horizontal)
+    private void PlayerMoveAnimation(float horizontal, float vertical)
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
@@ -45,14 +63,19 @@ public class PlayerController : MonoBehaviour
 
         }
         transform.localScale = scale;
+        //JUMP
+
+        //float vertical = Input.GetAxisRaw("Jump");
+        if (vertical > 0)
+        {
+            animator.SetBool("Jump", true);
+
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
+
     }
-    private void MoveCharacter(float horizontal)
-    {
-
-        Vector3 position = transform.position;
-        position.x = position.x + horizontal * Speed * Time.deltaTime;
-        transform.position = position;
-
-
-    }
+    
 }
