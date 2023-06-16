@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Patrolling : MonoBehaviour
 {
-    public float movementSpeed = 5f;
+    [SerializeField] private float movementSpeed;
 
     private Transform[] patrolPoints;
     private int currentPatrolIndex;
@@ -22,7 +20,6 @@ public class Patrolling : MonoBehaviour
     {
 
         GameObject[] pointObjects = GameObject.FindGameObjectsWithTag("PatrolPoint");
-
 
         patrolPoints = new Transform[pointObjects.Length];
 
@@ -49,7 +46,6 @@ public class Patrolling : MonoBehaviour
                 }
                 else
                 {
-
                     currentPatrolIndex++;
                     if (currentPatrolIndex >= patrolPoints.Length)
                     {

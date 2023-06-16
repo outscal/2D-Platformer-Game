@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour
 {
-    public Image heartImagePrefab;
-    public Transform heartsContainer;
+    [SerializeField] private Image heartImagePrefab;
+    [SerializeField] private Transform heartsContainer;
     private PlayerController playerController;
-    int currentHealth;
-    public float heartSpace;
+    private int currentHealth;
+    [SerializeField] private float heartSpace;
 
     private void Start()
     {

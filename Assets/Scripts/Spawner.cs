@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
     private BoundsInt area;
-    public Tilemap ground;
-    public Tile groundTile;
-    public GameObject[] prefabs;
-    public GameObject[] patrolPoints;
+    [SerializeField] private Tilemap ground;
+    [SerializeField] private Tile groundTile;
+    [SerializeField] private GameObject[] prefabs;
+    [SerializeField] private GameObject[] patrolPoints;
 
     private void Start()
     {
@@ -39,8 +38,6 @@ public class Spawner : MonoBehaviour
         Instantiate(patrolPoints[0], patrolCell1, Quaternion.identity);
         Instantiate(patrolPoints[1], patrolCell2, Quaternion.identity);
 
-
-
         if (availablePositions.Count >= prefabs.Length)
         {
             for (int i = 0; i < prefabs.Length; i++)
@@ -56,11 +53,7 @@ public class Spawner : MonoBehaviour
                     spawnedObject.transform.position = spawnPosition;
                 }
             }
-
-
         }
-
-
     }
 
     private Vector3Int GetDistinctPosition(List<Vector3Int> positions)
