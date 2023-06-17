@@ -10,7 +10,7 @@ public class KeyController : MonoBehaviour
         {
             PlayerControllerScript player = other.gameObject.GetComponent<PlayerControllerScript>();
             player.PickKey();
-            Destroy(gameObject);
+            Destroy(gameObject);    
         }
     }
 }

@@ -14,7 +14,8 @@ public class fallinngdown : MonoBehaviour
    {
         if(collision.gameObject.GetComponent<PlayerControllerScript>() != null)
         {
-            IsAlive=false;
+            PlayerControllerScript player =collision.gameObject.GetComponent<PlayerControllerScript>();
+            player.KillPlayer();
         }
    }
    private void Update() 

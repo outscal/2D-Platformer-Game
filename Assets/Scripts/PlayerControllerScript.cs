@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControllerScript : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerControllerScript : MonoBehaviour
     public float jump;
     public bool IsGrounded ;
     public bool IsJumping;
+
+    private bool IsAlive = true;
 
     private void Awake() 
     {  
@@ -77,7 +80,8 @@ public class PlayerControllerScript : MonoBehaviour
        }
 //jump       
        animator.SetBool("IsGrounded",IsGrounded);
-//death       
+//death
+       animator.SetBool("IsAlive",IsAlive);       
     }
     private void OnCollisionStay2D(Collision2D other) 
     {
@@ -110,5 +114,22 @@ public class PlayerControllerScript : MonoBehaviour
     {
         Debug.Log("Player picked up the collectible");
         score.ScoreIncrement(25);
+    }
+
+    public void KillPlayer()
+    {
+        //Debug.Log("PLayer killed by enemy");
+        //Destroy(gameObject);
+        Isdead();
+        ReloadLevel(); 
+    }
+
+    private void ReloadLevel()
+    {
+      SceneManager.LoadScene(0);
+    }
+    private void Isdead()
+    {
+      IsAlive =false;
     }
 }
