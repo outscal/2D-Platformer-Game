@@ -1977,26 +1977,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1892884713}
   - component: {fileID: 1892884712}
-  - component: {fileID: 1892884711}
   m_Layer: 0
   m_Name: DeathCollider
-  m_TagString: Untagged
+  m_TagString: DeathCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1892884711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892884710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a25ebe3ae381648429d7d34409303d09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1892884712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2053,6 +2040,11 @@ PrefabInstance:
     - target: {fileID: 2830294381697446705, guid: 2a406518540af824385d20abf8ca0577,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2830294381697446705, guid: 2a406518540af824385d20abf8ca0577,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7430737720637008664, guid: 2a406518540af824385d20abf8ca0577,

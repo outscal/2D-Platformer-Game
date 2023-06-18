@@ -15,10 +15,6 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching = false;
     private Rigidbody2D rigidbody2d;
     private BoxCollider2D boxCol;
-    private float colliderSizeInX = 0.52f;
-    private float colliderSizeInY = 1.24f;
-    private float colliderOffsetInX = -0.0041f;
-    private float colliderOffsetInY = 0.5665f;
     public int playerHealth;
     [SerializeField] private Image[] hearts;
     public Transform startPosition;
@@ -32,11 +28,6 @@ public class PlayerController : MonoBehaviour
         rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
         boxCol = this.GetComponent<BoxCollider2D>();
     }
-    
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     Debug.Log("Collision: " + collision.gameObject.name);
-    // }
 
     private void Start()
     {
@@ -53,7 +44,6 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontalInput, verticalInput);
         PlayMovementAnimation(horizontalInput, verticalInput);
         Crouch(isCrouching);
-        //playerHealthController.TakeDamage(amount);
     }
 
     private void MoveCharacter(float horizontalInput, float verticalInput)
@@ -98,6 +88,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Crouching
     private void Crouch(bool crouch)
     {
         crouch = isCrouching;
@@ -105,8 +96,6 @@ public class PlayerController : MonoBehaviour
         {
             isCrouching = true;
             animator.SetBool("Crouch", isCrouching);
-            boxCol.size = new Vector3(colliderSizeInX, colliderSizeInY);
-            boxCol.offset = new Vector3(colliderOffsetInX, colliderOffsetInY);
         }
         else 
         {
@@ -168,18 +157,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void KillPlayer()
-    {
-        Debug.Log("Player killed by enemy");
-        //Destroy(gameObject);
-        //Play the death animation
-        PlayDeathAnimation();
-        //reset the entire level
-    }
-
     public void PlayDeathAnimation()
     {
         animator.SetTrigger("Death");
+    }
+
+    //Death Collider, scene reload
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "DeathCollider")
+        {
+            ReloadLevel();
+        }
     }
 
     public void ReloadLevel()
