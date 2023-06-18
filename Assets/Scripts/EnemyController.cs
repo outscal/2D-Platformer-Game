@@ -9,9 +9,11 @@ public class EnemyController : MonoBehaviour
     public GameObject groundDetector;
     public float rayDistance;
     public Animator enemyAnimator;
-    // public PlayerController playerController;
-    // public PlayerHealthController playerHealthController;
-    // public PlayerHealthDisplayController playerHealthDisplayController;
+
+    private void Awake()
+    {
+        enemyAnimator.SetBool("IsPatrol", true);
+    }
 
     private void Update()
     {
@@ -20,7 +22,6 @@ public class EnemyController : MonoBehaviour
 
     private void PatrolEnemy()
     {
-        enemyAnimator.SetBool("IsPatrol", true);
         transform.Translate(movingRight * Vector2.right * enemySpeed * Time.deltaTime);
 
         RaycastHit2D hit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, rayDistance);
@@ -34,9 +35,9 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.GetComponent<PlayerController>() != null)
+        if(collision.transform.TryGetComponent<PlayerController>(out PlayerController controller))
         {
-            collision.transform.GetComponent<PlayerController>().DecreaseHealth();
+            controller.DecreaseHealth();
         }
     }
 }
