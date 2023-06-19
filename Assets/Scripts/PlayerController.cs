@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
         mainCamera.transform.parent = null;
         // Setting death UI panel to active
         rigidbody2d.constraints = RigidbodyConstraints2D.FreezePosition;
-        ReloadLevel();
+        StartCoroutine("Dead");
     }
 
     public void UpdateHealthUI()
@@ -167,10 +167,16 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "DeathCollider")
         {
-            ReloadLevel();
+            PlayDeathAnimation();
+            StartCoroutine("Dead");
         }
     }
 
+    IEnumerator Dead()
+    {
+        yield return new WaitForSeconds(1f);
+        ReloadLevel();
+    }
     public void ReloadLevel()
     {
         Debug.Log("Reloading Scene 0");
