@@ -46,10 +46,15 @@ public class EnemyController : MonoBehaviour
 
         if(other.gameObject.GetComponent<PlayerControllerScript>() != null)
         {
-            PlayerControllerScript player = other.gameObject.GetComponent<PlayerControllerScript>();
             anim.SetBool("IsAttacking",true);
-            player.KillPlayer();
-            //Destroy(gameObject); 
+        }
+        
+    }
+    private void OnCollisionExit2D(Collision2D other) 
+    {
+        if(other.gameObject.GetComponent<PlayerControllerScript>() != null)
+        {
+            anim.SetBool("IsAttacking",false);
         }
     }
 }

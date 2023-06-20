@@ -107,6 +107,15 @@ public class PlayerControllerScript : MonoBehaviour
        {
               IsJumping=false;
        }
+       if(other.gameObject.GetComponent<EnemyController>()!=null)
+       {
+         HealthManager.Health--;
+         if(HealthManager.Health <= 0)
+         {
+            KillPlayer();
+         }
+
+       }
 
     }
 //func for picking up key
@@ -121,11 +130,13 @@ public class PlayerControllerScript : MonoBehaviour
         //Debug.Log("PLayer killed by enemy");
         //Destroy(gameObject);
         Isdead();
-        ReloadLevel(); 
+        StartCoroutine(ReloadLevel()); 
     }
 
-    private void ReloadLevel()
+    IEnumerator  ReloadLevel()
     {
+      
+      yield return new WaitForSeconds(3);
       SceneManager.LoadScene(0);
     }
     private void Isdead()
@@ -133,3 +144,4 @@ public class PlayerControllerScript : MonoBehaviour
       IsAlive =false;
     }
 }
+   
