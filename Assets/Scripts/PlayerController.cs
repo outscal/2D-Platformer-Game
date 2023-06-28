@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
+    public int playerHealth = 3;
     private Animator animator;
     public float Speed;
     public float jumpforce;
-    private bool isOnGround;
+    private bool isOnGround; 
     public ScoreController scoreController;
     //private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb2d;
@@ -21,13 +22,16 @@ public class PlayerController : MonoBehaviour
     {
         //throw new NotImplementedException
         Debug.Log("Killed by an enemy");
-        Destroy(gameObject);
+        
+       // Destroy(gameObject);
         ReloadLevel();
     }
     private void ReloadLevel()
     {
         //throw new NotImplementedException();
+        
         SceneManager.LoadScene(2);
+        playerHealth = playerHealth - 1;
 
     }
     public void PickUpKey()
@@ -66,10 +70,6 @@ public class PlayerController : MonoBehaviour
         CrouchAnimation();
 
     }
-    //private void ChangeDirection()
-    //{
-    //    spriteRenderer.flipX=!spriteRenderer.flipX;
-    //}
     private void MoveCharacter(float horizontal, bool jump)
     {
         Vector3 position = transform.position;
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         }
     }   
     private void PlayerMoveAnimation(float horizontal, bool jump)
-{
+  {
     animator.SetFloat("Speed", Mathf.Abs(horizontal));
     Vector3 scale = transform.localScale;
     if (horizontal < 0)
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("Jump", false);
     }
-    }
+  }
 }
 
     

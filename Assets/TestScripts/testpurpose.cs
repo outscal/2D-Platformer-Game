@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-
-public class FadeKey : MonoBehaviour
+public class testpurpose : MonoBehaviour
 {
+    private bool jmp;
     private void Start()
+    {
+        
+    }
+    public void funcJump()
     {
 
     }
@@ -13,5 +18,4 @@ public class FadeKey : MonoBehaviour
     {
         
     }
-  
 }
