@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,11 @@ public class GameOverController : MonoBehaviour
 {
 
     public Button buttonRestart;
+    public Button quitButton;
     public void Awake()
     {
         buttonRestart.onClick.AddListener(ReloadLevel);
+        quitButton.onClick.AddListener(QuitGame);
     }
     public void PlayerDied()
     {
@@ -21,6 +24,11 @@ public class GameOverController : MonoBehaviour
         //throw new NotImplementedException();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //playerHealth = playerHealth - 1;
+
+    }
+    private void QuitGame()
+    {
+        SceneManager.LoadScene("Lobby");
 
     }
 }
