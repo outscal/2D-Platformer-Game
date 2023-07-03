@@ -31,8 +31,7 @@ public class EnemyController : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 movingRight = true;
             }
-        }
-        
+        }   
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -41,8 +40,6 @@ public class EnemyController : MonoBehaviour
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.KillPlayer();
             // Destroy(gameObject);
-
         }
-
     }
 }

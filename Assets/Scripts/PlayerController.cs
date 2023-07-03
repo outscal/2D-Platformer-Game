@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public ScoreController scoreController;
     //private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb2d;
+    public GameOverController gameOverController;
     private void Awake()
     {
         Debug.Log("Player Awake");
@@ -22,17 +23,11 @@ public class PlayerController : MonoBehaviour
     {
         //throw new NotImplementedException
         Debug.Log("Killed by an enemy");
-        
-       // Destroy(gameObject);
-        ReloadLevel();
-    }
-    private void ReloadLevel()
-    {
-        //throw new NotImplementedException();
-        
-        SceneManager.LoadScene(2);
-        playerHealth = playerHealth - 1;
 
+        // Destroy(gameObject);
+        gameOverController.PlayerDied();
+        this.enabled = false;
+       // ReloadLevel();
     }
     public void PickUpKey()
     {

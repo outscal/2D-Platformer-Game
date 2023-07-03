@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
-
   //  private int health;
     public int numOfHearts;
     public PlayerController playercontroller;
@@ -23,10 +22,8 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-
                 hearts[i].enabled = false;
             }
-
         }
     }
 }   
