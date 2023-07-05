@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public Transform startPosition;
     //private bool isDead = false;
     [SerializeField] private GameObject mainCamera; 
+    public GameOverController gameOverController;
 
 
     private void Awake()
@@ -138,8 +139,10 @@ public class PlayerController : MonoBehaviour
         //isDead = true;
         mainCamera.transform.parent = null;
         // Setting death UI panel to active
+        gameOverController.PlayerDied();
         rigidbody2d.constraints = RigidbodyConstraints2D.FreezePosition;
-        StartCoroutine("Dead");
+        this.enabled = false;
+        //StartCoroutine("Dead");
     }
 
     public void UpdateHealthUI()
@@ -168,18 +171,15 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.tag == "DeathCollider")
         {
             PlayDeathAnimation();
-            StartCoroutine("Dead");
+            gameOverController.PlayerDied();
+            //StartCoroutine("Dead");
         }
     }
 
-    IEnumerator Dead()
-    {
-        yield return new WaitForSeconds(1f);
-        ReloadLevel();
-    }
-    public void ReloadLevel()
-    {
-        Debug.Log("Reloading Scene 0");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);      //Can also do with SceneManager.LoadScene(0);
-    }
+    // IEnumerator Dead()
+    // {
+    //     yield return new WaitForSeconds(1f);
+    //     gameOverController.ReloadLevel();
+    // }
+    
 }
