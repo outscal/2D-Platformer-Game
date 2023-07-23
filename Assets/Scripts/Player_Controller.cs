@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
     public Animator animator;
-
+    public BoxCollider2D collider1;
+    
     // Update is called once per frame
     void Update()
     {
@@ -29,5 +31,26 @@ public class Player_Controller : MonoBehaviour
         }
         //Set the scale value
         transform.localScale = scale;
+
+        //Crouch
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            //Set crouch animation
+            animator.SetBool("Crouch", true);
+            collider1.size = new Vector2(collider1.size.x, 1.4f);
+            collider1.offset = new Vector2(collider1.offset.x, 0.6f);
+        }
+        else if(Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            //Set crouch animation
+            animator.SetBool("Crouch", false);
+            collider1.size = new Vector2(collider1.size.x, 2.1f);
+            collider1.offset = new Vector2(collider1.offset.x, 1);
+        }
+
+        //Jump
+        float verticalSpeed = Input.GetAxisRaw("Vertical");
+        animator.SetFloat("VerticalSpeed", verticalSpeed);
+       
     }
 }
