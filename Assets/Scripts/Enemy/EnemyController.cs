@@ -17,9 +17,9 @@ public class EnemyController : MonoBehaviour
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
         RaycastHit2D grndfInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance);
-        if(grndfInfo.collider == false)
+        if (grndfInfo.collider == false)
         {
-          if(movingRight == true)
+            if (movingRight == true)
             {
                 transform.eulerAngles = new Vector3(0, -180, 0);
                 movingRight = false;
@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 movingRight = true;
             }
-        }   
+        }
     }
     void OnCollisionEnter2D(Collision2D collision)
     {

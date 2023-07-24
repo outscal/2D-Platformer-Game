@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
        
         Debug.Log("Killed by an enemy");
-        gameOverController.PlayerDied();
+       gameOverController.PlayerDied();
         this.enabled = false; 
     }
     public void PickUpKey()
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         bool jump = Input.GetKeyDown(KeyCode.Space);
         PlayerMoveAnimation(horizontal,jump);
         MoveCharacter(horizontal,jump);
-        CrouchAnimation();
+       // CrouchAnimation();
     }
     private void MoveCharacter(float horizontal, bool jump)
     {
@@ -76,17 +76,6 @@ public class PlayerController : MonoBehaviour
             rb2d.velocity = Vector2.up * jumpforce;
         }
     }
-    private void CrouchAnimation()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            animator.SetBool("Crouch", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            animator.SetBool("Crouch", false);
-        }
-    }   
     private void PlayerMoveAnimation(float horizontal, bool jump)
   {
     animator.SetFloat("Speed", Mathf.Abs(horizontal));
@@ -110,6 +99,17 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Jump", false);
     }
   }
+    //private void CrouchAnimation()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.LeftControl))
+    //    {
+    //        animator.SetBool("Crouch", true);
+    //    }
+    //    else if (Input.GetKeyUp(KeyCode.LeftControl))
+    //    {
+    //        animator.SetBool("Crouch", false);
+    //    }
+    //}   
 }
 
-    
+

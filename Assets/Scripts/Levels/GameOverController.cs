@@ -17,6 +17,7 @@ public class GameOverController : MonoBehaviour
     public void PlayerDied()
     {
         gameObject.SetActive(true);
+        ReloadLevel();
     }
     private void ReloadLevel()
     {
