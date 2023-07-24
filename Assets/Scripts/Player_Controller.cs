@@ -8,27 +8,67 @@ public class Player_Controller : MonoBehaviour
     public Animator animator;
     public BoxCollider2D collider1;
     public float speed;
-    
+    bool isGrounded;
+    private Rigidbody2D rb;
+    public float jumpForce;
+
+    private void Awake()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         //horizontalInput(speed) of the player by player input
         float horizontal = Input.GetAxisRaw("Horizontal");
-        MovieCharacter(horizontal);
-        PlayMovementAnimation(horizontal);
+        float vertical = Input.GetAxisRaw("Jump");
+        MovieCharacter(horizontal, vertical);
+        PlayMovementAnimation(horizontal, vertical);
 
     }
-    private void MovieCharacter(float horizontal)
+    //Player movement function
+    private void MovieCharacter(float horizontal, float vertical)
+    {
+        //Move Character horizontally
+        HorizontalMove(horizontal);
+
+        //Move Character Vertically
+        Jump(vertical);
+
+    }
+    //Horizontal move
+    private void HorizontalMove(float horizontal)
     {
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
+
     }
-    //Player Animation Movement function
-    private void PlayMovementAnimation(float horizontal)
+
+    //Jump
+    private void Jump(float vertical)
     {
+        if (vertical > 0 && isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            animator.SetBool("Jump_b", true);
+
+        }
+        if (vertical <= 0 && !isGrounded)
+        {
+            animator.SetBool("Jump_b", false);
+        }
+    }
+
+    //Player Animation Movement function
+    private void PlayMovementAnimation(float horizontal, float vertical)
+    {
+
         //setting the speed parameter to animator
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
 
         //Accessing the scale of the player
         Vector3 scale = transform.localScale;
@@ -58,9 +98,6 @@ public class Player_Controller : MonoBehaviour
         }
 
 
-        //Jump
-        float verticalSpeed = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("VerticalSpeed", verticalSpeed);
     }
 
     //Crouch function
@@ -69,5 +106,24 @@ public class Player_Controller : MonoBehaviour
         animator.SetBool("Crouch", crouch);
         collider1.size = new Vector2(collider1.size.x, sizeY);
         collider1.offset = new Vector2(collider1.offset.x, offsetY);
+    }
+
+    //Collision enter check
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            Debug.Log("Grounded");
+        }
+    }
+
+    //Collision exit check
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("not Grounded");
+        }
     }
 }
