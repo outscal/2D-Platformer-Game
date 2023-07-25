@@ -51,7 +51,7 @@ public class Player_Controller : MonoBehaviour
     {
         if (vertical > 0 && isGrounded)
         {
-            isGrounded = false;
+            
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             animator.SetBool("Jump_b", true);
 
@@ -124,6 +124,7 @@ public class Player_Controller : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             Debug.Log("not Grounded");
+            isGrounded = false;
         }
     }
 }
