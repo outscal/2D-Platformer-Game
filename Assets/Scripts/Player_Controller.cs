@@ -42,6 +42,7 @@ public class Player_Controller : MonoBehaviour
         Crouch();
     }
 
+
     //Horizontal move
     private void HorizontalMove(float horizontal)
     {
@@ -68,7 +69,7 @@ public class Player_Controller : MonoBehaviour
         transform.localScale = scale;
     }
 
-    //Move Vertically
+    //Verticle move
     private void Jump(float vertical)
     {
         if (vertical > 0 && isGrounded)
