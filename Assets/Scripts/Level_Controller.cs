@@ -12,8 +12,15 @@ public class Level_Controller : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<Player_Controller>() !=null)
         {
-            SceneManager.LoadScene(0);
+            StartCoroutine(LoadSceneDelay(2));
             endText.SetActive(true);
         }
+    }
+
+    //Delay the current scene when it collides with the trigger
+    private IEnumerator LoadSceneDelay(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

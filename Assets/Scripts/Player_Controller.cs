@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player_Controller : MonoBehaviour
 {
     public Animator animator;
+    public Score_Manager scoreManager;
 
     [SerializeField]
     float speed;
@@ -22,11 +23,18 @@ public class Player_Controller : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
+
     // Update is called once per frame
     void Update()
     {
 
         PlayerMovement();
+    }
+
+
+    public void PickKey()
+    {
+        scoreManager.IncreaseScore(10);
     }
 
 
@@ -50,28 +58,6 @@ public class Player_Controller : MonoBehaviour
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
 
-    }
-
-    //Jump
-    private void Jump(float vertical)
-    {
-        if (vertical > 0 && isGrounded)
-        {
-            
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            animator.SetBool("Jump_b", true);
-
-        }
-        if (vertical <= 0 && !isGrounded)
-        {
-            animator.SetBool("Jump_b", false);
-        }
-    }
-
-    //Player Animation Movement function
-    private void PlayMovementAnimation(float horizontal, float vertical)
-    {
-
         //setting the speed parameter to animator
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -90,6 +76,8 @@ public class Player_Controller : MonoBehaviour
         //Set the scale value
         transform.localScale = scale;
     }
+
+   
 
     //Verticle move
     private void Jump(float vertical)
@@ -136,7 +124,6 @@ public class Player_Controller : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             //Debug.Log("not Grounded");
-            Debug.Log("not Grounded");
             isGrounded = false;
         }
     }
