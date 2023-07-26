@@ -269,18 +269,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &788692111 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 788692111, guid: ecdcbd70876d66047a2bae6e63206a19,
-    type: 3}
-  m_PrefabInstance: {fileID: 5422632287856659697}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &788692113 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4084502259882650017, guid: ecdcbd70876d66047a2bae6e63206a19,
-    type: 3}
-  m_PrefabInstance: {fileID: 5422632287856659697}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1980331530
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +282,7 @@ GameObject:
   - component: {fileID: 1980331531}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,8 +373,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980331530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.48, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.0287, y: -4.48, z: 0}
+  m_LocalScale: {x: 17.789242, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -400,31 +388,26 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 788692111, guid: ecdcbd70876d66047a2bae6e63206a19, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 788692111, guid: ecdcbd70876d66047a2bae6e63206a19, type: 3}
       propertyPath: m_Size.y
       value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 788692111, guid: ecdcbd70876d66047a2bae6e63206a19, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 788692111, guid: ecdcbd70876d66047a2bae6e63206a19, type: 3}
       propertyPath: m_Offset.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 788692112, guid: ecdcbd70876d66047a2bae6e63206a19, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 788692112, guid: ecdcbd70876d66047a2bae6e63206a19, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 516890692559079021, guid: ecdcbd70876d66047a2bae6e63206a19,
         type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 788692113}
-    - target: {fileID: 516890692559079021, guid: ecdcbd70876d66047a2bae6e63206a19,
-        type: 3}
-      propertyPath: collider1
-      value: 
-      objectReference: {fileID: 788692111}
+      propertyPath: jumpForce
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5422632287537787002, guid: ecdcbd70876d66047a2bae6e63206a19,
         type: 3}
       propertyPath: m_Name
