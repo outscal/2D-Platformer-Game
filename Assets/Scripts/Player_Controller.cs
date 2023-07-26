@@ -6,11 +6,16 @@ using UnityEngine.UI;
 public class Player_Controller : MonoBehaviour
 {
     public Animator animator;
-    public BoxCollider2D collider1;
-    public float speed;
+
+    [SerializeField]
+    float speed;
+    [SerializeField]
+    float jumpForce;
+
     bool isGrounded;
-    private Rigidbody2D rb;
-    public float jumpForce;
+    Rigidbody2D rb;
+
+    
 
     private void Awake()
     {
@@ -20,23 +25,24 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //horizontalInput(speed) of the player by player input
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
-        MovieCharacter(horizontal, vertical);
-        PlayMovementAnimation(horizontal, vertical);
 
+        PlayerMovement();
     }
+
+
     //Player movement function
-    private void MovieCharacter(float horizontal, float vertical)
+    private void PlayerMovement()
     {
-        //Move Character horizontally
+        float horizontal = Input.GetAxisRaw("Horizontal");
         HorizontalMove(horizontal);
 
-        //Move Character Vertically
+        float vertical = Input.GetAxisRaw("Jump");
         Jump(vertical);
 
+        Crouch();
     }
+
+
     //Horizontal move
     private void HorizontalMove(float horizontal)
     {
@@ -69,7 +75,6 @@ public class Player_Controller : MonoBehaviour
         //setting the speed parameter to animator
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-
         //Accessing the scale of the player
         Vector3 scale = transform.localScale;
 
@@ -84,28 +89,35 @@ public class Player_Controller : MonoBehaviour
         }
         //Set the scale value
         transform.localScale = scale;
+    }
 
+    //Verticle move
+    private void Jump(float vertical)
+    {
+        if (vertical > 0 && isGrounded)
+        {
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            animator.SetTrigger("Jump");
+        }
+        
+    }
+
+    //Crouch function
+    public void Crouch()
+    {
         //Crouch
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
         {
             //Set crouch animation
-            Crouch(true, 1.4f, 0.6f);
+            animator.SetBool("Crouch", true);
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             //Set crouch animation
-            Crouch(false, 2.1f, 1);
+            animator.SetBool("Crouch", false);
         }
-
-
-    }
-
-    //Crouch function
-    public void Crouch(bool crouch, float sizeY, float offsetY)
-    {
-        animator.SetBool("Crouch", crouch);
-        collider1.size = new Vector2(collider1.size.x, sizeY);
-        collider1.offset = new Vector2(collider1.offset.x, offsetY);
+        
+        
     }
 
     //Collision enter check
@@ -114,7 +126,7 @@ public class Player_Controller : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            Debug.Log("Grounded");
+            //Debug.Log("Grounded");
         }
     }
 
@@ -123,6 +135,7 @@ public class Player_Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            //Debug.Log("not Grounded");
             Debug.Log("not Grounded");
             isGrounded = false;
         }
