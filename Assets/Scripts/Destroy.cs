@@ -22,6 +22,7 @@ public class Destroy : MonoBehaviour
         }
     }
 
+    //Delays the Load scene
     IEnumerator LoadSceneAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);

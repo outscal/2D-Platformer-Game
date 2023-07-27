@@ -98,6 +98,7 @@ public class Player_Controller : MonoBehaviour
 
     }
 
+    //Death Animation
     public void DeathAnimationPlay()
     {
         animator.SetTrigger("Death");
