@@ -8,7 +8,7 @@ public class Score_Manager : MonoBehaviour
 {
 
     TMP_Text scoreText;
-    int score;
+    int score = 0;
     private void Awake()
     {
         scoreText = GetComponent<TMP_Text>();

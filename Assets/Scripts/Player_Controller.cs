@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
-    public Animator animator;
-    public Score_Manager scoreManager;
+    [SerializeField]
+    Animator animator;
+
+    [SerializeField]
+    Score_Manager scoreManager;
 
     [SerializeField]
     float speed;
@@ -31,7 +34,7 @@ public class Player_Controller : MonoBehaviour
         PlayerMovement();
     }
 
-
+    //Pick key function
     public void PickKey()
     {
         scoreManager.IncreaseScore(10);
