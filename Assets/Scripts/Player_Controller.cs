@@ -15,7 +15,7 @@ public class Player_Controller : MonoBehaviour
     bool isGrounded;
     Rigidbody2D rb;
 
-    
+
 
     private void Awake()
     {
@@ -50,28 +50,6 @@ public class Player_Controller : MonoBehaviour
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
 
-    }
-
-    //Jump
-    private void Jump(float vertical)
-    {
-        if (vertical > 0 && isGrounded)
-        {
-            
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            animator.SetBool("Jump_b", true);
-
-        }
-        if (vertical <= 0 && !isGrounded)
-        {
-            animator.SetBool("Jump_b", false);
-        }
-    }
-
-    //Player Animation Movement function
-    private void PlayMovementAnimation(float horizontal, float vertical)
-    {
-
         //setting the speed parameter to animator
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -91,6 +69,7 @@ public class Player_Controller : MonoBehaviour
         transform.localScale = scale;
     }
 
+
     //Verticle move
     private void Jump(float vertical)
     {
@@ -99,11 +78,11 @@ public class Player_Controller : MonoBehaviour
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             animator.SetTrigger("Jump");
         }
-        
+
     }
 
     //Crouch function
-    public void Crouch()
+    private void Crouch()
     {
         //Crouch
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
@@ -116,9 +95,14 @@ public class Player_Controller : MonoBehaviour
             //Set crouch animation
             animator.SetBool("Crouch", false);
         }
-        
-        
+
     }
+
+    public void DeathAnimationPlay()
+    {
+        animator.SetTrigger("Death");
+    }
+
 
     //Collision enter check
     private void OnCollisionEnter2D(Collision2D collision)
