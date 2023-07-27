@@ -7,20 +7,23 @@ using TMPro;
 
 public class Level_Controller : MonoBehaviour
 {
-    public GameObject endText;
+    [SerializeField]
+    private GameObject endText;
+ 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.GetComponent<Player_Controller>() !=null)
         {
-            StartCoroutine(LoadSceneDelay(2));
+            StartCoroutine(LoadSceneAfterDelay(1f));
             endText.SetActive(true);
         }
     }
 
-    //Delay the current scene when it collides with the trigger
-    private IEnumerator LoadSceneDelay(int seconds)
+    //Delays the Load scene
+    IEnumerator LoadSceneAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(0);
     }
+
 }

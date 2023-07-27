@@ -16,7 +16,7 @@ public class Player_Controller : MonoBehaviour
     bool isGrounded;
     Rigidbody2D rb;
 
-    
+
 
     private void Awake()
     {
@@ -87,11 +87,11 @@ public class Player_Controller : MonoBehaviour
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             animator.SetTrigger("Jump");
         }
-        
+
     }
 
     //Crouch function
-    public void Crouch()
+    private void Crouch()
     {
         //Crouch
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
@@ -104,9 +104,15 @@ public class Player_Controller : MonoBehaviour
             //Set crouch animation
             animator.SetBool("Crouch", false);
         }
-        
-        
+
     }
+
+    //Death Animation
+    public void DeathAnimationPlay()
+    {
+        animator.SetTrigger("Death");
+    }
+
 
     //Collision enter check
     private void OnCollisionEnter2D(Collision2D collision)
