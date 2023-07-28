@@ -33,7 +33,7 @@ public class Enemy_Controller : MonoBehaviour
             scale.x = -scale.x;
         }
 
-        transform.position = new Vector2(position.x, 0);
+        transform.position = new Vector2(position.x, position.y);
         transform.localScale = scale;
     }
 

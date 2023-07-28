@@ -126,7 +126,7 @@ public class Player_Controller : MonoBehaviour
             lives--;
             livesHolder.transform.GetChild(lives).gameObject.SetActive(false);
             isAlive = true;
-            Debug.Log(lives);
+            //Debug.Log(lives);
         }
         
         if (lives <= 0)
