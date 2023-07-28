@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Player_Controller : MonoBehaviour
     bool isGrounded;
     Rigidbody2D rb;
 
-
+   
 
     private void Awake()
     {
@@ -111,11 +112,24 @@ public class Player_Controller : MonoBehaviour
     }
 
     //Death Animation
-    public void DeathAnimationPlay()
+    public void playerDeath()
     {
         animator.SetTrigger("Death");
+        //Screen reload scene from level controller
+        ReloadScene(1.5f);
+
+    }
+    //Reload Function
+    public void ReloadScene(float seconds)
+    {
+        Invoke("LoadScene", seconds);
     }
 
+    //Delays the Load scene
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(0);
+    }
 
     //Collision enter check
     private void OnCollisionEnter2D(Collision2D collision)

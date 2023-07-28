@@ -14,18 +14,10 @@ public class Destroy : MonoBehaviour
         if(playerController != null)
         {
 
-            playerController.DeathAnimationPlay();
-            Destroy(collision.gameObject, 2f);
-            StartCoroutine(LoadSceneAfterDelay(2f));
-            
+            playerController.playerDeath();    
            
         }
     }
 
-    //Delays the Load scene
-    IEnumerator LoadSceneAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(0);
-    }
+    
 }
