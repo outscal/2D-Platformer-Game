@@ -14,13 +14,19 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField]
     float speed;
+
     [SerializeField]
     float jumpForce;
+
+    [SerializeField]
+    GameObject livesHolder;
 
     bool isGrounded;
     Rigidbody2D rb;
 
-   
+    int lives = 3;
+
+    public bool isAlive; 
 
     private void Awake()
     {
@@ -111,12 +117,32 @@ public class Player_Controller : MonoBehaviour
 
     }
 
-    //Death Animation
+    //Decrease Life
+    public void DecreaseLife()
+    {
+       //Here lives gets decreased and heart will be set to inactive
+        if (lives > 0)
+        {
+            lives--;
+            livesHolder.transform.GetChild(lives).gameObject.SetActive(false);
+            isAlive = true;
+            Debug.Log(lives);
+        }
+        
+        if (lives <= 0)
+        {
+            isAlive = false;
+        }
+    }
+
+
+    //Death Function
     public void playerDeath()
     {
+        //Death Animation
         animator.SetTrigger("Death");
         //Screen reload scene from level controller
-        ReloadScene(1.5f);
+        ReloadScene(2f);
 
     }
     //Reload Function

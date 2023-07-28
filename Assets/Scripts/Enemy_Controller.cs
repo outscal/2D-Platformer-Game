@@ -44,9 +44,19 @@ public class Enemy_Controller : MonoBehaviour
 
         if (playerController != null)
         {
-
-            playerController.playerDeath();
-            speed = 0;
+           //Checks the player is alive
+            if(playerController.isAlive == true)
+            {
+                playerController.DecreaseLife();
+                
+            }
+            //if player is not alive the enemy will stop and player death function is called
+            if(playerController.isAlive == false)
+            {
+                speed = 0;
+                playerController.playerDeath();
+            }
+            
         }
     }
 
