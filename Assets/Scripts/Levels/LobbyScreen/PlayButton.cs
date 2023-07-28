@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using static SoundManager;
 
 public class PlayButton: MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class PlayButton: MonoBehaviour
     }
     private void PlayGame()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         SceneManager.LoadScene(1);
 
     }
