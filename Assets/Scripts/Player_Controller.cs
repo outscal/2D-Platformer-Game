@@ -3,30 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Player_Controller : MonoBehaviour
 {
-    [SerializeField]
-    Animator animator;
+    [SerializeField] Animator animator;
 
-    [SerializeField]
-    Score_Manager scoreManager;
+    [SerializeField] Score_Manager scoreManager;
 
-    [SerializeField]
-    float speed;
+    [SerializeField] float speed;
 
-    [SerializeField]
-    float jumpForce;
+    [SerializeField] float jumpForce;
 
-    [SerializeField]
-    GameObject livesHolder;
+    [SerializeField] Transform startPosition;
+
+    [SerializeField] Camera mainCamera;
+
+    [SerializeField] Image [] hearts;
 
     bool isGrounded;
+
     Rigidbody2D rb;
 
     int lives = 3;
 
-    public bool isAlive; 
+    public bool isAlive;
+
 
     private void Awake()
     {
@@ -120,31 +122,49 @@ public class Player_Controller : MonoBehaviour
     //Decrease Life
     public void DecreaseLife()
     {
-       //Here lives gets decreased and heart will be set to inactive
-        if (lives > 0)
-        {
-            lives--;
-            livesHolder.transform.GetChild(lives).gameObject.SetActive(false);
-            isAlive = true;
-            //Debug.Log(lives);
-        }
-        
+        lives--;
+        HandleHealthUI();
+
         if (lives <= 0)
         {
-            isAlive = false;
+            playerDeath();
         }
+        else
+        {
+            Invoke("PlayerInvoke", 0.25f);
+        }
+    }
+
+    //Delays the invoke of the player when player loses the life
+    private void PlayerInvoke()
+    {
+        transform.position = startPosition.position;
     }
 
 
     //Death Function
     public void playerDeath()
     {
+        isAlive = false;
+        
         //Death Animation
         animator.SetTrigger("Death");
+     
         //Screen reload scene from level controller
         ReloadScene(2f);
 
     }
+
+    private void HandleHealthUI()
+    {
+        for(int i= 0; i < hearts.Length; i++)
+        {
+            hearts[i].color = i < lives ? Color.red : Color.black;
+        }
+    }
+
+
+
     //Reload Function
     public void ReloadScene(float seconds)
     {
@@ -154,7 +174,7 @@ public class Player_Controller : MonoBehaviour
     //Delays the Load scene
     public void LoadScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //Collision enter check
