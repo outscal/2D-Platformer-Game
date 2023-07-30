@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerBody;
 
-    public float speed;
     private bool ctrlPressed = false;
    
     private void Awake()
@@ -26,16 +25,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-
-        MoveCharacter(horizontal);
-        PlayMovementAnimation(horizontal);
+        float speed = Input.GetAxisRaw("Horizontal");
+        animator.SetFloat("Speed", Mathf.Abs(speed));
 
         ctrlPressed = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl)) ;
         animator.SetBool("IsCrouching", ctrlPressed);
 
         float verticalInput = Input.GetAxis("Vertical");
         animator.SetFloat("Vertical", Mathf.Abs(verticalInput));
+        //Flipping the player 
+        Vector3 scale = transform.localScale;
+        if(speed < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        } else if(speed > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
 
         //Crouch Animation
         if (ctrlPressed)
@@ -59,28 +66,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJumping", false);
         }
         
-    }
-
-    private void MoveCharacter(float horizontal)
-    {
-        Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position; 
-    }
-
-    private void PlayMovementAnimation(float horizontal)
-    {
-         animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        //Flipping the player 
-        Vector3 scale = transform.localScale;
-        if(horizontal < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        } else if(horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
     }
 
 }
