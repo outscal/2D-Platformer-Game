@@ -89,6 +89,7 @@ public class Player_Controller : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             animator.SetTrigger("Jump");
+            isGrounded = false;
         }
 
     }
