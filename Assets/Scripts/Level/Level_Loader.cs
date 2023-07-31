@@ -18,7 +18,6 @@ public class Level_Loader : MonoBehaviour
 
     private void OnClick()
     {
-        string currentLevel = PlayerPrefs.GetString("CurrentLevel", LevelName);
         SceneManager.LoadScene(LevelName);
     }
 }
