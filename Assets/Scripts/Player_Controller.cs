@@ -131,7 +131,7 @@ public class Player_Controller : MonoBehaviour
         }
         else
         {
-            Invoke("PlayerInvoke", 0.25f);
+            Invoke(nameof(PlayerInvoke), 0.25f);
         }
     }
 
@@ -157,7 +157,7 @@ public class Player_Controller : MonoBehaviour
 
     private void HandleHealthUI()
     {
-        for(int i= 0; i < hearts.Length; i++)
+        for(int i = 0; i < hearts.Length; i++)
         {
             hearts[i].color = i < lives ? Color.red : Color.black;
         }
@@ -166,9 +166,9 @@ public class Player_Controller : MonoBehaviour
 
 
     //Reload Function
-    public void ReloadScene(float seconds)
+    void ReloadScene(float seconds)
     {
-        Invoke("LoadScene", seconds);
+        Invoke(nameof(LoadScene), seconds);
     }
 
     //Delays the Load scene
