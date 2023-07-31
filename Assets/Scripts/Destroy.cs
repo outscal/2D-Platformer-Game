@@ -14,7 +14,7 @@ public class Destroy : MonoBehaviour
         if(playerController != null)
         {
 
-            playerController.playerDeath();    
+            playerController.DecreaseLife();  
            
         }
     }

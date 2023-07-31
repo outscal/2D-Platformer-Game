@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class Lobby_Controller : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Lobby_Controller : MonoBehaviour
 
     void QuitGame()
     {
-        Application.Quit();
+        //Application.Quit();
+        EditorApplication.isPlaying = false;
     }
 }
