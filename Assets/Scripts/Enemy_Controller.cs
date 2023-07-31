@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Enemy_Controller : MonoBehaviour
 {
-    public float speed = 2f;
-    public int movingRight = 1;
+    [SerializeField] float speed = 2f;
     
-    public GameObject groundDetect;
-    public float rayDistance;
+    [SerializeField] GameObject groundDetect;
+
+    [SerializeField] float rayDistance;
+
+    int movingRight = 1;
 
     void Update()
     {

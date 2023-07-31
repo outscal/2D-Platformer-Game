@@ -22,7 +22,7 @@ public class Level_Controller : MonoBehaviour
     //Reload Function
     public void ReloadScene(float seconds)
     {
-        Invoke("LoadScene", seconds);
+        Invoke(nameof(LoadScene), seconds);
     }
 
     //Delays the Load scene
