@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,18 +6,31 @@ using UnityEditor;
 public class Lobby_Controller : MonoBehaviour
 {
     [SerializeField] Button playButton;
+    [SerializeField] Button levelsButton;
     [SerializeField] Button quitButton;
-
+    [SerializeField] GameObject Level_Selection;
 
     private void Awake()
     {
         playButton.onClick.AddListener(PlayGame);
-        playButton.onClick.AddListener(QuitGame);
+        levelsButton.onClick.AddListener(LevelMenu);
+        quitButton.onClick.AddListener(QuitGame);
     }
+
 
     void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        // Get the name of the current level
+        string currentLevel = PlayerPrefs.GetString("CurrentLevel", "Level_01");
+
+        // Load the current level
+        SceneManager.LoadScene(currentLevel);
+    }
+
+
+    void LevelMenu()
+    {
+        Level_Selection.SetActive(true);
     }
 
     void QuitGame()
