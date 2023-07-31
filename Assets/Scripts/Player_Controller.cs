@@ -2,23 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
 
 public class Player_Controller : MonoBehaviour
 {
-    [SerializeField]
-    Animator animator;
+    [SerializeField] Animator animator;
 
-    [SerializeField]
-    Score_Manager scoreManager;
+    [SerializeField] Score_Manager scoreManager;
 
-    [SerializeField]
-    float speed;
-    [SerializeField]
-    float jumpForce;
+    [SerializeField] float speed;
+
+    [SerializeField] float jumpForce;
+
+    [SerializeField] Transform startPosition;
+
+    [SerializeField] Camera mainCamera;
+
+    [SerializeField] Image [] hearts;
 
     bool isGrounded;
+
     Rigidbody2D rb;
 
+    int lives = 3;
+
+    public bool isAlive;
 
 
     private void Awake()
@@ -111,12 +120,63 @@ public class Player_Controller : MonoBehaviour
 
     }
 
-    //Death Animation
-    public void DeathAnimationPlay()
+    //Decrease Life
+    public void DecreaseLife()
     {
-        animator.SetTrigger("Death");
+        lives--;
+        HandleHealthUI();
+
+        if (lives <= 0)
+        {
+            playerDeath();
+        }
+        else
+        {
+            Invoke(nameof(PlayerInvoke), 0.25f);
+        }
     }
 
+    //Delays the invoke of the player when player loses the life
+    private void PlayerInvoke()
+    {
+        transform.position = startPosition.position;
+    }
+
+
+    //Death Function
+    public void playerDeath()
+    {
+        isAlive = false;
+        
+        //Death Animation
+        animator.SetTrigger("Death");
+     
+        //Screen reload scene from level controller
+        ReloadScene(2f);
+
+    }
+
+    private void HandleHealthUI()
+    {
+        for(int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].color = i < lives ? Color.red : Color.black;
+        }
+    }
+
+
+
+    //Reload Function
+    void ReloadScene(float seconds)
+    {
+        Invoke(nameof(LoadScene), seconds);
+    }
+
+    //Delays the Load scene
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     //Collision enter check
     private void OnCollisionEnter2D(Collision2D collision)

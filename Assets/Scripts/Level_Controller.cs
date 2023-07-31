@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
+
 
 
 public class Level_Controller : MonoBehaviour
@@ -14,15 +14,20 @@ public class Level_Controller : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<Player_Controller>() !=null)
         {
-            StartCoroutine(LoadSceneAfterDelay(1f));
+            ReloadScene(1f);
             endText.SetActive(true);
         }
     }
 
-    //Delays the Load scene
-    IEnumerator LoadSceneAfterDelay(float delay)
+    //Reload Function
+    public void ReloadScene(float seconds)
     {
-        yield return new WaitForSeconds(delay);
+        Invoke(nameof(LoadScene), seconds);
+    }
+
+    //Delays the Load scene
+    public void LoadScene()
+    {
         SceneManager.LoadScene(0);
     }
 
