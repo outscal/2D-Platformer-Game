@@ -32,7 +32,9 @@ public class PlayerController : MonoBehaviour
             if (collision.gameObject.CompareTag("Ground"))
             {
                 isGrounded = true;
+                Debug.Log("Player Grounded");
             }
+
         }
 
     // Update is called once per frame
