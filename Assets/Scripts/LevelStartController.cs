@@ -8,7 +8,7 @@ public class LevelStartController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log(" New Level Start ");
+            Debug.Log(" Level Start ");
             Debug.Log(" Proceed to exit point to finish current level and load New Level ");
         }
     }
