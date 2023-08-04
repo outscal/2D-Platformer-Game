@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,12 +6,12 @@ using UnityEditor;
 public class GameOver_Controller : MonoBehaviour
 {
     [SerializeField] Button restartButton;
-    [SerializeField] Button quitButton;
+    //[SerializeField] Button quitButton;
 
     private void Awake()
     {
         restartButton.onClick.AddListener(ReloadScene);
-        quitButton.onClick.AddListener(QuitGame);
+        //quitButton.onClick.AddListener(QuitGame);
     }
 
 
@@ -26,13 +24,14 @@ public class GameOver_Controller : MonoBehaviour
     //Reload Function
     void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 
-    void QuitGame()
+    /*void QuitGame()
     {
         //Application.Quit();
         EditorApplication.isPlaying = false;
     }
-
+*/
 }
