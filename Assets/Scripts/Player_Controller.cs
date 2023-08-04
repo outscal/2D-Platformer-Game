@@ -7,6 +7,8 @@ using System;
 
 public class Player_Controller : MonoBehaviour
 {
+    [SerializeField] GameOver_Controller gameOver_Controller;
+
     [SerializeField] Animator animator;
 
     [SerializeField] Score_Manager scoreManager;
@@ -150,12 +152,23 @@ public class Player_Controller : MonoBehaviour
         
         //Death Animation
         animator.SetTrigger("Death");
-     
-        //Screen reload scene from level controller
-        ReloadScene(2f);
+
+        //Displays the gameover image by calling PlayerDied function
+        Invoke(nameof(DelayGameoverPanel), 0.9f);
+
+        //Disable the player controller script
+        this.enabled = false;
 
     }
 
+    void DelayGameoverPanel()
+    {
+        
+        gameOver_Controller.PlayerDied();
+    }
+
+
+    //Handle Health UI function  
     private void HandleHealthUI()
     {
         for(int i = 0; i < hearts.Length; i++)
@@ -164,19 +177,6 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-
-
-    //Reload Function
-    void ReloadScene(float seconds)
-    {
-        Invoke(nameof(LoadScene), seconds);
-    }
-
-    //Delays the Load scene
-    public void LoadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     //Collision enter check
     private void OnCollisionEnter2D(Collision2D collision)
