@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     public Animator animator;
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerBody;
@@ -25,6 +26,12 @@ public class PlayerController : MonoBehaviour
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
         animator = gameObject.GetComponent<Animator>();
         playerBody = gameObject.GetComponent<Rigidbody2D>();
+    }
+
+    public void PickUpKey()
+    {
+        Debug.Log(" Player has Picked Up the Key ");
+        scoreController.IncreaseScore(10);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
