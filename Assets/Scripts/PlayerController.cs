@@ -7,12 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
     public Animator animator;
-    private BoxCollider2D playerCollider;
+
+    [SerializeField] private float speed;
+    [SerializeField] private float jump;
+
     private Rigidbody2D playerBody;
-
-    public float speed;
-    public float jump;
-
     private bool shiftPressed = false;
     private bool ctrlPressed = false;
     private bool isGrounded = false;
@@ -23,7 +22,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        playerCollider = gameObject.GetComponent<BoxCollider2D>();
         animator = gameObject.GetComponent<Animator>();
         playerBody = gameObject.GetComponent<Rigidbody2D>();
     }
@@ -106,18 +104,13 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        animator.SetBool("IsCrouching", ctrlPressed);
-
         //Crouch Animation
-        if (ctrlPressed)
+        if(ctrlPressed)
         {
-            playerCollider.offset = new Vector2(-0.12f, 0.6f);
-            playerCollider.size = new Vector2(0.9f, 1.3f);
-        }
-        else
+            animator.SetBool("IsCrouching", true);
+        } else
         {
-            playerCollider.offset = new Vector2(0f, 0.95f);
-            playerCollider.size = new Vector2(0.6f, 2f);
+            animator.SetBool("IsCrouching", false);
         }
 
         //Jump Animation
