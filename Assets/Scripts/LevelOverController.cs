@@ -32,7 +32,14 @@ public class LevelOverController : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Deathpit"))
         {
-            Debug.Log("Player Died");
+            Debug.Log(" Player Died ");
+            animator.SetTrigger("Death");
+            Invoke("Load_Scene", TimeDelay);
+        }
+
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log(" Player Killed By Enemy ");
             animator.SetTrigger("Death");
             Invoke("Load_Scene", TimeDelay);
         }
@@ -41,6 +48,7 @@ public class LevelOverController : MonoBehaviour
 
     private void Load_Scene()
     {
+        Debug.Log(" Reloading Current Active Scene ");
         SceneManager.LoadScene(SceneID);
     }
 }
