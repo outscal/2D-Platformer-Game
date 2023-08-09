@@ -36,13 +36,6 @@ public class LevelOverController : MonoBehaviour
             animator.SetTrigger("Death");
             Invoke("Load_Scene", TimeDelay);
         }
-
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log(" Player Killed By Enemy ");
-            animator.SetTrigger("Death");
-            Invoke("Load_Scene", TimeDelay);
-        }
         
     }
 

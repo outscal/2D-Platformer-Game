@@ -12,7 +12,8 @@ public class EnemyController : MonoBehaviour
     private Vector3 baseScale;
     string facingDirection;
 
-    [SerializeField] Transform castPos;
+    [SerializeField] private Transform castPos;
+    [SerializeField] private float damage;
     public float castDist = 0.5f; 
     public float moveSpeed = 5f;
 
@@ -117,6 +118,20 @@ public class EnemyController : MonoBehaviour
         transform.localScale = newScale;
 
         facingDirection = newDirection;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+        HealthController healthController = collision.gameObject.GetComponent<HealthController>();
+
+        if(playerController != null)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                healthController.TakeDamage(damage);
+            }
+        }
     }
 
 }
