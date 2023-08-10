@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float speed;
+    public float force;
+    public bool IsPlayerGrounded;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,13 @@ public class PlayerController : MonoBehaviour
         MoveCharachtar(horizontal);
         PlayMovementAnimation(horizontal);
 
-        
+        float vertical = Input.GetAxisRaw("Vertical");
+        if (IsPlayerGrounded == true)
+        {
+            JumpPlayer(vertical);
+        }
+       
+
     }
 
     private void MoveCharachtar(float horizontal)
@@ -28,6 +37,14 @@ public class PlayerController : MonoBehaviour
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
     }
+
+    private void JumpPlayer(float vertical)
+    {
+        Vector3 position = transform.position;
+        position.y += vertical * force * Time.deltaTime;
+        transform.position = position;
+    }
+
 
     private void PlayMovementAnimation(float horizontal)
     {
@@ -47,12 +64,26 @@ public class PlayerController : MonoBehaviour
         bool crouch = Input.GetKey(KeyCode.LeftControl);
         animator.SetBool("Crouch", crouch);
 
-        float jump = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("Jump", jump);
+        //float jump = Input.GetAxisRaw("Vertical");
+        //animator.SetFloat("Jump", jump);
 
 
         //bool jump = Input.GetKey(KeyCode.Space);
         //animator.SetBool("JumpTriggered", jump);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("GROUND"))
+        {
+            IsPlayerGrounded = true;
+        }
+        else
+        {
+            IsPlayerGrounded = false;
+        }
+    }
+
+  
 
 }

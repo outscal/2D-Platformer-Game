@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 10866709}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: GROUND
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -320,6 +320,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1267547835}
   speed: 4
+  force: 5
+  IsPlayerGrounded: 1
 --- !u!61 &1267547833
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -366,7 +368,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &1267547835
 Animator:
   serializedVersion: 3
@@ -399,7 +401,7 @@ GameObject:
   - component: {fileID: 1765638490}
   m_Layer: 0
   m_Name: Floor (3)
-  m_TagString: Untagged
+  m_TagString: GROUND
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -505,7 +507,7 @@ GameObject:
   - component: {fileID: 1852732387}
   m_Layer: 0
   m_Name: Floor (2)
-  m_TagString: Untagged
+  m_TagString: GROUND
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -611,7 +613,7 @@ GameObject:
   - component: {fileID: 1874642502}
   m_Layer: 0
   m_Name: Floor (1)
-  m_TagString: Untagged
+  m_TagString: GROUND
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
