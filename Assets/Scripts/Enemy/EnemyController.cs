@@ -127,10 +127,8 @@ public class EnemyController : MonoBehaviour
 
         if(playerController != null)
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
                 healthController.TakeDamage(damage);
-            }
+            
         }
     }
 

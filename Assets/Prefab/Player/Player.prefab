@@ -107,8 +107,8 @@ GameObject:
   - component: {fileID: 3283899742976562841}
   - component: {fileID: 1427029619061578323}
   - component: {fileID: 8837433006083000217}
-  - component: {fileID: 6260836635103669267}
   - component: {fileID: 3528676412125950712}
+  - component: {fileID: 8841479410454289095}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -307,21 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneID: 0
   TimeDelay: 1
---- !u!114 &6260836635103669267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060767588766888550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c69a8f92cd1edf4982030a9132b42b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 3
-  SceneID: 1
-  TimeDelay: 2
+  damage: 3
 --- !u!114 &3528676412125950712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +320,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9ad5f9cd27a3042a449bb8d4047669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 6260836635103669267}
+  playerHealth: {fileID: 8841479410454289095}
   totalhealthBar: {fileID: 0}
   currenthealthBar: {fileID: 0}
+--- !u!114 &8841479410454289095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060767588766888550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c69a8f92cd1edf4982030a9132b42b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3
+  SceneID: 0
+  TimeDelay: 1
