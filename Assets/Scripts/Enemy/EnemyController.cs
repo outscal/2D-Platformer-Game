@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Player controller awake");
+        Debug.Log("Enemy controller awake");
     }
 
     // Start is called before the first frame update

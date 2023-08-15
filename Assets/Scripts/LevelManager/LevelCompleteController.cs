@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelOverController : MonoBehaviour
+public class LevelCompleteController : MonoBehaviour
 {
     private Animator animator;
     [SerializeField] private int SceneID = 1;
     [SerializeField] private float TimeDelay = 2f;
+
+    public GameOverController gameOverController;
 
     private void Start()
     {
@@ -34,14 +36,21 @@ public class LevelOverController : MonoBehaviour
         {
             Debug.Log(" Player Died ");
             animator.SetTrigger("Death");
-            Invoke("Load_Scene", TimeDelay);
+            Invoke("Restart_Scene", TimeDelay);
         }
         
     }
 
     private void Load_Scene()
     {
-        Debug.Log(" Reloading Current Active Scene ");
+        Debug.Log(" Loading New Level ");
         SceneManager.LoadScene(SceneID);
+    }
+
+    public void Restart_Scene()
+    {
+        Debug.Log(" Reloading Current Active Scene ");
+        gameOverController.PlayerDied();
+        GetComponent<PlayerController>().enabled = false;
     }
 }
