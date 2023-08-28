@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField]private float startingHealth;
-    [SerializeField] private int SceneID = 1;
-    [SerializeField] private float TimeDelay = 2f;
-    public float currentHealth {get; private set; } 
     private Animator animator;
     private bool dead;
+    [SerializeField]private float startingHealth;
+    [SerializeField] private float TimeDelay = 2f;
+    public float currentHealth {get; private set; } 
+    public GameOverController gameOverController;
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class HealthController : MonoBehaviour
                 animator.SetTrigger("Death");
                 GetComponent<PlayerController>().enabled = false;
                 dead = true;
-                Invoke("Load_Scene", TimeDelay);
+                Invoke("Load_Scene" , TimeDelay);
             }
         }
     }
@@ -44,7 +44,8 @@ public class HealthController : MonoBehaviour
     private void Load_Scene()
     {
         Debug.Log(" Reloading Current Active Scene ");
-        SceneManager.LoadScene(SceneID);
+        gameOverController.PlayerDied();
+        GetComponent<PlayerController>().enabled = false;
     }
 
 
