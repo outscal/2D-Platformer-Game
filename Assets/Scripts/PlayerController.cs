@@ -12,25 +12,24 @@ public class PlayerController : MonoBehaviour
 
 
     private Rigidbody2D rb;
-    private enum PlayerState
-    {
-        idle, 
-        walking,
-        running,
-        crouching,
-        jumping
-    };
 
     private Vector2 originalColliderOffset;
     private Vector2 originalColliderSize;
-    private PlayerState state;
     private CapsuleCollider2D playerCollider;
     private float horizontalInput;
+
+    private enum PlayerState
+    {
+        idle,
+        jumping
+    };
+
+    private PlayerState playerState;
+
     // Start is called before the first frame update
     void Start()
     {
         horizontalInput = 0f;
-        state = PlayerState.idle;
         playerCollider = GetComponent<CapsuleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         originalColliderOffset = playerCollider.offset;
@@ -40,6 +39,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForFalling();
         GetPlayerInput();
         CheckDirection();
     }
@@ -47,33 +47,41 @@ public class PlayerController : MonoBehaviour
     void GetPlayerInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
+
         MovePlayer(horizontalInput);
+        PlayMoveAnimation();
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            state = PlayerState.crouching;
+            animator.SetBool("PlayerCrouching", true);
             ResizeCollider();
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            state = PlayerState.idle;
+            animator.SetBool("PlayerCrouching", false);
             RestoreColliderSize();
         }
-
-        //if (Input.GetAxisRaw("Vertical") > 0f)
-        //    PlayerJump();
-
-        animator.SetInteger("PlayerState", (int)state);
     }
 
-    void MovePlayer(float input)
+    void PlayMoveAnimation() => animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
+
+    void PlayJumpAnimation() => animator.SetBool("PlayerJumped", true);
+  
+
+    void MovePlayer(float inputHorizontal)
     {
         Vector3 position = transform.position;
 
-        position.x += input * moveSpeed * Time.deltaTime;
+        position.x += inputHorizontal * moveSpeed * Time.deltaTime;
         transform.position = position;
+
+        if(Input.GetKeyDown(KeyCode.Space) && playerState != PlayerState.jumping)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            playerState = PlayerState.jumping;
+            PlayJumpAnimation();
+        }
     }
     void RestoreColliderSize()
     {
@@ -89,36 +97,38 @@ public class PlayerController : MonoBehaviour
     void CheckDirection()
     {
         if (horizontalInput < 0f)
-        {
             transform.eulerAngles = new Vector3(0, 180, 0);
-            state = PlayerState.walking;
-        }
+
         else if (horizontalInput > 0.1f)
-        {
             transform.eulerAngles = new Vector3(0, 0, 0);
-            state = PlayerState.walking;
-        }
     }
 
     void CheckForFalling()
     {
         if (IsGrounded())
         {
-            state = PlayerState.idle;
-            animator.ResetTrigger("PlayerJumped");
+            animator.SetBool("PlayerJumped", false);
+            playerState = PlayerState.idle;
         }
-    }
-
-    void PlayerJump()
-    {
-        animator.SetTrigger("PlayerJumped");
-        rb.velocity = new Vector2(rb.velocity.x, jumpPower * Time.deltaTime);  
     }
     bool IsGrounded()
     {
-        if (Physics2D.Raycast(playerCollider.bounds.center, -transform.up, 1.3f, LayerMask.GetMask("Platform")))
+        if (Physics2D.Raycast(playerCollider.bounds.center, -transform.up, 2.3f, LayerMask.GetMask("Platform")))
             return true;
 
         return false;
     }
+
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.green;
+    //    RaycastHit2D rayhit = Physics2D.Raycast(playerCollider.bounds.center, -transform.up, 2.3f, LayerMask.GetMask("Platform"));
+    //    Gizmos.DrawRay(playerCollider.bounds.center, -transform.up);
+
+    //    if (rayhit)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawRay(playerCollider.bounds.center, -transform.up);
+    //    }
+    //}
 }
