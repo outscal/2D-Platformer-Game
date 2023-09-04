@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 470650274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 749468931}
   - component: {fileID: 749468932}
   - component: {fileID: 749468933}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tileset_Alien_Floor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 901167908}
   - component: {fileID: 901167909}
   - component: {fileID: 901167910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tileset_Alien_Floor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 1585434610}
   - component: {fileID: 1585434611}
   - component: {fileID: 1585434612}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tileset_Alien_Floor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,6 +562,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1602857547249037482, guid: c5ca9f4238a45754abb078e69c617d5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8529283776674028519, guid: c5ca9f4238a45754abb078e69c617d5b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -659,8 +664,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &3252503417474312116
-BoxCollider2D:
+--- !u!70 &3252503417474312116
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -672,19 +677,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0031786114, y: 1.018532}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.42, y: 0.1}
-    oldSize: {x: 3.7534883, y: 2.8325582}
-    newSize: {x: 3.7534883, y: 2.8325582}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.7467536, y: 2.1415405}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.012332379, y: 1.0173339}
+  m_Size: {x: 0.63622904, y: 2.1215055}
+  m_Direction: 0
 --- !u!50 &3252503417474312117
 Rigidbody2D:
   serializedVersion: 4
@@ -705,7 +700,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3252503417474312118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,3 +716,5 @@ MonoBehaviour:
   animator: {fileID: 3252503417474312115}
   newCrouchColliderOffset: {x: -0.04147524, y: 0.6464911}
   newCrouchColliderSize: {x: 0.8360612, y: 1.397459}
+  moveSpeed: 3
+  jumpPower: 8
