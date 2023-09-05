@@ -7,51 +7,63 @@ public class playerController : MonoBehaviour
      public Animator Animator;
     [SerializeField]
     float Jump_Power;
+    [SerializeField]
+    float Speed;
+    Rigidbody2D RB2d;
 
-    void PlayingAnimation() {
-        float speed = Input.GetAxisRaw("Horizontal");
-        float jump = Input.GetAxisRaw("Vertical");
-        Animator.SetFloat("Speed", Mathf.Abs(speed));
+    private void Start()
+    {
+        RB2d = gameObject.GetComponent<Rigidbody2D>();
+    }
+    void PlayerMovement(float Horizonatal)
+    {
+        Vector2 pos = transform.position;
+        pos.x += Horizonatal * Speed * Time.deltaTime;
+        transform.position = pos;
+    }
+    void PlayingAnimation(float Horizonatl) {
+        
+        float Vertical = Input.GetAxisRaw("Jump");
+        Animator.SetFloat("Speed", Mathf.Abs(Horizonatl));
 
-        if (jump > 0 || Input.GetKeyDown(KeyCode.Space))
+        if (Vertical > 0)
         {
             Animator.SetBool("IsJumping", true);
-            //Jumping();
         }
-        if (jump < 0 || Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Animator.SetBool("IsCrouching", true);
         }
 
         Vector3 scale = transform.localScale;
-        if (speed < 0) // pressed A/ right arrow 
+        if (Horizonatl < 0) // pressed A/ right arrow 
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (speed > 0)  // pressed D/left arrow
+        else if (Horizonatl > 0)  // pressed D/left arrow
         {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
     }
-    void Jumping()
+    void Jumping() // calling as an Animation event - acc to frame
     {
-        Vector3 jumping = transform.position;
-        jumping.y += Jump_Power;
-        transform.position = jumping;
+        RB2d.AddForce(new Vector2(0f,Jump_Power), ForceMode2D.Force);
     }
-    void StopJumpAnim()
+    void StopJumpAnim() // calling as an Animation event - acc to frame
     {
         Animator.SetBool("IsJumping", false);
     }
-    void StopCrouchAnim()
+    void StopCrouchAnim()  // calling as an Animation event - acc to frame
     {
         Animator.SetBool("IsCrouching", false);
     }
 
     private void Update()
     {
-        PlayingAnimation();
+        float Horizontal = Input.GetAxisRaw("Horizontal");
+        PlayingAnimation(Horizontal);
+        PlayerMovement(Horizontal);
     }
 }
 
