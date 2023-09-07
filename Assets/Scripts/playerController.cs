@@ -15,6 +15,20 @@ public class playerController : MonoBehaviour
     {
         RB2d = gameObject.GetComponent<Rigidbody2D>();
     }
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    if (collision.transform.tag == "Platform")
+    //    {
+    //        IsGrounded = true;
+    //    }
+    //}
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if(collision.transform.tag == "Platform")
+    //    {
+    //        IsGrounded = false;
+    //    }
+    //}
     void PlayerMovement(float Horizonatal)
     {
         Vector2 pos = transform.position;
@@ -23,12 +37,11 @@ public class playerController : MonoBehaviour
     }
     void PlayingAnimation(float Horizonatl) {
         
-        float Vertical = Input.GetAxisRaw("Jump");
         Animator.SetFloat("Speed", Mathf.Abs(Horizonatl));
 
-        if (Vertical > 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Animator.SetBool("IsJumping", true);
+            Animator.SetTrigger("IsJumping");
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -48,11 +61,7 @@ public class playerController : MonoBehaviour
     }
     void Jumping() // calling as an Animation event - acc to frame
     {
-        RB2d.AddForce(new Vector2(0f,Jump_Power), ForceMode2D.Force);
-    }
-    void StopJumpAnim() // calling as an Animation event - acc to frame
-    {
-        Animator.SetBool("IsJumping", false);
+        RB2d.AddForce(new Vector2(0f, Jump_Power), ForceMode2D.Force);
     }
     void StopCrouchAnim()  // calling as an Animation event - acc to frame
     {
