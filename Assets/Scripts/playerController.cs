@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class playerController : MonoBehaviour
     float Jump_Power;
     [SerializeField]
     private float Speed;
+    [SerializeField]
+    private ScoreManager Score;
     Rigidbody2D RB2d;
 
     private void Start()
@@ -17,7 +20,13 @@ public class playerController : MonoBehaviour
         //DontDestroyOnLoad(this.gameObject);
         RB2d = gameObject.GetComponent<Rigidbody2D>();
     }
- 
+
+    public void Collectable_PickedUp()
+    {
+        Debug.Log("Collected");
+        Score.Update_Score(10);
+    }
+
     void PlayerMovement(float Horizonatal)
     {
         Vector2 pos = transform.position;
