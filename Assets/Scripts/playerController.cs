@@ -1,34 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
-     public Animator Animator;
+    public Animator Animator;
     [SerializeField]
     float Jump_Power;
     [SerializeField]
-    float Speed;
+    private float Speed;
     Rigidbody2D RB2d;
 
     private void Start()
     {
+        //DontDestroyOnLoad(this.gameObject);
         RB2d = gameObject.GetComponent<Rigidbody2D>();
     }
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (collision.transform.tag == "Platform")
-    //    {
-    //        IsGrounded = true;
-    //    }
-    //}
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if(collision.transform.tag == "Platform")
-    //    {
-    //        IsGrounded = false;
-    //    }
-    //}
+ 
     void PlayerMovement(float Horizonatal)
     {
         Vector2 pos = transform.position;

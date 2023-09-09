@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour
     {
         if (collision.gameObject.tag == "ToLv2")
         {
-            Debug.Log("Collision detected");
             SceneManager.LoadScene(1);
         }
     }

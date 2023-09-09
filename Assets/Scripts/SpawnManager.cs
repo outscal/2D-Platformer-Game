@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject Player;
+    private GameObject Player;
 
-    private void Awake()
+    private void Start()
     {
+        //Player = GameObject.FindGameObjectWithTag("Player");
         SpawingPlayer();
     }
     private void SpawingPlayer()
