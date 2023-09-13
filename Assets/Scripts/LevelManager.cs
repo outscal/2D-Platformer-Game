@@ -7,9 +7,10 @@ public class LevelManager : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "ToLv2")
+        if (collision.gameObject.GetComponent<playerController>() != null)
         {
             SceneManager.LoadScene(1);
+
         }
     }
 

@@ -5,15 +5,16 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     private GameObject target;
-    public Vector3 offset = new Vector3(0, 2, -10);
+    [SerializeField]
+    private Vector3 offset = new Vector3(0, 2, -10);
 
-    private void Start()
+    public void FollowingPlayer(GameObject Player)
     {
-        
+        target = Player;      
     }
+
     private void LateUpdate()
     {
-        target = GameObject.FindGameObjectWithTag("Player");
         transform.position = target.transform.position + offset;
     }
 }

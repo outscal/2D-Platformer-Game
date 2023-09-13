@@ -17,7 +17,6 @@ public class playerController : MonoBehaviour
 
     private void Start()
     {
-        //DontDestroyOnLoad(this.gameObject);
         RB2d = gameObject.GetComponent<Rigidbody2D>();
     }
 

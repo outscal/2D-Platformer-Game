@@ -10,19 +10,14 @@ public class UI_Manager : MonoBehaviour
     private GameObject GameOver_Panel;
     [SerializeField]
     private GameObject Main_Menu;
-    private GameObject Player;
     [SerializeField]
     private GameObject ScoreText;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         ScoreText.SetActive(false);
-        DontDestroyOnLoad(this.gameObject);
         GameOver_Panel.SetActive(false);
         Main_Menu.SetActive(true);
-
     }
 
     public void Play_Button()
@@ -30,27 +25,29 @@ public class UI_Manager : MonoBehaviour
         Main_Menu.SetActive(false);
         ScoreText.SetActive(true);       
     }
-    private void GameOver()
+
+    public void HandleCollisionWithPlayer()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
-        if (Player.transform.position.y <= -34)
+        Debug.Log("Setting Gameover to true");
+        ScoreText.SetActive(false);
+        GameOver_Panel.SetActive(true);
+        StartCoroutine(ResetGameCoroutine());
+    }
+    private IEnumerator ResetGameCoroutine()
+    {
+        // Waiting for a short delay before checking for the "R" key press
+        yield return null;
+
+        while (true)
         {
-            GameOver_Panel.SetActive(true);
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GameOver_Panel.SetActive(false);
                 var scene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(scene.name);
-                if(scene.name == "Level1")
-                {
-                    Destroy(gameObject);
-                }               
             }
-        }
-    }
 
-    private void Update()
-    {
-        GameOver();
+            yield return null;
+        }
     }
 }
