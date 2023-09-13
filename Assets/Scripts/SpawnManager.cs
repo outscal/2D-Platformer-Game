@@ -15,7 +15,8 @@ public class SpawnManager : MonoBehaviour
     }
     private void SpawingPlayer()
     {
-        Debug.Log("SpawingPlayer");
-        Instantiate(Player, gameObject.transform.position, Quaternion.identity);
+            Debug.Log("SpawingPlayer");
+            Instantiate(Player, gameObject.transform.position, Quaternion.identity);
     }
+        
 }

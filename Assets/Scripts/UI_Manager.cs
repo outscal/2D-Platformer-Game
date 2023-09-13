@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
@@ -10,22 +11,26 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private GameObject Main_Menu;
     private GameObject Player;
+    [SerializeField]
+    private GameObject ScoreText;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        ScoreText.SetActive(false);
         DontDestroyOnLoad(this.gameObject);
         GameOver_Panel.SetActive(false);
         Main_Menu.SetActive(true);
+
     }
 
     public void Play_Button()
     {
         Main_Menu.SetActive(false);
-        
+        ScoreText.SetActive(true);       
     }
-    private void IsPlayerDead()
+    private void GameOver()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.transform.position.y <= -34)
@@ -36,12 +41,16 @@ public class UI_Manager : MonoBehaviour
                 GameOver_Panel.SetActive(false);
                 var scene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(scene.name);
+                if(scene.name == "Level1")
+                {
+                    Destroy(gameObject);
+                }               
             }
         }
     }
 
     private void Update()
     {
-        IsPlayerDead();
+        GameOver();
     }
 }
