@@ -1,35 +1,56 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
     [SerializeField]
     private GameObject GameOver_Panel;
+    public int playerHealth = 5;
     [SerializeField]
-    private GameObject Main_Menu;
-    [SerializeField]
-    private GameObject ScoreText;
+    private GameObject[] hearts;
 
+    public static UI_Manager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
     void Start()
     {
-        ScoreText.SetActive(false);
+        UpdatehealthOnUI();
         GameOver_Panel.SetActive(false);
-        Main_Menu.SetActive(true);
     }
 
-    public void Play_Button()
+    public void UpdatehealthOnUI()
     {
-        Main_Menu.SetActive(false);
-        ScoreText.SetActive(true);       
-    }
 
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if(i< playerHealth)
+            {
+                hearts[i].SetActive(true);
+            }
+            else
+            {
+                hearts[i].SetActive(false);
+            }
+        }
+        
+    }
     public void HandleCollisionWithPlayer()
     {
         Debug.Log("Setting Gameover to true");
-        ScoreText.SetActive(false);
+
         GameOver_Panel.SetActive(true);
         StartCoroutine(ResetGameCoroutine());
     }
@@ -43,11 +64,11 @@ public class UI_Manager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GameOver_Panel.SetActive(false);
-                var scene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(scene.name);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
 
             yield return null;
         }
     }
+
 }
