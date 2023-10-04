@@ -1,56 +1,74 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
     [SerializeField]
     private GameObject GameOver_Panel;
+    public int playerHealth = 5;
     [SerializeField]
-    private GameObject Main_Menu;
-    private GameObject Player;
-    [SerializeField]
-    private GameObject ScoreText;
+    private GameObject[] hearts;
 
-
-    // Start is called before the first frame update
+    public static UI_Manager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
     void Start()
     {
-        ScoreText.SetActive(false);
-        DontDestroyOnLoad(this.gameObject);
+        UpdatehealthOnUI();
         GameOver_Panel.SetActive(false);
-        Main_Menu.SetActive(true);
-
     }
 
-    public void Play_Button()
+    public void UpdatehealthOnUI()
     {
-        Main_Menu.SetActive(false);
-        ScoreText.SetActive(true);       
-    }
-    private void GameOver()
-    {
-        Player = GameObject.FindGameObjectWithTag("Player");
-        if (Player.transform.position.y <= -34)
+
+        for (int i = 0; i < hearts.Length; i++)
         {
-            GameOver_Panel.SetActive(true);
+            if(i< playerHealth)
+            {
+                hearts[i].SetActive(true);
+            }
+            else
+            {
+                hearts[i].SetActive(false);
+            }
+        }
+        
+    }
+    public void HandleCollisionWithPlayer()
+    {
+        Debug.Log("Setting Gameover to true");
+
+        GameOver_Panel.SetActive(true);
+        StartCoroutine(ResetGameCoroutine());
+    }
+    private IEnumerator ResetGameCoroutine()
+    {
+        // Waiting for a short delay before checking for the "R" key press
+        yield return null;
+
+        while (true)
+        {
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GameOver_Panel.SetActive(false);
-                var scene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(scene.name);
-                if(scene.name == "Level1")
-                {
-                    Destroy(gameObject);
-                }               
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+
+            yield return null;
         }
     }
 
-    private void Update()
-    {
-        GameOver();
-    }
 }

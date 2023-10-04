@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +14,6 @@ public class playerController : MonoBehaviour
 
     private void Start()
     {
-        //DontDestroyOnLoad(this.gameObject);
         RB2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -57,6 +53,16 @@ public class playerController : MonoBehaviour
         }
         transform.localScale = scale;
     }
+
+    private void PlayerDied()
+    {
+        if(UI_Manager.instance.playerHealth <= 0)
+        {
+            Debug.Log("Player is dead");
+            //death anim
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
     void Jumping() // calling as an Animation event - acc to frame
     {
         RB2d.AddForce(new Vector2(0f, Jump_Power), ForceMode2D.Force);
@@ -71,6 +77,8 @@ public class playerController : MonoBehaviour
         float Horizontal = Input.GetAxisRaw("Horizontal");
         PlayingAnimation(Horizontal);
         PlayerMovement(Horizontal);
+        PlayerDied();
+       
     }
 }
 
