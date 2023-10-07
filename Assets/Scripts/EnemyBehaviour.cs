@@ -46,7 +46,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void ThrowbackFromPlayerCollision()
     {
         Vector3 pos = transform.position;
-        pos.x += 2.25f;
+        pos.x += 3f;
         transform.position = pos;
     }
     // moving player towrds the next Patrolling point CP= current point TP = To next point
