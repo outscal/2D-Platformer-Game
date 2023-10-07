@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
@@ -11,7 +10,21 @@ public class playerController : MonoBehaviour
     [SerializeField]
     private ScoreManager Score;
     Rigidbody2D RB2d;
+    public int playerHealth = 5;
 
+    public static playerController instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
     private void Start()
     {
         RB2d = gameObject.GetComponent<Rigidbody2D>();
@@ -54,13 +67,13 @@ public class playerController : MonoBehaviour
         transform.localScale = scale;
     }
 
-    private void PlayerDied()
+    public void PlayerDied()
     {
-        if(UI_Manager.instance.playerHealth <= 0)
+        if (playerHealth <= 0)
         {
             Debug.Log("Player is dead");
             //death anim
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            UI_Manager.instance.GameOver();
         }
     }
     void Jumping() // calling as an Animation event - acc to frame
@@ -76,9 +89,7 @@ public class playerController : MonoBehaviour
     {
         float Horizontal = Input.GetAxisRaw("Horizontal");
         PlayingAnimation(Horizontal);
-        PlayerMovement(Horizontal);
-        PlayerDied();
-       
+        PlayerMovement(Horizontal);     
     }
 }
 

@@ -8,9 +8,9 @@ public class UI_Manager : MonoBehaviour
 {
     [SerializeField]
     private GameObject GameOver_Panel;
-    public int playerHealth = 5;
     [SerializeField]
     private GameObject[] hearts;
+    public Animator uiAnim;
 
     public static UI_Manager instance;
     private void Awake()
@@ -28,7 +28,7 @@ public class UI_Manager : MonoBehaviour
     void Start()
     {
         UpdatehealthOnUI();
-        GameOver_Panel.SetActive(false);
+        //GameOver_Panel.SetActive(false);
     }
 
     public void UpdatehealthOnUI()
@@ -36,7 +36,7 @@ public class UI_Manager : MonoBehaviour
 
         for (int i = 0; i < hearts.Length; i++)
         {
-            if(i< playerHealth)
+            if(i<playerController.instance.playerHealth)
             {
                 hearts[i].SetActive(true);
             }
@@ -47,28 +47,26 @@ public class UI_Manager : MonoBehaviour
         }
         
     }
-    public void HandleCollisionWithPlayer()
+    public void GameOver()
     {
-        Debug.Log("Setting Gameover to true");
-
-        GameOver_Panel.SetActive(true);
-        StartCoroutine(ResetGameCoroutine());
+        uiAnim.SetTrigger("GameOver");
+        //GameOver_Panel.SetActive(true);        
+        Time.timeScale = 0;
+        Debug.Log(" Gameover time paused");
     }
-    private IEnumerator ResetGameCoroutine()
+    
+    public void Restart()
     {
-        // Waiting for a short delay before checking for the "R" key press
-        yield return null;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+        Debug.Log("Game restared time started too");
+    }
 
-        while (true)
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                GameOver_Panel.SetActive(false);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-
-            yield return null;
-        }
+    public void MainMenu()
+    {
+        Debug.Log("MainMenu");
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 
 }

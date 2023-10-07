@@ -9,6 +9,8 @@ public class EnemyBehaviour : MonoBehaviour
     private float Speed;
     [SerializeField]
     private int enemyDamage;
+    [SerializeField]
+    private int enemyHealth;
     private Animator anim;
     private Transform Currenpoint;
     private void Start()
@@ -24,13 +26,30 @@ public class EnemyBehaviour : MonoBehaviour
         if (playerController != null)
         {
             Debug.Log("collsion with enemy");
-            UI_Manager.instance.playerHealth = UI_Manager.instance.playerHealth - enemyDamage;
+            playerController.instance.playerHealth = playerController.instance.playerHealth - enemyDamage;
+            //collision dmg with player
+            enemyHealth -= 34;
+            ThrowbackFromPlayerCollision();
             UI_Manager.instance.UpdatehealthOnUI();
-            //Destroy(this.gameObject);
+            //instead of doing it every frame in Update Checking if player is dead after colliding with our enenmy
+            playerController.instance.PlayerDied();
         }
     }
 
-    // moving player towrds the next Patrolling point
+    private void EnemyDied()
+    {
+        if(enemyHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    private void ThrowbackFromPlayerCollision()
+    {
+        Vector3 pos = transform.position;
+        pos.x += 2.25f;
+        transform.position = pos;
+    }
+    // moving player towrds the next Patrolling point CP= current point TP = To next point
     private void Patrolling(int CP, int TP)
     {
         if(Currenpoint == PatrollingPoint[CP])
@@ -65,5 +84,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Patrolling(0,1);
         Patrolling(1, 0);
+        EnemyDied();
     }
 }

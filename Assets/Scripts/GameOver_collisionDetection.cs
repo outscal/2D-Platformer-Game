@@ -9,7 +9,7 @@ public class GameOver_collisionDetection : MonoBehaviour
             {          
               if (UI_Manager.instance != null)
               {
-                UI_Manager.instance.HandleCollisionWithPlayer();
+                UI_Manager.instance.GameOver();
               }
             }
     }
