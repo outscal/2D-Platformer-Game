@@ -54,7 +54,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(Currenpoint == PatrollingPoint[CP])
         {
-            Debug.Log("Moving towards" + CP);
             // move towrds = from poistion a to position b with what speed 
             transform.position = Vector2.MoveTowards(transform.position, PatrollingPoint[CP].transform.position, Speed*Time.deltaTime);
             // distance = distance btw pointa and point b (using transform)  

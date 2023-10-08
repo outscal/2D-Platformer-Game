@@ -11,6 +11,10 @@ public class playerController : MonoBehaviour
     private ScoreManager Score;
     Rigidbody2D RB2d;
     public int playerHealth = 5;
+    [SerializeField]
+    private BoxCollider2D boxCollider2D;
+    [SerializeField]
+    private LayerMask platformLayerMask;
 
     public static playerController instance;
     private void Awake()
@@ -42,13 +46,40 @@ public class playerController : MonoBehaviour
         pos.x += Horizonatal * Speed * Time.deltaTime;
         transform.position = pos;
     }
+    private bool IsGrounded()
+    {
+        float ExtraHeightChcek = 0.1f;
+        RaycastHit2D RaycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size - new Vector3(0.25f,0f,0f), 0f, Vector2.down, ExtraHeightChcek, platformLayerMask);
+        Color Boxcolor;
+        if (RaycastHit.collider != null)
+        {
+            Boxcolor = Color.green;
+        }
+        else
+        {
+            Boxcolor = Color.red;
+        }
+
+        // drawing an BoxCast visual to see in the scene whats going on
+        Debug.DrawRay(boxCollider2D.bounds.center + new Vector3(boxCollider2D.bounds.extents.x, 0), Vector3.down * (boxCollider2D.bounds.extents.y + ExtraHeightChcek), Boxcolor);
+        Debug.DrawRay(boxCollider2D.bounds.center - new Vector3(boxCollider2D.bounds.extents.x, 0), Vector3.down * (boxCollider2D.bounds.extents.y + ExtraHeightChcek), Boxcolor);
+        Debug.DrawRay(boxCollider2D.bounds.center - new Vector3(boxCollider2D.bounds.extents.x, boxCollider2D.bounds.extents.y + ExtraHeightChcek), Vector3.right * (boxCollider2D.bounds.extents.x * 2f), Boxcolor);
+
+        //Debug.Log(RaycastHit.collider);
+
+        return RaycastHit.collider != null;
+    }
     void PlayingAnimation(float Horizonatl) {
         
         Animator.SetFloat("Speed", Mathf.Abs(Horizonatl));
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //IsGrounded() is called before checking for the jump key. C# implements "shortcutting"
+        //which means that if you have 2 AND conditions in an if statement and it fails the first one, it won't even check for the second one.
+        //If the IsGrounded() is in the second one, then it won't draw the raycast.
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
             Animator.SetTrigger("IsJumping");
+            RB2d.AddForce(new Vector2(0f, Jump_Power), ForceMode2D.Force);
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -75,10 +106,6 @@ public class playerController : MonoBehaviour
             //death anim
             UI_Manager.instance.GameOver();
         }
-    }
-    void Jumping() // calling as an Animation event - acc to frame
-    {
-        RB2d.AddForce(new Vector2(0f, Jump_Power), ForceMode2D.Force);
     }
     void StopCrouchAnim()  // calling as an Animation event - acc to frame
     {
