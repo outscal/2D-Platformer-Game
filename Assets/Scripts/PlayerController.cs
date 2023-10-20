@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D playerRb;
 
-    private float moveValue = 0;
+    private float horizontalMove = 0;
+
+    private float vertical;
 
     private bool isCrouch = false;
 
@@ -39,8 +41,11 @@ public class PlayerController : MonoBehaviour
         /*moveValue = Input.GetAxis("Horizontal");*/
 
         //input approach 2 raw Movement and time.deltatime 
-        moveValue = Input.GetAxisRaw("Horizontal");
-        if (moveValue > 0)
+        horizontalMove = Input.GetAxisRaw("Horizontal");
+
+        vertical = Input.GetAxisRaw("Vertical");
+
+        if (horizontalMove > 0)
         {
 
             //sprite flip approach1 scale 
@@ -49,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (moveValue < 0)
+        if (horizontalMove < 0)
         {
             //sprite flip approach1 scale 
             transform.localScale = new Vector3(-1, 1, 1);
@@ -57,7 +62,7 @@ public class PlayerController : MonoBehaviour
             //playerSprite_R.flipX = true;
         }
 
-        playerAnimator.SetFloat("Speed", Mathf.Abs(moveValue));
+        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         Jump();
         Crouch();
@@ -67,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isCrouch)
         {
-            Vector2 finalMoveValue = new(moveValue * speed * Time.fixedDeltaTime, playerRb.velocity.y);
+            Vector2 finalMoveValue = new(horizontalMove * speed * Time.fixedDeltaTime, playerRb.velocity.y);
 
             playerRb.velocity = finalMoveValue;
         }
@@ -76,18 +81,18 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || vertical > 0)
         {
             playerRb.velocity = Vector2.zero;
             playerRb.AddForce(jumpForce * Vector3.up, ForceMode2D.Impulse);
 
             SetBoolAnimation(ISJUMP, true);
         }
-
-        if (Input.GetKeyUp(KeyCode.Space))
+        else
         {
             SetBoolAnimation(ISJUMP, false);
         }
+
     }
 
     private void Crouch()
