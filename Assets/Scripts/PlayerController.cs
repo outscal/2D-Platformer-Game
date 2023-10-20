@@ -1,10 +1,24 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Jump Setting")]
     [SerializeField] private float speed = 0;
 
     [SerializeField] private float jumpForce = 0;
+
+    [SerializeField] private int extraJump;
+
+    private int remainedJump;
+
+    [Header("Ground Check Setting")]
+    [SerializeField] private Transform groundCheck;
+
+    [SerializeField] private LayerMask ground;
+
+    [SerializeField] private float redius;
+
 
     private SpriteRenderer playerSprite_R;
 
@@ -23,49 +37,69 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        isCrouch = false;
+        InitValues();
+
         InitComponents();
+    }
+
+    private void InitValues()
+    {
+        remainedJump = extraJump;
+
+        isCrouch = false;
     }
 
     private void InitComponents()
     {
         playerSprite_R = GetComponent<SpriteRenderer>();
+
         playerAnimator = GetComponent<Animator>();
+
         playerRb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-
-        //input approach 1 smooth movement 
-        /*moveValue = Input.GetAxis("Horizontal");*/
-
-        //input approach 2 raw Movement and time.deltatime 
         horizontalMove = Input.GetAxisRaw("Horizontal");
 
-        vertical = Input.GetAxisRaw("Vertical");
+        FaceDir();
 
+        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
+        Jump();
+
+        Crouch();
+
+        IsDead();
+    }
+
+    private void FaceDir()
+    {
         if (horizontalMove > 0)
         {
-
             //sprite flip approach1 scale 
-            transform.localScale = Vector3.one;
-            //sprite flip approach2 flip value
+            //transform.localScale = Vector3.one;
 
+            //sprite flip approach2 flip value
+            playerSprite_R.flipX = false;
         }
 
         if (horizontalMove < 0)
         {
             //sprite flip approach1 scale 
-            transform.localScale = new Vector3(-1, 1, 1);
+            //transform.localScale = new Vector3(-1, 1, 1);
+
             //sprite flip approach2 flip value
-            //playerSprite_R.flipX = true;
+            playerSprite_R.flipX = true;
         }
+    }
 
-        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
-        Jump();
-        Crouch();
+    private void IsDead()
+    {
+        if (playerRb.velocity.y < - 50)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     private void FixedUpdate()
@@ -76,32 +110,62 @@ public class PlayerController : MonoBehaviour
 
             playerRb.velocity = finalMoveValue;
         }
-       
+
+    }
+
+    private bool IsGrounded()
+    {
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, redius, ground);
+        return isGrounded;
     }
 
     private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) || vertical > 0)
         {
-            playerRb.velocity = Vector2.zero;
-            playerRb.AddForce(jumpForce * Vector3.up, ForceMode2D.Impulse);
+            Debug.Log("Space!");
+            if (IsGrounded())
+            {
+                Jump_Perform();
+            }
+            else if (!IsGrounded() && remainedJump > 0)
+            {
+                Jump_Perform();
+                remainedJump--;
+            }
 
-            SetBoolAnimation(ISJUMP, true);
         }
         else
         {
             SetBoolAnimation(ISJUMP, false);
         }
 
+        if (IsGrounded())
+        {
+            remainedJump = extraJump;
+        }
+
+        void Jump_Perform()
+        {
+            playerRb.velocity = Vector2.zero;
+            playerRb.AddForce(jumpForce * Vector3.up, ForceMode2D.Impulse);
+
+            SetBoolAnimation(ISJUMP, true);
+        }
     }
 
     private void Crouch()
     {
         if (Input.GetKey(KeyCode.LeftControl))
         {
+            if (IsGrounded())
+            {
+                playerRb.velocity = Vector2.zero;
+            }
+
             isCrouch = true;
 
-            SetBoolAnimation(ISJUMP,false);
+            SetBoolAnimation(ISJUMP, false);
             SetBoolAnimation(ISCROUCH, true);
         }
 
@@ -115,5 +179,10 @@ public class PlayerController : MonoBehaviour
     private void SetBoolAnimation(string animName, bool value)
     {
         playerAnimator.SetBool(animName, value);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(groundCheck.position, redius);
     }
 }
