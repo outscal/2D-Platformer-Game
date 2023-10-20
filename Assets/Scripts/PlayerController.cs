@@ -79,6 +79,12 @@ public class PlayerController : MonoBehaviour
         {
             //sprite flip approach1 scale 
             //transform.localScale = Vector3.one;
+<<<<<<< Updated upstream
+=======
+
+            //sprite flip approach2 flip value
+            playerSprite_R.flipX = false;
+>>>>>>> Stashed changes
 
             //sprite flip approach2 flip value
             playerSprite_R.flipX = false;
