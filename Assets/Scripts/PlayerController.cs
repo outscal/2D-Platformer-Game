@@ -207,7 +207,10 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Key"))
         {
             scoreUpdate.IncreaseScore();
-            Destroy(other.gameObject); 
+            if (other.TryGetComponent<Collactabe>(out Collactabe cm))
+            {
+                cm.PlayCollected();
+            }
         }
     }
 }
