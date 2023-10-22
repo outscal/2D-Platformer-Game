@@ -20,6 +20,6 @@ public class Collactabe : MonoBehaviour
 
     public void DestroyItSelf()
     {
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
