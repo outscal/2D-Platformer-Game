@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float redius;
 
+    [SerializeField] private ScoreUpdate scoreUpdate;
 
     private SpriteRenderer playerSprite_R;
 
@@ -79,12 +80,6 @@ public class PlayerController : MonoBehaviour
         {
             //sprite flip approach1 scale 
             //transform.localScale = Vector3.one;
-<<<<<<< Updated upstream
-=======
-
-            //sprite flip approach2 flip value
-            playerSprite_R.flipX = false;
->>>>>>> Stashed changes
 
             //sprite flip approach2 flip value
             playerSprite_R.flipX = false;
@@ -110,13 +105,17 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        PlayerRun();
+    }
+
+    private void PlayerRun()
+    {
         if (!isCrouch)
         {
             Vector2 finalMoveValue = new(horizontalMove * speed * Time.fixedDeltaTime, playerRb.velocity.y);
 
             playerRb.velocity = finalMoveValue;
         }
-
     }
 
     private bool IsGrounded()
@@ -127,25 +126,9 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || vertical > 0)
-        {
-            Debug.Log("Space!");
-            if (IsGrounded())
-            {
-                Jump_Perform();
-            }
-            else if (!IsGrounded() && remainedJump > 0)
-            {
-                Jump_Perform();
-                remainedJump--;
-            }
+        CheckIfJumpPress();
 
-        }
-        else
-        {
-            SetBoolAnimation(ISJUMP, false);
-        }
-
+        //when player touch the ground extraJump will reset;
         if (IsGrounded())
         {
             remainedJump = extraJump;
@@ -157,6 +140,28 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(jumpForce * Vector3.up, ForceMode2D.Impulse);
 
             SetBoolAnimation(ISJUMP, true);
+        }
+
+        void CheckIfJumpPress()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || vertical > 0)
+            {
+                Debug.Log("Space!");
+                if (IsGrounded())
+                {
+                    Jump_Perform();
+                }
+                else if (!IsGrounded() && remainedJump > 0)
+                {
+                    Jump_Perform();
+                    remainedJump--;
+                }
+
+            }
+            else
+            {
+                SetBoolAnimation(ISJUMP, false);
+            }
         }
     }
 
@@ -190,5 +195,19 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheck.position, redius);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IfKeyTrigger(collision);
+    }
+
+    private void IfKeyTrigger(Collider2D other)
+    {
+        if (other.CompareTag("Key"))
+        {
+            scoreUpdate.IncreaseScore();
+            Destroy(other.gameObject); 
+        }
     }
 }
