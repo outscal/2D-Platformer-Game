@@ -14,7 +14,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private Animator uiAnim;
 
-    public static UI_Manager instance;
+    private static UI_Manager instance;
+    public static UI_Manager Instance { get { return instance; } }
     private void Awake()
     {
         if (instance == null)
@@ -32,6 +33,7 @@ public class UI_Manager : MonoBehaviour
         pausedPanel.SetActive(false);
         GameOver_Panel.SetActive(false);
         levelComplete.SetActive(false);
+       
         UpdatehealthOnUI();
         //GameOver_Panel.SetActive(false);
     }
@@ -41,7 +43,7 @@ public class UI_Manager : MonoBehaviour
 
         for (int i = 0; i < hearts.Length; i++)
         {
-            if(i<playerController.instance.playerHealth)
+            if(i<playerController.Instance.playerHealth)
             {
                 hearts[i].SetActive(true);
             }
@@ -55,7 +57,7 @@ public class UI_Manager : MonoBehaviour
     public void LevelComplete()
     {
         levelComplete.SetActive(true);
-        playerController.instance.enabled = false;
+        playerController.Instance.enabled = false;
     }
     public void GameOver()
     {        
@@ -72,13 +74,15 @@ public class UI_Manager : MonoBehaviour
     }
     public void Restart()
     {
+        SoundManager.Instance.SFXSounds(SoundTypes.OnClick);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
         Debug.Log("Game restared time started too");
     }
-
+   
     public void MainMenu()
     {
+        SoundManager.Instance.SFXSounds(SoundTypes.OnClick);
         Debug.Log("MainMenu");
         SceneManager.LoadScene(0);
         Time.timeScale = 1f;
@@ -86,6 +90,7 @@ public class UI_Manager : MonoBehaviour
 
     public void Resume()
     {
+        SoundManager.Instance.SFXSounds(SoundTypes.OnClick);
         pausedPanel.SetActive(false);
         Time.timeScale = 1f;
     }

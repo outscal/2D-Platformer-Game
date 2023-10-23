@@ -48,6 +48,7 @@ public class FloatingBridge : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isPlayerOnBridge = true;
+            SoundManager.Instance.LoopingSound(SoundTypes.HoveringPad);
             player = other.transform;
         }
     }
@@ -57,7 +58,8 @@ public class FloatingBridge : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isPlayerOnBridge = false;
-            player = null;
+            SoundManager.Instance.loopinSounds.Pause();
+           player = null;
         }
     }
     private void OnDrawGizmos()

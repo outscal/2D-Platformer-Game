@@ -1,29 +1,46 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum LevelStat
+{
+    Locked, Unlocked, Completed
+}
+
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
     private int leveltoUnlock;
+    [SerializeField] private string lv1;
+
     private void Start()
     {
-        
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<playerController>() != null)
+        if(GetLevelStatus(lv1) == LevelStat.Locked)
         {
-            UI_Manager.instance.LevelComplete();       
+            SetLevelStatus(lv1, LevelStat.Unlocked);
         }
     }
+    public LevelStat GetLevelStatus(string level)
+    {
+        LevelStat levelStatus = (LevelStat)PlayerPrefs.GetInt(level, 0);
+        return levelStatus;
+    }
 
+    public void SetLevelStatus(string level, LevelStat levelStatus)
+    {
+        PlayerPrefs.SetInt(level, (int)levelStatus);
+    }
     public void ToNextLevel()
     {
-        var scene = SceneManager.GetActiveScene().buildIndex;
-        leveltoUnlock = scene + 1;
-        PlayerPrefs.SetInt("levelPlayable", leveltoUnlock);
-        SceneManager.LoadScene(leveltoUnlock);
-        Debug.Log("Level unlocked " + leveltoUnlock);
+        SoundManager.Instance.SFXSounds(SoundTypes.OnClick);
+        Scene currentscene = SceneManager.GetActiveScene();
+        SetLevelStatus(currentscene.name, LevelStat.Completed);
+
+        leveltoUnlock = currentscene.buildIndex + 1;
+        if( leveltoUnlock < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(leveltoUnlock);
+            Debug.Log("Level unlocked " + leveltoUnlock);
+        }
+        
     }
 
 }
