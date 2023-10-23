@@ -20,4 +20,9 @@ public class LevelSelector : MonoBehaviour
     {
         SceneManager.LoadScene(leveltoload);
     }
+
+    public void BackButton()
+    {
+        gameObject.SetActive(false);
+    }
 }
