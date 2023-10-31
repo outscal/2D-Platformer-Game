@@ -12,17 +12,19 @@ public class LevelSelector : MonoBehaviour
         int levelPlayable = PlayerPrefs.GetInt("levelPlayable", 1);
         for (int i = 0; i < levelButton.Length; i++)
         {
-            if(i +1> levelPlayable)
-            levelButton[i].interactable = false;
+            if (i + 1 > levelPlayable)
+                levelButton[i].interactable = false;
         }
     }
     public void LoadLevel(int leveltoload)
     {
-        SceneManager.LoadScene(leveltoload);
+        SoundManager.Instance.SFXSounds(SoundTypes.OnClick);
+        SceneManager.LoadScene(leveltoload);        
     }
 
     public void BackButton()
     {
+        SoundManager.Instance.SFXSounds(SoundTypes.OnClick);
         gameObject.SetActive(false);
     }
 }

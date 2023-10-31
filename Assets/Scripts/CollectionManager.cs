@@ -7,6 +7,7 @@ public class CollectionManager : MonoBehaviour
         playerController playerController = collision.gameObject.GetComponent<playerController>();
         if (playerController != null)
         {
+            SoundManager.Instance.SFXSounds(SoundTypes.Collectables);
             Destroy(gameObject);
             playerController.Collectable_PickedUp();
 

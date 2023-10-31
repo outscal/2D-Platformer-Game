@@ -7,9 +7,10 @@ public class GameOver_collisionDetection : MonoBehaviour
         Debug.Log("Collison detected with the gameover..");
             if (other.gameObject.CompareTag("Player"))
             {          
-              if (UI_Manager.instance != null)
+              if (UI_Manager.Instance != null)
               {
-                UI_Manager.instance.GameOver();
+                SoundManager.Instance.LowVolSFXSounds(SoundTypes.GameOver);
+                UI_Manager.Instance.GameOver();
               }
             }
     }

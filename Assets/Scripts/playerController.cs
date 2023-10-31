@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class playerController : MonoBehaviour
 {
     public Animator Animator;
@@ -16,7 +16,8 @@ public class playerController : MonoBehaviour
     [SerializeField]
     private LayerMask platformLayerMask;
 
-    public static playerController instance;
+    private static playerController instance;
+    public static playerController Instance { get { return instance; } }
     private void Awake()
     {
         if (instance == null)
@@ -65,8 +66,6 @@ public class playerController : MonoBehaviour
         Debug.DrawRay(boxCollider2D.bounds.center - new Vector3(boxCollider2D.bounds.extents.x, 0), Vector3.down * (boxCollider2D.bounds.extents.y + ExtraHeightChcek), Boxcolor);
         Debug.DrawRay(boxCollider2D.bounds.center - new Vector3(boxCollider2D.bounds.extents.x, boxCollider2D.bounds.extents.y + ExtraHeightChcek), Vector3.right * (boxCollider2D.bounds.extents.x * 2f), Boxcolor);
 
-        //Debug.Log(RaycastHit.collider);
-
         return RaycastHit.collider != null;
     }
     void PlayingAnimation(float Horizonatl) {
@@ -78,6 +77,7 @@ public class playerController : MonoBehaviour
         //If the IsGrounded() is in the second one, then it won't draw the raycast.
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
+            SoundManager.Instance.SFXSounds(SoundTypes.Jump);
             Animator.SetTrigger("IsJumping");
             RB2d.AddForce(new Vector2(0f, Jump_Power), ForceMode2D.Force);
         }
@@ -87,24 +87,50 @@ public class playerController : MonoBehaviour
         }
 
         Vector3 scale = transform.localScale;
-        if (Horizonatl < 0) // pressed A/ right arrow 
+        if (Horizonatl < 0 ) // pressed A/ right arrow 
         {
+            if (IsGrounded() && Input.GetKeyDown(KeyCode.A))
+            {
+                SoundManager.Instance.MovementSound(SoundTypes.PlayerMovement, true);
+                Debug.Log("Playing movemnt with a");
+            }
             scale.x = -1f * Mathf.Abs(scale.x);
         }
         else if (Horizonatl > 0)  // pressed D/left arrow
         {
+            if (Input.GetKeyDown(KeyCode.D) && IsGrounded())
+            {
+                SoundManager.Instance.MovementSound(SoundTypes.PlayerMovement,true);
+                Debug.Log("Playing movemnt with d");
+            }
+            
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
     }
-
+    public void ThrowbackFromEnemycollision()
+    {
+        Vector3 pos = transform.position;
+        pos.x -= 3f;
+        transform.position = pos;
+    }
+    private void stoplooping()
+    {
+        if ( Input.GetKeyUp(KeyCode.D) || !IsGrounded() || Input.GetKeyUp(KeyCode.A))
+        {
+            SoundManager.Instance.MovementSound(SoundTypes.PlayerMovement, false);
+            Debug.Log("Movement loop has gotten false");
+        }
+        
+    }
     public void PlayerDied()
     {
         if (playerHealth <= 0)
         {
             Debug.Log("Player is dead");
             //death anim
-            UI_Manager.instance.GameOver();
+            UI_Manager.Instance.GameOver();            
+            SoundManager.Instance.LowVolSFXSounds(SoundTypes.GameOver);
         }
     }
     void StopCrouchAnim()  // calling as an Animation event - acc to frame
@@ -116,7 +142,8 @@ public class playerController : MonoBehaviour
     {
         float Horizontal = Input.GetAxisRaw("Horizontal");
         PlayingAnimation(Horizontal);
-        PlayerMovement(Horizontal);     
+        PlayerMovement(Horizontal);
+        stoplooping();
     }
 }
 

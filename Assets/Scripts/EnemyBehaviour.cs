@@ -25,14 +25,15 @@ public class EnemyBehaviour : MonoBehaviour
         playerController playerController = collision.gameObject.GetComponent<playerController>();
         if (playerController != null)
         {
+            SoundManager.Instance.LowVolSFXSounds(SoundTypes.Hurt);
             Debug.Log("collsion with enemy");
-            playerController.instance.playerHealth = playerController.instance.playerHealth - enemyDamage;
+            playerController.Instance.playerHealth = playerController.Instance.playerHealth - enemyDamage;
             //collision dmg with player
             enemyHealth -= 34;
-            ThrowbackFromPlayerCollision();
-            UI_Manager.instance.UpdatehealthOnUI();
+            playerController.Instance.ThrowbackFromEnemycollision();
+            UI_Manager.Instance.UpdatehealthOnUI();
             //instead of doing it every frame in Update Checking if player is dead after colliding with our enenmy
-            playerController.instance.PlayerDied();
+            playerController.Instance.PlayerDied();
         }
     }
 
@@ -40,6 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(enemyHealth <= 0)
         {
+            SoundManager.Instance.LowVolSFXSounds(SoundTypes.EnemyDeath);
             Destroy(this.gameObject);
         }
     }
