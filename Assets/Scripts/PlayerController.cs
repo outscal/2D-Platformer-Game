@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     Vector2 scale;
     private float jumpSpeed;
 
-    private void Start() {
+    private void Start()
+    {
         playerAnim = GetComponent<Animator>();
     }
 
@@ -20,10 +21,10 @@ public class PlayerController : MonoBehaviour
 
         playerAnim.SetFloat("Speed", speed);
         Vector2 scale = transform.localScale;
-        if(speed < 0)
+        if (speed < 0)
         {
             playerAnim.SetFloat("Speed", Mathf.Abs(speed));
-            scale.x = -1f * scale.x;
+            scale.x = -1f * Mathf.Abs( scale.x );
         }
         else
         {
@@ -31,16 +32,25 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             playerAnim.SetBool("canCrouch", true);
         }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            playerAnim.SetBool("canCrouch", false);
+        }
+
 
         jumpSpeed = Input.GetAxisRaw("Vertical");
 
-        if(jumpSpeed>0)
+        if (jumpSpeed > 0)
         {
             playerAnim.SetBool("canJump", true);
+        }
+        else
+        {
+            playerAnim.SetBool("canJump", false);
         }
 
     }
