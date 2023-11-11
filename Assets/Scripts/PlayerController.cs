@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRb;
     private float horizontalSpeed;
     private float verticalSpeed;
+    private bool isGrounded;
 
     private void Start()
     {
@@ -27,6 +28,20 @@ public class PlayerController : MonoBehaviour
 
         PlayerAnimation();
         PlayerMovement();
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+        if(other.gameObject.tag == "Platform")
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        if(other.gameObject.tag == "Platform")
+        {
+            isGrounded = false;
+        }
     }
 
     void PlayerAnimation()
@@ -54,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (verticalSpeed > 0)
+        if (verticalSpeed > 0 && isGrounded)
         {
             playerAnim.SetBool("canJump", true);
         }
@@ -73,7 +88,7 @@ public class PlayerController : MonoBehaviour
             transform.position = playerPosition;
         }
 
-        if(verticalSpeed > 0)
+        if(verticalSpeed > 0 && isGrounded)
         {
             playerRb.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Force);
         }
