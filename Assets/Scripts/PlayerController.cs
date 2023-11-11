@@ -1,30 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float playerSpeed;
+    [SerializeField] private float jumpSpeed;
+
     private Animator playerAnim;
-    private float speed;
-    Vector2 scale;
-    private float jumpSpeed;
+    private Rigidbody2D playerRb;
+    private float horizontalSpeed;
+    private float verticalSpeed;
 
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
+        playerRb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        speed = Input.GetAxisRaw("Horizontal");
+        horizontalSpeed = Input.GetAxisRaw("Horizontal");
+        verticalSpeed = Input.GetAxisRaw("Jump");
 
-        playerAnim.SetFloat("Speed", speed);
+        PlayerAnimation();
+        PlayerMovement();
+    }
+
+    void PlayerAnimation()
+    {
+        playerAnim.SetFloat("Speed", horizontalSpeed);
         Vector2 scale = transform.localScale;
-        if (speed < 0)
+        if (horizontalSpeed < 0)
         {
-            playerAnim.SetFloat("Speed", Mathf.Abs(speed));
-            scale.x = -1f * Mathf.Abs( scale.x );
+            playerAnim.SetFloat("Speed", Mathf.Abs(horizontalSpeed));
+            scale.x = -1f * Mathf.Abs(scale.x);
         }
         else
         {
@@ -42,9 +54,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        jumpSpeed = Input.GetAxisRaw("Vertical");
-
-        if (jumpSpeed > 0)
+        if (verticalSpeed > 0)
         {
             playerAnim.SetBool("canJump", true);
         }
@@ -52,6 +62,20 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("canJump", false);
         }
+    }
 
+    void PlayerMovement()
+    {
+        Vector2 playerPosition = transform.position;
+        if(Mathf.Abs(horizontalSpeed) > 0)
+        {
+            playerPosition.x += horizontalSpeed * playerSpeed * Time.deltaTime;
+            transform.position = playerPosition;
+        }
+
+        if(verticalSpeed > 0)
+        {
+            playerRb.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Force);
+        }
     }
 }
