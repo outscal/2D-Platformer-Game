@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float playerSpeed;
     [SerializeField] private float jumpSpeed;
+    [SerializeField] private string nextScene;
 
     private Animator playerAnim;
     private Rigidbody2D playerRb;
@@ -44,7 +45,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerAnimation()
+    private void OnColliderEnter2D(Collider2D other)
+    {
+        if(other.tag == "LevelOver")
+        {
+            SceneManager.LoadScene(nextScene);
+        }
+    }
+
+    private void PlayerAnimation()
     {
         playerAnim.SetFloat("Speed", horizontalSpeed);
         Vector2 scale = transform.localScale;
@@ -79,7 +88,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerMovement()
+    private void PlayerMovement()
     {
         Vector2 playerPosition = transform.position;
         if(Mathf.Abs(horizontalSpeed) > 0)
