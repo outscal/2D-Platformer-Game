@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
         if (other.tag == "GameOver")
         {
-            Debug.Log("go");
             SceneManager.LoadScene(mainScene);
         }
     }
