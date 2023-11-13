@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnColliderEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "LevelOver")
         {
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.tag == "GameOver")
         {
+            Debug.Log("go");
             SceneManager.LoadScene(mainScene);
         }
     }
