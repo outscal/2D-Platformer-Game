@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameUI gameUI;
     [SerializeField] private float playerSpeed;
     [SerializeField] private float jumpSpeed;
     [SerializeField] private string nextScene;
@@ -109,5 +108,10 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Force);
         }
+    }
+
+    public void UpdateScore()
+    {
+        gameUI.UpdateScore(10);
     }
 }
