@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed;
     [SerializeField] private float jumpSpeed;
     [SerializeField] private string nextScene;
+    [SerializeField] private string mainScene;
 
     private Animator playerAnim;
     private Rigidbody2D playerRb;
@@ -31,15 +32,17 @@ public class PlayerController : MonoBehaviour
         PlayerMovement();
     }
 
-    private void OnCollisionStay2D(Collision2D other) {
-        if(other.gameObject.tag == "Platform")
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Platform")
         {
             isGrounded = true;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other) {
-        if(other.gameObject.tag == "Platform")
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Platform")
         {
             isGrounded = false;
         }
@@ -47,9 +50,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnColliderEnter2D(Collider2D other)
     {
-        if(other.tag == "LevelOver")
+        if (other.tag == "LevelOver")
         {
             SceneManager.LoadScene(nextScene);
+        }
+
+        if (other.tag == "GameOver")
+        {
+            SceneManager.LoadScene(mainScene);
         }
     }
 
@@ -91,13 +99,13 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement()
     {
         Vector2 playerPosition = transform.position;
-        if(Mathf.Abs(horizontalSpeed) > 0)
+        if (Mathf.Abs(horizontalSpeed) > 0)
         {
             playerPosition.x += horizontalSpeed * playerSpeed * Time.deltaTime;
             transform.position = playerPosition;
         }
 
-        if(verticalSpeed > 0 && isGrounded)
+        if (verticalSpeed > 0 && isGrounded)
         {
             playerRb.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Force);
         }
