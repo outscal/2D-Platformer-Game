@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private Transform leftPosition;
-    [SerializeField] private Transform rightPosition;
+    [SerializeField] private Transform position1;
+    [SerializeField] private Transform position2;
     [SerializeField] private float enemySpeed;
 
-    private bool isLeft = true;
+    private bool isPos1 = true;
     private Vector2 enemyScale;
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -18,8 +18,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        transform.position = leftPosition.position;
-        enemyScale = transform.localScale;
+        transform.position = position1.position;
         GetComponent<Animator>().SetBool("IsWalk", true);
     }
 
@@ -30,25 +29,25 @@ public class EnemyController : MonoBehaviour
 
     void ToFroMotion()
     {
-        if (transform.position == rightPosition.position)
+        if (transform.position == position2.position)
         {
-            isLeft = false;
+            isPos1 = false;
         }
 
-        if (transform.position == leftPosition.position)
+        if (transform.position == position1.position)
         {
-            isLeft = true;
+            isPos1 = true;
         }
 
-        if (isLeft == true)
+        if (isPos1 == true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, rightPosition.position, enemySpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, position2.position, enemySpeed * Time.deltaTime);
             enemyScale.x = Mathf.Abs(enemyScale.x);
             transform.localScale = enemyScale;
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, leftPosition.position, enemySpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, position1.position, enemySpeed * Time.deltaTime);
             enemyScale.x = -1f * Mathf.Abs(enemyScale.x);
             transform.localScale = enemyScale;
         }
