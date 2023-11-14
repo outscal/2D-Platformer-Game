@@ -6,9 +6,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform rightPosition;
     [SerializeField] private float enemySpeed;
 
-    private bool isWalk = true;
     private bool isLeft = true;
     private Vector2 enemyScale;
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.collider.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerController>().ReduceHealth();
+        }
+    }
 
     void Start()
     {
@@ -19,21 +25,21 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if(transform.position == rightPosition.position)
-        {
-            isLeft = false;
-        }
-
-        if(transform.position == leftPosition.position)
-        {
-            isLeft = true;
-        }
-
         ToFroMotion();
     }
 
     void ToFroMotion()
     {
+        if (transform.position == rightPosition.position)
+        {
+            isLeft = false;
+        }
+
+        if (transform.position == leftPosition.position)
+        {
+            isLeft = true;
+        }
+
         if (isLeft == true)
         {
             transform.position = Vector2.MoveTowards(transform.position, rightPosition.position, enemySpeed * Time.deltaTime);

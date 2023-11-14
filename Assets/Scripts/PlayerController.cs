@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalSpeed;
     private float verticalSpeed;
     private bool isGrounded;
-
+    private int health = 3;
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
@@ -56,8 +56,13 @@ public class PlayerController : MonoBehaviour
 
         if (other.tag == "GameOver")
         {
-            SceneManager.LoadScene(mainScene);
+            ReloadScene();
         }
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(mainScene);
     }
 
     private void PlayerAnimation()
@@ -114,4 +119,20 @@ public class PlayerController : MonoBehaviour
     {
         gameUI.UpdateScore(10);
     }
+
+    public void ReduceHealth()
+    {
+        health--;
+
+        gameUI.UpdateHealth(health);
+
+        if (health == 0)
+        {
+            playerAnim.SetTrigger("isDead");
+            Invoke("ReloadScene", 1);
+            return;
+        }
+    }
+
+
 }
