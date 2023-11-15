@@ -9,25 +9,26 @@ public class EnemyController : MonoBehaviour
     private bool isPos1 = true;
     private Vector2 enemyScale;
 
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.collider.tag == "Player")
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>() != null)
         {
             other.gameObject.GetComponent<PlayerController>().ReduceHealth();
         }
     }
 
-    void Start()
+    private void Start()
     {
         transform.position = position1.position;
         GetComponent<Animator>().SetBool("IsWalk", true);
     }
 
-    void Update()
+    private void Update()
     {
         ToFroMotion();
     }
 
-    void ToFroMotion()
+    private void ToFroMotion()
     {
         if (transform.position == position2.position)
         {

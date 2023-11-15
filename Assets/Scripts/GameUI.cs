@@ -9,7 +9,7 @@ public class GameUI : MonoBehaviour
     private int score = 0;
     private SpriteRenderer[] hearts;
 
-    void Start()
+    private void Start()
     {
         DisplayScore();
         hearts = healthBar.GetComponentsInChildren<SpriteRenderer>();

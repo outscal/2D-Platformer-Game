@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class KeyController : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController;
-
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "Player")
+        if(other.GetComponent<PlayerController>() != null)
         {
-            playerController.UpdateScore();
-            gameObject.SetActive(false);
+            other.GetComponent<PlayerController>().UpdateScore();
+            Destroy(gameObject);
         }
     }
 }
