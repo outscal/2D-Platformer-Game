@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed;
     [SerializeField] private float jumpSpeed;
     [SerializeField] private string nextScene;
-    [SerializeField] private string mainScene;
 
     private Animator playerAnim;
     private Rigidbody2D playerRb;
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     private void ReloadScene()
     {
-        SceneManager.LoadScene(mainScene);
+        SceneController.instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void PlayerAnimation()

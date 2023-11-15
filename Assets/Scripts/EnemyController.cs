@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     {
         transform.position = position1.position;
         GetComponent<Animator>().SetBool("IsWalk", true);
+        enemyScale = transform.localScale;
     }
 
     private void Update()
