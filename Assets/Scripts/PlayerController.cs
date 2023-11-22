@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     public float standingHeight = 1.0f;
     public float crouchHeight = 0.5f;
     public float standingOffset = 0.93f;
@@ -12,6 +14,13 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public float speed;
     public float Jump;
+
+    public void PickUpKey()
+    {
+        Debug.Log("Key Picked Up!!");
+        scoreController.IncreaseScore(20);
+    }
+
     private Rigidbody2D rb;
     public float groundCheckRadius = 0.2f;
     private bool isGrounded;
