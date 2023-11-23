@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,23 @@ public class PlayerController : MonoBehaviour
     public float crouchOffset = 0.5f;
     private BoxCollider2D playerCollider;
     public Animator animator;
+
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed by enemy");
+        animator.SetBool("Die", true);
+        float delay = 2f;
+        Invoke("restartLevel", delay);
+
+
+    }
+
+    public void restartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Level Restarted");
+    }
+
     public float speed;
     public float Jump;
 
@@ -114,6 +132,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Jump", false);
             }
         }
+
+
     }
 }
  
