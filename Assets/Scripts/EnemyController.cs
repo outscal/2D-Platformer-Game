@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.takeDamage(1);
+
         }
     }
 
@@ -61,4 +62,6 @@ public class EnemyController : MonoBehaviour
         localScale.x *= -1;
         transform.localScale = localScale;
     }
+
+    
 }
