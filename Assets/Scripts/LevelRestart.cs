@@ -11,6 +11,7 @@ public class LevelRestart : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             Debug.Log("Level Restarted");
+            HealthManager.Health = 3;
 
         }
     }

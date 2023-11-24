@@ -13,14 +13,70 @@ public class PlayerController : MonoBehaviour
     public float crouchOffset = 0.5f;
     private BoxCollider2D playerCollider;
     public Animator animator;
+    public float MaxHeart = 3;
+    public float currentHearts;
+    private bool isHurt = false;
+
 
     public void KillPlayer()
     {
         Debug.Log("Player killed by enemy");
         animator.SetBool("Die", true);
-        float delay = 2f;
+        float delay = 1f;
         Invoke("restartLevel", delay);
 
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<EnemyController>() != null && !isHurt)
+        {
+
+            Debug.Log("Player hit by enemy!");
+       
+            animator.SetBool("IsHurt", true);
+            isHurt = true;
+
+
+            // Start a coroutine to reset the hurt state after a delay (e.g., 1 second).
+            StartCoroutine(ResetHurtState());
+
+            HealthManager.Health--;
+           
+
+        }
+    }
+
+    void LoseHeart()
+    {
+        currentHearts--;
+
+        if (currentHearts <= 0)
+        {
+            // Player has no more hearts, trigger game over.
+            Debug.Log("Player lost all hearts - Game Over!");
+
+        }
+    }
+
+        private IEnumerator ResetHurtState()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        // Reset hurt animation and state.
+        animator.SetBool("IsHurt", false);
+        isHurt = false;
+    }
+
+    public void takeDamage(int damage)
+    {
+        currentHearts -= damage;
+        
+        if (currentHearts <= 0)
+        {
+            KillPlayer();
+        }
 
     }
 
@@ -28,6 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Level Restarted");
+        HealthManager.Health = 3;
     }
 
     public float speed;
@@ -40,7 +97,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private Rigidbody2D rb;
-    public float groundCheckRadius = 0.2f;
+    public float groundCheckRadius = 0.4f;
     private bool isGrounded;
     public LayerMask groundLayer;
     public Transform groundCheck;
@@ -54,6 +111,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerCollider = GetComponent<BoxCollider2D>();
+        currentHearts = MaxHeart;
+        animator = GetComponent<Animator>();
+
+
 
     }
 
@@ -71,8 +132,6 @@ public class PlayerController : MonoBehaviour
         PlayerJumpAnimation();
 
         PlayerMovementAnimation(horizontal);
-
-
 
 
 

@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     public GameObject PointA;
     public GameObject PointB;
     private Rigidbody2D rb;
-    private Animator anim;
+    public Animator anim;
     private Transform currentPoint;
     public float speed;
 
@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentPoint = PointB.transform;
-        anim.SetBool("Iswalking", true);
+        anim.SetBool("IsRunning", true);
     }
 
     private void Update()
@@ -38,20 +38,19 @@ public class EnemyController : MonoBehaviour
             flip();
             currentPoint = PointA.transform;
         }
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == PointA.transform)
+        else if(Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == PointA.transform)
         {
             flip();
             currentPoint = PointB.transform;
         }
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer();
+            playerController.takeDamage(1);
         }
     }
 
