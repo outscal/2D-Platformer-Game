@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameOverController gameOverController;
     public ScoreController scoreController;
     public float standingHeight = 1.0f;
     public float crouchHeight = 0.5f;
@@ -18,12 +19,14 @@ public class PlayerController : MonoBehaviour
     private bool isHurt = false;
 
 
+
     public void KillPlayer()
     {
         Debug.Log("Player killed by enemy");
         animator.SetBool("Die", true);
-        float delay = 1f;
-        Invoke("restartLevel", delay);
+        gameOverController.PlayerDied();
+        this.enabled = false;
+    
 
 
     }
@@ -80,12 +83,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void restartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("Level Restarted");
-        HealthManager.Health = 3;
-    }
+ 
 
     public float speed;
     public float Jump;
