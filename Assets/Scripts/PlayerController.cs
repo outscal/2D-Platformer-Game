@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+{ 
+[SerializeField] Animator animator;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+private void Update()
+    { 
+float sp = Input.GetAxisRaw("Horizontal");
+animator.SetFloat("Speed", Mathf.Abs(sp));
+
+Vector3 scale = transform.localScale;
+
+if(sp<0) {
+            scale.x = -1f * Mathf.Abs(scale.x);
+} else if (sp > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+transform.localScale = scale;
+}
 }
