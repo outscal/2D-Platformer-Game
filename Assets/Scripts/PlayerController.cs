@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float horizontalInput;
     [SerializeField] float verticalInput;
 
+    private Vector2 originalColliderCenter;
+    private Vector2 originalColliderSize;
+
+    private BoxCollider2D playerCollider;
 
     bool flip;
     bool _isCrouching;
@@ -16,6 +20,11 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        playerCollider = GetComponent<BoxCollider2D>();
+
+        originalColliderCenter = playerCollider.offset; //for 3d this property will be coliderObject.center
+        originalColliderSize = playerCollider.size;
+
         flip = false;
         _isCrouching = false;
         _isJumping = false;
@@ -68,6 +77,9 @@ public class PlayerController : MonoBehaviour
         {
             _isCrouching = false;
             animator.SetBool("IsCrouching", false);
+            // Restore the original collider size and position when standing up
+            playerCollider.offset = originalColliderCenter;
+            playerCollider.size = originalColliderSize;
         }
     }
 
@@ -86,6 +98,10 @@ public class PlayerController : MonoBehaviour
         if (!_isCrouching) {
             _isCrouching = true;
             animator.SetBool("IsCrouching", true);
+
+            //changing size ad position of player's colider
+            playerCollider.offset = new Vector2(playerCollider.offset.x, playerCollider.offset.y/2f);
+            playerCollider.size = new Vector2(playerCollider.size.x, playerCollider.size.y / 2f);
         }
     }
 }
