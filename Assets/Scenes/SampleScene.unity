@@ -483,9 +483,9 @@ GameObject:
   - component: {fileID: 1376568579}
   - component: {fileID: 1376568581}
   - component: {fileID: 1376568580}
-  m_Layer: 0
-  m_Name: Env
-  m_TagString: Untagged
+  m_Layer: 10
+  m_Name: Ground
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -570,7 +570,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009117663, y: 0.21426642}
+  m_Offset: {x: 0, y: 0.22}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1104,6 +1104,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8480934435922548621, guid: cdabca5fe895b984fa11fe683ae540d7,
         type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8480934435922548621, guid: cdabca5fe895b984fa11fe683ae540d7,
+        type: 3}
       propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
@@ -1126,7 +1131,7 @@ PrefabInstance:
     - target: {fileID: 8480934436712519433, guid: cdabca5fe895b984fa11fe683ae540d7,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8480934436712519433, guid: cdabca5fe895b984fa11fe683ae540d7,
         type: 3}
@@ -1151,7 +1156,7 @@ PrefabInstance:
     - target: {fileID: 8480934436712519434, guid: cdabca5fe895b984fa11fe683ae540d7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 8480934436712519434, guid: cdabca5fe895b984fa11fe683ae540d7,
         type: 3}
@@ -1203,6 +1208,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8480934436712519668, guid: cdabca5fe895b984fa11fe683ae540d7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8480934436712519668, guid: cdabca5fe895b984fa11fe683ae540d7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdabca5fe895b984fa11fe683ae540d7, type: 3}
 --- !u!1 &8480934435922548620 stripped
@@ -1224,7 +1239,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.95}
+  m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.42, y: 0.1}
@@ -1235,7 +1250,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.73, y: 2.43}
+  m_Size: {x: 0.73, y: 2.04}
   m_EdgeRadius: 0
 --- !u!114 &8480934435922548630
 MonoBehaviour:
@@ -1252,3 +1267,4 @@ MonoBehaviour:
   horizontalInput: 0
   verticalInput: 0
   speed: 4
+  _isOnGround: 0

@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float horizontalInput;
     [SerializeField] float verticalInput;
     [SerializeField] float speed;
+    //[SerializeField] GameObject ground;
 
     private Vector2 originalColliderCenter;
     private Vector2 originalColliderSize;
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     bool flip;
     bool _isCrouching;
-    bool _isJumping;
+    [SerializeField] private bool _isOnGround;
 
     #endregion
     private void Start()
@@ -30,7 +31,12 @@ public class PlayerController : MonoBehaviour
 
         flip = false;
         _isCrouching = false;
-        _isJumping = false;
+        _isOnGround = false;
+    }
+
+    void FixedUpdate()
+    {
+        groundCheck();
     }
 
     void Update()
@@ -40,22 +46,52 @@ public class PlayerController : MonoBehaviour
         crouch();   
     }
 
-    #region Jump function
-    void jump()
+    #region GroundCheck
+    /*void groundCheck()
     {
-        if (verticalInput > 0)
+        if (transform.position.y - ground.transform.position.y < 2)
         {
-            if (!_isJumping)
-            {
-                _isJumping = true;
-                animator.SetTrigger("Jump");
-            }
+            _isOnGround = true;
         }
         else
         {
-            _isJumping = false;
+            _isOnGround = false;
         }
-       
+        Debug.Log(transform.position.y - ground.transform.position.y);
+    }*/
+    void groundCheck()
+    {
+        float raycastDistance = 0.1f;
+
+        //LayerMask groundLayerMask = LayerMask.GetMask("Ground");
+        int bitMAsk = 1 <<10;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, bitMAsk);
+
+
+      /*  if (hit.collider != null)
+        {
+            Debug.Log("Hit the ground: " + hit.collider.name);
+        }
+        else
+        {
+            Debug.Log("Not on the ground");
+        }*/
+
+        _isOnGround = hit.collider != null;
+    }
+    #endregion
+
+    #region Jump function
+    void jump()
+    {
+        if (verticalInput > 0 && _isOnGround)
+        {
+            animator.SetTrigger("Jump");
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(rb.velocity.x, 5);
+        }
     }
     #endregion
 
