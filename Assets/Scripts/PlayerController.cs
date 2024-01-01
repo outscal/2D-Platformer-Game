@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Variables
     private Animator animator;
     [SerializeField] float horizontalInput;
     [SerializeField] float verticalInput;
+    [SerializeField] float speed;
 
     private Vector2 originalColliderCenter;
     private Vector2 originalColliderSize;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     bool _isCrouching;
     bool _isJumping;
 
+    #endregion
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -30,50 +33,49 @@ public class PlayerController : MonoBehaviour
         _isJumping = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-        animator.SetBool("IsRunning", false);
+        movementFunc();
+        jump();
+        crouch();   
+    }
 
-
-        if (horizontalInput != 0)
-        {
-            animator.SetBool("IsRunning", true);
-        }
-        if (horizontalInput < 0)
-        {
-            flip = true;
-        }
-        else if (horizontalInput > 0)
-        {
-            flip = false;
-        }
-
-       /* if (Mathf.Approximately(horizontalInput, 0f))
-        {
-            flip = false;
-        }*/
-
-        GetComponent<SpriteRenderer>().flipX = flip;
-
-
+    #region Jump function
+    void jump()
+    {
         if (verticalInput > 0)
         {
-            jump();
+            if (!_isJumping)
+            {
+                _isJumping = true;
+                animator.SetTrigger("Jump");
+            }
         }
         else
         {
-            _isJumping= false;
+            _isJumping = false;
         }
+       
+    }
+    #endregion
 
-
+    #region Crouch Function
+    void crouch()
+    {
+        verticalInput = Input.GetAxis("Vertical");
         if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
-            crouch();
+            if (!_isCrouching)
+            {
+                _isCrouching = true;
+                animator.SetBool("IsCrouching", true);
+
+                //changing size ad position of player's colider
+                playerCollider.offset = new Vector2(playerCollider.offset.x, playerCollider.offset.y / 2f);
+                playerCollider.size = new Vector2(playerCollider.size.x, playerCollider.size.y / 2f);
+            }
         }
-        else 
+        else
         {
             _isCrouching = false;
             animator.SetBool("IsCrouching", false);
@@ -83,25 +85,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #endregion
 
-    void jump()
+    #region Movement Fuction
+    void movementFunc()
     {
-        if (!_isJumping)
+        horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput != 0)
         {
-            _isJumping = true;
-            animator.SetTrigger("Jump");
+            animator.SetBool("IsRunning", true);
+
+            if (horizontalInput < 0)
+            {
+                flip = true;
+            }
+            else if (horizontalInput > 0)
+            {
+                flip = false;
+            }
+
+            /* if (Mathf.Approximately(horizontalInput, 0f))
+             {
+                 flip = false;
+             }*/
+
+            GetComponent<SpriteRenderer>().flipX = flip;
+
+
+            Vector3 movement = transform.position;
+            movement.x += speed * horizontalInput * Time.deltaTime;
+            transform.position = movement;
+        }
+        else
+        {
+            animator.SetBool("IsRunning", false);
         }
     }
-
-    void crouch()
-    {
-        if (!_isCrouching) {
-            _isCrouching = true;
-            animator.SetBool("IsCrouching", true);
-
-            //changing size ad position of player's colider
-            playerCollider.offset = new Vector2(playerCollider.offset.x, playerCollider.offset.y/2f);
-            playerCollider.size = new Vector2(playerCollider.size.x, playerCollider.size.y / 2f);
-        }
-    }
+    #endregion
 }
