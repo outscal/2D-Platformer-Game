@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,5 +17,21 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+         float speedV = Input.GetAxisRaw("Vertical");
+         if(Input.GetKeyDown(KeyCode.UpArrow)){
+           animator.SetBool("jump",true);
+         }else if(Input.GetKeyUp(KeyCode.UpArrow)){
+            animator.SetBool("jump",false);
+         }
+          
+         if(Input.GetKeyDown(KeyCode.RightControl)){
+            animator.SetBool("crouch",true);
+         }else if(Input.GetKeyUp(KeyCode.RightControl)){
+            animator.SetBool("crouch", false);
+         }
+        
+       
+        
     }
+    
 }
