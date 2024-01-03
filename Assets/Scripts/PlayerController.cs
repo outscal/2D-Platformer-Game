@@ -9,96 +9,84 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float horizontalInput;
     [SerializeField] float verticalInput;
     [SerializeField] float speed;
-    //[SerializeField] GameObject ground;
+    [SerializeField] int jumpForce;
 
     private Vector2 originalColliderCenter;
     private Vector2 originalColliderSize;
 
+    private Rigidbody2D rb;
     private BoxCollider2D playerCollider;
 
     bool flip;
     bool _isCrouching;
     [SerializeField] private bool _isOnGround;
+    [SerializeField] private bool _isCelingPresent;
+ 
 
-    #endregion
-    private void Start()
+    private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
-
-        originalColliderCenter = playerCollider.offset; //for 3d this property will be coliderObject.center
-        originalColliderSize = playerCollider.size;
 
         flip = false;
         _isCrouching = false;
         _isOnGround = false;
     }
+    #endregion
+    private void Start()
+    {
+        originalColliderCenter = playerCollider.offset; //for 3d this property will be coliderObject.center
+        originalColliderSize = playerCollider.size;  
+    }
 
     void FixedUpdate()
     {
-        groundCheck();
+        GroundAndCelingCheck();
     }
 
     void Update()
     {
-        movementFunc();
-        jump();
-        crouch();   
+        MovementFunc();
+        Jump();
+        Crouch();   
     }
 
-    #region GroundCheck
-    /*void groundCheck()
+    #region Ground and Celing Check
+    void GroundAndCelingCheck()
     {
-        if (transform.position.y - ground.transform.position.y < 2)
-        {
-            _isOnGround = true;
-        }
-        else
-        {
-            _isOnGround = false;
-        }
-        Debug.Log(transform.position.y - ground.transform.position.y);
-    }*/
-    void groundCheck()
-    {
-        float raycastDistance = 0.1f;
+        float raycastGroundDistance = 0.1f;
+        float raycastCelingDistance = 2f;
+        //int groundLayerMask = LayerMask.GetMask("Ground");
+        int bitMask = 1 <<10;
 
-        //LayerMask groundLayerMask = LayerMask.GetMask("Ground");
-        int bitMAsk = 1 <<10;
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down, raycastGroundDistance, bitMask);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, bitMAsk);
+        RaycastHit2D celingHit = Physics2D.Raycast(transform.position, Vector2.up, raycastCelingDistance, bitMask);
 
-
-      /*  if (hit.collider != null)
-        {
-            Debug.Log("Hit the ground: " + hit.collider.name);
-        }
-        else
-        {
-            Debug.Log("Not on the ground");
-        }*/
-
-        _isOnGround = hit.collider != null;
+        _isOnGround = groundHit.collider != null;
+        _isCelingPresent = celingHit.collider != null;
     }
     #endregion
 
     #region Jump function
-    void jump()
+    void Jump()
     {
-        if (verticalInput > 0 && _isOnGround)
+        verticalInput = Input.GetAxis("Vertical");
+        if (verticalInput > 0 && _isOnGround && !_isCelingPresent)
         {
             animator.SetTrigger("Jump");
 
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x, 5);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
     #endregion
 
     #region Crouch Function
-    void crouch()
+    void Crouch()
     {
-        verticalInput = Input.GetAxis("Vertical");
         if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
             if (!_isCrouching)
@@ -110,6 +98,10 @@ public class PlayerController : MonoBehaviour
                 playerCollider.offset = new Vector2(playerCollider.offset.x, playerCollider.offset.y / 2f);
                 playerCollider.size = new Vector2(playerCollider.size.x, playerCollider.size.y / 2f);
             }
+        }
+        else if (_isCrouching && _isCelingPresent)
+        {
+            animator.SetBool("IsCrouching", true);
         }
         else
         {
@@ -124,7 +116,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Movement Fuction
-    void movementFunc()
+    void MovementFunc()
     {
         horizontalInput = Input.GetAxis("Horizontal");
         if (horizontalInput != 0)
