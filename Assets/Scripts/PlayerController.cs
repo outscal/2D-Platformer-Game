@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 [SerializeField] private float Speed = 0f;
 [SerializeField] private float jump = 0f;
 private Rigidbody2D rb;
+    private bool isGrounded;
 
     void Awake()
     {
@@ -44,9 +45,27 @@ private Rigidbody2D rb;
         transform.position = position;
 
         //for jump
-        if(vert >0)
+        if(vert>0 && isGrounded == true)
         {
             rb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("gorund");
+            isGrounded = true;
+        }
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("gorund no");
+            isGrounded = false;
         }
     }
 
