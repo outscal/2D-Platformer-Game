@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float verticalInput;
     [SerializeField] float speed;
     [SerializeField] int jumpForce;
-   // [SerializeField] float crouchSpeed;
+    [SerializeField] PlayerScoreManager scoreManager;
+    // [SerializeField] float crouchSpeed;
+    //[SerializeField] int score = 0;
+    //[SerializeField] TextMeshProUGUI scoreText;
 
     private Rigidbody2D rb;
     private BoxCollider2D playerBoxCollider;
@@ -42,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
         originalColliderCenter = playerBoxCollider.offset; //for 3d this property will be coliderObject.center
         originalColliderSize = playerBoxCollider.size;
+
+       
 
     }
 
@@ -155,5 +161,15 @@ public class PlayerController : MonoBehaviour
             transform.position = movement;
         }
     }
+    #endregion
+
+    #region Collectables and Score
+    public void PickUpCollectables(int points)
+    {
+        scoreManager.UpdateScore(points);
+        //score += points;
+        //scoreText.text = "Score: " + score;
+    }
+
     #endregion
 }
