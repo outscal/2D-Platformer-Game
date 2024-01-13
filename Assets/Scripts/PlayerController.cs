@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 [SerializeField] private float Speed = 0f;
 [SerializeField] private float jump = 0f;
 private Rigidbody2D rb;
-    private bool isGrounded;
+private bool isGrounded;
+[SerializeField] private ScoreManager scoreManager;
 
     void Awake()
     {
@@ -22,8 +23,12 @@ private Rigidbody2D rb;
         float vert = Input.GetAxisRaw("Vertical");
         float horiz = Input.GetAxisRaw("Horizontal");
 
-        PlayerMove(horiz, vert);
-        PlayerMoveAnim(horiz, vert);
+        if(animator.GetBool("Crouch") == false)
+        {
+            PlayerMove(horiz, vert);
+            PlayerMoveAnim(horiz, vert);
+        }
+        
 
         //for crouch
         if (Input.GetKey(KeyCode.LeftControl))
@@ -50,6 +55,11 @@ private Rigidbody2D rb;
             rb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
 
         }
+    }
+    public void KeyPickUp()
+    {
+        Debug.Log("Key Picked Up!");
+        scoreManager.setScore(10);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
