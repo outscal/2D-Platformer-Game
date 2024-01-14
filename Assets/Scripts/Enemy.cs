@@ -29,8 +29,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!playerDied)
-        {
+
             if(PointToGoTo == pointB.transform)
             {
                 rb.velocity = new Vector2(speed, 0);
@@ -42,9 +41,6 @@ public class Enemy : MonoBehaviour
 
             if (switchUP && PointToGoTo == pointB.transform)
             {
-
-                //StartCoroutine(WaitAtEdge());
-                //Debug.Log("Flipped towards B");
                 flip();
                 switchUP = false;
                 PointToGoTo = pointA.transform;
@@ -55,16 +51,11 @@ public class Enemy : MonoBehaviour
             if (switchUP && PointToGoTo == pointA.transform)
             {
 
-                //StartCoroutine(WaitAtEdge());
-                //Debug.Log("Flipped towards A");
                 flip();
                 switchUP = false;
                 PointToGoTo = pointB.transform;
                 Debug.Log("Point to go to swithced to B");
             }
-
-
-        }
         
     }
 
@@ -75,23 +66,13 @@ public class Enemy : MonoBehaviour
         transform.localScale = localscale;
     }
 
-    //IEnumerator WaitAtEdge()
-    //{
-    //    Debug.Log("Waiting at edge");
-    //    anim.SetBool("Walking", false);
-    //    yield return new WaitForSeconds(2);
-    //    anim.SetBool("Walking", true);
-    //}
-
     private void OnCollisionEnter2D(Collision2D col)
     {
         //Debug.Log("Enenmy collision : " + col.gameObject.tag);
         if (col.gameObject.tag == "Player")
         {
             PlayerController Cont = col.gameObject.GetComponent<PlayerController>();
-            playerDied = true;
-            anim.SetBool("Walking", false);
-            Cont.KillPlayer();
+            Cont.HurtPlayer();
                 
         }
 

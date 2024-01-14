@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 private Rigidbody2D rb;
 private bool isGrounded;
 [SerializeField] private ScoreManager scoreManager;
+[SerializeField] private PlayerHealth playerHealth;
 
     void Awake()
     {
@@ -120,11 +121,19 @@ private bool isGrounded;
         transform.localScale = scale;
     }
 
-    public void KillPlayer()
+    public void HurtPlayer()
     {
-        animator.SetBool("Died", true);
-        Debug.Log("Killer by Chomper");
-        StartCoroutine(DeathReload());
+        if(playerHealth.health >= 1 )
+        {
+            playerHealth.LooseHealth();
+        }
+        else
+        {
+            animator.SetBool("Died", true);
+            Debug.Log("Killer by Chomper");
+            StartCoroutine(DeathReload());
+        }
+        
     }
 
     IEnumerator DeathReload()
