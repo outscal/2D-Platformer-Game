@@ -14,6 +14,7 @@ private Rigidbody2D rb;
 private bool isGrounded;
 [SerializeField] private ScoreManager scoreManager;
 [SerializeField] private PlayerHealth playerHealth;
+[SerializeField] private GameObject GOScreen;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ private bool isGrounded;
     }
     void Start()
     {
+        GOScreen.SetActive(false);
         animator.SetBool("Died", false);
     }
 
@@ -140,6 +142,6 @@ private bool isGrounded;
     {
         //animator.SetBool("Died", false);
         yield return new WaitForSeconds(3);
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        GOScreen.SetActive(true);
     }
 }
