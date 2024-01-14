@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 { 
@@ -15,6 +17,10 @@ private bool isGrounded;
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+    }
+    void Start()
+    {
+        animator.SetBool("Died", false);
     }
 
     private void Update()
@@ -112,5 +118,19 @@ private bool isGrounded;
         }
 
         transform.localScale = scale;
+    }
+
+    public void KillPlayer()
+    {
+        animator.SetBool("Died", true);
+        Debug.Log("Killer by Chomper");
+        StartCoroutine(DeathReload());
+    }
+
+    IEnumerator DeathReload()
+    {
+        //animator.SetBool("Died", false);
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

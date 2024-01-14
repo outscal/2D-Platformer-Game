@@ -10,7 +10,13 @@ public class DeathOnFall : MonoBehaviour
         if (collider.gameObject.GetComponent<PlayerController>() != null)
         {
             Debug.Log("Died! Restarting Level");
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+            StartCoroutine(DeathReload());
         }
+    }
+
+    IEnumerator DeathReload()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }
