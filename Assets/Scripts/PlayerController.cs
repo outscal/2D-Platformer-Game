@@ -39,7 +39,14 @@ private bool isGrounded;
         {
             animator.SetBool("Crouch", false);
         }
-
+        if(isGrounded)
+        {
+            animator.SetBool("Grounded", true);
+        }
+        else
+        {
+            animator.SetBool("Grounded", false);
+        }
     }
 
     private void PlayerMove(float horiz, float vert)

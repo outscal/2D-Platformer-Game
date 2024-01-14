@@ -9,6 +9,7 @@ public class key : MonoBehaviour
     {
         if(col.gameObject.tag == "Player")
         {
+
             player.KeyPickUp();
             Destroy(this.gameObject);
         }
