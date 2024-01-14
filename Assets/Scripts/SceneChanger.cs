@@ -5,10 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-    public void Play()
-    {
-        SceneManager.LoadSceneAsync(1);
-    }
+
     public void Restart()
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
@@ -19,8 +16,14 @@ public class SceneChanger : MonoBehaviour
         //For going to lobby screen from level
         SceneManager.LoadSceneAsync(0);
     }
+
+    public void LevelLoad(int level)
+    {
+        SceneManager.LoadSceneAsync(level);
+    }
     public void Quitter()
     {
         Application.Quit();
     }
+
 }
