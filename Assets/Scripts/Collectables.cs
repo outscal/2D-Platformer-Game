@@ -6,6 +6,7 @@ using UnityEngine;
 public class Collectables : MonoBehaviour
 {
     [SerializeField] int value = 0;
+    [SerializeField] bool _isCaptured = false;
 
     private void Start()
     {
@@ -19,7 +20,15 @@ public class Collectables : MonoBehaviour
             Debug.Log($"Player collected {gameObject.name}");
            
             collision.GetComponent<PlayerController>().PickUpCollectables(value);
-            gameObject.SetActive(false);
+            _isCaptured = true;
+            gameObject.GetComponent<Animator>().SetBool("Captured", _isCaptured);
+            Invoke("disablingGameObject", 1.5f);
+            
         }
+    }
+
+    void disablingGameObject()
+    {
+        gameObject.SetActive(false);
     }
 }
