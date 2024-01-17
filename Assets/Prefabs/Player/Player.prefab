@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7779095445973176898}
   - component: {fileID: 7165167506301345729}
   - component: {fileID: 8370144429195859753}
+  - component: {fileID: 452261550133034482}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -125,8 +126,6 @@ MonoBehaviour:
   speed: 8
   jumpingPower: 8
   crouchingSpeed: 4
-  standingHeight: 2
-  crouchingHeight: 0.75
   rb: {fileID: 7165167506301345729}
   groundCheck: {fileID: 2205623353663756762}
   groundLayer:
@@ -206,6 +205,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5231228, y: 2.0747013}
   m_EdgeRadius: 0
+--- !u!114 &452261550133034482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762305874636249341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1776c9b8b6d76234d90581cfabf6270e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  score: 0
+  scoreText: {fileID: 0}
+  healthText: {fileID: 0}
+  GameStartLocation: {fileID: 0}
 --- !u!1 &4886489831873624183
 GameObject:
   m_ObjectHideFlags: 0
