@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
             // Destroy the collectible item
             Destroy(other.gameObject);
         }
+        else if (other.CompareTag("Enemy"))
+        {
+            OnTakeDamage();
+        }
     }
 
     private void UpdateScoreText()
