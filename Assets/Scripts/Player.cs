@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
@@ -31,7 +32,14 @@ public class Player : MonoBehaviour
             OnTakeDamage();
         }
     }
-
+    public int GetScore()
+    {
+        return score;
+    }
+    public void SetScoreText(int score)
+    {
+        this.score = score;
+    }
     private void UpdateScoreText()
     {
         

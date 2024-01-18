@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class script : MonoBehaviour
 {
-    
+    public Player player;
     
     [SerializeField] private bool DamageTrigger = true;
 
@@ -23,11 +23,16 @@ public class script : MonoBehaviour
             }
             else
             {
-                Destroy(other.gameObject);
+                LevelManager levelManager = LevelManager.Instance;
+                levelManager.SetPlayerScore(player.GetScore());
 
-                Debug.Log("Player Has Won The Game");
+                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-                SceneManager.LoadScene("GameOverScreen");
+                // Calculate the index of the next scene
+                int nextSceneIndex = currentSceneIndex + 1;
+
+                // Load the next scene
+                SceneManager.LoadScene(nextSceneIndex);
             }
             
         }
