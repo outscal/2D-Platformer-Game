@@ -6,12 +6,13 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] float range, speed;
 
-    [SerializeField] Vector3 initialPosition;
+    private Vector3 initialPosition;
     private bool movingRight = true;
     private Vector3 currentPosition;
 
     private void Start()
     {
+        initialPosition = transform.position;
         currentPosition = initialPosition;
     }
 
@@ -29,6 +30,13 @@ public class EnemyController : MonoBehaviour
         {
             Flip();
             movingRight = !movingRight;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player") 
+        {
+            collision.gameObject.GetComponent<PlayerLifeLineManager>().UpdateLifeLine();
         }
     }
 
