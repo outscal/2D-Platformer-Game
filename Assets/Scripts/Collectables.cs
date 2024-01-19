@@ -21,6 +21,7 @@ public class Collectables : MonoBehaviour
            
             collision.GetComponent<PlayerController>().PickUpCollectables(value);
             _isCaptured = true;
+            GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<Animator>().SetBool("Captured", _isCaptured);
             Invoke("disablingGameObject", 1.5f);
             
