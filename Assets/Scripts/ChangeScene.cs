@@ -9,5 +9,6 @@ public class ChangeScene : MonoBehaviour
    public void SetScene()
    {
        SceneManager.LoadScene(sceneName);
+       SoundManager.Instance.Play(Sounds.buttonClick);
    }
 }

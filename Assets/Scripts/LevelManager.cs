@@ -86,7 +86,8 @@ public class LevelManager : MonoBehaviour
 
     public void UpdatePlayerScore()
     {
-        TMP_Text scoreText = FindObjectOfType<TMP_Text>();
+        // Find the TMP_Text with the name "Score" directly in the scene
+        TMP_Text scoreText = GameObject.Find("Score")?.GetComponent<TMP_Text>();
 
         if (scoreText != null)
         {
@@ -96,7 +97,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Score Text component not found in the scene.");
+            Debug.LogError("Score Text component with the name 'Score' not found in the scene.");
         }
     }
 

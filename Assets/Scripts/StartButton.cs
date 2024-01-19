@@ -10,6 +10,7 @@ public class StartButton : MonoBehaviour
     public void EnableObject()
     {
         ToEnable.SetActive(true);
+        SoundManager.Instance.Play(Sounds.buttonClick);
     }
 
 }
