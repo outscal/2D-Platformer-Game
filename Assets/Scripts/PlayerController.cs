@@ -16,15 +16,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxis("Horizontal");
-        ControlHorizontalMovement(speed);
+        ControlHorizontalMovement();
+        Crouch();
+        ControlJump();
     }
 
-    private void ControlHorizontalMovement(float speed)
+    private void ControlJump()
     {
+        if (m_Animator != null && Input.GetKeyDown(KeyCode.Space))
+        {
+            m_Animator.SetTrigger("Jump");
+        }
+    }
+
+    private void ControlHorizontalMovement()
+    {
+        float speed = Input.GetAxis("Horizontal");
         if (m_Animator != null)
         {
-
             if (speed == 0) { return; }
             m_Animator.SetFloat("Speed", Mathf.Abs(speed));
             float scaleX = m_Player.transform.localScale.x;
@@ -37,6 +46,21 @@ public class PlayerController : MonoBehaviour
                 scaleX = Mathf.Abs(scaleX);
             }
             m_Player.transform.localScale = new Vector3(scaleX, m_Player.transform.localScale.y, m_Player.transform.localScale.z);
+        }
+    }
+
+    private void Crouch()
+    {
+        if (m_Animator != null)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+            {
+                m_Animator.SetBool("IsCrouch", true);
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
+            {
+                m_Animator.SetBool("IsCrouch", false);
+            }
         }
     }
 }
