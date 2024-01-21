@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     private Animator m_Animator;
     [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float jumpForce;
+    [SerializeField]
     private GameObject m_Player;
     // Start is called before the first frame update
     void Start()
@@ -31,13 +35,13 @@ public class PlayerController : MonoBehaviour
 
     private void ControlHorizontalMovement()
     {
-        float speed = Input.GetAxis("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
         if (m_Animator != null)
         {
-            if (speed == 0) { return; }
-            m_Animator.SetFloat("Speed", Mathf.Abs(speed));
+            if (horizontal == 0) { return; }
+            m_Animator.SetFloat("Speed", Mathf.Abs(horizontal));
             float scaleX = m_Player.transform.localScale.x;
-            if (speed < 0)
+            if (horizontal < 0)
             {
                 scaleX = -1 * Mathf.Abs(scaleX);
             }
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
                 scaleX = Mathf.Abs(scaleX);
             }
             m_Player.transform.localScale = new Vector3(scaleX, m_Player.transform.localScale.y, m_Player.transform.localScale.z);
+            TranslateCharacterHorizontal(horizontal);
         }
     }
 
@@ -63,4 +68,17 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private void TranslateCharacterHorizontal(float horizontal)
+    {
+        Vector3 position = m_Player.transform.position;
+        position.x += horizontal * Time.deltaTime * speed;
+        m_Player.transform.position = position;
+    }
+
+    private void TranslateCharacterVertical()
+    {
+
+    }
+
 }
