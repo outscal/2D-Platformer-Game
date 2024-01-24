@@ -18,13 +18,12 @@ public class PlayerLifeLineManager : MonoBehaviour
         Destroy(lifelines[lifelines.Count - 1]);
         lifelines.RemoveAt(lifelines.Count - 1);
         transform.position = Vector3.zero;
-     
         if (lifelines.Count <= 0)
         {
             gameOverScreen.SetActive(true);
             transform.GetComponent<PlayerController>().enabled = false;
-            
         }
+        
     }
 
 }

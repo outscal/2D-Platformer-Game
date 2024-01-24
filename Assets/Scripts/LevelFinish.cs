@@ -16,6 +16,7 @@ public class LevelFinish : MonoBehaviour
         if (collision.gameObject.tag == "Player") 
         {
             levelCompleteScreen.SetActive(true);
+            collision.GetComponent<PlayerController>().enabled = false;
         }
     }
 }

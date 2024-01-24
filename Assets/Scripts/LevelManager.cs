@@ -19,11 +19,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(currentScene);
     }
 
-    public void NextLevel()
+    public void LevelLoader(int level)
     {
         try
         {
-            SceneManager.LoadScene(currentScene + 1);
+            SceneManager.LoadScene(level);
         }
         catch(IndexOutOfRangeException e) { 
             Debug.Log("there is no next level.");
