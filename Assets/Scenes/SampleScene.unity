@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 573168654}
   - component: {fileID: 573168653}
   - component: {fileID: 573168652}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,8 +389,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 13
-  jumpForce: 0
+  jumpForce: 3
   m_Player: {fileID: 7335392773028074520}
+  jumpableLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!212 &2780589529754892289
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -572,7 +575,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
