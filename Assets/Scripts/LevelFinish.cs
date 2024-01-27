@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelFinish : MonoBehaviour
 {
     [SerializeField] GameObject levelCompleteScreen;
+    [SerializeField] string nextLevelName;
 
     private void Start()
     {
@@ -17,6 +19,8 @@ public class LevelFinish : MonoBehaviour
         {
             levelCompleteScreen.SetActive(true);
             collision.GetComponent<PlayerController>().enabled = false;
+            LevelManager.Instance.OnLevelCompletion(nextLevelName);
+
         }
     }
 }
