@@ -19,24 +19,32 @@ public class NewBehaviourScript : MonoBehaviour
         float vertispeed = Input.GetAxisRaw("Vertical");
         if (horispeed < 0)
         {
-            spriteRenderer.flipX = true;
-            animator.SetBool("IsJumping", false);
+            spriteRenderer.flipX = true;           
+                     
         }
         if(horispeed > 0)
         {
-            spriteRenderer.flipX = false; 
-            animator.SetBool("IsJumping", false);
-        }
-        animator.SetFloat("Speed", horispeed);
-        
-        if (vertispeed>0)
+            spriteRenderer.flipX = false;           
+                    
+        } 
+        animator.SetFloat("Speed", horispeed);               
+        if (vertispeed>0 )
         {
             animator.SetBool("IsJumping", true);
-           
+            animator.SetBool("IsCrouching", false);
         }
-        if(vertispeed < 0)
+        if(vertispeed == 0)
         {
+            animator.SetBool("IsCrouching", false);
             animator.SetBool("IsJumping", false);
         }
+        if(vertispeed<0 )
+        {           
+            animator.SetBool("IsJumping", false);
+            animator.SetBool("IsCrouching", true);
+        }
+        animator.SetFloat("VSpeed", vertispeed);
     }
+
+    
 }
