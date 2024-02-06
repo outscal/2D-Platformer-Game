@@ -7,8 +7,8 @@ public class NewBehaviourScript : MonoBehaviour
     public Animator animator;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb; 
-    public float jump = 5f;
-    
+    public float jump = 3f;
+    public float speed = 1f;
     private bool iscrouch=false;
     private bool isGrounded = true;
    
@@ -26,23 +26,32 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         float horispeed = Input.GetAxisRaw("Horizontal");
-       
-       
+        Flipx(horispeed);
+        Move(horispeed);
+        Jumpy();                   
+        Crouchy();                       
+                                 
+    }
+
+    void Move(float horispeed)
+    {
+        Vector2 newposition = transform.position;
+        newposition.x = horispeed*speed*Time.deltaTime;
+        transform.position = newposition;
+    }
+    void Flipx(float horispeed)
+    {
         if (horispeed < 0)
         {
-            spriteRenderer.flipX = true;           
-                     
+            spriteRenderer.flipX = true;
+
         }
-        if(horispeed > 0)
+        if (horispeed > 0)
         {
-            spriteRenderer.flipX = false;           
-                    
-        } 
+            spriteRenderer.flipX = false;
+
+        }
         animator.SetFloat("Speed", horispeed);
-        
-            Jumpy();                   
-            Crouchy();                       
-                                 
     }
     void Jumpy()
     {
