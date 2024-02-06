@@ -71,14 +71,10 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Crouchy()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && iscrouch==false)
+        if (Input.GetKey(KeyCode.LeftControl) && iscrouch==false)
         {
-            iscrouch = true;
-            
-                animator.SetBool("IsCrouching", true);
-            
-           
-                    
+            iscrouch = true;           
+            animator.SetBool("IsCrouching", true);                                        
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl) && iscrouch==true)
         {
