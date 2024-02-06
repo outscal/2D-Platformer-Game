@@ -36,7 +36,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Move(float horispeed)
     {
         Vector2 newposition = transform.position;
-        newposition.x = horispeed*speed*Time.deltaTime;
+        newposition.x += horispeed*speed*Time.deltaTime;
         transform.position = newposition;
     }
     void Flipx(float horispeed)
@@ -57,8 +57,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if ( Input.GetKeyDown(KeyCode.Space)  && isGrounded == true){
            
-            animator.SetBool("IsJumping", true);
-            animator.SetBool("IsCrouching", false);
+            animator.SetBool("IsJumping", true);           
             rb.velocity = new Vector2(rb.velocity.x, jump);
             isGrounded = false;
             
@@ -72,17 +71,20 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Crouchy()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && iscrouch==false)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && iscrouch==false)
         {
             iscrouch = true;
-            animator.SetBool("IsCrouching", true);
-            animator.SetBool("IsJumping", false);          
+            
+                animator.SetBool("IsCrouching", true);
+            
+           
+                    
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl) && iscrouch==true)
         {
             iscrouch = false;
             animator.SetBool("IsCrouching", false);
-             Standing();
+            Standing();
         }
         
              
