@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 BoxColliderReducedOffSet;
     private float horizontalAxisValue, verticalAxisValue;
     private Vector3 scale;
+    private bool isRunning;
 
 
     void Awake()
     {
         BoxcolliderInitialSize = boxCollider.size;
         BoxcolliderInitialOffSet = boxCollider.offset;
+        isRunning = false;
     }
 
     // Start is called before the first frame update
@@ -38,17 +40,20 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
         {
-            if (!animator.GetBool("Crouch"))
+            if (!isRunning)
             {
-                animator.SetBool("Crouch", true);
-                boxCollider.size = BoxColliderReducedSize;
-                boxCollider.offset = BoxColliderReducedOffSet;
-            }
-            else
-            {
-                animator.SetBool("Crouch", false);
-                boxCollider.size = BoxcolliderInitialSize;
-                boxCollider.offset = BoxcolliderInitialOffSet;
+                if (!animator.GetBool("Crouch"))
+                {
+                    animator.SetBool("Crouch", true);
+                    boxCollider.size = BoxColliderReducedSize;
+                    boxCollider.offset = BoxColliderReducedOffSet;
+                }
+                else
+                {
+                    animator.SetBool("Crouch", false);
+                    boxCollider.size = BoxcolliderInitialSize;
+                    boxCollider.offset = BoxcolliderInitialOffSet;
+                }
             }
         }
     }
@@ -62,10 +67,16 @@ public class PlayerController : MonoBehaviour
         if (horizontalAxisValue < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
+            isRunning = true;
         }
         else if (horizontalAxisValue > 0)
         {
             scale.x = Mathf.Abs(scale.x);
+            isRunning = true;
+        }
+        else
+        {
+            isRunning = false;
         }
         transform.localScale = scale;
     }
