@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 BoxcolliderInitialOffSet;
     [SerializeField] private Vector2 BoxColliderReducedSize;
     [SerializeField] private Vector2 BoxColliderReducedOffSet;
+    private float horizontalAxisValue, verticalAxisValue;
+    private Vector3 scale;
 
 
     void Awake()
@@ -53,15 +55,15 @@ public class PlayerController : MonoBehaviour
 
     private void Run()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+        horizontalAxisValue = Input.GetAxisRaw("Horizontal");
+        animator.SetFloat("Speed", Mathf.Abs(horizontalAxisValue));
 
-        Vector3 scale = transform.localScale;
-        if (speed < 0)
+        scale = transform.localScale;
+        if (horizontalAxisValue < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if (speed > 0)
+        else if (horizontalAxisValue > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
@@ -70,15 +72,15 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (!animator.GetBool("Jump"))
+        verticalAxisValue = Input.GetAxisRaw("Vertical");
+
+        if (verticalAxisValue > 0)
         {
-            float speed = Input.GetAxisRaw("Vertical");
-            if (speed > 0)
-            {
-                animator.SetBool("Jump", true);
-                //animator.SetBool("Jump", false);
-            }
+            animator.SetBool("Jump", true);
         }
-    }
-    
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
+    }   
 }
