@@ -16,6 +16,8 @@ public class NewBehaviourScript : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask groundLayer;
     private bool isTouchingGround;
+    private Vector3 respawnPoint;
+    public GameObject fallDetector;
     // Start is called before the first frame update
     public void Awake()
     {
@@ -26,6 +28,7 @@ public class NewBehaviourScript : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         boxColInitSize = boxCol.size;
         boxColInitOffset = boxCol.offset;
+        respawnPoint = transform.position;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -52,6 +55,14 @@ public class NewBehaviourScript : MonoBehaviour
         }
 
         PlayMovementAnimation(horizontal);
+        fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag=="FallDetector")
+        {
+            transform.position = respawnPoint;
+        }
     }
     public void MoveCharacter(float horizontal)
     {
