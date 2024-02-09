@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewBehaviourScript : MonoBehaviour
 {
@@ -15,6 +17,17 @@ public class NewBehaviourScript : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask groundLayer;
+    private int score = 0;
+ //   public ScoreController scoreController;
+    public Text scoretext;
+
+  //public static  void PickUpKey()
+    //{
+      //  throw new NotImplementedException();
+        //Debug.Log("player picked up the key");
+    //    ScoreContro
+//    }
+
     private bool isTouchingGround;
     private Vector3 respawnPoint;
     public GameObject fallDetector;
@@ -29,6 +42,7 @@ public class NewBehaviourScript : MonoBehaviour
         boxColInitSize = boxCol.size;
         boxColInitOffset = boxCol.offset;
         respawnPoint = transform.position;
+        scoretext.text ="score: " +score;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -62,6 +76,12 @@ public class NewBehaviourScript : MonoBehaviour
         if(collision.tag=="FallDetector")
         {
             transform.position = respawnPoint;
+        }
+        else if(collision.tag=="crystal")
+        {
+            score += 1;
+            scoretext.text = "score: " + score;
+            collision.gameObject.SetActive(false);
         }
     }
     public void MoveCharacter(float horizontal)
