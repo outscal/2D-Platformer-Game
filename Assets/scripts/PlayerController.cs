@@ -36,6 +36,13 @@ public class NewBehaviourScript : MonoBehaviour
     {
         Debug.Log("player controller awake");
     }
+
+    public void KillPlayer()
+    {
+        Debug.Log("player killed by enemy");
+        //Destroy(gameObject);
+       
+    }
     public void Start()
     {
         player = GetComponent<Rigidbody2D>();
