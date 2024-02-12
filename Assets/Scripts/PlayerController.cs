@@ -31,9 +31,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        horizontalAxisValue = Input.GetAxisRaw("Horizontal");
+        verticalAxisValue = Input.GetAxisRaw("Vertical");
+
+        PlayerMovementAnimation(horizontalAxisValue, verticalAxisValue);
         Crouch();
-        Run();
-        Jump();
     }
 
     private void Crouch()
@@ -42,12 +44,9 @@ public class PlayerController : MonoBehaviour
         {
             if (!isRunning)
             {
-                if (!animator.GetBool("Crouch"))
-                {
-                    animator.SetBool("Crouch", true);
-                    boxCollider.size = BoxColliderReducedSize;
-                    boxCollider.offset = BoxColliderReducedOffSet;
-                }              
+                animator.SetBool("Crouch", true);
+                boxCollider.size = BoxColliderReducedSize;
+                boxCollider.offset = BoxColliderReducedOffSet;              
             }
         }
         else
@@ -58,19 +57,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Run()
+
+    private void PlayerMovementAnimation(float horizontalValue, float verticalValue)
     {
-        
-        horizontalAxisValue = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(horizontalAxisValue));
+        //run
+        animator.SetFloat("Speed", Mathf.Abs(horizontalValue));
 
         scale = transform.localScale;
-        if (horizontalAxisValue < 0)
+        if (horizontalValue < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
             isRunning = true;
         }
-        else if (horizontalAxisValue > 0)
+        else if (horizontalValue > 0)
         {
             scale.x = Mathf.Abs(scale.x);
             isRunning = true;
@@ -80,15 +79,11 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
         }
         transform.localScale = scale;
-    }
 
-    private void Jump()
-    {
-        verticalAxisValue = Input.GetAxisRaw("Vertical");
-
-        if (verticalAxisValue > 0)
+        //jump
+        if (verticalValue > 0)
         {
-           animator.SetBool("Jump", true);
+            animator.SetBool("Jump", true);
         }
         else
         {
