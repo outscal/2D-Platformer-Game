@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private void Crouch()
     {
-        if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+        if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
             if (!isRunning)
             {
@@ -47,19 +47,20 @@ public class PlayerController : MonoBehaviour
                     animator.SetBool("Crouch", true);
                     boxCollider.size = BoxColliderReducedSize;
                     boxCollider.offset = BoxColliderReducedOffSet;
-                }
-                else
-                {
-                    animator.SetBool("Crouch", false);
-                    boxCollider.size = BoxcolliderInitialSize;
-                    boxCollider.offset = BoxcolliderInitialOffSet;
-                }
+                }              
             }
+        }
+        else
+        {
+            animator.SetBool("Crouch", false);
+            boxCollider.size = BoxcolliderInitialSize;
+            boxCollider.offset = BoxcolliderInitialOffSet;
         }
     }
 
     private void Run()
     {
+        
         horizontalAxisValue = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("Speed", Mathf.Abs(horizontalAxisValue));
 
@@ -87,11 +88,11 @@ public class PlayerController : MonoBehaviour
 
         if (verticalAxisValue > 0)
         {
-            animator.SetBool("Jump", true);
+           animator.SetBool("Jump", true);
         }
         else
         {
             animator.SetBool("Jump", false);
         }
-    }   
+    }
 }
