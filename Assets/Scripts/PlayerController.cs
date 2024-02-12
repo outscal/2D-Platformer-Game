@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,8 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 BoxColliderReducedSize;
     [SerializeField] private Vector2 BoxColliderReducedOffSet;
     private float horizontalAxisValue, verticalAxisValue;
-    private Vector3 scale;
+    private Vector3 scale, position;
     private bool isRunning;
+    [SerializeField] private float speed;
 
 
     void Awake()
@@ -34,9 +36,19 @@ public class PlayerController : MonoBehaviour
         horizontalAxisValue = Input.GetAxisRaw("Horizontal");
         verticalAxisValue = Input.GetAxisRaw("Vertical");
 
+        MoveCharacter(horizontalAxisValue);
         PlayerMovementAnimation(horizontalAxisValue, verticalAxisValue);
         Crouch();
     }
+
+
+    private void MoveCharacter(float horizontal)
+    {
+        position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+    }
+
 
     private void Crouch()
     {
