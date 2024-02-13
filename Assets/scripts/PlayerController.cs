@@ -18,6 +18,7 @@ public class NewBehaviourScript : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask groundLayer;
     private int score = 0;
+    public GameOverController gameOverController;
  //   public ScoreController scoreController;
     public Text scoretext;
 
@@ -41,7 +42,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         Debug.Log("player killed by enemy");
         //Destroy(gameObject);
-       
+        gameOverController.PlayerDied();
     }
     public void Start()
     {

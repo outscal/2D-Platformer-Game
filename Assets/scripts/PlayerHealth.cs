@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class PlayerHealth : MonoBehaviour
 {
     public GameManager gameManager;
@@ -27,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
             playersr.enabled = false;
             playerMovement.enabled = false;
             gameManager.gameOver();
+            SceneManager.LoadScene(2);
         }
     }
    // private void ReloadLevel()
