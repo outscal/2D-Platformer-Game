@@ -10,7 +10,16 @@ public class EnemyPatrol : MonoBehaviour
     public float moveSpeed;
     public int patrolDestination;
 
-
+    public int damage;
+    public PlayerHealth playerHealth;
+    // Start is called before the first frame update
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            playerHealth.TakeDamage(damage);
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -33,5 +42,6 @@ public class EnemyPatrol : MonoBehaviour
                 patrolDestination = 0;
             }
         }
+       
     }
 }

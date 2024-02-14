@@ -12,7 +12,7 @@ public class Restart : MonoBehaviour
     public void RestartGame()
     {
         // Reload the game scene (assuming it's the first scene in the build settings)
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
 
