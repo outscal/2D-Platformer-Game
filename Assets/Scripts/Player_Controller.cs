@@ -28,6 +28,10 @@ public class Player_Controller : MonoBehaviour
             Scale.x = -1f * Mathf.Abs(Scale.x);
             transform.localScale = Scale;
         }
+        else if(Input.GetAxisRaw("Vertical")>0)
+        {
+            Animator.SetBool("IsJumping", true);
+        }
         else if(Input.GetKey(KeyCode.C))
         {            
             Animator.SetBool("IsCrounched",true);
@@ -36,12 +40,7 @@ public class Player_Controller : MonoBehaviour
         {
             Animator.SetBool("IsMoving",false);
             Animator.SetBool("IsCrounched", false);
+            Animator.SetBool("IsJumping", false);
         }
-    }
-
-    void Flop()
-    {
-        
-
     }
 }
