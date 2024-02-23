@@ -17,6 +17,16 @@ public class Player_Controller : MonoBehaviour
         if(Input.GetAxisRaw("Horizontal") > 0)
         {           
             Animator.SetBool("IsMoving",true);
+            Vector3 Scale = transform.localScale;
+            Scale.x = Mathf.Abs(Scale.x);
+            transform.localScale = Scale;
+        }
+        else if(Input.GetAxisRaw("Horizontal")<0)
+        {
+            Animator.SetBool("IsMoving", true);
+            Vector3 Scale = transform.localScale;
+            Scale.x = -1f * Mathf.Abs(Scale.x);
+            transform.localScale = Scale;
         }
         else if(Input.GetKey(KeyCode.C))
         {            
@@ -27,5 +37,11 @@ public class Player_Controller : MonoBehaviour
             Animator.SetBool("IsMoving",false);
             Animator.SetBool("IsCrounched", false);
         }
+    }
+
+    void Flop()
+    {
+        
+
     }
 }
