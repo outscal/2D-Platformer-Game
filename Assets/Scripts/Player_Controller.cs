@@ -71,4 +71,13 @@ public class Player_Controller : MonoBehaviour
             SceneManager.LoadScene(1);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       if(collision.gameObject.GetComponent<Player_Controller>() != null)
+        {
+            Debug.Log("You touched death line and died");
+            SceneManager.LoadScene(0);
+        }
+    }
 }
