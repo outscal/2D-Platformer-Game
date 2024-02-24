@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_Controller : MonoBehaviour
 {
     float horizontal,vertical;
     private Animator Animator;
     public float speed;
-    public GameObject UI_object;
     public float jumpForce;
 
     private Rigidbody2D rgbody;
@@ -68,7 +68,7 @@ public class Player_Controller : MonoBehaviour
     {
         if(collision.tag == "Finish")
         {
-            UI_object.SetActive(true);
+            SceneManager.LoadScene(1);
         }
     }
 }
