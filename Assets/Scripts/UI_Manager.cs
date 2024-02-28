@@ -10,7 +10,9 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private GameObject levelComplete;
     [SerializeField]
-    private GameObject pausedPanel;
+    private GameObject pausedPanel;    
+    [SerializeField]
+    private GameObject gameCompletedPanel;
     [SerializeField]
     private Animator uiAnim;
 
@@ -33,7 +35,7 @@ public class UI_Manager : MonoBehaviour
         pausedPanel.SetActive(false);
         GameOver_Panel.SetActive(false);
         levelComplete.SetActive(false);
-       
+        gameCompletedPanel.SetActive(false);
         UpdatehealthOnUI();
         //GameOver_Panel.SetActive(false);
     }
@@ -56,7 +58,14 @@ public class UI_Manager : MonoBehaviour
     }
     public void LevelComplete()
     {
-        levelComplete.SetActive(true);
+        var scene = SceneManager.GetActiveScene();
+        if (scene == SceneManager.GetSceneByBuildIndex(3))
+        {
+            gameCompletedPanel.SetActive(true);
+        }
+        else { 
+          levelComplete.SetActive(true);
+        }
         playerController.Instance.enabled = false;
     }
     public void GameOver()
