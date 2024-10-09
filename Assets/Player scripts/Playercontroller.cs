@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class Playercontroller : MonoBehaviour
 {
     public Animator animator;
+    public float speed;
     private void Awake()
     {
         Debug.Log("I AM ON");
@@ -14,34 +16,30 @@ public class Playercontroller : MonoBehaviour
     private void Update()
     {
 
-        float speed = Input.GetAxisRaw("Horizontal");
-         Vector3 scale = transform.localScale;
-        animator.SetFloat("Speed",  Mathf.Abs(speed));
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        playeranimationhorizontal(horizontal);
 
-        if (speed < 0)
-        {
-            scale.x = -1 * Mathf.Abs(scale.x);
+        Playercrouchlogic();
 
-        }
-        else if (speed > 0) {
-        
-         scale.x= Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
+        Playerjumplogic();
 
+        Playermovementlogic(horizontal);
 
+    }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl)){
+    private void Playermovementlogic(float horizontal)
+    {
 
-            animator.SetBool("iscrouch", true);
+        Vector2 position = transform.localPosition;
 
-        }
-        if (Input.GetKeyUp(KeyCode.LeftControl)){
+        position.x = position.x + speed * horizontal * Time.deltaTime;
 
+        transform.localPosition = position;
 
-            animator.SetBool("iscrouch", false);
-        }
+    }
 
+    private void Playerjumplogic()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("jump");
@@ -50,11 +48,43 @@ public class Playercontroller : MonoBehaviour
         {
             animator.ResetTrigger("jump");
         }
+    }
 
+    private void Playercrouchlogic()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+
+            animator.SetBool("iscrouch", true);
+
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+
+
+            animator.SetBool("iscrouch", false);
+        }
+    }
+
+    private void playeranimationhorizontal(float horizontal)
+    {
+        Vector3 scale = transform.localScale;
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        if (horizontal < 0)
+        {
+            scale.x = -1 * Mathf.Abs(scale.x);
+
+        }
+        else if (horizontal > 0)
+        {
+
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
     }
 
 
- 
 
 
 }
