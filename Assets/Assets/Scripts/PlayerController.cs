@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Grounded: " + IsGrounded());
     }
 
+
     private void GetCurrentState()
     {
         stateInfo = animator.GetCurrentAnimatorStateInfo(0);
