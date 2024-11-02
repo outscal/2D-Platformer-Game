@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class BoundryScript : MonoBehaviour
 {
+    private PlayerController playerController;
+
+    private void Start()
+    {
+        playerController = FindObjectOfType<PlayerController>();
+    }
     private void OnTriggerExit2D(Collider2D other)
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (other.CompareTag("Player"))
         {
-                SceneManager.LoadScene(currentSceneIndex);
+            playerController.KillPlayer();
         }
     }
 }

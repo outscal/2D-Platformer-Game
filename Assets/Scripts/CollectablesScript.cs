@@ -18,7 +18,6 @@ public class CollectablesScript : MonoBehaviour
             Debug.Log("Collectable Collected!");
             gameManagerScript.score += 1;
             gameManagerScript.UpdateScoreText();
-            Debug.Log(gameManagerScript.score);
             Destroy(gameObject);
         }
     }

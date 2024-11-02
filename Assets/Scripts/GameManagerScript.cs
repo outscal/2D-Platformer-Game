@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
@@ -12,6 +13,12 @@ public class GameManagerScript : MonoBehaviour
     public void Start()
     {
         UpdateScoreText();
+    }
+
+    public void ReloadScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     public void UpdateScoreText()
