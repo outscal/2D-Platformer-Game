@@ -17,7 +17,7 @@ public class LevelTransition : MonoBehaviour
             }
             else
             {
-                Debug.Log("No more scenes to load! You are at the last scene.");
+                SceneManager.LoadScene(0);
             }
         }
     }

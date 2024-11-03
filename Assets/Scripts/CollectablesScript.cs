@@ -9,6 +9,10 @@ public class CollectablesScript : MonoBehaviour
     private void Start()
     {
         gameManagerScript = FindObjectOfType<GameManagerScript>();
+        if (gameManagerScript != null)
+        {
+            Debug.Log("GameManager not found");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

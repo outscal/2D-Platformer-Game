@@ -10,6 +10,10 @@ public class BoundryScript : MonoBehaviour
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        if (playerController == null )
+        {
+            Debug.Log("Player not found");
+        }
     }
     private void OnTriggerExit2D(Collider2D other)
     {

@@ -17,6 +17,10 @@ public class EnemyController : MonoBehaviour
         if (player != null)
         {
             playerController = FindObjectOfType<PlayerController>();
+            if (playerController != null)
+            {
+                Debug.Log("Player not found");
+            }
         }
         else
         {

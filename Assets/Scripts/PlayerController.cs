@@ -16,11 +16,15 @@ public class PlayerController : MonoBehaviour
     private float _speedX; // For movement input
 
     private bool isGrounded; // To detect if the player is on the ground
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     void Start()
     {
         gameManagerScript = FindObjectOfType<GameManagerScript>();
+        if (gameManagerScript != null) 
+        {
+            Debug.Log("GameManager not found");
+        }
     }
 
     void Update()
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            gameManagerScript.ReloadScene();
+            /*gameManagerScript.ReloadScene();*/
         }
         ShowDebuging();
         HandleAnimation();
